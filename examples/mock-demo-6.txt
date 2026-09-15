@@ -1,0 +1,144 @@
+=== TERMINAL AVALON ===
+[MODE] 自动演示（无真人）
+[BACKEND] deterministic/mock（无需 API）
+[PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE | P6 LYRA
+
+[ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
+[AGENT] [YOU/P1] 本轮决策来源：mock
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[AGENT] [LYRA/P6] 本轮决策来源：mock
+[TEAM] [YOU/P1] selects P1 P2 | 提案 1/5
+[SOCIAL] [YOU/P1] DEFEND P2 | reason: 参考公开投票与站队
+[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 参考公开投票与站队
+[SOCIAL] [ATLAS/P3] PRESSURE P1 | reason: 试探目标的公开反应
+[SOCIAL] [ECHO/P4] BAIT P1 | reason: 试探目标的公开反应
+[SOCIAL] [SAGE/P5] ACCUSE P6 | reason: 参考公开投票与站队
+[SOCIAL] [LYRA/P6] DEFEND P1 | reason: 参考公开投票与站队
+[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 6/6 赞成 -> 通过
+[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[MISSION] P1 P2 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
+
+[ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P2
+[AGENT] [YOU/P1] 本轮决策来源：mock
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[AGENT] [LYRA/P6] 本轮决策来源：mock
+[TEAM] [NOVA/P2] selects P4 P2 P5 | 提案 1/5
+[SOCIAL] [NOVA/P2] PRESSURE P1 | reason: 试探目标的公开反应
+[SOCIAL] [ATLAS/P3] BAIT P1 | reason: 试探目标的公开反应
+[SOCIAL] [ECHO/P4] ACCUSE P2 | reason: 参考公开投票与站队
+[SOCIAL] [SAGE/P5] DEFEND P2 | reason: 参考公开投票与站队
+[SOCIAL] [LYRA/P6] HEDGE P3 | reason: 参考公开投票与站队
+[SOCIAL] [YOU/P1] HEDGE P6 | reason: 参考公开投票与站队
+[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 6/6 赞成 -> 通过
+[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[MISSION] P4 P2 P5 -> FAILED | 失败票 1，成功票 2 | 善良 1 : 邪恶 1
+
+[ROUND 3/5] 任务人数 4 | 善良 1 : 邪恶 1 | 队长 P3
+[AGENT] [YOU/P1] 本轮决策来源：mock
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[AGENT] [LYRA/P6] 本轮决策来源：mock
+[TEAM] [ATLAS/P3] selects P4 P3 P5 P6 | 提案 1/5
+[SOCIAL] [ATLAS/P3] ACCUSE P2 | reason: 参考公开投票与站队
+[SOCIAL] [ECHO/P4] DEFEND P5 | reason: 参考公开投票与站队
+[SOCIAL] [SAGE/P5] HEDGE P4 | reason: 参考公开投票与站队
+[SOCIAL] [LYRA/P6] PRESSURE P2 | reason: 试探目标的公开反应
+[SOCIAL] [YOU/P1] PRESSURE P2 | reason: 试探目标的公开反应
+[SOCIAL] [NOVA/P2] BAIT P3 | reason: 试探目标的公开反应
+[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 6/6 赞成 -> 通过
+[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
+[MISSION] P4 P3 P5 P6 -> FAILED | 失败票 1，成功票 3 | 善良 1 : 邪恶 2
+
+[ROUND 4/5] 任务人数 3 | 善良 1 : 邪恶 2 | 队长 P4
+[AGENT] [YOU/P1] 本轮决策来源：mock
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[AGENT] [LYRA/P6] 本轮决策来源：mock
+[TEAM] [ECHO/P4] selects P4 P5 P6 | 提案 1/5
+[SOCIAL] [ECHO/P4] HEDGE P2 | reason: 参考公开投票与站队
+[SOCIAL] [SAGE/P5] PRESSURE P3 | reason: 试探目标的公开反应
+[SOCIAL] [LYRA/P6] BAIT P3 | reason: 试探目标的公开反应
+[SOCIAL] [YOU/P1] BAIT P3 | reason: 试探目标的公开反应
+[SOCIAL] [NOVA/P2] ACCUSE P3 | reason: 参考公开投票与站队
+[SOCIAL] [ATLAS/P3] DEFEND P4 | reason: 参考公开投票与站队
+[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 4/6 赞成 -> 通过
+[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
+[MISSION] P4 P5 P6 -> SUCCESS | 失败票 0，成功票 3 | 善良 2 : 邪恶 2
+
+[ROUND 5/5] 任务人数 4 | 善良 2 : 邪恶 2 | 队长 P5
+[AGENT] [YOU/P1] 本轮决策来源：mock
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[AGENT] [LYRA/P6] 本轮决策来源：mock
+[TEAM] [SAGE/P5] selects P5 P1 P2 P6 | 提案 1/5
+[SOCIAL] [SAGE/P5] BAIT P4 | reason: 试探目标的公开反应
+[SOCIAL] [LYRA/P6] ACCUSE P3 | reason: 参考公开投票与站队
+[SOCIAL] [YOU/P1] ACCUSE P3 | reason: 参考公开投票与站队
+[SOCIAL] [NOVA/P2] DEFEND P4 | reason: 参考公开投票与站队
+[SOCIAL] [ATLAS/P3] HEDGE P2 | reason: 参考公开投票与站队
+[SOCIAL] [ECHO/P4] PRESSURE P5 | reason: 试探目标的公开反应
+[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 6/6 赞成 -> 通过
+[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
+[MISSION] P5 P1 P2 P6 -> FAILED | 失败票 1，成功票 3 | 善良 2 : 邪恶 3
+
+[RESULT] EVIL WINS | 三次任务失败
+[REVEAL] P1 GOOD | P2 EVIL | P3 ASSASSIN | P4 MERLIN | P5 GOOD | P6 GOOD
+[CALLS] [YOU/P1] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
+[CALLS] [NOVA/P2] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
+[CALLS] [ATLAS/P3] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
+[CALLS] [ECHO/P4] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
+[CALLS] [SAGE/P5] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
+[CALLS] [LYRA/P6] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0

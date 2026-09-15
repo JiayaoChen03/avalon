@@ -1,0 +1,62 @@
+[
+  {
+    "run": "mock-human-5",
+    "players": 5,
+    "winner": "EVIL",
+    "ending": "merlin_assassinated",
+    "counts": {
+      "START": 1,
+      "ROUND": 5,
+      "TEAM": 6,
+      "SOCIAL": 30,
+      "VOTE": 30,
+      "TEAM_VOTE": 6,
+      "MISSION_SUBMIT": 13,
+      "MISSION": 5,
+      "ASSASSINATION_PHASE": 1,
+      "ASSASSINATE": 1,
+      "RESULT": 1,
+      "REVEAL": 1
+    },
+    "cards": [
+      "ACCUSE",
+      "BAIT",
+      "DEFEND",
+      "HEDGE",
+      "PRESSURE"
+    ],
+    "exit_code": 0,
+    "all_public_actions_verified": true,
+    "real_remote_llm": false,
+    "human_input": "scripted P1 P2 / BAIT P3 / n, then Enter defaults"
+  },
+  {
+    "run": "mock-demo-6",
+    "players": 6,
+    "winner": "EVIL",
+    "ending": "three_failed_missions",
+    "counts": {
+      "START": 1,
+      "ROUND": 5,
+      "TEAM": 5,
+      "SOCIAL": 30,
+      "VOTE": 30,
+      "TEAM_VOTE": 5,
+      "MISSION_SUBMIT": 16,
+      "MISSION": 5,
+      "RESULT": 1,
+      "REVEAL": 1
+    },
+    "cards": [
+      "ACCUSE",
+      "BAIT",
+      "DEFEND",
+      "HEDGE",
+      "PRESSURE"
+    ],
+    "exit_code": 0,
+    "all_public_actions_verified": true,
+    "real_remote_llm": false,
+    "human_input": "demo"
+  }
+]

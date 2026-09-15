@@ -1,0 +1,99 @@
+{"seq": 1, "kind": "START", "round": 1, "attempt": 1, "players": [{"id": "P1", "name": "YOU"}, {"id": "P2", "name": "NOVA"}, {"id": "P3", "name": "ATLAS"}, {"id": "P4", "name": "ECHO"}, {"id": "P5", "name": "SAGE"}, {"id": "P6", "name": "LYRA"}]}
+{"seq": 2, "kind": "ROUND", "round": 1, "attempt": 1, "leader": "P1", "team_size": 2, "successes": 0, "failures": 0}
+{"seq": 3, "kind": "TEAM", "round": 1, "attempt": 1, "actor": "P1", "team": ["P1", "P2"]}
+{"seq": 4, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P1", "card": "DEFEND", "target": "P2", "reason": "vote_pattern"}
+{"seq": 5, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P3", "reason": "vote_pattern"}
+{"seq": 6, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P3", "card": "PRESSURE", "target": "P1", "reason": "test_reaction"}
+{"seq": 7, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P4", "card": "BAIT", "target": "P1", "reason": "test_reaction"}
+{"seq": 8, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P5", "card": "ACCUSE", "target": "P6", "reason": "vote_pattern"}
+{"seq": 9, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P6", "card": "DEFEND", "target": "P1", "reason": "vote_pattern"}
+{"seq": 10, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P1", "approve": true, "reason": "team_risk"}
+{"seq": 11, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P2", "approve": true, "reason": "team_risk"}
+{"seq": 12, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 13, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
+{"seq": 14, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 15, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P6", "approve": true, "reason": "team_risk"}
+{"seq": 16, "kind": "TEAM_VOTE", "round": 1, "attempt": 1, "team": ["P1", "P2"], "votes": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true}, "approved": true}
+{"seq": 17, "kind": "MISSION_SUBMIT", "round": 1, "attempt": 1, "actor": "P1"}
+{"seq": 18, "kind": "MISSION_SUBMIT", "round": 1, "attempt": 1, "actor": "P2"}
+{"seq": 19, "kind": "MISSION", "round": 1, "attempt": 1, "team": ["P1", "P2"], "success": true, "fail_count": 0, "successes": 1, "failures": 0}
+{"seq": 20, "kind": "ROUND", "round": 2, "attempt": 1, "leader": "P2", "team_size": 3, "successes": 1, "failures": 0}
+{"seq": 21, "kind": "TEAM", "round": 2, "attempt": 1, "actor": "P2", "team": ["P4", "P2", "P5"]}
+{"seq": 22, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P2", "card": "PRESSURE", "target": "P1", "reason": "test_reaction"}
+{"seq": 23, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P3", "card": "BAIT", "target": "P1", "reason": "test_reaction"}
+{"seq": 24, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P4", "card": "ACCUSE", "target": "P2", "reason": "vote_pattern"}
+{"seq": 25, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P5", "card": "DEFEND", "target": "P2", "reason": "vote_pattern"}
+{"seq": 26, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P6", "card": "HEDGE", "target": "P3", "reason": "vote_pattern"}
+{"seq": 27, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P6", "reason": "vote_pattern"}
+{"seq": 28, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P1", "approve": true, "reason": "team_risk"}
+{"seq": 29, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P2", "approve": true, "reason": "team_risk"}
+{"seq": 30, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 31, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
+{"seq": 32, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 33, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P6", "approve": true, "reason": "team_risk"}
+{"seq": 34, "kind": "TEAM_VOTE", "round": 2, "attempt": 1, "team": ["P4", "P2", "P5"], "votes": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true}, "approved": true}
+{"seq": 35, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P4"}
+{"seq": 36, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P2"}
+{"seq": 37, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P5"}
+{"seq": 38, "kind": "MISSION", "round": 2, "attempt": 1, "team": ["P4", "P2", "P5"], "success": false, "fail_count": 1, "successes": 1, "failures": 1}
+{"seq": 39, "kind": "ROUND", "round": 3, "attempt": 1, "leader": "P3", "team_size": 4, "successes": 1, "failures": 1}
+{"seq": 40, "kind": "TEAM", "round": 3, "attempt": 1, "actor": "P3", "team": ["P4", "P3", "P5", "P6"]}
+{"seq": 41, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P3", "card": "ACCUSE", "target": "P2", "reason": "vote_pattern"}
+{"seq": 42, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P4", "card": "DEFEND", "target": "P5", "reason": "vote_pattern"}
+{"seq": 43, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P5", "card": "HEDGE", "target": "P4", "reason": "vote_pattern"}
+{"seq": 44, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P6", "card": "PRESSURE", "target": "P2", "reason": "test_reaction"}
+{"seq": 45, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P1", "card": "PRESSURE", "target": "P2", "reason": "test_reaction"}
+{"seq": 46, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P2", "card": "BAIT", "target": "P3", "reason": "test_reaction"}
+{"seq": 47, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P1", "approve": true, "reason": "team_risk"}
+{"seq": 48, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P2", "approve": true, "reason": "team_risk"}
+{"seq": 49, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 50, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
+{"seq": 51, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 52, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P6", "approve": true, "reason": "team_risk"}
+{"seq": 53, "kind": "TEAM_VOTE", "round": 3, "attempt": 1, "team": ["P4", "P3", "P5", "P6"], "votes": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true}, "approved": true}
+{"seq": 54, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P4"}
+{"seq": 55, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P3"}
+{"seq": 56, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P5"}
+{"seq": 57, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P6"}
+{"seq": 58, "kind": "MISSION", "round": 3, "attempt": 1, "team": ["P4", "P3", "P5", "P6"], "success": false, "fail_count": 1, "successes": 1, "failures": 2}
+{"seq": 59, "kind": "ROUND", "round": 4, "attempt": 1, "leader": "P4", "team_size": 3, "successes": 1, "failures": 2}
+{"seq": 60, "kind": "TEAM", "round": 4, "attempt": 1, "actor": "P4", "team": ["P4", "P5", "P6"]}
+{"seq": 61, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P2", "reason": "vote_pattern"}
+{"seq": 62, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P5", "card": "PRESSURE", "target": "P3", "reason": "test_reaction"}
+{"seq": 63, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P6", "card": "BAIT", "target": "P3", "reason": "test_reaction"}
+{"seq": 64, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P1", "card": "BAIT", "target": "P3", "reason": "test_reaction"}
+{"seq": 65, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P2", "card": "ACCUSE", "target": "P3", "reason": "vote_pattern"}
+{"seq": 66, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P3", "card": "DEFEND", "target": "P4", "reason": "vote_pattern"}
+{"seq": 67, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P1", "approve": true, "reason": "team_risk"}
+{"seq": 68, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
+{"seq": 69, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P3", "approve": false, "reason": "team_risk"}
+{"seq": 70, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
+{"seq": 71, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 72, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P6", "approve": true, "reason": "team_risk"}
+{"seq": 73, "kind": "TEAM_VOTE", "round": 4, "attempt": 1, "team": ["P4", "P5", "P6"], "votes": {"P1": true, "P2": false, "P3": false, "P4": true, "P5": true, "P6": true}, "approved": true}
+{"seq": 74, "kind": "MISSION_SUBMIT", "round": 4, "attempt": 1, "actor": "P4"}
+{"seq": 75, "kind": "MISSION_SUBMIT", "round": 4, "attempt": 1, "actor": "P5"}
+{"seq": 76, "kind": "MISSION_SUBMIT", "round": 4, "attempt": 1, "actor": "P6"}
+{"seq": 77, "kind": "MISSION", "round": 4, "attempt": 1, "team": ["P4", "P5", "P6"], "success": true, "fail_count": 0, "successes": 2, "failures": 2}
+{"seq": 78, "kind": "ROUND", "round": 5, "attempt": 1, "leader": "P5", "team_size": 4, "successes": 2, "failures": 2}
+{"seq": 79, "kind": "TEAM", "round": 5, "attempt": 1, "actor": "P5", "team": ["P5", "P1", "P2", "P6"]}
+{"seq": 80, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P5", "card": "BAIT", "target": "P4", "reason": "test_reaction"}
+{"seq": 81, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P6", "card": "ACCUSE", "target": "P3", "reason": "vote_pattern"}
+{"seq": 82, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P1", "card": "ACCUSE", "target": "P3", "reason": "vote_pattern"}
+{"seq": 83, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P2", "card": "DEFEND", "target": "P4", "reason": "vote_pattern"}
+{"seq": 84, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P3", "card": "HEDGE", "target": "P2", "reason": "vote_pattern"}
+{"seq": 85, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P4", "card": "PRESSURE", "target": "P5", "reason": "test_reaction"}
+{"seq": 86, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P1", "approve": true, "reason": "team_risk"}
+{"seq": 87, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P2", "approve": true, "reason": "team_risk"}
+{"seq": 88, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 89, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
+{"seq": 90, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 91, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P6", "approve": true, "reason": "team_risk"}
+{"seq": 92, "kind": "TEAM_VOTE", "round": 5, "attempt": 1, "team": ["P5", "P1", "P2", "P6"], "votes": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true}, "approved": true}
+{"seq": 93, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P5"}
+{"seq": 94, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P1"}
+{"seq": 95, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P2"}
+{"seq": 96, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P6"}
+{"seq": 97, "kind": "MISSION", "round": 5, "attempt": 1, "team": ["P5", "P1", "P2", "P6"], "success": false, "fail_count": 1, "successes": 2, "failures": 3}
+{"seq": 98, "kind": "RESULT", "round": 5, "attempt": 1, "winner": "EVIL", "reason": "three_failed_missions"}
+{"seq": 99, "kind": "REVEAL", "round": 5, "attempt": 1, "roles": {"P1": "GOOD", "P2": "EVIL", "P3": "ASSASSIN", "P4": "MERLIN", "P5": "GOOD", "P6": "GOOD"}}

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "terminal-avalon-mvp"
+version = "0.1.0"
+description = "A minimal human + LLM agent, card-based terminal Avalon game"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["python-dotenv>=1.0,<2"]
+
+[project.scripts]
+avalon = "avalon.terminal:main"
+
+[tool.setuptools.packages.find]
+include = ["avalon*"]
