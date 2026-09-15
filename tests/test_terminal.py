@@ -51,7 +51,7 @@ class TerminalTests(unittest.TestCase):
     def test_demo_many_seeds_always_terminates_and_is_reproducible(self):
         for count in (5, 6):
             for seed in range(20):
-                game = Game(make_players(count, seed))
+                game = Game(make_players(count, seed), seed=seed)
                 agents = {p: Agent(game.view(p)) for p in game.ids}
                 run_game(game, agents, write=lambda _: None)
                 self.assertIn(game.winner, {"GOOD", "EVIL"})
@@ -59,7 +59,7 @@ class TerminalTests(unittest.TestCase):
                 self.assertEqual(game.events[-1]["kind"], "REVEAL")
         logs = []
         for _ in range(2):
-            game = Game(make_players(6, 7))
+            game = Game(make_players(6, 7), seed=7)
             log = io.StringIO()
             run_game(game, {p: Agent(game.view(p)) for p in game.ids}, write=lambda _: None, log=log)
             logs.append(log.getvalue())
@@ -75,6 +75,8 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn("[RESULT]", result.stdout)
             self.assertIn("[LYRA/P6]", result.stdout)
+            self.assertLess(result.stdout.index("[LEADER]"), result.stdout.index("[ROUND 1/5]"))
+            self.assertIn("[LEADER] [YOU/P1]", result.stdout)
             self.assertIn("演示", result.stdout)
             self.assertTrue(log.is_file())
         result = subprocess.run([sys.executable, "-X", "utf8", "-m", "avalon", "--mock"],

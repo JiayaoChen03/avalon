@@ -26,6 +26,7 @@ class Settings:
     max_tokens: int = 1800
     token_field: str = "max_tokens"
     json_mode: bool = False
+    thinking: str = ""
     notice: str = ""
 
     @property
@@ -66,6 +67,7 @@ class Settings:
             max_tokens=int(first("OPENAI_MAX_TOKENS", default="1800")),
             token_field=first("OPENAI_TOKEN_LIMIT_FIELD", default="max_tokens"),
             json_mode=first("OPENAI_JSON_MODE", default="false").lower() in {"1", "true", "yes"},
+            thinking=first("DEEPSEEK_THINKING").lower(),
             notice=notice,
         )
         url = urlsplit(settings.base_url)
@@ -78,6 +80,8 @@ class Settings:
             raise ValueError("并发数须为 1–6，输出 token 上限须为 100–8000。")
         if settings.token_field not in {"max_tokens", "max_completion_tokens"}:
             raise ValueError("OPENAI_TOKEN_LIMIT_FIELD 只支持 max_tokens / max_completion_tokens。")
+        if settings.thinking not in {"", "enabled", "disabled"}:
+            raise ValueError("DEEPSEEK_THINKING 只支持 enabled / disabled，或留空。")
         return settings
 
 
@@ -144,6 +148,8 @@ class ChatClient:
         }
         if cfg.json_mode:
             payload["response_format"] = {"type": "json_object"}
+        if cfg.thinking:
+            payload["thinking"] = {"type": cfg.thinking}
         request = Request(cfg.endpoint, json.dumps(payload).encode("utf-8"),
                           {"Authorization": f"Bearer {cfg.api_key}", "Content-Type": "application/json"})
         try:

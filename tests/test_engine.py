@@ -9,7 +9,7 @@ def fixed_game(count=5):
     if count == 6:
         roles.append("GOOD")
     return Game([Player(f"P{i+1}", f"Player {i+1}", role)
-                 for i, role in enumerate(roles)])
+                 for i, role in enumerate(roles)], seed=0)
 
 
 def discuss(game):
@@ -24,6 +24,40 @@ def approve(game, team):
 
 
 class RuleTests(unittest.TestCase):
+    def test_opening_leader_does_not_reveal_last_seat_role(self):
+        for count in (5, 6):
+            last_roles_by_leader = {f"P{i+1}": set() for i in range(count)}
+            for seed in range(200):
+                players = make_players(count, seed)
+                game = Game(players, seed=seed)
+                last_roles_by_leader[game.leader].add(players[-1].role)
+            for leader, roles in last_roles_by_leader.items():
+                self.assertEqual(roles, {"MERLIN", "ASSASSIN", "EVIL", "GOOD"},
+                                 f"Opening leader {leader} exposes the last seat in a {count}-player game")
+
+    def test_opening_leader_is_seeded_and_can_be_any_seat(self):
+        for count in (5, 6):
+            players = make_players(count, 12)
+            leaders = {Game(players, seed=seed).leader for seed in range(40)}
+            self.assertEqual(leaders, {p.id for p in players})
+            self.assertEqual(Game(players, seed=7).leader, "P1")
+            self.assertEqual(Game(players, seed=7).events, Game(players, seed=7).events)
+
+    def test_opening_draw_precedes_round_and_later_leaders_rotate(self):
+        game = Game(make_players(5, 12), seed=7)
+        self.assertEqual([e["kind"] for e in game.events], ["START", "LEADER", "ROUND"])
+        self.assertEqual(game.events[1]["actor"], "P1")
+        self.assertEqual(game.events[2]["leader"], "P1")
+        game.propose("P1", ["P1", "P2"])
+        discuss(game)
+        game.vote({p: False for p in game.ids})
+        self.assertEqual(game.leader, "P2")
+        approve(game, ["P1", "P2"])
+        game.resolve_mission({"P1": "SUCCESS", "P2": "SUCCESS"})
+        self.assertEqual(game.leader, "P3")
+        self.assertEqual(sum(e["kind"] == "LEADER" for e in game.events), 1)
+        self.assertNotIn("seed", json.dumps(game.events))
+
     def test_role_counts_and_seed(self):
         for n in (5, 6):
             players = make_players(n, 12)

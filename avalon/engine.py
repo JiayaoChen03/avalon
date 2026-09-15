@@ -39,7 +39,7 @@ def make_players(count=5, seed=None, human_name="YOU"):
 
 
 class Game:
-    def __init__(self, players):
+    def __init__(self, players, seed=None):
         count = len(players)
         if count not in TEAM_SIZES:
             raise ValueError("Only 5 or 6 players are supported.")
@@ -50,7 +50,9 @@ class Game:
             raise ValueError("Player IDs must be unique.")
         self.players = {p.id: p for p in players}
         self.ids = list(self.players)
-        self.leader_index = 0
+        # Keep the public draw independent of the hidden role shuffle, also in seeded games.
+        leader_seed = None if seed is None else f"leader:{seed}"
+        self.leader_index = random.Random(leader_seed).randrange(count)
         self.round = 1
         self.attempt = 1
         self.successes = self.failures = 0
@@ -61,6 +63,7 @@ class Game:
         self.events = []
         self.missions = []
         self._emit("START", players=self.public_players())
+        self._emit("LEADER", actor=self.leader, reason="random_draw")
         self._round_event()
 
     @property

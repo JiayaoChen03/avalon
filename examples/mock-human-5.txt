@@ -2,6 +2,7 @@
 [MODE] 1 位人类 P1 + 其余 AI agents
 [BACKEND] deterministic/mock（无需 API）
 [PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE
+[LEADER] [YOU/P1] 随机当选首任队长
 
 [ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
 [PRIVATE · 仅你可见] P1 身份：GOOD（善良阵营）

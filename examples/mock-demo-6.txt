@@ -2,6 +2,7 @@
 [MODE] 自动演示（无真人）
 [BACKEND] deterministic/mock（无需 API）
 [PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE | P6 LYRA
+[LEADER] [YOU/P1] 随机当选首任队长
 
 [ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
 [AGENT] [YOU/P1] 本轮决策来源：mock

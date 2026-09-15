@@ -28,7 +28,7 @@ python -m avalon --mock --log public-game.jsonl
 python -m avalon --help
 ```
 
-`--seed` 仅用于复现发牌。普通游戏不传它，每局随机；相同 seed + 相同人类输入 + mock 模式可复现。公开日志和 agent 上下文不包含发牌 seed。
+`--seed` 固定发牌与首任队长，便于复现；两者使用独立随机序列。普通游戏不传它，每局随机；相同 seed + 相同人类输入 + mock 模式可复现。公开日志和 agent 上下文不包含 seed。
 
 ## 怎么操作
 
@@ -54,7 +54,8 @@ python -m avalon --help
 | 6 | Merlin、Good × 3、Assassin、Evil | 2 / 3 / 4 / 3 / 4 |
 
 - Merlin 属于善良，知道邪恶座位；Assassin 与 Evil 属于邪恶，互相认识；普通 Good 不知道其他人的身份。
-- 队长轮流选队。**超过半数赞成**才通过，平票否决。被否决后队长轮换，同一任务连续五次否决，邪恶直接获胜。
+- 第一轮开始前，从所有玩家中等概率随机选一名首任队长，终端先打印 `[LEADER]`，再开始任务轮。之后队长按座位顺序轮换选队。
+- **超过半数赞成**才通过，平票否决。被否决后队长轮换，同一任务连续五次否决，邪恶直接获胜。
 - 只有队员提交任务牌。善良必须出 SUCCESS；邪恶可出 SUCCESS 或 FAIL。5/6 人局所有任务都是一张 FAIL 即失败。
 - 三次任务失败，邪恶获胜；三次任务成功，Assassin 获得一次刺杀机会。刺中 Merlin 邪恶翻盘，否则善良获胜。
 - 在最终结果产生后揭晓全部身份。任务日志只有提交回执与汇总票数，不公布个人任务牌。
@@ -69,15 +70,20 @@ python -m avalon --help
 python -m pip install -r requirements.txt
 ```
 
-复制 `.env.example` 为 `.env`。PowerShell 使用 `Copy-Item .env.example .env`，macOS/Linux 使用 `cp .env.example .env`。填入：
+`.env.example` 已配置 **DeepSeek V4 Pro**。首次使用时复制为 `.env`：PowerShell 使用 `Copy-Item .env.example .env`，macOS/Linux 使用 `cp .env.example .env`。已有 `.env` 时直接编辑，填入自己的密钥：
 
 ```dotenv
 OPENAI_API_KEY=你的密钥
-OPENAI_BASE_URL=https://api.openai.com/v1
-OPENAI_MODEL=你有权限使用的模型名称
+OPENAI_BASE_URL=https://api.deepseek.com
+OPENAI_MODEL=deepseek-v4-pro
+OPENAI_JSON_MODE=true
+DEEPSEEK_THINKING=disabled
+OPENAI_TIMEOUT_SECONDS=60
 ```
 
-模型名称由你配置，没有硬编码模型。使用兼容服务时填写其 API base URL；如果地址已以 `/chat/completions` 结尾，也可直接使用。
+模型名称仍由配置决定。这里使用 DeepSeek 的非思考模式与 JSON object 输出，一次请求生成结构化行动计划；不会打印或保存 `reasoning_content`。`DEEPSEEK_THINKING` 可设为 `enabled`、`disabled` 或留空，留空时不发送此参数。参数依据：[DeepSeek 官方思考模式文档](https://api-docs.deepseek.com/guides/thinking_mode/)。
+
+切换其他 OpenAI-compatible 服务时，修改 base URL 和 model，并清空 `DEEPSEEK_THINKING`。如果地址已以 `/chat/completions` 结尾，也可直接使用。`.env` 被 Git 忽略，仓库仅提供不含密钥的 `.env.example`。
 
 ```sh
 python -m avalon --dossier
@@ -164,4 +170,4 @@ python -m avalon --demo --mock --players 5 --seed 7 --dossier
 python -m avalon --demo --mock --players 6 --seed 7
 ```
 
-测试覆盖规则、秘密信息隔离、非法输入、每轮调用预算、错误降级、本地 HTTP 请求、真人输入路径，以及多个 seed 的整局结束。实际 smoke test 结果与运行命令见 [examples/README.md](examples/README.md)。没有用真实服务商密钥进行远程模型质量测试。
+测试覆盖规则、首任队长随机抽签与后续轮换、随机序列隔离、秘密信息隔离、非法输入、每轮调用预算、错误降级、本地 HTTP 请求、真人输入路径，以及多个 seed 的整局结束。实际 mock 与 DeepSeek V4 Pro smoke test 结果、运行命令见 [examples/README.md](examples/README.md)。

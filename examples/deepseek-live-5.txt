@@ -1,0 +1,134 @@
+=== TERMINAL AVALON ===
+[MODE] 1 位人类 P1 + 其余 AI agents
+[BACKEND] LLM；异常时自动 fallback
+[PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE
+[LEADER] [ATLAS/P3] 随机当选首任队长
+
+[ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P3
+[PRIVATE · 仅你可见] P1 身份：MERLIN（善良阵营）
+[PRIVATE · 仅你可见] 已知邪恶座位：P2 P4
+输入 help 查看操作；输入 q 可随时退出。
+[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[AGENT] [ECHO/P4] 本轮决策来源：llm
+[AGENT] [SAGE/P5] 本轮决策来源：llm
+[TEAM] [ATLAS/P3] selects P3 P1 | 提案 1/5
+[SOCIAL] [ATLAS/P3] HEDGE P1 | reason: 保留判断，观察后续行动
+[SOCIAL] [ECHO/P4] HEDGE P1 | reason: 保留判断，观察后续行动
+[SOCIAL] [SAGE/P5] HEDGE P3 | reason: 保留判断，观察后续行动
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[SOCIAL] [NOVA/P2] HEDGE P1 | reason: 保留判断，观察后续行动
+[P1] 赞成队伍 P3 P1？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 3/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[MISSION] P3 P1 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
+
+[ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P4
+[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[AGENT] [ECHO/P4] 本轮决策来源：llm
+[AGENT] [SAGE/P5] 本轮决策来源：llm
+[TEAM] [ECHO/P4] selects P2 P1 P4 | 提案 1/5
+[SOCIAL] [ECHO/P4] HEDGE P3 | reason: 根据当前队伍判断风险
+[SOCIAL] [SAGE/P5] HEDGE P4 | reason: 保留判断，观察后续行动
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[SOCIAL] [NOVA/P2] PRESSURE P3 | reason: 试探目标的公开反应
+[SOCIAL] [ATLAS/P3] PRESSURE P2 | reason: 试探目标的公开反应
+[P1] 赞成队伍 P2 P1 P4？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 5/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[MISSION] P2 P1 P4 -> FAILED | 失败票 2，成功票 1 | 善良 1 : 邪恶 1
+
+[ROUND 3/5] 任务人数 2 | 善良 1 : 邪恶 1 | 队长 P5
+[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[AGENT] [ECHO/P4] 本轮决策来源：llm
+[AGENT] [SAGE/P5] 本轮决策来源：llm
+[TEAM] [SAGE/P5] selects P3 P5 | 提案 1/5
+[SOCIAL] [SAGE/P5] PRESSURE P2 | reason: 试探目标的公开反应
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 试探目标的公开反应
+[SOCIAL] [ATLAS/P3] PRESSURE P2 | reason: 试探目标的公开反应
+[SOCIAL] [ECHO/P4] HEDGE P5 | reason: 保留判断，观察后续行动
+[P1] 赞成队伍 P3 P5？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 3/5 赞成 -> 通过
+[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[MISSION] P3 P5 -> SUCCESS | 失败票 0，成功票 2 | 善良 2 : 邪恶 1
+
+[ROUND 4/5] 任务人数 3 | 善良 2 : 邪恶 1 | 队长 P1
+[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[AGENT] [ECHO/P4] 本轮决策来源：llm
+[AGENT] [SAGE/P5] 本轮决策来源：llm
+[P1] 选队 3 人（回车=P1 P2 P3）> [TEAM] [YOU/P1] selects P1 P2 P3 | 提案 1/5
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 参考公开任务记录
+[SOCIAL] [ATLAS/P3] HEDGE P2 | reason: 保留判断，观察后续行动
+[SOCIAL] [ECHO/P4] HEDGE P1 | reason: 保留判断，观察后续行动
+[SOCIAL] [SAGE/P5] PRESSURE P4 | reason: 试探目标的公开反应
+[P1] 赞成队伍 P1 P2 P3？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 4/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[MISSION] P1 P2 P3 -> FAILED | 失败票 1，成功票 2 | 善良 2 : 邪恶 2
+
+[ROUND 5/5] 任务人数 3 | 善良 2 : 邪恶 2 | 队长 P2
+[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[AGENT] [ECHO/P4] 本轮决策来源：llm
+[AGENT] [SAGE/P5] 本轮决策来源：llm
+[TEAM] [NOVA/P2] selects P1 P3 P5 | 提案 1/5
+[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 参考公开任务记录
+[SOCIAL] [ATLAS/P3] PRESSURE P2 | reason: 试探目标的公开反应
+[SOCIAL] [ECHO/P4] HEDGE P5 | reason: 执行本轮行动策略
+[SOCIAL] [SAGE/P5] HEDGE P3 | reason: 保留判断，观察后续行动
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[P1] 赞成队伍 P1 P3 P5？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[TEAM VOTE] 3/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[MISSION] P1 P3 P5 -> SUCCESS | 失败票 0，成功票 3 | 善良 3 : 邪恶 2
+[ASSASSIN] 三次任务成功；刺客现在选择 Merlin。身份尚未揭晓。
+[ASSASSIN] [NOVA/P2] targets P3
+
+[RESULT] GOOD WINS | Merlin 成功存活
+[REVEAL] P1 MERLIN | P2 ASSASSIN | P3 GOOD | P4 EVIL | P5 GOOD
+[CALLS] [NOVA/P2] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
+[CALLS] [ATLAS/P3] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
+[CALLS] [ECHO/P4] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
+[CALLS] [SAGE/P5] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1

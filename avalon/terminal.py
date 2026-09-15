@@ -104,6 +104,8 @@ def format_event(event, players):
     tag = f"[{players[actor].name}/{actor}]" if actor else ""
     if kind == "START":
         return "[PLAYERS] " + " | ".join(f"{p['id']} {p['name']}" for p in event["players"])
+    if kind == "LEADER":
+        return f"[LEADER] {tag} 随机当选首任队长"
     if kind == "ROUND":
         return (f"\n[ROUND {event['round']}/5] 任务人数 {event['team_size']} | "
                 f"善良 {event['successes']} : 邪恶 {event['failures']} | 队长 {event['leader']}")
@@ -219,7 +221,7 @@ def main(argv=None):
     parser.add_argument("--name", default="YOU", help="人类 P1 昵称")
     parser.add_argument("--mock", action="store_true", help="强制 deterministic agents；不读 .env、不访问网络")
     parser.add_argument("--demo", action="store_true", help="自动演示：P1 也由 agent 控制，无人类输入")
-    parser.add_argument("--seed", type=int, help="固定发牌，便于复现；普通游戏默认随机")
+    parser.add_argument("--seed", type=int, help="固定发牌与首任队长，便于复现；默认随机")
     parser.add_argument("--env-file", type=Path, help="显式 dotenv 文件路径")
     parser.add_argument("--log", type=Path, help="保存公开 JSONL 事件（包含赛后身份揭晓）")
     parser.add_argument("--dossier", action="store_true", help="结束后显示 AI 对 P1 的行为画像变化")
@@ -238,7 +240,7 @@ def main(argv=None):
     client = ChatClient(settings) if settings.ready and not args.mock else None
     write("[BACKEND] LLM；异常时自动 fallback" if client else "[BACKEND] deterministic/mock（无需 API）")
     name = "".join(c for c in args.name if c.isprintable()).strip()[:24] or "YOU"
-    game = Game(make_players(args.players, args.seed, name))
+    game = Game(make_players(args.players, args.seed, name), seed=args.seed)
     human = None if args.demo else Human(game.view("P1"), write=write)
     agents = {p: Agent(game.view(p), client) for p in game.ids if human is None or p != human.id}
     try:

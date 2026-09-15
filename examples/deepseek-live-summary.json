@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-15",
+  "run": "deepseek-live-5",
+  "model": "deepseek-v4-pro",
+  "base_url": "https://api.deepseek.com",
+  "thinking": "disabled",
+  "seed": 12,
+  "players": 5,
+  "human_input": "normal Human controller, scripted Enter defaults",
+  "opening_leader": "P3",
+  "winner": "GOOD",
+  "ending": "merlin_survived",
+  "counts": {
+    "START": 1,
+    "LEADER": 1,
+    "ROUND": 5,
+    "TEAM": 5,
+    "SOCIAL": 25,
+    "VOTE": 25,
+    "TEAM_VOTE": 5,
+    "MISSION_SUBMIT": 13,
+    "MISSION": 5,
+    "ASSASSINATION_PHASE": 1,
+    "ASSASSINATE": 1,
+    "RESULT": 1,
+    "REVEAL": 1
+  },
+  "cards": [
+    "HEDGE",
+    "PRESSURE"
+  ],
+  "http_attempts": 20,
+  "calls_per_agent": {
+    "P2": 5,
+    "P3": 5,
+    "P4": 5,
+    "P5": 5
+  },
+  "all_plans_from_real_llm": true,
+  "fallbacks": 0,
+  "max_calls_per_agent_per_round": 1,
+  "all_public_actions_verified": true,
+  "exit_code": 0
+}

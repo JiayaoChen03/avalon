@@ -70,6 +70,29 @@ class ClientTests(unittest.TestCase):
             self.assertEqual(body["model"], "test-model")
             self.assertEqual(body["messages"][0]["role"], "system")
             self.assertNotIn("test-key", json.dumps(body))
+            self.assertNotIn("thinking", body)
+
+    def test_deepseek_v4_pro_configuration_and_request(self):
+        with tempfile.TemporaryDirectory() as directory:
+            env_file = Path(directory) / ".env"
+            env_file.write_text("OPENAI_API_KEY=test-key\nOPENAI_BASE_URL=https://api.deepseek.com\n"
+                                "OPENAI_MODEL=deepseek-v4-pro\nDEEPSEEK_THINKING=disabled\n"
+                                "OPENAI_JSON_MODE=true\n", encoding="utf-8")
+            with patch.dict(os.environ, {}, clear=True):
+                settings = Settings.load(env_file)
+            self.assertEqual(settings.endpoint, "https://api.deepseek.com/chat/completions")
+            self.assertEqual(settings.thinking, "disabled")
+            with endpoint(envelope()) as (url, requests):
+                settings.base_url = url
+                self.assertEqual(ChatClient(settings).complete({}), {"ok": True})
+                self.assertEqual(len(requests), 1)
+                body = requests[0][2]
+                self.assertEqual(body["model"], "deepseek-v4-pro")
+                self.assertEqual(body["thinking"], {"type": "disabled"})
+                self.assertEqual(body["response_format"], {"type": "json_object"})
+        with patch.dict(os.environ, {"DEEPSEEK_THINKING": "invalid"}, clear=True):
+            with self.assertRaises(ValueError):
+                Settings.load(Path(directory) / "not-present.env")
 
     def test_http_errors_redirects_and_invalid_responses_are_safe(self):
         for body, status in (({"secret": "PRIVATE_SENTINEL"}, 401), ({}, 429), ({}, 302),

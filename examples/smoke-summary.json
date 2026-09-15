@@ -4,8 +4,10 @@
     "players": 5,
     "winner": "EVIL",
     "ending": "merlin_assassinated",
+    "opening_leader": "P1",
     "counts": {
       "START": 1,
+      "LEADER": 1,
       "ROUND": 5,
       "TEAM": 6,
       "SOCIAL": 30,
@@ -35,8 +37,10 @@
     "players": 6,
     "winner": "EVIL",
     "ending": "three_failed_missions",
+    "opening_leader": "P1",
     "counts": {
       "START": 1,
+      "LEADER": 1,
       "ROUND": 5,
       "TEAM": 5,
       "SOCIAL": 30,
