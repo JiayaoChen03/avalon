@@ -1,140 +1,169 @@
 === TERMINAL AVALON ===
 [MODE] 1 位人类 P1 + 其余 AI agents
 [BACKEND] deterministic/mock（无需 API）
-[PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE
-[LEADER] [YOU/P1] 随机当选首任队长
-
-[ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
+[#1] [PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE
+[#2] [LEADER] [YOU/P1] 随机当选首任队长
+[#3] [DIRECTION] 本局逆时针（座位号递减）发言；每次提案由队长开始。
+[#4] [ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
 [PRIVATE · 仅你可见] P1 身份：GOOD（善良阵营）
 输入 help 查看操作；输入 q 可随时退出。
-[AGENT] [NOVA/P2] 本轮决策来源：mock
-[AGENT] [ATLAS/P3] 本轮决策来源：mock
-[AGENT] [ECHO/P4] 本轮决策来源：mock
+[P1] 选队 2 人（回车=P1 P2）> [#5] [TEAM] [YOU/P1] selects P1 P2 | 提案 1/5
+[SPEAKING ORDER] P1 -> P5 -> P4 -> P3 -> P2
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#6] [SOCIAL] [YOU/P1] BAIT P3 | reason: 人类玩家选择
 [AGENT] [SAGE/P5] 本轮决策来源：mock
-[P1] 选队 2 人（回车=P1 P2）> [TEAM] [YOU/P1] selects P1 P2 | 提案 1/5
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] BAIT P3 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] HEDGE P4 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] PRESSURE P1 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] BAIT P1 | reason: 试探目标的公开反应
-[SOCIAL] [SAGE/P5] ACCUSE P4 | reason: 参考公开投票与站队
-[P1] 赞成队伍 P1 P2？y/n（回车=y）> [VOTE] [YOU/P1] votes REJECT | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
-[TEAM VOTE] 2/5 赞成 -> 否决，队长轮换
-[TEAM] [NOVA/P2] selects P2 P1 | 提案 2/5
-[SOCIAL] [NOVA/P2] HEDGE P4 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] PRESSURE P1 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] BAIT P1 | reason: 试探目标的公开反应
-[SOCIAL] [SAGE/P5] ACCUSE P4 | reason: 参考公开投票与站队
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[P1] 赞成队伍 P2 P1？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
-[TEAM VOTE] 3/5 赞成 -> 通过
-[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION] P2 P1 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
-
-[ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P3
-[AGENT] [NOVA/P2] 本轮决策来源：mock
-[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#7] [SOCIAL] [SAGE/P5] ACCUSE P4 | 表态：我先对 P4 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ECHO/P4] 本轮决策来源：mock
-[AGENT] [SAGE/P5] 本轮决策来源：mock
-[TEAM] [ATLAS/P3] selects P3 P1 P2 | 提案 1/5
-[SOCIAL] [ATLAS/P3] BAIT P2 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] ACCUSE P5 | reason: 参考公开投票与站队
-[SOCIAL] [SAGE/P5] DEFEND P1 | reason: 参考公开投票与站队
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] PRESSURE P3 | reason: 试探目标的公开反应
-[P1] 赞成队伍 P3 P1 P2？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
-[TEAM VOTE] 3/5 赞成 -> 通过
-[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION] P3 P1 P2 -> SUCCESS | 失败票 0，成功票 3 | 善良 2 : 邪恶 0
-
-[ROUND 3/5] 任务人数 2 | 善良 2 : 邪恶 0 | 队长 P4
-[AGENT] [NOVA/P2] 本轮决策来源：mock
+[#8] [SOCIAL] [ECHO/P4] BAIT P1 | 表态：我想试探 P1：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ATLAS/P3] 本轮决策来源：mock
-[AGENT] [ECHO/P4] 本轮决策来源：mock
-[AGENT] [SAGE/P5] 本轮决策来源：mock
-[TEAM] [ECHO/P4] selects P1 P4 | 提案 1/5
-[SOCIAL] [ECHO/P4] DEFEND P1 | reason: 参考公开投票与站队
-[SOCIAL] [SAGE/P5] HEDGE P4 | reason: 参考公开投票与站队
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] BAIT P3 | reason: 试探目标的公开反应
-[SOCIAL] [ATLAS/P3] ACCUSE P4 | reason: 参考公开投票与站队
-[P1] 赞成队伍 P1 P4？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 5/5 赞成 -> 通过
-[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
-[MISSION] P1 P4 -> FAILED | 失败票 1，成功票 1 | 善良 2 : 邪恶 1
-
-[ROUND 4/5] 任务人数 3 | 善良 2 : 邪恶 1 | 队长 P5
+[#9] [SOCIAL] [ATLAS/P3] PRESSURE P1 | 表态：请 P1 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [NOVA/P2] 本轮决策来源：mock
-[AGENT] [ATLAS/P3] 本轮决策来源：mock
-[AGENT] [ECHO/P4] 本轮决策来源：mock
-[AGENT] [SAGE/P5] 本轮决策来源：mock
-[TEAM] [SAGE/P5] selects P1 P5 P2 | 提案 1/5
-[SOCIAL] [SAGE/P5] PRESSURE P2 | reason: 试探目标的公开反应
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] ACCUSE P4 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] DEFEND P2 | reason: 参考公开投票与站队
-[SOCIAL] [ECHO/P4] HEDGE P5 | reason: 参考公开投票与站队
-[P1] 赞成队伍 P1 P5 P2？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 5/5 赞成 -> 通过
+[#10] [SOCIAL] [NOVA/P2] HEDGE P4 | 表态：对 P4 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 赞成队伍 P1 P2？y/n（回车=y）> [#11] [VOTE] [YOU/P1] votes REJECT | reason: 人类玩家选择
+[#12] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#13] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#14] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#15] [VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
+[#16] [TEAM VOTE] 2/5 赞成 -> 否决，队长轮换
+[#17] [TEAM] [NOVA/P2] selects P2 P1 | 提案 2/5
+[SPEAKING ORDER] P2 -> P1 -> P5 -> P4 -> P3
+[REUSE] [NOVA/P2] 沿用本任务轮首次表态与策略；不追加请求。
+[#18] [SOCIAL] [NOVA/P2] HEDGE P4 | 表态：对 P4 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#19] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[REUSE] [SAGE/P5] 沿用本任务轮首次表态与策略；不追加请求。
+[#20] [SOCIAL] [SAGE/P5] ACCUSE P4 | 表态：我先对 P4 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[REUSE] [ECHO/P4] 沿用本任务轮首次表态与策略；不追加请求。
+[#21] [SOCIAL] [ECHO/P4] BAIT P1 | 表态：我想试探 P1：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[REUSE] [ATLAS/P3] 沿用本任务轮首次表态与策略；不追加请求。
+[#22] [SOCIAL] [ATLAS/P3] PRESSURE P1 | 表态：请 P1 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 赞成队伍 P2 P1？y/n（回车=y）> [#23] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#24] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#25] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#26] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#27] [VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
+[#28] [TEAM VOTE] 3/5 赞成 -> 通过
 [PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION] P1 P5 P2 -> FAILED | 失败票 1，成功票 2 | 善良 2 : 邪恶 2
-
-[ROUND 5/5] 任务人数 3 | 善良 2 : 邪恶 2 | 队长 P1
+[#29] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#30] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#31] [MISSION] P2 P1 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
+[#32] [ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P3
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#33] [TEAM] [ATLAS/P3] selects P3 P1 P2 | 提案 1/5
+[SPEAKING ORDER] P3 -> P2 -> P1 -> P5 -> P4
+[#34] [SOCIAL] [ATLAS/P3] BAIT P2 | 表态：我想试探 P2：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [NOVA/P2] 本轮决策来源：mock
-[AGENT] [ATLAS/P3] 本轮决策来源：mock
-[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#35] [SOCIAL] [NOVA/P2] PRESSURE P3 | 表态：请 P3 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#36] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
 [AGENT] [SAGE/P5] 本轮决策来源：mock
-[P1] 选队 3 人（回车=P1 P2 P3）> [TEAM] [YOU/P1] selects P1 P2 P3 | 提案 1/5
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] DEFEND P3 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] HEDGE P4 | reason: 参考公开投票与站队
-[SOCIAL] [ECHO/P4] PRESSURE P2 | reason: 试探目标的公开反应
-[SOCIAL] [SAGE/P5] BAIT P2 | reason: 试探目标的公开反应
-[P1] 赞成队伍 P1 P2 P3？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
-[TEAM VOTE] 3/5 赞成 -> 通过
+[#37] [SOCIAL] [SAGE/P5] DEFEND P1 | 表态：我愿意暂时支持 P1，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#38] [SOCIAL] [ECHO/P4] ACCUSE P5 | 表态：我先对 P5 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 赞成队伍 P3 P1 P2？y/n（回车=y）> [#39] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#40] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#41] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#42] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#43] [VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
+[#44] [TEAM VOTE] 3/5 赞成 -> 通过
 [PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION] P1 P2 P3 -> SUCCESS | 失败票 0，成功票 3 | 善良 3 : 邪恶 2
-[ASSASSIN] 三次任务成功；刺客现在选择 Merlin。身份尚未揭晓。
-[ASSASSIN] [ECHO/P4] targets P2
-
-[RESULT] EVIL WINS | Merlin 被刺杀
-[REVEAL] P1 GOOD | P2 MERLIN | P3 GOOD | P4 ASSASSIN | P5 EVIL
+[#45] [MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[#46] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#47] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#48] [MISSION] P3 P1 P2 -> SUCCESS | 失败票 0，成功票 3 | 善良 2 : 邪恶 0
+[#49] [ROUND 3/5] 任务人数 2 | 善良 2 : 邪恶 0 | 队长 P4
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#50] [TEAM] [ECHO/P4] selects P1 P4 | 提案 1/5
+[SPEAKING ORDER] P4 -> P3 -> P2 -> P1 -> P5
+[#51] [SOCIAL] [ECHO/P4] DEFEND P1 | 表态：我愿意暂时支持 P1，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#52] [SOCIAL] [ATLAS/P3] ACCUSE P4 | 表态：我先对 P4 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[#53] [SOCIAL] [NOVA/P2] BAIT P5 | 表态：我想试探 P5：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#54] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[#55] [SOCIAL] [SAGE/P5] HEDGE P4 | 表态：对 P4 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 赞成队伍 P1 P4？y/n（回车=y）> [#56] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#57] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#58] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#59] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#60] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#61] [TEAM VOTE] 5/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[#62] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#63] [MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[#64] [MISSION] P1 P4 -> FAILED | 失败票 1，成功票 1 | 善良 2 : 邪恶 1
+[#65] [ROUND 4/5] 任务人数 3 | 善良 2 : 邪恶 1 | 队长 P5
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[#66] [TEAM] [SAGE/P5] selects P1 P5 P2 | 提案 1/5
+[SPEAKING ORDER] P5 -> P4 -> P3 -> P2 -> P1
+[#67] [SOCIAL] [SAGE/P5] PRESSURE P2 | 表态：请 P2 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#68] [SOCIAL] [ECHO/P4] HEDGE P5 | 表态：对 P5 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#69] [SOCIAL] [ATLAS/P3] DEFEND P2 | 表态：我愿意暂时支持 P2，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[#70] [SOCIAL] [NOVA/P2] ACCUSE P4 | 表态：我先对 P4 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#71] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[P1] 赞成队伍 P1 P5 P2？y/n（回车=y）> [#72] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#73] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#74] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#75] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#76] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#77] [TEAM VOTE] 5/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[#78] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#79] [MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[#80] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#81] [MISSION] P1 P5 P2 -> FAILED | 失败票 1，成功票 2 | 善良 2 : 邪恶 2
+[#82] [ROUND 5/5] 任务人数 3 | 善良 2 : 邪恶 2 | 队长 P1
+[P1] 选队 3 人（回车=P1 P2 P3）> [#83] [TEAM] [YOU/P1] selects P1 P2 P3 | 提案 1/5
+[SPEAKING ORDER] P1 -> P5 -> P4 -> P3 -> P2
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#84] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[#85] [SOCIAL] [SAGE/P5] BAIT P2 | 表态：我想试探 P2：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#86] [SOCIAL] [ECHO/P4] PRESSURE P2 | 表态：请 P2 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#87] [SOCIAL] [ATLAS/P3] HEDGE P4 | 表态：对 P4 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[#88] [SOCIAL] [NOVA/P2] DEFEND P3 | 表态：我愿意暂时支持 P3，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[P1] 赞成队伍 P1 P2 P3？y/n（回车=y）> [#89] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#90] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#91] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#92] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#93] [VOTE] [SAGE/P5] votes REJECT | reason: 根据当前队伍判断风险
+[#94] [TEAM VOTE] 3/5 赞成 -> 通过
+[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
+[#95] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#96] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#97] [MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[#98] [MISSION] P1 P2 P3 -> SUCCESS | 失败票 0，成功票 3 | 善良 3 : 邪恶 2
+[#99] [ASSASSIN] 三次任务成功；刺客现在选择 Merlin。身份尚未揭晓。
+[#100] [ASSASSIN] [ECHO/P4] targets P2
+[#101] [RESULT] EVIL WINS | Merlin 被刺杀
+[#102] [REVEAL] P1 GOOD | P2 MERLIN | P3 GOOD | P4 ASSASSIN | P5 EVIL
 [CALLS] [NOVA/P2] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
 [CALLS] [ATLAS/P3] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
 [CALLS] [ECHO/P4] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
@@ -142,42 +171,42 @@
 
 [DOSSIER] 赛后模型摘要：仅本局行为估计，不包含模型内部思维。P1 是观察对象。
 [DOSSIER] NOVA/P2 R1 | P1 evil=0.00 | aggression=0.28 retaliation=0.38 approval=0.53 | strategy=observe | HEDGE P4
-  近期公开依据：[{"round": 1, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
-[DOSSIER] NOVA/P2 R2 | P1 evil=0.00 | aggression=0.21 retaliation=0.38 approval=0.65 | strategy=probe | PRESSURE P3
-  近期公开依据：[{"round": 2, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "PRESSURE"}, {"round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
-[DOSSIER] NOVA/P2 R3 | P1 evil=0.00 | aggression=0.16 retaliation=0.38 approval=0.74 | strategy=probe | BAIT P3
-  近期公开依据：[{"round": 3, "kind": "SOCIAL", "actor": "P3", "target": "P4", "card": "ACCUSE"}, {"round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
-[DOSSIER] NOVA/P2 R4 | P1 evil=0.00 | aggression=0.12 retaliation=0.38 approval=0.80 | strategy=observe | ACCUSE P4
-  近期公开依据：[{"round": 4, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "HEDGE"}, {"round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
-[DOSSIER] NOVA/P2 R5 | P1 evil=0.00 | aggression=0.09 retaliation=0.38 approval=0.85 | strategy=observe | DEFEND P3
-  近期公开依据：[{"round": 5, "kind": "SOCIAL", "actor": "P5", "target": "P2", "card": "BAIT"}, {"round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
+  近期公开依据：[{"seq": 22, "round": 1, "kind": "SOCIAL", "actor": "P3", "target": "P1", "card": "PRESSURE"}, {"seq": 31, "round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
+[DOSSIER] NOVA/P2 R2 | P1 evil=0.00 | aggression=0.21 retaliation=0.28 approval=0.65 | strategy=probe | PRESSURE P3
+  近期公开依据：[{"seq": 38, "round": 2, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "ACCUSE"}, {"seq": 48, "round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
+[DOSSIER] NOVA/P2 R3 | P1 evil=0.00 | aggression=0.16 retaliation=0.28 approval=0.74 | strategy=probe | BAIT P5
+  近期公开依据：[{"seq": 55, "round": 3, "kind": "SOCIAL", "actor": "P5", "target": "P4", "card": "HEDGE"}, {"seq": 64, "round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
+[DOSSIER] NOVA/P2 R4 | P1 evil=0.00 | aggression=0.12 retaliation=0.28 approval=0.80 | strategy=observe | ACCUSE P4
+  近期公开依据：[{"seq": 71, "round": 4, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"seq": 81, "round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
+[DOSSIER] NOVA/P2 R5 | P1 evil=0.00 | aggression=0.09 retaliation=0.28 approval=0.85 | strategy=observe | DEFEND P3
+  近期公开依据：[{"seq": 88, "round": 5, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "DEFEND"}, {"seq": 98, "round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
 [DOSSIER] ATLAS/P3 R1 | P1 evil=0.41 | aggression=0.28 retaliation=0.38 approval=0.53 | strategy=probe | PRESSURE P1
-  近期公开依据：[{"round": 1, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
-[DOSSIER] ATLAS/P3 R2 | P1 evil=0.30 | aggression=0.21 retaliation=0.38 approval=0.65 | strategy=probe | BAIT P2
-  近期公开依据：[{"round": 2, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "PRESSURE"}, {"round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
-[DOSSIER] ATLAS/P3 R3 | P1 evil=0.41 | aggression=0.16 retaliation=0.38 approval=0.74 | strategy=observe | ACCUSE P4
-  近期公开依据：[{"round": 3, "kind": "SOCIAL", "actor": "P3", "target": "P4", "card": "ACCUSE"}, {"round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
-[DOSSIER] ATLAS/P3 R4 | P1 evil=0.50 | aggression=0.12 retaliation=0.38 approval=0.80 | strategy=observe | DEFEND P2
-  近期公开依据：[{"round": 4, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "HEDGE"}, {"round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
-[DOSSIER] ATLAS/P3 R5 | P1 evil=0.41 | aggression=0.09 retaliation=0.38 approval=0.85 | strategy=observe | HEDGE P4
-  近期公开依据：[{"round": 5, "kind": "SOCIAL", "actor": "P5", "target": "P2", "card": "BAIT"}, {"round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
+  近期公开依据：[{"seq": 22, "round": 1, "kind": "SOCIAL", "actor": "P3", "target": "P1", "card": "PRESSURE"}, {"seq": 31, "round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
+[DOSSIER] ATLAS/P3 R2 | P1 evil=0.30 | aggression=0.21 retaliation=0.28 approval=0.65 | strategy=probe | BAIT P2
+  近期公开依据：[{"seq": 38, "round": 2, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "ACCUSE"}, {"seq": 48, "round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
+[DOSSIER] ATLAS/P3 R3 | P1 evil=0.41 | aggression=0.16 retaliation=0.28 approval=0.74 | strategy=observe | ACCUSE P4
+  近期公开依据：[{"seq": 55, "round": 3, "kind": "SOCIAL", "actor": "P5", "target": "P4", "card": "HEDGE"}, {"seq": 64, "round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
+[DOSSIER] ATLAS/P3 R4 | P1 evil=0.50 | aggression=0.12 retaliation=0.28 approval=0.80 | strategy=observe | DEFEND P2
+  近期公开依据：[{"seq": 71, "round": 4, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"seq": 81, "round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
+[DOSSIER] ATLAS/P3 R5 | P1 evil=0.41 | aggression=0.09 retaliation=0.28 approval=0.85 | strategy=observe | HEDGE P4
+  近期公开依据：[{"seq": 88, "round": 5, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "DEFEND"}, {"seq": 98, "round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
 [DOSSIER] ECHO/P4 R1 | P1 evil=0.00 | aggression=0.28 retaliation=0.38 approval=0.53 | strategy=probe | BAIT P1
-  近期公开依据：[{"round": 1, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
-[DOSSIER] ECHO/P4 R2 | P1 evil=0.00 | aggression=0.21 retaliation=0.38 approval=0.65 | strategy=observe | ACCUSE P5
-  近期公开依据：[{"round": 2, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "PRESSURE"}, {"round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
-[DOSSIER] ECHO/P4 R3 | P1 evil=0.00 | aggression=0.16 retaliation=0.38 approval=0.74 | strategy=observe | DEFEND P1
-  近期公开依据：[{"round": 3, "kind": "SOCIAL", "actor": "P3", "target": "P4", "card": "ACCUSE"}, {"round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
-[DOSSIER] ECHO/P4 R4 | P1 evil=0.00 | aggression=0.12 retaliation=0.38 approval=0.80 | strategy=observe | HEDGE P5
-  近期公开依据：[{"round": 4, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "HEDGE"}, {"round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
-[DOSSIER] ECHO/P4 R5 | P1 evil=0.00 | aggression=0.09 retaliation=0.38 approval=0.85 | strategy=probe | PRESSURE P2
-  近期公开依据：[{"round": 5, "kind": "SOCIAL", "actor": "P5", "target": "P2", "card": "BAIT"}, {"round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
+  近期公开依据：[{"seq": 22, "round": 1, "kind": "SOCIAL", "actor": "P3", "target": "P1", "card": "PRESSURE"}, {"seq": 31, "round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
+[DOSSIER] ECHO/P4 R2 | P1 evil=0.00 | aggression=0.21 retaliation=0.28 approval=0.65 | strategy=observe | ACCUSE P5
+  近期公开依据：[{"seq": 38, "round": 2, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "ACCUSE"}, {"seq": 48, "round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
+[DOSSIER] ECHO/P4 R3 | P1 evil=0.00 | aggression=0.16 retaliation=0.28 approval=0.74 | strategy=observe | DEFEND P1
+  近期公开依据：[{"seq": 55, "round": 3, "kind": "SOCIAL", "actor": "P5", "target": "P4", "card": "HEDGE"}, {"seq": 64, "round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
+[DOSSIER] ECHO/P4 R4 | P1 evil=0.00 | aggression=0.12 retaliation=0.28 approval=0.80 | strategy=observe | HEDGE P5
+  近期公开依据：[{"seq": 71, "round": 4, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"seq": 81, "round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
+[DOSSIER] ECHO/P4 R5 | P1 evil=0.00 | aggression=0.09 retaliation=0.28 approval=0.85 | strategy=probe | PRESSURE P2
+  近期公开依据：[{"seq": 88, "round": 5, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "DEFEND"}, {"seq": 98, "round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
 [DOSSIER] SAGE/P5 R1 | P1 evil=0.00 | aggression=0.28 retaliation=0.38 approval=0.53 | strategy=observe | ACCUSE P4
-  近期公开依据：[{"round": 1, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
-[DOSSIER] SAGE/P5 R2 | P1 evil=0.00 | aggression=0.21 retaliation=0.38 approval=0.65 | strategy=observe | DEFEND P1
-  近期公开依据：[{"round": 2, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "PRESSURE"}, {"round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
-[DOSSIER] SAGE/P5 R3 | P1 evil=0.00 | aggression=0.16 retaliation=0.38 approval=0.74 | strategy=observe | HEDGE P4
-  近期公开依据：[{"round": 3, "kind": "SOCIAL", "actor": "P3", "target": "P4", "card": "ACCUSE"}, {"round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
-[DOSSIER] SAGE/P5 R4 | P1 evil=0.00 | aggression=0.12 retaliation=0.38 approval=0.80 | strategy=probe | PRESSURE P2
-  近期公开依据：[{"round": 4, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "HEDGE"}, {"round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
-[DOSSIER] SAGE/P5 R5 | P1 evil=0.00 | aggression=0.09 retaliation=0.38 approval=0.85 | strategy=probe | BAIT P2
-  近期公开依据：[{"round": 5, "kind": "SOCIAL", "actor": "P5", "target": "P2", "card": "BAIT"}, {"round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]
+  近期公开依据：[{"seq": 22, "round": 1, "kind": "SOCIAL", "actor": "P3", "target": "P1", "card": "PRESSURE"}, {"seq": 31, "round": 1, "kind": "MISSION", "team": ["P2", "P1"], "success": true, "fail_count": 0}]
+[DOSSIER] SAGE/P5 R2 | P1 evil=0.00 | aggression=0.21 retaliation=0.28 approval=0.65 | strategy=observe | DEFEND P1
+  近期公开依据：[{"seq": 38, "round": 2, "kind": "SOCIAL", "actor": "P4", "target": "P5", "card": "ACCUSE"}, {"seq": 48, "round": 2, "kind": "MISSION", "team": ["P3", "P1", "P2"], "success": true, "fail_count": 0}]
+[DOSSIER] SAGE/P5 R3 | P1 evil=0.00 | aggression=0.16 retaliation=0.28 approval=0.74 | strategy=observe | HEDGE P4
+  近期公开依据：[{"seq": 55, "round": 3, "kind": "SOCIAL", "actor": "P5", "target": "P4", "card": "HEDGE"}, {"seq": 64, "round": 3, "kind": "MISSION", "team": ["P1", "P4"], "success": false, "fail_count": 1}]
+[DOSSIER] SAGE/P5 R4 | P1 evil=0.00 | aggression=0.12 retaliation=0.28 approval=0.80 | strategy=probe | PRESSURE P2
+  近期公开依据：[{"seq": 71, "round": 4, "kind": "SOCIAL", "actor": "P1", "target": "P2", "card": "HEDGE"}, {"seq": 81, "round": 4, "kind": "MISSION", "team": ["P1", "P5", "P2"], "success": false, "fail_count": 1}]
+[DOSSIER] SAGE/P5 R5 | P1 evil=0.00 | aggression=0.09 retaliation=0.28 approval=0.85 | strategy=probe | BAIT P2
+  近期公开依据：[{"seq": 88, "round": 5, "kind": "SOCIAL", "actor": "P2", "target": "P3", "card": "DEFEND"}, {"seq": 98, "round": 5, "kind": "MISSION", "team": ["P1", "P2", "P3"], "success": true, "fail_count": 0}]

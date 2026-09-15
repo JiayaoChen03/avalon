@@ -1,142 +1,172 @@
 === TERMINAL AVALON ===
 [MODE] 自动演示（无真人）
 [BACKEND] deterministic/mock（无需 API）
-[PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE | P6 LYRA
-[LEADER] [YOU/P1] 随机当选首任队长
-
-[ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
+[#1] [PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE | P6 LYRA
+[#2] [LEADER] [YOU/P1] 随机当选首任队长
+[#3] [DIRECTION] 本局顺时针（座位号递增）发言；每次提案由队长开始。
+[#4] [ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P1
 [AGENT] [YOU/P1] 本轮决策来源：mock
+[#5] [TEAM] [YOU/P1] selects P1 P2 | 提案 1/5
+[SPEAKING ORDER] P1 -> P2 -> P3 -> P4 -> P5 -> P6
+[#6] [SOCIAL] [YOU/P1] DEFEND P2 | 表态：我愿意暂时支持 P2，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [NOVA/P2] 本轮决策来源：mock
+[#7] [SOCIAL] [NOVA/P2] HEDGE P3 | 表态：对 P3 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#8] [SOCIAL] [ATLAS/P3] PRESSURE P1 | 表态：请 P1 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ECHO/P4] 本轮决策来源：mock
+[#9] [SOCIAL] [ECHO/P4] BAIT P1 | 表态：我想试探 P1：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [SAGE/P5] 本轮决策来源：mock
+[#10] [SOCIAL] [SAGE/P5] ACCUSE P3 | 表态：我先对 P3 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [LYRA/P6] 本轮决策来源：mock
-[TEAM] [YOU/P1] selects P1 P2 | 提案 1/5
-[SOCIAL] [YOU/P1] DEFEND P2 | reason: 参考公开投票与站队
-[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] PRESSURE P1 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] BAIT P1 | reason: 试探目标的公开反应
-[SOCIAL] [SAGE/P5] ACCUSE P6 | reason: 参考公开投票与站队
-[SOCIAL] [LYRA/P6] DEFEND P1 | reason: 参考公开投票与站队
-[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 6/6 赞成 -> 通过
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION] P1 P2 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
-
-[ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P2
+[#11] [SOCIAL] [LYRA/P6] DEFEND P2 | 表态：我愿意暂时支持 P2，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[#12] [VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[#13] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#14] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#15] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#16] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#17] [VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[#18] [TEAM VOTE] 6/6 赞成 -> 通过
+[#19] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#20] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#21] [MISSION] P1 P2 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
+[#22] [ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P2
+[AGENT] [NOVA/P2] 本轮决策来源：mock
+[#23] [TEAM] [NOVA/P2] selects P4 P2 P5 | 提案 1/5
+[SPEAKING ORDER] P2 -> P3 -> P4 -> P5 -> P6 -> P1
+[#24] [SOCIAL] [NOVA/P2] PRESSURE P1 | 表态：请 P1 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#25] [SOCIAL] [ATLAS/P3] BAIT P1 | 表态：我想试探 P1：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#26] [SOCIAL] [ECHO/P4] ACCUSE P2 | 表态：我先对 P2 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [SAGE/P5] 本轮决策来源：mock
+[#27] [SOCIAL] [SAGE/P5] DEFEND P2 | 表态：我愿意暂时支持 P2，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[AGENT] [LYRA/P6] 本轮决策来源：mock
+[#28] [SOCIAL] [LYRA/P6] HEDGE P3 | 表态：对 P3 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [YOU/P1] 本轮决策来源：mock
-[AGENT] [NOVA/P2] 本轮决策来源：mock
+[#29] [SOCIAL] [YOU/P1] HEDGE P3 | 表态：对 P3 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[#30] [VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[#31] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#32] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#33] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#34] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#35] [VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[#36] [TEAM VOTE] 6/6 赞成 -> 通过
+[#37] [MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[#38] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#39] [MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[#40] [MISSION] P4 P2 P5 -> FAILED | 失败票 1，成功票 2 | 善良 1 : 邪恶 1
+[#41] [ROUND 3/5] 任务人数 4 | 善良 1 : 邪恶 1 | 队长 P3
 [AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#42] [TEAM] [ATLAS/P3] selects P4 P3 P5 P6 | 提案 1/5
+[SPEAKING ORDER] P3 -> P4 -> P5 -> P6 -> P1 -> P2
+[#43] [SOCIAL] [ATLAS/P3] ACCUSE P2 | 表态：我先对 P2 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ECHO/P4] 本轮决策来源：mock
+[#44] [SOCIAL] [ECHO/P4] DEFEND P5 | 表态：我愿意暂时支持 P5，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [SAGE/P5] 本轮决策来源：mock
+[#45] [SOCIAL] [SAGE/P5] HEDGE P4 | 表态：对 P4 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [LYRA/P6] 本轮决策来源：mock
-[TEAM] [NOVA/P2] selects P4 P2 P5 | 提案 1/5
-[SOCIAL] [NOVA/P2] PRESSURE P1 | reason: 试探目标的公开反应
-[SOCIAL] [ATLAS/P3] BAIT P1 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] ACCUSE P2 | reason: 参考公开投票与站队
-[SOCIAL] [SAGE/P5] DEFEND P2 | reason: 参考公开投票与站队
-[SOCIAL] [LYRA/P6] HEDGE P3 | reason: 参考公开投票与站队
-[SOCIAL] [YOU/P1] HEDGE P6 | reason: 参考公开投票与站队
-[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 6/6 赞成 -> 通过
-[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION] P4 P2 P5 -> FAILED | 失败票 1，成功票 2 | 善良 1 : 邪恶 1
-
-[ROUND 3/5] 任务人数 4 | 善良 1 : 邪恶 1 | 队长 P3
+[#46] [SOCIAL] [LYRA/P6] PRESSURE P2 | 表态：请 P2 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [YOU/P1] 本轮决策来源：mock
+[#47] [SOCIAL] [YOU/P1] PRESSURE P2 | 表态：请 P2 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [NOVA/P2] 本轮决策来源：mock
-[AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#48] [SOCIAL] [NOVA/P2] BAIT P4 | 表态：我想试探 P4：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[#49] [VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[#50] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#51] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#52] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#53] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#54] [VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[#55] [TEAM VOTE] 6/6 赞成 -> 通过
+[#56] [MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[#57] [MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[#58] [MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[#59] [MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
+[#60] [MISSION] P4 P3 P5 P6 -> FAILED | 失败票 1，成功票 3 | 善良 1 : 邪恶 2
+[#61] [ROUND 4/5] 任务人数 3 | 善良 1 : 邪恶 2 | 队长 P4
 [AGENT] [ECHO/P4] 本轮决策来源：mock
+[#62] [TEAM] [ECHO/P4] selects P4 P5 P6 | 提案 1/5
+[SPEAKING ORDER] P4 -> P5 -> P6 -> P1 -> P2 -> P3
+[#63] [SOCIAL] [ECHO/P4] HEDGE P2 | 表态：对 P2 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [SAGE/P5] 本轮决策来源：mock
+[#64] [SOCIAL] [SAGE/P5] PRESSURE P6 | 表态：请 P6 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [LYRA/P6] 本轮决策来源：mock
-[TEAM] [ATLAS/P3] selects P4 P3 P5 P6 | 提案 1/5
-[SOCIAL] [ATLAS/P3] ACCUSE P2 | reason: 参考公开投票与站队
-[SOCIAL] [ECHO/P4] DEFEND P5 | reason: 参考公开投票与站队
-[SOCIAL] [SAGE/P5] HEDGE P4 | reason: 参考公开投票与站队
-[SOCIAL] [LYRA/P6] PRESSURE P2 | reason: 试探目标的公开反应
-[SOCIAL] [YOU/P1] PRESSURE P2 | reason: 试探目标的公开反应
-[SOCIAL] [NOVA/P2] BAIT P3 | reason: 试探目标的公开反应
-[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 6/6 赞成 -> 通过
-[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
-[MISSION] P4 P3 P5 P6 -> FAILED | 失败票 1，成功票 3 | 善良 1 : 邪恶 2
-
-[ROUND 4/5] 任务人数 3 | 善良 1 : 邪恶 2 | 队长 P4
+[#65] [SOCIAL] [LYRA/P6] BAIT P5 | 表态：我想试探 P5：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [YOU/P1] 本轮决策来源：mock
+[#66] [SOCIAL] [YOU/P1] BAIT P5 | 表态：我想试探 P5：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [NOVA/P2] 本轮决策来源：mock
+[#67] [SOCIAL] [NOVA/P2] ACCUSE P3 | 表态：我先对 P3 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ATLAS/P3] 本轮决策来源：mock
-[AGENT] [ECHO/P4] 本轮决策来源：mock
+[#68] [SOCIAL] [ATLAS/P3] DEFEND P4 | 表态：我愿意暂时支持 P4，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[#69] [VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[#70] [VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[#71] [VOTE] [ATLAS/P3] votes REJECT | reason: 根据当前队伍判断风险
+[#72] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#73] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#74] [VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[#75] [TEAM VOTE] 4/6 赞成 -> 通过
+[#76] [MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
+[#77] [MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[#78] [MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
+[#79] [MISSION] P4 P5 P6 -> SUCCESS | 失败票 0，成功票 3 | 善良 2 : 邪恶 2
+[#80] [ROUND 5/5] 任务人数 4 | 善良 2 : 邪恶 2 | 队长 P5
 [AGENT] [SAGE/P5] 本轮决策来源：mock
+[#81] [TEAM] [SAGE/P5] selects P5 P1 P6 P2 | 提案 1/5
+[SPEAKING ORDER] P5 -> P6 -> P1 -> P2 -> P3 -> P4
+[#82] [SOCIAL] [SAGE/P5] BAIT P1 | 表态：我想试探 P1：你最想验证哪位玩家？
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [LYRA/P6] 本轮决策来源：mock
-[TEAM] [ECHO/P4] selects P4 P5 P6 | 提案 1/5
-[SOCIAL] [ECHO/P4] HEDGE P2 | reason: 参考公开投票与站队
-[SOCIAL] [SAGE/P5] PRESSURE P3 | reason: 试探目标的公开反应
-[SOCIAL] [LYRA/P6] BAIT P3 | reason: 试探目标的公开反应
-[SOCIAL] [YOU/P1] BAIT P3 | reason: 试探目标的公开反应
-[SOCIAL] [NOVA/P2] ACCUSE P3 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] DEFEND P4 | reason: 参考公开投票与站队
-[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 4/6 赞成 -> 通过
-[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
-[MISSION] P4 P5 P6 -> SUCCESS | 失败票 0，成功票 3 | 善良 2 : 邪恶 2
-
-[ROUND 5/5] 任务人数 4 | 善良 2 : 邪恶 2 | 队长 P5
+[#83] [SOCIAL] [LYRA/P6] ACCUSE P3 | 表态：我先对 P3 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [YOU/P1] 本轮决策来源：mock
+[#84] [SOCIAL] [YOU/P1] ACCUSE P3 | 表态：我先对 P3 提出怀疑，请说明你的组队想法。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [NOVA/P2] 本轮决策来源：mock
+[#85] [SOCIAL] [NOVA/P2] DEFEND P4 | 表态：我愿意暂时支持 P4，继续观察。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ATLAS/P3] 本轮决策来源：mock
+[#86] [SOCIAL] [ATLAS/P3] HEDGE P2 | 表态：对 P2 暂时保留判断，先听后面的发言。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
 [AGENT] [ECHO/P4] 本轮决策来源：mock
-[AGENT] [SAGE/P5] 本轮决策来源：mock
-[AGENT] [LYRA/P6] 本轮决策来源：mock
-[TEAM] [SAGE/P5] selects P5 P1 P2 P6 | 提案 1/5
-[SOCIAL] [SAGE/P5] BAIT P4 | reason: 试探目标的公开反应
-[SOCIAL] [LYRA/P6] ACCUSE P3 | reason: 参考公开投票与站队
-[SOCIAL] [YOU/P1] ACCUSE P3 | reason: 参考公开投票与站队
-[SOCIAL] [NOVA/P2] DEFEND P4 | reason: 参考公开投票与站队
-[SOCIAL] [ATLAS/P3] HEDGE P2 | reason: 参考公开投票与站队
-[SOCIAL] [ECHO/P4] PRESSURE P5 | reason: 试探目标的公开反应
-[VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 6/6 赞成 -> 通过
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
-[MISSION] P5 P1 P2 P6 -> FAILED | 失败票 1，成功票 3 | 善良 2 : 邪恶 3
-
-[RESULT] EVIL WINS | 三次任务失败
-[REVEAL] P1 GOOD | P2 EVIL | P3 ASSASSIN | P4 MERLIN | P5 GOOD | P6 GOOD
+[#87] [SOCIAL] [ECHO/P4] PRESSURE P2 | 表态：请 P2 说说你愿意带谁执行任务。
+  理由摘要：这是离线策略的试探性表态，后续以公开投票与任务结果验证。 | 公开依据：试探性观点，未引用历史记录
+[#88] [VOTE] [YOU/P1] votes APPROVE | reason: 根据当前队伍判断风险
+[#89] [VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
+[#90] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#91] [VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
+[#92] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#93] [VOTE] [LYRA/P6] votes APPROVE | reason: 根据当前队伍判断风险
+[#94] [TEAM VOTE] 6/6 赞成 -> 通过
+[#95] [MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[#96] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#97] [MISSION SUBMIT] [LYRA/P6] 已提交秘密任务票
+[#98] [MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
+[#99] [MISSION] P5 P1 P6 P2 -> FAILED | 失败票 1，成功票 3 | 善良 2 : 邪恶 3
+[#100] [RESULT] EVIL WINS | 三次任务失败
+[#101] [REVEAL] P1 GOOD | P2 EVIL | P3 ASSASSIN | P4 MERLIN | P5 GOOD | P6 GOOD
 [CALLS] [YOU/P1] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
 [CALLS] [NOVA/P2] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0
 [CALLS] [ATLAS/P3] HTTP 尝试 0 | R1=0, R2=0, R3=0, R4=0, R5=0

@@ -162,13 +162,19 @@ class ClientTests(unittest.TestCase):
             client = ChatClient(Settings(api_key="test", model="test", base_url=url))
             agents = {p: Agent(game.view(p), client) for p in game.ids if p != "P1"}
             human = Human(game.view("P1"), input_fn=lambda _: "", write=lambda _: None)
-            run_game(game, agents, human, write=lambda _: None, concurrency=3)
+            run_game(game, agents, human, write=lambda _: None)
             self.assertEqual(game.successes, 3)
             self.assertTrue(any(e["kind"] == "ASSASSINATE" for e in game.events))
             self.assertEqual(len(requests), 12)
             contexts = [json.loads(r[2]["messages"][1]["content"]) for r in requests]
             counts = Counter((c["game"]["self"], c["game"]["round"]) for c in contexts)
             self.assertEqual(set(counts.values()), {1})
+            for context in contexts:
+                view = context["game"]
+                before_self = view["speaking_order"][:view["speaking_order"].index(view["self"])]
+                spoken = [e["actor"] for e in view["recent_events"] if e["kind"] == "SOCIAL"
+                          and (e["round"], e["attempt"]) == (view["round"], view["attempt"])]
+                self.assertEqual(spoken, before_self)
             self.assertTrue(all(source == "llm" for a in agents.values() for source in a.sources.values()))
 
 

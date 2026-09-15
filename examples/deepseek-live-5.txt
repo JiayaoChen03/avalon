@@ -1,134 +1,108 @@
 === TERMINAL AVALON ===
 [MODE] 1 位人类 P1 + 其余 AI agents
 [BACKEND] LLM；异常时自动 fallback
-[PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE
-[LEADER] [ATLAS/P3] 随机当选首任队长
-
-[ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P3
+[#1] [PLAYERS] P1 YOU | P2 NOVA | P3 ATLAS | P4 ECHO | P5 SAGE
+[#2] [LEADER] [ATLAS/P3] 随机当选首任队长
+[#3] [DIRECTION] 本局逆时针（座位号递减）发言；每次提案由队长开始。
+[#4] [ROUND 1/5] 任务人数 2 | 善良 0 : 邪恶 0 | 队长 P3
 [PRIVATE · 仅你可见] P1 身份：MERLIN（善良阵营）
 [PRIVATE · 仅你可见] 已知邪恶座位：P2 P4
 输入 help 查看操作；输入 q 可随时退出。
-[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
-[AGENT] [NOVA/P2] 本轮决策来源：llm
+[SYSTEM] [ATLAS/P3] 正在根据当前公开信息准备表态。
 [AGENT] [ATLAS/P3] 本轮决策来源：llm
-[AGENT] [ECHO/P4] 本轮决策来源：llm
+[#5] [TEAM] [ATLAS/P3] selects P3 P1 | 提案 1/5
+[SPEAKING ORDER] P3 -> P2 -> P1 -> P5 -> P4
+[#6] [SOCIAL] [ATLAS/P3] HEDGE P1 | 表态：作为首轮队长，我会先提出一个试探性方案，希望大家谈谈看法。
+  理由摘要：目前没有太多信息，我想听听大家对两人队伍构成的看法，尤其是对我和P1同行的意见。 | 公开依据：试探性观点，未引用历史记录
+[SYSTEM] [NOVA/P2] 正在根据当前公开信息准备表态。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[#7] [SOCIAL] [NOVA/P2] HEDGE P3 | 表态：目前信息还不多，我倾向于观察。队长P3提出的两人队伍值得听听大家的意见，我暂时不表态。
+  理由摘要：首轮没有太多依据，我希望能先看到更多人对这个队伍构成的反应，再决定自己的立场。 | 公开依据：#6
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#8] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[SYSTEM] [SAGE/P5] 正在根据当前公开信息准备表态。
 [AGENT] [SAGE/P5] 本轮决策来源：llm
-[TEAM] [ATLAS/P3] selects P3 P1 | 提案 1/5
-[SOCIAL] [ATLAS/P3] HEDGE P1 | reason: 保留判断，观察后续行动
-[SOCIAL] [ECHO/P4] HEDGE P1 | reason: 保留判断，观察后续行动
-[SOCIAL] [SAGE/P5] HEDGE P3 | reason: 保留判断，观察后续行动
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] HEDGE P1 | reason: 保留判断，观察后续行动
-[P1] 赞成队伍 P3 P1？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 3/5 赞成 -> 通过
+[#9] [SOCIAL] [SAGE/P5] PRESSURE P3 | 表态：P3，你首轮就拉上P1组队，是觉得P1最可信，还是想试探我的反应？
+  理由摘要：我想看看P3会如何回应这个带队选择，尤其是他对P1的信任依据，以便判断他是否有隐藏动机。 | 公开依据：#5, #6
+[SYSTEM] [ECHO/P4] 正在根据当前公开信息准备表态。
+[AGENT] [ECHO/P4] 本轮决策来源：llm
+[#10] [SOCIAL] [ECHO/P4] PRESSURE P5 | 表态：P5，你对P3的质疑有点意思，但你自己又提了什么方案吗？还是只想挑刺？
+  理由摘要：P5对队长的压力测试看起来像是在转移注意力。我想反过来试探他，看看他能否给出清晰立场，还是只是搅局。 | 公开依据：#9
+[P1] 赞成队伍 P3 P1？y/n（回车=y）> [#11] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#12] [VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[#13] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#14] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#15] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#16] [TEAM VOTE] 3/5 赞成 -> 通过
 [PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION] P3 P1 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
-
-[ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P4
-[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
-[AGENT] [NOVA/P2] 本轮决策来源：llm
-[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[#17] [MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[#18] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#19] [MISSION] P3 P1 -> SUCCESS | 失败票 0，成功票 2 | 善良 1 : 邪恶 0
+[#20] [ROUND 2/5] 任务人数 3 | 善良 1 : 邪恶 0 | 队长 P4
+[SYSTEM] [ECHO/P4] 正在根据当前公开信息准备表态。
 [AGENT] [ECHO/P4] 本轮决策来源：llm
+[#21] [TEAM] [ECHO/P4] selects P1 P5 P3 | 提案 1/5
+[SPEAKING ORDER] P4 -> P3 -> P2 -> P1 -> P5
+[#22] [SOCIAL] [ECHO/P4] BAIT P5 | 表态：P5，既然你上轮对P3组队有质疑，现在我是队长，你希望看到什么样的三人队伍？
+  理由摘要：我想试探P5是否愿意具体表态，这样能判断他上轮的质疑是真心还是搅局，也能观察其他人的反应，为我的组队铺垫。 | 公开依据：#9, #10
+[SYSTEM] [ATLAS/P3] 正在根据当前公开信息准备表态。
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[#23] [SOCIAL] [ATLAS/P3] HEDGE P4 | 表态：作为队长P4提出的三人队伍包含了我，我先不急着表态。我想听听P1和P5对目前队伍构成的看法，以及他们是否愿意上这趟车。
+  理由摘要：现在信息还不充分，我需要观察P1和P5对P4组队的反应，尤其是他们是否会像上轮那样互相施压。上轮P3和P1的任务成功，目前这套阵容保留了成功组合，但新增的P4和P5都曾有质疑行为，值得谨慎观察。 | 公开依据：#5, #22
+[SYSTEM] [NOVA/P2] 正在根据当前公开信息准备表态。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[#24] [SOCIAL] [NOVA/P2] PRESSURE P4 | 表态：P4，你组了P1、P5、P3，而上一轮成功的队伍是P3和P1。你加入P5是认为他比P2更可信，还是单纯想扩大不同声音？
+  理由摘要：我想听听P4对P5的信任依据。上一轮你投票反对P3和P1的队伍，现在又把他们两位放进来，这个转变可以试探你的真实考量。 | 公开依据：#5, #14, #21
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#25] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[SYSTEM] [SAGE/P5] 正在根据当前公开信息准备表态。
 [AGENT] [SAGE/P5] 本轮决策来源：llm
-[TEAM] [ECHO/P4] selects P2 P1 P4 | 提案 1/5
-[SOCIAL] [ECHO/P4] HEDGE P3 | reason: 根据当前队伍判断风险
-[SOCIAL] [SAGE/P5] HEDGE P4 | reason: 保留判断，观察后续行动
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] PRESSURE P3 | reason: 试探目标的公开反应
-[SOCIAL] [ATLAS/P3] PRESSURE P2 | reason: 试探目标的公开反应
-[P1] 赞成队伍 P2 P1 P4？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 5/5 赞成 -> 通过
+[#26] [SOCIAL] [SAGE/P5] PRESSURE P4 | 表态：P4，你上一轮投票反对P3+P1，这一轮却把他们两个都放进队伍，还拉上我，这个转变有点大。能说说你对P1和P3的信任判断吗？
+  理由摘要：我想用直接提问的方式测试P4的组队逻辑是否一致。作为队长，他在第14号投票事件中反对了最终成功的组合，现在却完全采用，这种反差值得警惕。我需要观察他如何解释，来判断他是否有隐藏动机。 | 公开依据：#14, #21, #22
+[P1] 赞成队伍 P1 P5 P3？y/n（回车=y）> [#27] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#28] [VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[#29] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#30] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#31] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#32] [TEAM VOTE] 3/5 赞成 -> 通过
 [PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [ECHO/P4] 已提交秘密任务票
-[MISSION] P2 P1 P4 -> FAILED | 失败票 2，成功票 1 | 善良 1 : 邪恶 1
-
-[ROUND 3/5] 任务人数 2 | 善良 1 : 邪恶 1 | 队长 P5
-[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
-[AGENT] [NOVA/P2] 本轮决策来源：llm
-[AGENT] [ATLAS/P3] 本轮决策来源：llm
-[AGENT] [ECHO/P4] 本轮决策来源：llm
+[#33] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#34] [MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
+[#35] [MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[#36] [MISSION] P1 P5 P3 -> SUCCESS | 失败票 0，成功票 3 | 善良 2 : 邪恶 0
+[#37] [ROUND 3/5] 任务人数 2 | 善良 2 : 邪恶 0 | 队长 P5
+[SYSTEM] [SAGE/P5] 正在根据当前公开信息准备表态。
 [AGENT] [SAGE/P5] 本轮决策来源：llm
-[TEAM] [SAGE/P5] selects P3 P5 | 提案 1/5
-[SOCIAL] [SAGE/P5] PRESSURE P2 | reason: 试探目标的公开反应
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 试探目标的公开反应
-[SOCIAL] [ATLAS/P3] PRESSURE P2 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] HEDGE P5 | reason: 保留判断，观察后续行动
-[P1] 赞成队伍 P3 P5？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 3/5 赞成 -> 通过
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION] P3 P5 -> SUCCESS | 失败票 0，成功票 2 | 善良 2 : 邪恶 1
-
-[ROUND 4/5] 任务人数 3 | 善良 2 : 邪恶 1 | 队长 P1
-[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
-[AGENT] [NOVA/P2] 本轮决策来源：llm
-[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[#38] [TEAM] [SAGE/P5] selects P1 P3 | 提案 1/5
+[SPEAKING ORDER] P5 -> P4 -> P3 -> P2 -> P1
+[#39] [SOCIAL] [SAGE/P5] BAIT P2 | 表态：这轮只有两个名额，我会优先考虑前两轮成功队伍中的成员。P2，你连续两轮反对成功队伍，现在有什么想补充的吗？
+  理由摘要：两轮成功队伍都有P1和P3，P2始终投反对票，这个一致性值得试探。我想观察P2如何解释自己的反对，以及他是否会主动提出替代人选，来判断他是谨慎还是另有目的。 | 公开依据：#28, #32
+[SYSTEM] [ECHO/P4] 正在根据当前公开信息准备表态。
 [AGENT] [ECHO/P4] 本轮决策来源：llm
-[AGENT] [SAGE/P5] 本轮决策来源：llm
-[P1] 选队 3 人（回车=P1 P2 P3）> [TEAM] [YOU/P1] selects P1 P2 P3 | 提案 1/5
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 参考公开任务记录
-[SOCIAL] [ATLAS/P3] HEDGE P2 | reason: 保留判断，观察后续行动
-[SOCIAL] [ECHO/P4] HEDGE P1 | reason: 保留判断，观察后续行动
-[SOCIAL] [SAGE/P5] PRESSURE P4 | reason: 试探目标的公开反应
-[P1] 赞成队伍 P1 P2 P3？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 4/5 赞成 -> 通过
+[#40] [SOCIAL] [ECHO/P4] HEDGE P3 | 表态：P5这次的两人队沿用了成功组合，但两人队容错很低，我们应该更谨慎。P3，你对只有你们两人的队伍有多大信心？
+  理由摘要：我想让P3公开表态对这个两人队的信心，同时观察其他人是否支持缩小团队规模。如果P3表现得犹豫，后续或许能推动换人，给反对者提供理由。 | 公开依据：#36, #38, #39
+[SYSTEM] [ATLAS/P3] 正在根据当前公开信息准备表态。
+[AGENT] [ATLAS/P3] 本轮决策来源：llm
+[#41] [SOCIAL] [ATLAS/P3] BAIT P2 | 表态：P2，你连续反对前两轮成功队伍，现在只差一轮就能结束。如果你认为我和P1的组合有风险，那你的双人替代方案是什么？
+  理由摘要：我想让P2明确表态，看他是否会提出替代人选或继续模糊反对。如果他不给出具体方案，说明他可能在搅局。 | 公开依据：#28, #39
+[SYSTEM] [NOVA/P2] 正在根据当前公开信息准备表态。
+[AGENT] [NOVA/P2] 本轮决策来源：llm
+[#42] [SOCIAL] [NOVA/P2] HEDGE P5 | 表态：P5，你选了P1和P3，我连续反对过他们，但现在是第三轮，只差一次成功。我会认真考虑你的理由，目前还没有决定要不要支持。
+  理由摘要：我暂时不明确表态，先听听P5对P1和P3信任的具体依据，也观察其他人是否支持这个两人队。我之前的反对是基于团队风险，但此刻需要保持开放态度来避免被锁定为固定反对者。 | 公开依据：#36, #39, #40
+[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [#43] [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
+[P1] 赞成队伍 P1 P3？y/n（回车=y）> [#44] [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
+[#45] [VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
+[#46] [VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
+[#47] [VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
+[#48] [VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
+[#49] [TEAM VOTE] 3/5 赞成 -> 通过
 [PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [NOVA/P2] 已提交秘密任务票
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION] P1 P2 P3 -> FAILED | 失败票 1，成功票 2 | 善良 2 : 邪恶 2
-
-[ROUND 5/5] 任务人数 3 | 善良 2 : 邪恶 2 | 队长 P2
-[SYSTEM] 4 个 agent 正在形成本轮策略；每位最多一次请求。
-[AGENT] [NOVA/P2] 本轮决策来源：llm
-[AGENT] [ATLAS/P3] 本轮决策来源：llm
-[AGENT] [ECHO/P4] 本轮决策来源：llm
-[AGENT] [SAGE/P5] 本轮决策来源：llm
-[TEAM] [NOVA/P2] selects P1 P3 P5 | 提案 1/5
-[SOCIAL] [NOVA/P2] HEDGE P3 | reason: 参考公开任务记录
-[SOCIAL] [ATLAS/P3] PRESSURE P2 | reason: 试探目标的公开反应
-[SOCIAL] [ECHO/P4] HEDGE P5 | reason: 执行本轮行动策略
-[SOCIAL] [SAGE/P5] HEDGE P3 | reason: 保留判断，观察后续行动
-[P1] 出牌 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 目标（回车=HEDGE P2）> [SOCIAL] [YOU/P1] HEDGE P2 | reason: 人类玩家选择
-[P1] 赞成队伍 P1 P3 P5？y/n（回车=y）> [VOTE] [YOU/P1] votes APPROVE | reason: 人类玩家选择
-[VOTE] [NOVA/P2] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [ATLAS/P3] votes APPROVE | reason: 根据当前队伍判断风险
-[VOTE] [ECHO/P4] votes REJECT | reason: 根据当前队伍判断风险
-[VOTE] [SAGE/P5] votes APPROVE | reason: 根据当前队伍判断风险
-[TEAM VOTE] 3/5 赞成 -> 通过
-[PRIVATE · 仅你可见] 善良阵营自动提交 SUCCESS。
-[MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
-[MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
-[MISSION SUBMIT] [SAGE/P5] 已提交秘密任务票
-[MISSION] P1 P3 P5 -> SUCCESS | 失败票 0，成功票 3 | 善良 3 : 邪恶 2
-[ASSASSIN] 三次任务成功；刺客现在选择 Merlin。身份尚未揭晓。
-[ASSASSIN] [NOVA/P2] targets P3
-
-[RESULT] GOOD WINS | Merlin 成功存活
-[REVEAL] P1 MERLIN | P2 ASSASSIN | P3 GOOD | P4 EVIL | P5 GOOD
-[CALLS] [NOVA/P2] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
-[CALLS] [ATLAS/P3] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
-[CALLS] [ECHO/P4] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
-[CALLS] [SAGE/P5] HTTP 尝试 5 | R1=1, R2=1, R3=1, R4=1, R5=1
+[#50] [MISSION SUBMIT] [YOU/P1] 已提交秘密任务票
+[#51] [MISSION SUBMIT] [ATLAS/P3] 已提交秘密任务票
+[#52] [MISSION] P1 P3 -> SUCCESS | 失败票 0，成功票 2 | 善良 3 : 邪恶 0
+[#53] [ASSASSIN] 三次任务成功；刺客现在选择 Merlin。身份尚未揭晓。
+[#54] [ASSASSIN] [NOVA/P2] targets P5
+[#55] [RESULT] GOOD WINS | Merlin 成功存活
+[#56] [REVEAL] P1 MERLIN | P2 ASSASSIN | P3 GOOD | P4 EVIL | P5 GOOD
+[CALLS] [NOVA/P2] HTTP 尝试 3 | R1=1, R2=1, R3=1
+[CALLS] [ATLAS/P3] HTTP 尝试 3 | R1=1, R2=1, R3=1
+[CALLS] [ECHO/P4] HTTP 尝试 3 | R1=1, R2=1, R3=1
+[CALLS] [SAGE/P5] HTTP 尝试 3 | R1=1, R2=1, R3=1

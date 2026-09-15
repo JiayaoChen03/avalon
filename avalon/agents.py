@@ -3,20 +3,35 @@
 from collections import deque
 from copy import deepcopy
 import math
+import re
 
-from .engine import CARDS, EVIL_ROLES, REASONS
+from .engine import CARDS, EVIL_ROLES, REASONS, validate_social
 from .llm import LLMError
 
 
 PROFILE_FIELDS = {"aggression", "retaliation", "approval", "consensus"}
 STRATEGIES = {"observe", "probe", "protect", "misdirect"}
+_ROLE_WORDS = r"(?:邪恶|善良|好人|坏人|刺客|梅林|evil|good|assassin|merlin)"
+_PRIVATE_DISCLOSURE = re.compile(
+    r"(?:作为|身为|我是|我属于|我扮演|我拿到|我的.{0,4}(?:角色|身份|阵营)|我知道).{0,24}" + _ROLE_WORDS
+    + r"|(?:as (?:an? |the )?|i(?: am|'m|’m) (?:on (?:the )?|an? |the )?|my (?:role|alignment) is )" + _ROLE_WORDS
+    + r"|known_evil|已知邪恶|私有(?:身份|信息|判断)|private (?:role|belief)", re.IGNORECASE)
+
+
+def _guard_public_speech(action):
+    """Keep explicit private-role explanations out of the public statement fields."""
+    replacements = {"statement": f"我选择 {action['card']} {action['target']}，想听听对方的回应。",
+                    "rationale": REASONS[action["reason"]] + "；先依据公开行动继续观察。"}
+    for field, replacement in replacements.items():
+        if _PRIVATE_DISCLOSURE.search(action[field]):
+            action[field] = replacement
 
 
 def _probability(value):
     return type(value) in (int, float) and 0 <= value <= 1 and math.isfinite(value)
 
 
-def validate_plan(raw, ids):
+def validate_plan(raw, ids, public_events=None):
     """Reject malformed model output atomically; no partial private-state updates."""
     fields = {"beliefs", "profiles", "strategy", "team_rank", "vote_threshold",
               "approve_last", "mission", "social", "assassin_rank"}
@@ -41,13 +56,16 @@ def validate_plan(raw, ids):
             or not _probability(raw["vote_threshold"]) or type(raw["approve_last"]) is not bool
             or raw["mission"] not in ("SUCCESS", "FAIL")):
         raise ValueError("Invalid policy")
-    social = raw["social"]
-    if (not isinstance(social, dict) or set(social) != {"card", "target", "reason"}
-            or not isinstance(social["card"], str) or social["card"] not in CARDS
-            or not isinstance(social["target"], str) or social["target"] not in ids
-            or not isinstance(social["reason"], str) or social["reason"] not in REASONS):
-        raise ValueError("Invalid social action")
-    return deepcopy(raw)
+    plan = deepcopy(raw)
+    social = plan["social"]
+    refs = social.get("evidence") if isinstance(social, dict) else None
+    visible = None if public_events is None else {e["seq"] for e in public_events
+              if e["kind"] in {"TEAM", "SOCIAL", "VOTE", "TEAM_VOTE", "MISSION"}}
+    # Citation formatting should not discard a valid model decision. Never invent a reference.
+    if isinstance(refs, list) and all(type(n) is int and n > 0 and (visible is None or n in visible) for n in refs):
+        social["evidence"] = list(dict.fromkeys(refs))[:3]
+    validate_social(social, ids, public_events, require_statement=True)
+    return plan
 
 
 class Agent:
@@ -97,6 +115,11 @@ class Agent:
             target = max(others, key=lambda p: self.memory["profiles"][p]["retaliation"])
         elif card == "DEFEND":
             target = min(others, key=lambda p: (beliefs[p]["evil"], tie(p)))
+        statements = {"ACCUSE": f"我先对 {target} 提出怀疑，请说明你的组队想法。",
+                      "DEFEND": f"我愿意暂时支持 {target}，继续观察。",
+                      "HEDGE": f"对 {target} 暂时保留判断，先听后面的发言。",
+                      "PRESSURE": f"请 {target} 说说你愿意带谁执行任务。",
+                      "BAIT": f"我想试探 {target}：你最想验证哪位玩家？"}
         return {
             **deepcopy(self.memory),
             "strategy": "probe" if card in {"PRESSURE", "BAIT"} else "observe",
@@ -104,7 +127,10 @@ class Agent:
             "mission": "FAIL" if self.role in EVIL_ROLES and (view["round"] > 1 or seat % 2 == 0)
             else "SUCCESS",
             "social": {"card": card, "target": target,
-                       "reason": "test_reaction" if card in {"PRESSURE", "BAIT"} else "vote_pattern"},
+                       "reason": "test_reaction" if card in {"PRESSURE", "BAIT"} else "observe",
+                       "statement": statements[card],
+                       "rationale": "这是离线策略的试探性表态，后续以公开投票与任务结果验证。",
+                       "evidence": []},
             "assassin_rank": sorted(self.ids, key=lambda p: (-beliefs[p]["merlin"], tie(p))),
         }
 
@@ -113,18 +139,25 @@ class Agent:
         if round_no in self.plans:
             self.plan = deepcopy(self.plans[round_no])
             return self.sources[round_no]
-        plan, source = self._mock_plan(view), "mock"
+        plan, source = None, "mock"
         if self.client is not None:
             self.calls[round_no] = 1  # Reserve budget before I/O, including failed requests.
-            context = {"game": deepcopy(view), "memory": deepcopy(self.memory),
+            has_model_history = self.sources.get(round_no - 1) == "llm"
+            context = {"game": deepcopy(view),
+                       "memory": deepcopy(self.memory) if has_model_history else {"beliefs": {}, "profiles": {}},
+                       "memory_status": "model_estimates" if has_model_history else "no_previous_model",
                        "evidence": list(self.evidence)}
             try:
-                plan = validate_plan(self.client.complete(context), self.ids)
+                plan = validate_plan(self.client.complete(context), self.ids,
+                                     view["recent_events"] + list(self.evidence))
+                _guard_public_speech(plan["social"])
                 source = "llm"
             except LLMError as error:
                 source = f"fallback:{error}"
             except (ValueError, TypeError):
                 source = "fallback:invalid_plan"
+        if plan is None:
+            plan = self._mock_plan(view)
         self.memory = {key: deepcopy(plan[key]) for key in ("beliefs", "profiles")}
         self._lock_facts()
         self.plan = plan
@@ -154,7 +187,7 @@ class Agent:
                 self.attacks[target] = actor
             delta = {"ACCUSE": 0.06, "DEFEND": -0.035, "HEDGE": 0.01}.get(card, 0)
             beliefs[target]["evil"] += delta * (1 - beliefs[actor]["evil"])
-            self.evidence.append({k: event[k] for k in ("round", "kind", "actor", "target", "card")})
+            self.evidence.append({k: event[k] for k in ("seq", "round", "kind", "actor", "target", "card")})
         elif kind == "TEAM_VOTE":
             votes = event["votes"]
             approvals = sum(votes.values())
@@ -172,7 +205,7 @@ class Agent:
         elif kind == "MISSION":
             for pid in event["team"]:
                 beliefs[pid]["evil"] += -0.09 if event["success"] else 0.25 / len(event["team"])
-            self.evidence.append({k: event[k] for k in ("round", "kind", "team", "success", "fail_count")})
+            self.evidence.append({k: event[k] for k in ("seq", "round", "kind", "team", "success", "fail_count")})
         self._lock_facts()
 
     def choose_team(self, size, attempt=1):

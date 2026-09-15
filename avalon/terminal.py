@@ -1,7 +1,6 @@
 """Human input, public event rendering, and the complete terminal game loop."""
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
 from contextlib import nullcontext
 from copy import deepcopy
 import json
@@ -9,7 +8,7 @@ from pathlib import Path
 import sys
 
 from .agents import Agent
-from .engine import CARDS, EVIL_ROLES, Game, REASONS, make_players
+from .engine import CARDS, DIRECTIONS, EVIL_ROLES, Game, REASONS, make_players
 from .llm import ChatClient, Settings
 
 
@@ -106,13 +105,22 @@ def format_event(event, players):
         return "[PLAYERS] " + " | ".join(f"{p['id']} {p['name']}" for p in event["players"])
     if kind == "LEADER":
         return f"[LEADER] {tag} 随机当选首任队长"
+    if kind == "DIRECTION":
+        direction = "顺时针（座位号递增）" if event["direction"] == "clockwise" else "逆时针（座位号递减）"
+        return f"[DIRECTION] 本局{direction}发言；每次提案由队长开始。"
     if kind == "ROUND":
         return (f"\n[ROUND {event['round']}/5] 任务人数 {event['team_size']} | "
                 f"善良 {event['successes']} : 邪恶 {event['failures']} | 队长 {event['leader']}")
     if kind == "TEAM":
-        return f"[TEAM] {tag} selects {' '.join(event['team'])} | 提案 {event['attempt']}/5"
+        return (f"[TEAM] {tag} selects {' '.join(event['team'])} | 提案 {event['attempt']}/5\n"
+                f"[SPEAKING ORDER] {' -> '.join(event['speaking_order'])}")
     if kind == "SOCIAL":
-        return f"[SOCIAL] {tag} {event['card']} {event['target']} | reason: {REASONS[event['reason']]}"
+        label = f"[SOCIAL] {tag} {event['card']} {event['target']}"
+        if "statement" not in event:
+            return f"{label} | reason: {REASONS[event['reason']]}"
+        evidence = ", ".join(f"#{seq}" for seq in event["evidence"]) or "试探性观点，未引用历史记录"
+        return (f"{label} | 表态：{event['statement']}\n"
+                f"  理由摘要：{event['rationale']} | 公开依据：{evidence}")
     if kind == "VOTE":
         return f"[VOTE] {tag} votes {'APPROVE' if event['approve'] else 'REJECT'} | reason: {REASONS[event['reason']]}"
     if kind == "TEAM_VOTE":
@@ -137,7 +145,7 @@ def format_event(event, players):
     raise ValueError(f"Unknown public event: {kind}")
 
 
-def run_game(game, agents, human=None, write=print, log=None, concurrency=1, dossier=False):
+def run_game(game, agents, human=None, write=print, log=None, dossier=False):
     """Normal play has one Human. Passing only agents is explicit demo/test mode."""
     if set(agents) | ({human.id} if human else set()) != set(game.ids):
         raise ValueError("Every seat requires a controller.")
@@ -146,7 +154,7 @@ def run_game(game, agents, human=None, write=print, log=None, concurrency=1, dos
     def flush():
         nonlocal cursor
         for event in game.events[cursor:]:
-            write(format_event(event, game.players))
+            write(f"[#{event['seq']}] {format_event(event, game.players).lstrip()}")
             if log is not None:
                 log.write(json.dumps(event, ensure_ascii=False, allow_nan=False) + "\n")
                 log.flush()
@@ -157,27 +165,28 @@ def run_game(game, agents, human=None, write=print, log=None, concurrency=1, dos
     def controller(pid):
         return human if human is not None and pid == human.id else agents[pid]
 
+    def prepare(pid):
+        if pid not in agents or game.round in agents[pid].plans:
+            return
+        if agents[pid].client is not None:
+            write(f"[SYSTEM] [{game.players[pid].name}/{pid}] 正在根据当前公开信息准备表态。")
+        source = agents[pid].prepare(game.view(pid))
+        write(f"[AGENT] [{game.players[pid].name}/{pid}] 本轮决策来源：{source}")
+
     flush()
     if human is not None:
         human.reveal()
     while game.winner is None:
         round_no = game.round
-        jobs = [(pid, agent, game.view(pid)) for pid, agent in agents.items()]
-        if any(agent.client is not None for agent in agents.values()):
-            write(f"[SYSTEM] {len(agents)} 个 agent 正在形成本轮策略；每位最多一次请求。")
-        # Each worker has a separate Agent, memory and input snapshot. Print in seat order.
-        with ThreadPoolExecutor(max_workers=concurrency) as pool:
-            futures = [(pid, pool.submit(agent.prepare, view)) for pid, agent, view in jobs]
-            for pid, future in futures:
-                source = future.result()
-                write(f"[AGENT] [{game.players[pid].name}/{pid}] 本轮决策来源：{source}")
-
         while game.phase in {"team", "discussion", "mission"} and game.round == round_no:
             leader = game.leader
+            prepare(leader)  # The leader's one plan covers both team selection and speech.
             game.propose(leader, controller(leader).choose_team(game.team_size, game.attempt))
             flush()
-            start = game.ids.index(leader)
-            for pid in game.ids[start:] + game.ids[:start]:
+            for pid in game.speaking_order:
+                prepare(pid)  # Earlier statements have already been broadcast and observed.
+                if pid in agents and game.attempt > 1:
+                    write(f"[REUSE] [{game.players[pid].name}/{pid}] 沿用本任务轮首次表态与策略；不追加请求。")
                 game.social(pid, controller(pid).social_action())
                 flush()
             votes = {pid: controller(pid).vote(list(game.team), game.attempt) for pid in game.ids}
@@ -221,7 +230,8 @@ def main(argv=None):
     parser.add_argument("--name", default="YOU", help="人类 P1 昵称")
     parser.add_argument("--mock", action="store_true", help="强制 deterministic agents；不读 .env、不访问网络")
     parser.add_argument("--demo", action="store_true", help="自动演示：P1 也由 agent 控制，无人类输入")
-    parser.add_argument("--seed", type=int, help="固定发牌与首任队长，便于复现；默认随机")
+    parser.add_argument("--seed", type=int, help="固定发牌、首任队长与发言方向，便于复现；默认随机")
+    parser.add_argument("--direction", choices=DIRECTIONS, help="顺时针 clockwise / 逆时针 counterclockwise；默认开局随机决定")
     parser.add_argument("--env-file", type=Path, help="显式 dotenv 文件路径")
     parser.add_argument("--log", type=Path, help="保存公开 JSONL 事件（包含赛后身份揭晓）")
     parser.add_argument("--dossier", action="store_true", help="结束后显示 AI 对 P1 的行为画像变化")
@@ -240,14 +250,14 @@ def main(argv=None):
     client = ChatClient(settings) if settings.ready and not args.mock else None
     write("[BACKEND] LLM；异常时自动 fallback" if client else "[BACKEND] deterministic/mock（无需 API）")
     name = "".join(c for c in args.name if c.isprintable()).strip()[:24] or "YOU"
-    game = Game(make_players(args.players, args.seed, name), seed=args.seed)
+    game = Game(make_players(args.players, args.seed, name), seed=args.seed, direction=args.direction)
     human = None if args.demo else Human(game.view("P1"), write=write)
     agents = {p: Agent(game.view(p), client) for p in game.ids if human is None or p != human.id}
     try:
         if args.log:
             args.log.parent.mkdir(parents=True, exist_ok=True)
         with args.log.open("w", encoding="utf-8") if args.log else nullcontext() as log:
-            run_game(game, agents, human, write, log, settings.concurrency, args.dossier)
+            run_game(game, agents, human, write, log, dossier=args.dossier)
     except (QuitGame, KeyboardInterrupt):
         write("\n[EXIT] 已退出对局。")
     except OSError:

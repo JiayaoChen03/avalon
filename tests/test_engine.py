@@ -9,11 +9,11 @@ def fixed_game(count=5):
     if count == 6:
         roles.append("GOOD")
     return Game([Player(f"P{i+1}", f"Player {i+1}", role)
-                 for i, role in enumerate(roles)], seed=0)
+                 for i, role in enumerate(roles)], seed=0, direction="clockwise")
 
 
 def discuss(game):
-    for pid in game.ids:
+    for pid in game.speaking_order:
         game.social(pid, {"card": "HEDGE", "target": "P1", "reason": "observe"})
 
 
@@ -45,9 +45,9 @@ class RuleTests(unittest.TestCase):
 
     def test_opening_draw_precedes_round_and_later_leaders_rotate(self):
         game = Game(make_players(5, 12), seed=7)
-        self.assertEqual([e["kind"] for e in game.events], ["START", "LEADER", "ROUND"])
+        self.assertEqual([e["kind"] for e in game.events], ["START", "LEADER", "DIRECTION", "ROUND"])
         self.assertEqual(game.events[1]["actor"], "P1")
-        self.assertEqual(game.events[2]["leader"], "P1")
+        self.assertEqual(game.events[3]["leader"], "P1")
         game.propose("P1", ["P1", "P2"])
         discuss(game)
         game.vote({p: False for p in game.ids})

@@ -9,6 +9,7 @@ import random
 CARDS = ("ACCUSE", "DEFEND", "HEDGE", "PRESSURE", "BAIT")
 EVIL_ROLES = {"ASSASSIN", "EVIL"}
 TEAM_SIZES = {5: (2, 3, 2, 3, 3), 6: (2, 3, 4, 3, 4)}
+DIRECTIONS = ("clockwise", "counterclockwise")
 REASONS = {
     "observe": "保留判断，观察后续行动",
     "mission_record": "参考公开任务记录",
@@ -29,6 +30,34 @@ class Player:
     role: str
 
 
+def validate_social(action, ids, events=None, require_statement=False):
+    basic = {"card", "target", "reason"}
+    extended = basic | {"statement", "rationale", "evidence"}
+    if (not isinstance(action, dict) or set(action) not in (basic, extended)
+            or require_statement and set(action) != extended
+            or not isinstance(action["card"], str) or action["card"] not in CARDS
+            or not isinstance(action["target"], str) or action["target"] not in ids
+            or not isinstance(action["reason"], str) or action["reason"] not in REASONS):
+        raise ValueError("Invalid social action")
+    if set(action) == basic:
+        return
+    for key in ("statement", "rationale"):
+        value = action[key]
+        if not isinstance(value, str) or not value.strip() or len(value) > 240 or not value.isprintable():
+            raise ValueError("Public statements must be short printable text")
+    refs = action["evidence"]
+    if (not isinstance(refs, list) or len(refs) > 3 or any(type(n) is not int or n < 1 for n in refs)
+            or len(set(refs)) != len(refs)):
+        raise ValueError("Invalid public evidence references")
+    if events is not None:
+        public = {e["seq"]: e for e in events if e["kind"] in {"TEAM", "SOCIAL", "VOTE", "TEAM_VOTE", "MISSION"}}
+        if not set(refs) <= public.keys():
+            raise ValueError("Evidence must refer to existing public actions")
+        needed = {"mission_record": {"MISSION"}, "vote_pattern": {"VOTE", "TEAM_VOTE"}}.get(action["reason"])
+        if needed and not any(public[n]["kind"] in needed for n in refs):
+            raise ValueError("The reason must cite matching public history")
+
+
 def make_players(count=5, seed=None, human_name="YOU"):
     if count not in TEAM_SIZES:
         raise ValueError("Only 5 or 6 players are supported.")
@@ -39,7 +68,7 @@ def make_players(count=5, seed=None, human_name="YOU"):
 
 
 class Game:
-    def __init__(self, players, seed=None):
+    def __init__(self, players, seed=None, direction=None):
         count = len(players)
         if count not in TEAM_SIZES:
             raise ValueError("Only 5 or 6 players are supported.")
@@ -53,6 +82,10 @@ class Game:
         # Keep the public draw independent of the hidden role shuffle, also in seeded games.
         leader_seed = None if seed is None else f"leader:{seed}"
         self.leader_index = random.Random(leader_seed).randrange(count)
+        if direction is not None and direction not in DIRECTIONS:
+            raise ValueError("Unknown speaking direction")
+        direction_seed = None if seed is None else f"direction:{seed}"
+        self.direction = direction or random.Random(direction_seed).choice(DIRECTIONS)
         self.round = 1
         self.attempt = 1
         self.successes = self.failures = 0
@@ -64,6 +97,7 @@ class Game:
         self.missions = []
         self._emit("START", players=self.public_players())
         self._emit("LEADER", actor=self.leader, reason="random_draw")
+        self._emit("DIRECTION", direction=self.direction, order=self.speaking_order)
         self._round_event()
 
     @property
@@ -73,6 +107,11 @@ class Game:
     @property
     def team_size(self):
         return TEAM_SIZES[len(self.ids)][self.round - 1]
+
+    @property
+    def speaking_order(self):
+        step = 1 if self.direction == "clockwise" else -1
+        return [self.ids[(self.leader_index + step * i) % len(self.ids)] for i in range(len(self.ids))]
 
     def public_players(self):
         return [{"id": p.id, "name": p.name} for p in self.players.values()]
@@ -103,17 +142,15 @@ class Game:
         self.team = list(team)
         self.spoken.clear()
         self.phase = "discussion"
-        self._emit("TEAM", actor=actor, team=team)
+        self._emit("TEAM", actor=actor, team=team, speaking_order=self.speaking_order)
 
     def social(self, actor, action):
         self._require("discussion")
         if actor not in self.players or actor in self.spoken:
             raise ValueError("Each player may play one social card per proposal.")
-        if (not isinstance(action, dict) or set(action) != {"card", "target", "reason"}
-                or not isinstance(action["card"], str) or action["card"] not in CARDS
-                or not isinstance(action["target"], str) or action["target"] not in self.players
-                or not isinstance(action["reason"], str) or action["reason"] not in REASONS):
-            raise ValueError("Invalid social card, target, or reason code.")
+        if actor != self.speaking_order[len(self.spoken)]:
+            raise ValueError("Wait for this player's speaking turn.")
+        validate_social(action, self.ids, self.events)
         self.spoken.add(actor)
         self._emit("SOCIAL", actor=actor, **action)
 
@@ -199,6 +236,7 @@ class Game:
             if knows_evil else [],
             "players": self.public_players(), "round": self.round, "attempt": self.attempt,
             "leader": self.leader, "team_size": self.team_size, "team": self.team,
+            "speaking_direction": self.direction, "speaking_order": self.speaking_order,
             "phase": self.phase, "successes": self.successes, "failures": self.failures,
             "missions": self.missions, "recent_events": self.events[-20:],
         })

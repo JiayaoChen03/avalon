@@ -28,7 +28,8 @@ def valid_plan(view):
                          "approval": 0.5, "consensus": 0.5} for p in ids},
         "strategy": "probe", "team_rank": list(reversed(ids)),
         "vote_threshold": 0.9, "approve_last": True, "mission": "FAIL",
-        "social": {"card": "BAIT", "target": "P1", "reason": "test_reaction"},
+        "social": {"card": "BAIT", "target": "P1", "reason": "test_reaction",
+                   "statement": "我想听听 P1 的组队建议。", "rationale": "先试探，不把猜测当结论。", "evidence": []},
         "assassin_rank": ids,
     }
 

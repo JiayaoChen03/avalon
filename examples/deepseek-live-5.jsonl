@@ -1,89 +1,56 @@
 {"seq": 1, "kind": "START", "round": 1, "attempt": 1, "players": [{"id": "P1", "name": "YOU"}, {"id": "P2", "name": "NOVA"}, {"id": "P3", "name": "ATLAS"}, {"id": "P4", "name": "ECHO"}, {"id": "P5", "name": "SAGE"}]}
 {"seq": 2, "kind": "LEADER", "round": 1, "attempt": 1, "actor": "P3", "reason": "random_draw"}
-{"seq": 3, "kind": "ROUND", "round": 1, "attempt": 1, "leader": "P3", "team_size": 2, "successes": 0, "failures": 0}
-{"seq": 4, "kind": "TEAM", "round": 1, "attempt": 1, "actor": "P3", "team": ["P3", "P1"]}
-{"seq": 5, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P3", "card": "HEDGE", "target": "P1", "reason": "observe"}
-{"seq": 6, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P1", "reason": "observe"}
-{"seq": 7, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P5", "card": "HEDGE", "target": "P3", "reason": "observe"}
+{"seq": 3, "kind": "DIRECTION", "round": 1, "attempt": 1, "direction": "counterclockwise", "order": ["P3", "P2", "P1", "P5", "P4"]}
+{"seq": 4, "kind": "ROUND", "round": 1, "attempt": 1, "leader": "P3", "team_size": 2, "successes": 0, "failures": 0}
+{"seq": 5, "kind": "TEAM", "round": 1, "attempt": 1, "actor": "P3", "team": ["P3", "P1"], "speaking_order": ["P3", "P2", "P1", "P5", "P4"]}
+{"seq": 6, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P3", "card": "HEDGE", "target": "P1", "reason": "strategy", "statement": "作为首轮队长，我会先提出一个试探性方案，希望大家谈谈看法。", "rationale": "目前没有太多信息，我想听听大家对两人队伍构成的看法，尤其是对我和P1同行的意见。", "evidence": []}
+{"seq": 7, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P3", "reason": "strategy", "statement": "目前信息还不多，我倾向于观察。队长P3提出的两人队伍值得听听大家的意见，我暂时不表态。", "rationale": "首轮没有太多依据，我希望能先看到更多人对这个队伍构成的反应，再决定自己的立场。", "evidence": [6]}
 {"seq": 8, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
-{"seq": 9, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P1", "reason": "observe"}
-{"seq": 10, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
-{"seq": 11, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
-{"seq": 12, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
-{"seq": 13, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P4", "approve": false, "reason": "team_risk"}
-{"seq": 14, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
-{"seq": 15, "kind": "TEAM_VOTE", "round": 1, "attempt": 1, "team": ["P3", "P1"], "votes": {"P1": true, "P2": false, "P3": true, "P4": false, "P5": true}, "approved": true}
-{"seq": 16, "kind": "MISSION_SUBMIT", "round": 1, "attempt": 1, "actor": "P3"}
-{"seq": 17, "kind": "MISSION_SUBMIT", "round": 1, "attempt": 1, "actor": "P1"}
-{"seq": 18, "kind": "MISSION", "round": 1, "attempt": 1, "team": ["P3", "P1"], "success": true, "fail_count": 0, "successes": 1, "failures": 0}
-{"seq": 19, "kind": "ROUND", "round": 2, "attempt": 1, "leader": "P4", "team_size": 3, "successes": 1, "failures": 0}
-{"seq": 20, "kind": "TEAM", "round": 2, "attempt": 1, "actor": "P4", "team": ["P2", "P1", "P4"]}
-{"seq": 21, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P3", "reason": "team_risk"}
-{"seq": 22, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P5", "card": "HEDGE", "target": "P4", "reason": "observe"}
-{"seq": 23, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
-{"seq": 24, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P2", "card": "PRESSURE", "target": "P3", "reason": "test_reaction"}
-{"seq": 25, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P3", "card": "PRESSURE", "target": "P2", "reason": "test_reaction"}
-{"seq": 26, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
-{"seq": 27, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P2", "approve": true, "reason": "team_risk"}
-{"seq": 28, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
-{"seq": 29, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
-{"seq": 30, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
-{"seq": 31, "kind": "TEAM_VOTE", "round": 2, "attempt": 1, "team": ["P2", "P1", "P4"], "votes": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true}, "approved": true}
-{"seq": 32, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P2"}
+{"seq": 9, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P5", "card": "PRESSURE", "target": "P3", "reason": "test_reaction", "statement": "P3，你首轮就拉上P1组队，是觉得P1最可信，还是想试探我的反应？", "rationale": "我想看看P3会如何回应这个带队选择，尤其是他对P1的信任依据，以便判断他是否有隐藏动机。", "evidence": [5, 6]}
+{"seq": 10, "kind": "SOCIAL", "round": 1, "attempt": 1, "actor": "P4", "card": "PRESSURE", "target": "P5", "reason": "test_reaction", "statement": "P5，你对P3的质疑有点意思，但你自己又提了什么方案吗？还是只想挑刺？", "rationale": "P5对队长的压力测试看起来像是在转移注意力。我想反过来试探他，看看他能否给出清晰立场，还是只是搅局。", "evidence": [9]}
+{"seq": 11, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
+{"seq": 12, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
+{"seq": 13, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 14, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P4", "approve": false, "reason": "team_risk"}
+{"seq": 15, "kind": "VOTE", "round": 1, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 16, "kind": "TEAM_VOTE", "round": 1, "attempt": 1, "team": ["P3", "P1"], "votes": {"P1": true, "P2": false, "P3": true, "P4": false, "P5": true}, "approved": true}
+{"seq": 17, "kind": "MISSION_SUBMIT", "round": 1, "attempt": 1, "actor": "P3"}
+{"seq": 18, "kind": "MISSION_SUBMIT", "round": 1, "attempt": 1, "actor": "P1"}
+{"seq": 19, "kind": "MISSION", "round": 1, "attempt": 1, "team": ["P3", "P1"], "success": true, "fail_count": 0, "successes": 1, "failures": 0}
+{"seq": 20, "kind": "ROUND", "round": 2, "attempt": 1, "leader": "P4", "team_size": 3, "successes": 1, "failures": 0}
+{"seq": 21, "kind": "TEAM", "round": 2, "attempt": 1, "actor": "P4", "team": ["P1", "P5", "P3"], "speaking_order": ["P4", "P3", "P2", "P1", "P5"]}
+{"seq": 22, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P4", "card": "BAIT", "target": "P5", "reason": "test_reaction", "statement": "P5，既然你上轮对P3组队有质疑，现在我是队长，你希望看到什么样的三人队伍？", "rationale": "我想试探P5是否愿意具体表态，这样能判断他上轮的质疑是真心还是搅局，也能观察其他人的反应，为我的组队铺垫。", "evidence": [9, 10]}
+{"seq": 23, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P3", "card": "HEDGE", "target": "P4", "reason": "strategy", "statement": "作为队长P4提出的三人队伍包含了我，我先不急着表态。我想听听P1和P5对目前队伍构成的看法，以及他们是否愿意上这趟车。", "rationale": "现在信息还不充分，我需要观察P1和P5对P4组队的反应，尤其是他们是否会像上轮那样互相施压。上轮P3和P1的任务成功，目前这套阵容保留了成功组合，但新增的P4和P5都曾有质疑行为，值得谨慎观察。", "evidence": [5, 22]}
+{"seq": 24, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P2", "card": "PRESSURE", "target": "P4", "reason": "test_reaction", "statement": "P4，你组了P1、P5、P3，而上一轮成功的队伍是P3和P1。你加入P5是认为他比P2更可信，还是单纯想扩大不同声音？", "rationale": "我想听听P4对P5的信任依据。上一轮你投票反对P3和P1的队伍，现在又把他们两位放进来，这个转变可以试探你的真实考量。", "evidence": [5, 14, 21]}
+{"seq": 25, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
+{"seq": 26, "kind": "SOCIAL", "round": 2, "attempt": 1, "actor": "P5", "card": "PRESSURE", "target": "P4", "reason": "test_reaction", "statement": "P4，你上一轮投票反对P3+P1，这一轮却把他们两个都放进队伍，还拉上我，这个转变有点大。能说说你对P1和P3的信任判断吗？", "rationale": "我想用直接提问的方式测试P4的组队逻辑是否一致。作为队长，他在第14号投票事件中反对了最终成功的组合，现在却完全采用，这种反差值得警惕。我需要观察他如何解释，来判断他是否有隐藏动机。", "evidence": [14, 21, 22]}
+{"seq": 27, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
+{"seq": 28, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
+{"seq": 29, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 30, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P4", "approve": false, "reason": "team_risk"}
+{"seq": 31, "kind": "VOTE", "round": 2, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 32, "kind": "TEAM_VOTE", "round": 2, "attempt": 1, "team": ["P1", "P5", "P3"], "votes": {"P1": true, "P2": false, "P3": true, "P4": false, "P5": true}, "approved": true}
 {"seq": 33, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P1"}
-{"seq": 34, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P4"}
-{"seq": 35, "kind": "MISSION", "round": 2, "attempt": 1, "team": ["P2", "P1", "P4"], "success": false, "fail_count": 2, "successes": 1, "failures": 1}
-{"seq": 36, "kind": "ROUND", "round": 3, "attempt": 1, "leader": "P5", "team_size": 2, "successes": 1, "failures": 1}
-{"seq": 37, "kind": "TEAM", "round": 3, "attempt": 1, "actor": "P5", "team": ["P3", "P5"]}
-{"seq": 38, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P5", "card": "PRESSURE", "target": "P2", "reason": "test_reaction"}
-{"seq": 39, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
-{"seq": 40, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P3", "reason": "test_reaction"}
-{"seq": 41, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P3", "card": "PRESSURE", "target": "P2", "reason": "test_reaction"}
-{"seq": 42, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P5", "reason": "observe"}
-{"seq": 43, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
-{"seq": 44, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
-{"seq": 45, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
-{"seq": 46, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P4", "approve": false, "reason": "team_risk"}
-{"seq": 47, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
-{"seq": 48, "kind": "TEAM_VOTE", "round": 3, "attempt": 1, "team": ["P3", "P5"], "votes": {"P1": true, "P2": false, "P3": true, "P4": false, "P5": true}, "approved": true}
-{"seq": 49, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P3"}
-{"seq": 50, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P5"}
-{"seq": 51, "kind": "MISSION", "round": 3, "attempt": 1, "team": ["P3", "P5"], "success": true, "fail_count": 0, "successes": 2, "failures": 1}
-{"seq": 52, "kind": "ROUND", "round": 4, "attempt": 1, "leader": "P1", "team_size": 3, "successes": 2, "failures": 1}
-{"seq": 53, "kind": "TEAM", "round": 4, "attempt": 1, "actor": "P1", "team": ["P1", "P2", "P3"]}
-{"seq": 54, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
-{"seq": 55, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P3", "reason": "mission_record"}
-{"seq": 56, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P3", "card": "HEDGE", "target": "P2", "reason": "observe"}
-{"seq": 57, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P1", "reason": "observe"}
-{"seq": 58, "kind": "SOCIAL", "round": 4, "attempt": 1, "actor": "P5", "card": "PRESSURE", "target": "P4", "reason": "test_reaction"}
-{"seq": 59, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
-{"seq": 60, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P2", "approve": true, "reason": "team_risk"}
-{"seq": 61, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P3", "approve": false, "reason": "team_risk"}
-{"seq": 62, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P4", "approve": true, "reason": "team_risk"}
-{"seq": 63, "kind": "VOTE", "round": 4, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
-{"seq": 64, "kind": "TEAM_VOTE", "round": 4, "attempt": 1, "team": ["P1", "P2", "P3"], "votes": {"P1": true, "P2": true, "P3": false, "P4": true, "P5": true}, "approved": true}
-{"seq": 65, "kind": "MISSION_SUBMIT", "round": 4, "attempt": 1, "actor": "P1"}
-{"seq": 66, "kind": "MISSION_SUBMIT", "round": 4, "attempt": 1, "actor": "P2"}
-{"seq": 67, "kind": "MISSION_SUBMIT", "round": 4, "attempt": 1, "actor": "P3"}
-{"seq": 68, "kind": "MISSION", "round": 4, "attempt": 1, "team": ["P1", "P2", "P3"], "success": false, "fail_count": 1, "successes": 2, "failures": 2}
-{"seq": 69, "kind": "ROUND", "round": 5, "attempt": 1, "leader": "P2", "team_size": 3, "successes": 2, "failures": 2}
-{"seq": 70, "kind": "TEAM", "round": 5, "attempt": 1, "actor": "P2", "team": ["P1", "P3", "P5"]}
-{"seq": 71, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P3", "reason": "mission_record"}
-{"seq": 72, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P3", "card": "PRESSURE", "target": "P2", "reason": "test_reaction"}
-{"seq": 73, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P5", "reason": "strategy"}
-{"seq": 74, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P5", "card": "HEDGE", "target": "P3", "reason": "observe"}
-{"seq": 75, "kind": "SOCIAL", "round": 5, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
-{"seq": 76, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
-{"seq": 77, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
-{"seq": 78, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
-{"seq": 79, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P4", "approve": false, "reason": "team_risk"}
-{"seq": 80, "kind": "VOTE", "round": 5, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
-{"seq": 81, "kind": "TEAM_VOTE", "round": 5, "attempt": 1, "team": ["P1", "P3", "P5"], "votes": {"P1": true, "P2": false, "P3": true, "P4": false, "P5": true}, "approved": true}
-{"seq": 82, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P1"}
-{"seq": 83, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P3"}
-{"seq": 84, "kind": "MISSION_SUBMIT", "round": 5, "attempt": 1, "actor": "P5"}
-{"seq": 85, "kind": "MISSION", "round": 5, "attempt": 1, "team": ["P1", "P3", "P5"], "success": true, "fail_count": 0, "successes": 3, "failures": 2}
-{"seq": 86, "kind": "ASSASSINATION_PHASE", "round": 5, "attempt": 1}
-{"seq": 87, "kind": "ASSASSINATE", "round": 5, "attempt": 1, "actor": "P2", "target": "P3"}
-{"seq": 88, "kind": "RESULT", "round": 5, "attempt": 1, "winner": "GOOD", "reason": "merlin_survived"}
-{"seq": 89, "kind": "REVEAL", "round": 5, "attempt": 1, "roles": {"P1": "MERLIN", "P2": "ASSASSIN", "P3": "GOOD", "P4": "EVIL", "P5": "GOOD"}}
+{"seq": 34, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P5"}
+{"seq": 35, "kind": "MISSION_SUBMIT", "round": 2, "attempt": 1, "actor": "P3"}
+{"seq": 36, "kind": "MISSION", "round": 2, "attempt": 1, "team": ["P1", "P5", "P3"], "success": true, "fail_count": 0, "successes": 2, "failures": 0}
+{"seq": 37, "kind": "ROUND", "round": 3, "attempt": 1, "leader": "P5", "team_size": 2, "successes": 2, "failures": 0}
+{"seq": 38, "kind": "TEAM", "round": 3, "attempt": 1, "actor": "P5", "team": ["P1", "P3"], "speaking_order": ["P5", "P4", "P3", "P2", "P1"]}
+{"seq": 39, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P5", "card": "BAIT", "target": "P2", "reason": "test_reaction", "statement": "这轮只有两个名额，我会优先考虑前两轮成功队伍中的成员。P2，你连续两轮反对成功队伍，现在有什么想补充的吗？", "rationale": "两轮成功队伍都有P1和P3，P2始终投反对票，这个一致性值得试探。我想观察P2如何解释自己的反对，以及他是否会主动提出替代人选，来判断他是谨慎还是另有目的。", "evidence": [28, 32]}
+{"seq": 40, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P4", "card": "HEDGE", "target": "P3", "reason": "team_risk", "statement": "P5这次的两人队沿用了成功组合，但两人队容错很低，我们应该更谨慎。P3，你对只有你们两人的队伍有多大信心？", "rationale": "我想让P3公开表态对这个两人队的信心，同时观察其他人是否支持缩小团队规模。如果P3表现得犹豫，后续或许能推动换人，给反对者提供理由。", "evidence": [36, 38, 39]}
+{"seq": 41, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P3", "card": "BAIT", "target": "P2", "reason": "test_reaction", "statement": "P2，你连续反对前两轮成功队伍，现在只差一轮就能结束。如果你认为我和P1的组合有风险，那你的双人替代方案是什么？", "rationale": "我想让P2明确表态，看他是否会提出替代人选或继续模糊反对。如果他不给出具体方案，说明他可能在搅局。", "evidence": [28, 39]}
+{"seq": 42, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P2", "card": "HEDGE", "target": "P5", "reason": "strategy", "statement": "P5，你选了P1和P3，我连续反对过他们，但现在是第三轮，只差一次成功。我会认真考虑你的理由，目前还没有决定要不要支持。", "rationale": "我暂时不明确表态，先听听P5对P1和P3信任的具体依据，也观察其他人是否支持这个两人队。我之前的反对是基于团队风险，但此刻需要保持开放态度来避免被锁定为固定反对者。", "evidence": [36, 39, 40]}
+{"seq": 43, "kind": "SOCIAL", "round": 3, "attempt": 1, "actor": "P1", "card": "HEDGE", "target": "P2", "reason": "human_choice"}
+{"seq": 44, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P1", "approve": true, "reason": "human_choice"}
+{"seq": 45, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P2", "approve": false, "reason": "team_risk"}
+{"seq": 46, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P3", "approve": true, "reason": "team_risk"}
+{"seq": 47, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P4", "approve": false, "reason": "team_risk"}
+{"seq": 48, "kind": "VOTE", "round": 3, "attempt": 1, "actor": "P5", "approve": true, "reason": "team_risk"}
+{"seq": 49, "kind": "TEAM_VOTE", "round": 3, "attempt": 1, "team": ["P1", "P3"], "votes": {"P1": true, "P2": false, "P3": true, "P4": false, "P5": true}, "approved": true}
+{"seq": 50, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P1"}
+{"seq": 51, "kind": "MISSION_SUBMIT", "round": 3, "attempt": 1, "actor": "P3"}
+{"seq": 52, "kind": "MISSION", "round": 3, "attempt": 1, "team": ["P1", "P3"], "success": true, "fail_count": 0, "successes": 3, "failures": 0}
+{"seq": 53, "kind": "ASSASSINATION_PHASE", "round": 3, "attempt": 1}
+{"seq": 54, "kind": "ASSASSINATE", "round": 3, "attempt": 1, "actor": "P2", "target": "P5"}
+{"seq": 55, "kind": "RESULT", "round": 3, "attempt": 1, "winner": "GOOD", "reason": "merlin_survived"}
+{"seq": 56, "kind": "REVEAL", "round": 3, "attempt": 1, "roles": {"P1": "MERLIN", "P2": "ASSASSIN", "P3": "GOOD", "P4": "EVIL", "P5": "GOOD"}}
