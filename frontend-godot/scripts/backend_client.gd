@@ -17,6 +17,11 @@ func _ready() -> void:
     add_child(_http)
     _http.request_completed.connect(_on_request_completed)
 
+func _exit_tree() -> void:
+    if _backend_pid > 0:
+        OS.kill(_backend_pid)
+        _backend_pid = -1
+
 func launch_backend() -> void:
     if _backend_pid > 0:
         return
@@ -58,7 +63,7 @@ func _send(method: int, path: String, payload: Dictionary) -> void:
     var error := _http.request(BASE_URL + path, headers, method, body)
     if error != OK:
         _busy = false
-        response_received.emit({"ok": false, "error": "Could not contact local backend."})
+        response_received.emit({"ok": false, "error": "Could not contact local backend.", "path": _last_path})
 
 func _on_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
     _busy = false
@@ -68,9 +73,10 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
     var text := body.get_string_from_utf8()
     var parsed = JSON.parse_string(text)
     if typeof(parsed) != TYPE_DICTIONARY:
-        response_received.emit({"ok": false, "error": "Backend returned invalid JSON."})
+        response_received.emit({"ok": false, "error": "Backend returned invalid JSON.", "path": _last_path})
         return
     var data: Dictionary = parsed
+    data["path"] = _last_path
     if response_code < 200 or response_code >= 300:
         data["ok"] = false
     response_received.emit(data)
