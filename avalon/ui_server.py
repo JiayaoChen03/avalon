@@ -8,13 +8,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from threading import Lock
 from urllib.parse import urlparse
 
-from .ui_playable_session import PlayableUISession
+from .ui_resilient_session import ResilientUISession
 from .ui_session import UIError
 
 
 class SessionStore:
     def __init__(self):
-        self.session: PlayableUISession | None = None
+        self.session: ResilientUISession | None = None
         self.lock = Lock()
 
 
@@ -75,7 +75,7 @@ class Handler(BaseHTTPRequestHandler):
                         seed = None
                     elif type(seed) is not int:
                         raise UIError("Seed must be an integer or empty.")
-                    STORE.session = PlayableUISession(player_count=count, seed=seed, human_name=str(name))
+                    STORE.session = ResilientUISession(player_count=count, seed=seed, human_name=str(name))
                     self._json(200, STORE.session.state())
                     return
                 if path == "/action":
@@ -84,11 +84,19 @@ class Handler(BaseHTTPRequestHandler):
                     self._json(200, STORE.session.handle(payload))
                     return
         except UIError as exc:
-            self._json(400, {"ok": False, "error": str(exc)})
+            state = STORE.session.state() if STORE.session is not None else None
+            payload = {"ok": False, "error": str(exc)}
+            if state is not None:
+                payload["state"] = state
+            self._json(400, payload)
             return
         except Exception:
             # Never expose raw provider responses, API keys, stack traces, or hidden state to Godot.
-            self._json(500, {"ok": False, "error": "Backend error. Check the local Python console/log."})
+            state = STORE.session.state() if STORE.session is not None else None
+            payload = {"ok": False, "error": "Backend error. Check the local Python console/log."}
+            if state is not None:
+                payload["state"] = state
+            self._json(500, payload)
             return
         self._json(404, {"ok": False, "error": "Not found."})
 
