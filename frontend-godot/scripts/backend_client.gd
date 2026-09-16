@@ -20,7 +20,7 @@ func _ready() -> void:
 func launch_backend() -> void:
     if _backend_pid > 0:
         return
-    var launcher := ProjectSettings.globalize_path("res://../run_ui_backend.py")
+    var launcher := ProjectSettings.globalize_path("res://backend_launcher.py")
     for executable in ["python3", "python"]:
         var pid := OS.create_process(executable, PackedStringArray([launcher]))
         if pid > 0:
