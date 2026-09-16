@@ -14,6 +14,26 @@ class PerformanceValidationTests(unittest.TestCase):
                                     "statement": "我对 P4 的选队理由还保留判断。",
                                     "rationale": "现在公开证据不足，需要继续验证。", "evidence": []}}
 
+    def test_flat_social_response_restores_only_the_envelope(self):
+        flat = deepcopy(self.response["social"])
+        result = validate_performance(flat, self.ids, [], self.tactic)
+        self.assertEqual(result["social"], flat)
+        self.assertEqual(result["strategy"], self.tactic["strategy_mode"])
+        result["social"]["evidence"].append(1)
+        self.assertEqual(flat["evidence"], [])
+
+    def test_flat_response_still_enforces_tactics_evidence_and_privacy(self):
+        for field, value, error in (("target", "P1", ValueError), ("card", "ACCUSE", ValueError),
+                                    ("evidence", [99], ValueError), ("reason", "mission_record", ValueError),
+                                    ("rationale", "line\nbreak", ValueError),
+                                    ("statement", "我是刺客。", LLMError),
+                                    ("strategy", "PRIVATE_SENTINEL", ValueError)):
+            with self.subTest(field=field):
+                flat = deepcopy(self.response["social"])
+                flat[field] = value
+                with self.assertRaises(error):
+                    validate_performance(flat, self.ids, [], self.tactic)
+
     def test_private_keys_and_explicit_self_disclosures_are_rejected(self):
         for disclosure in ("evil_partner=P4", "likely_merlin=P2", "active_narratives=[]",
                            "aggressor_agent_id=P3", "我和 P4 都是坏人。", "我负责进攻，P4 负责潜伏。",

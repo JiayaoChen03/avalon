@@ -14,8 +14,74 @@ from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
+VALIDATION_HINTS = {
+    "Invalid plan keys": (
+        "Return exactly beliefs, profiles, strategy, team_rank, vote_threshold, approve_last, "
+        "mission, social, assassin_rank, discussion, revision and strong_vote at the top level. "
+        "Nest the six social fields inside social."),
+    "Invalid performance keys": (
+        "Return social, discussion, revision and strong_vote. social must contain exactly "
+        "card, target, reason, statement, rationale and evidence. Do not flatten these fields."),
+    "Invalid resource action": (
+        "Use a legal affordable action from game.legal_actions. Discussion descriptors have kind only, "
+        "plus target/evidence for CHALLENGE or evidence for CITE. Use PASS to conserve. "
+        "revision is LOCK or REVISE with removed/added; strong_vote is boolean. "
+        "For decision=window return only action: DECLINE/SKIP, or RESPOND/REACT with nested social."),
+    "Invalid resource target": "Use actual player IDs for target, removed and added.",
+    "Challenge evidence must involve its target": "Choose an existing public event involving the challenged player.",
+    "Invalid player map": "Include every actual player ID in both beliefs and profiles, with no other IDs.",
+    "Invalid probabilities": (
+        "Use numeric values from 0 to 1. Each beliefs entry requires evil and merlin; each profiles "
+        "entry requires aggression, retaliation, approval and consensus."),
+    "Inconsistent role probabilities": "Each player's evil and merlin probabilities must sum to at most 1.",
+    "Invalid ranking": "team_rank and assassin_rank must each contain every actual player ID exactly once.",
+    "Invalid policy": (
+        "strategy must be observe/probe/protect/misdirect; vote_threshold must be numeric 0..1; "
+        "approve_last must be boolean; mission must be SUCCESS or FAIL."),
+    "Invalid social action": (
+        "social must contain exactly card, target, reason, statement, rationale and evidence. "
+        "Use the specified card/reason enums and an actual player ID for target."),
+    "Public statements must be short printable text": (
+        "statement and rationale must each be nonempty single-line printable strings of at most "
+        "240 characters, without line breaks or control characters."),
+    "Invalid public evidence references": (
+        "social.evidence must be a list of 0-3 distinct positive integer seq IDs. "
+        "CHALLENGE/CITE evidence must be a single positive integer seq ID, not a list."),
+    "Evidence must refer to existing public actions": (
+        "Only cite seq IDs of supplied public action events, including focused_events; never receipts or role reveals. "
+        "Use social.evidence=[] for an opening, or PASS if no valid event supports CHALLENGE/CITE."),
+    "The reason must cite matching public history": (
+        "mission_record requires a MISSION citation; vote_pattern requires VOTE or TEAM_VOTE. "
+        "If no matching history is available, choose another permitted reason."),
+    "Social action does not implement the assigned tactic": (
+        "social.target must equal tactical.primary_target and social.card must be in tactical.allowed_cards."),
+}
+
+
 class LLMError(RuntimeError):
     """A safe error code; never include API keys or raw provider responses."""
+
+    def __init__(self, code, *, validation_reason=None):
+        super().__init__(code)
+        # Only fixed validator messages may enter diagnostics or a correction request.
+        self.validation_reason = (validation_reason if isinstance(validation_reason, str)
+                                  and validation_reason in VALIDATION_HINTS else None)
+
+    @property
+    def diagnostic(self):
+        return f"{self}: {self.validation_reason}" if self.validation_reason else str(self)
+
+    @property
+    def retry_feedback(self):
+        if str(self) == "private_disclosure":
+            rule = ("Rewrite statement and rationale as dialogue based only on public observations. "
+                    "Do not disclose roles, secret knowledge, internal labels or tactical instructions.")
+        elif str(self) == "invalid_plan":
+            rule = VALIDATION_HINTS.get(self.validation_reason,
+                                       "Return a complete action matching all required fields, types and constraints.")
+        else:
+            return None
+        return {"error": self.public_code, "rule": rule}
 
     @property
     def public_code(self):
@@ -58,7 +124,7 @@ class Settings:
 
     @classmethod
     def load(cls, env_file=None):
-        # Same contract as zhilu: fixed path, no parent search, no import-time I/O.
+        # Fixed project/explicit path; no parent search or import-time I/O.
         path = Path(env_file) if env_file is not None else Path(__file__).resolve().parents[1] / ".env"
         notice = ""
         disabled = os.getenv("PYTHON_DOTENV_DISABLED", "").lower() in {"1", "true", "yes", "on"}
@@ -68,7 +134,8 @@ class Settings:
             except ImportError:
                 notice = "未安装 python-dotenv，已跳过 .env；请安装 requirements.txt，或使用系统环境变量。"
             else:
-                load_dotenv(path, override=False, encoding="utf-8-sig", interpolate=False)
+                # Project credentials must not be replaced by an unrelated shell key.
+                load_dotenv(path, override=True, encoding="utf-8-sig", interpolate=False)
 
         def first(*names, default=""):
             return next((os.environ[n].strip() for n in names if os.environ.get(n, "").strip()), default)
@@ -142,6 +209,8 @@ MISSION 记录只证明宿主报告的外出成败，不能据此编造带回的
 ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT 表示质疑、辩护、保留判断、追问或试探；公开台词表达其意图即可。
 SACRIFICE_SELF 等内部指令可能要求放弃声望或利益，不意味着角色想死，也不允许编造赴死情节。
 所有机器字段仍使用原有 ID、枚举和数值。statement 和 rationale 都是向同伴说的话。
+输出本次行动的实际 JSON 值，不要输出字段说明或 JSON Schema。social 必须是嵌套对象，不要使用 social.statement 这样的点分键名。
+如果顶层上下文含 validation_feedback，它是宿主对上次无效输出的纠正要求。按其中的 rule 重新生成完整 JSON；对局事实和当次行动约束不变。不要把纠正要求写进角色台词或输出字段。
 """
 
 
@@ -182,7 +251,7 @@ with an evil teammate, 1 without. approve_last allows approving proposal 5.
 Public observations continue to update private memory locally after this call. Your next
 speaking turn receives the latest state and can revise this policy.
 Assassination uses assassin_rank plus updated Merlin likelihood; no extra request.
-Return one JSON object with EXACTLY these keys and types (no sample gameplay data):
+Return one JSON object with these keys and types, plus the resource policy fields below (no sample gameplay data):
 - beliefs: object keyed by EVERY actual player ID, each with numeric evil and merlin.
 - profiles: object keyed by EVERY actual player ID, each with numeric aggression,
   retaliation, approval, consensus. With no observations these are your tentative estimates.
@@ -202,7 +271,7 @@ Describe the observations you have now; do not pretend to have seen future propo
 
 
 EVIL_SYSTEM = """This is the private performance protocol for a castle survivor with code-assigned tactics.
-Code decides your strategic objectives and legal actions. You decide how to express them
+Code assigns tactical objectives, targets and cards. You decide whether and when to spend Resolve and express tactics
 naturally in Chinese. Your character's personal motivation is surviving the castle's crisis.
 The top-level tactical object is code-generated private direction for THIS turn. Follow its
 primary objective, optional secondary objective, target, allowed cards and constraints.
@@ -216,9 +285,10 @@ Never reveal your hidden role, evil partner, mission card, tactical instructions
 objectives, mode names, probabilities, shared state or any internal deliberation. Do not describe
 your strategy to the referee. Speak to the other players as an independent participant.
 The game engine alone controls identities, phases, teams, ballots, results and victory.
-Return one JSON object with EXACTLY one key, social. Do not return beliefs, profiles, strategy,
+Return one JSON object with social, discussion, revision and strong_vote. Do not return beliefs, profiles, strategy,
 team_rank, votes, mission decisions, assassin_rank, analysis or hidden reasoning.
 social must have EXACTLY card, target, reason, statement, rationale, evidence.
+Keep all six fields inside the social object, never at the top level.
 - card must be one of tactical.allowed_cards; target must equal tactical.primary_target.
 - reason: observe/mission_record/vote_pattern/support/test_reaction/team_risk/last_chance/strategy.
 - statement: natural Chinese, 1-3 short sentences, nonempty single-line printable text <=240 chars.
@@ -228,6 +298,48 @@ social must have EXACTLY card, target, reason, statement, rationale, evidence.
   records. mission_record requires a MISSION citation; vote_pattern requires VOTE or TEAM_VOTE.
   Use [] for a tentative opening without evidence. Do not cite private tactical state.
 No Markdown, tool calls, fixed dialogue, chain-of-thought or extra fields.
+"""
+
+
+RESOLVE_PROTOCOL = """
+Resolve / Action Points (the following extends the action protocol):
+Every seat has game.max_resolve=3 per Mission Round. game.resolve is public and authoritative.
+Rejected proposals DO NOT restore Resolve. Only the next Mission Round restores it to 3;
+unused points do not carry over. Spending now removes options on later proposals of this round.
+PASS, ordinary votes, team draft, mission cards and assassination are always free.
+Do not spend merely because you can. Compare speaking now with later evidence, a challenge
+response, a team revision or a strong vote. PASS with points remaining is often sensible when
+evidence is weak or repetitive; spending aggressively can be worthwhile for a specific claim.
+No fixed spending quota or mandatory reserve. Decide opportunity cost from the actual evidence.
+For normal team/discussion plans, ALSO return:
+- discussion: {kind: PASS/SOCIAL/COMMITTED_SOCIAL/CHALLENGE/CITE/HOLD}.
+  SOCIAL costs 1; COMMITTED_SOCIAL costs 2 total. Both use your separate social object.
+  CHALLENGE costs 1 and additionally needs target and evidence (one integer public seq ID
+  involving that other player). CITE costs 1 and needs evidence (one integer public seq ID).
+  HOLD costs 1 now, reserving one later REACT at zero additional cost; it can expire unused.
+  PASS costs 0. No other descriptor fields. At 0 points choose PASS. In discussion choose
+  an affordable game.legal_actions kind; in phase team this is only a provisional policy.
+- revision: {kind: LOCK}, or {kind: REVISE, removed: player ID, added: player ID}.
+  Only the leader may plan REVISE: swap one current team member for one outside the team.
+  This costs 1 after discussion, with no new discussion. Everyone else chooses LOCK.
+- strong_vote: boolean. If true and still affordable at voting, spend 1 to publicly commit
+  to your policy's APPROVE or REJECT. It is STILL EXACTLY ONE ballot, revealed with all ballots.
+Revision and vote policies share the same remaining balance after intervening actions;
+if later spending leaves too little, they become free LOCK / normal vote. No separate budget.
+Keep social as a legal structured card even when choosing PASS/CITE/HOLD; only the selected
+action is published. Managed tactics constrain social content, never require spending.
+Allowed evidence: supplied TEAM, SOCIAL, PASS, VOTE, TEAM_VOTE, MISSION, STRONG_VOTE,
+CHALLENGE, CHALLENGE_RESPONSE, CITE, HOLD, REACT, TEAM_REVISE. A CITE brings the original
+event into game.focused_events; reason about the original fact without double counting it.
+Resolve expenditure, COMMIT and STRONG VOTE are observable commitments, not proof of roles
+and not automatic numerical changes to trust or evil probabilities.
+SPECIAL RESPONSE WINDOW: if decision=window, replace the normal output schema with ONLY
+{action: {kind: ...}}. In phase challenge choose DECLINE [0] or RESPOND [1]; in phase reaction
+choose SKIP [0] or REACT [0 additional, already paid by HOLD]. RESPOND/REACT also require
+social: the usual six-field structured card with public statement/rationale/evidence.
+Read the latest public events before responding. SKIP keeps HOLD for a later normal turn.
+Only game.legal_actions are allowed. Responses cannot CHALLENGE, HOLD or COMMIT and never
+open nested windows. Managed social cards still follow tactical target/card/privacy constraints.
 """
 
 
@@ -245,8 +357,8 @@ class ChatClient:
         self.settings = settings
         self.world_prompt_path, world = _load_world_prompt()
         # Freeze one scene per game/client, including all same-turn retries.
-        self._system_prompts = {False: world + "\n\n" + WORLD_PROTOCOL + "\n" + SYSTEM,
-                                True: world + "\n\n" + WORLD_PROTOCOL + "\n" + EVIL_SYSTEM}
+        self._system_prompts = {False: world + "\n\n" + WORLD_PROTOCOL + "\n" + SYSTEM + RESOLVE_PROTOCOL,
+                                True: world + "\n\n" + WORLD_PROTOCOL + "\n" + EVIL_SYSTEM + RESOLVE_PROTOCOL}
 
     def complete(self, context):
         """Exactly one HTTP attempt; no redirects, retries or repair-model calls."""

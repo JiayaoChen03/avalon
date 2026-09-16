@@ -7,6 +7,17 @@ import random
 
 
 CARDS = ("ACCUSE", "DEFEND", "HEDGE", "PRESSURE", "BAIT")
+MAX_RESOLVE = 3
+RESOLVE_COSTS = {
+    "PASS": 0, "SOCIAL": 1, "COMMITTED_SOCIAL": 2, "CHALLENGE": 1,
+    "RESPOND": 1, "DECLINE": 0, "CITE": 1, "HOLD": 1, "REACT": 0,
+    "SKIP": 0, "LOCK": 0, "REVISE": 1, "VOTE": 0, "STRONG_VOTE": 1,
+}
+SOCIAL_EVENTS = {"SOCIAL", "REACT", "CHALLENGE_RESPONSE"}
+EVIDENCE_KINDS = {"TEAM", "SOCIAL", "PASS", "VOTE", "TEAM_VOTE", "MISSION",
+                  "STRONG_VOTE", "CHALLENGE", "CHALLENGE_RESPONSE", "CITE",
+                  "HOLD", "REACT", "TEAM_REVISE"}
+DISCUSSION_ACTIONS = ("PASS", "SOCIAL", "COMMITTED_SOCIAL", "CHALLENGE", "CITE", "HOLD")
 EVIL_ROLES = {"ASSASSIN", "EVIL"}
 TEAM_SIZES = {5: (2, 3, 2, 3, 3), 6: (2, 3, 4, 3, 4)}
 DIRECTIONS = ("clockwise", "counterclockwise")
@@ -30,6 +41,49 @@ class Player:
     role: str
 
 
+@dataclass(frozen=True)
+class ChallengeWindow:
+    actor: str
+    target: str
+    evidence: int
+    seq: int
+
+
+def public_evidence(events, seq, target=None):
+    """Only actual public actions qualify; receipts and role reveals never do."""
+    if type(seq) is not int or seq < 1:
+        raise ValueError("Invalid public evidence references")
+    event = next((e for e in events if e["seq"] == seq and e["kind"] in EVIDENCE_KINDS), None)
+    if event is None:
+        raise ValueError("Evidence must refer to existing public actions")
+    if target is not None and not (target in (event.get("actor"), event.get("target"),
+                                              event.get("removed"), event.get("added"))
+                                   or target in event.get("team", []) or target in event.get("votes", {})):
+        raise ValueError("Challenge evidence must involve its target")
+    return event
+
+
+def validate_action(action, ids, events, *, require_statement=False):
+    """Shared action grammar; Game separately enforces turn permission and payment."""
+    if not isinstance(action, dict) or not isinstance(action.get("kind"), str):
+        raise ValueError("Invalid resource action")
+    kind = action["kind"]
+    fields = {"SOCIAL": {"social"}, "COMMITTED_SOCIAL": {"social"},
+              "RESPOND": {"social"}, "REACT": {"social"},
+              "CHALLENGE": {"target", "evidence"}, "CITE": {"evidence"},
+              "REVISE": {"removed", "added"}}
+    if kind not in RESOLVE_COSTS or kind in {"VOTE", "STRONG_VOTE"} or set(action) != {"kind"} | fields.get(kind, set()):
+        raise ValueError("Invalid resource action")
+    if "social" in action:
+        validate_social(action["social"], ids, events, require_statement=require_statement)
+    for field in ("target", "removed", "added"):
+        if field in action and (not isinstance(action[field], str) or action[field] not in ids):
+            raise ValueError("Invalid resource target")
+    if kind in {"CITE", "CHALLENGE"}:
+        public_evidence(events, action["evidence"], action.get("target"))
+    return RESOLVE_COSTS[kind]
+
+
 def validate_social(action, ids, events=None, require_statement=False):
     basic = {"card", "target", "reason"}
     extended = basic | {"statement", "rationale", "evidence"}
@@ -50,10 +104,10 @@ def validate_social(action, ids, events=None, require_statement=False):
             or len(set(refs)) != len(refs)):
         raise ValueError("Invalid public evidence references")
     if events is not None:
-        public = {e["seq"]: e for e in events if e["kind"] in {"TEAM", "SOCIAL", "VOTE", "TEAM_VOTE", "MISSION"}}
+        public = {e["seq"]: e for e in events if e["kind"] in EVIDENCE_KINDS}
         if not set(refs) <= public.keys():
             raise ValueError("Evidence must refer to existing public actions")
-        needed = {"mission_record": {"MISSION"}, "vote_pattern": {"VOTE", "TEAM_VOTE"}}.get(action["reason"])
+        needed = {"mission_record": {"MISSION"}, "vote_pattern": {"VOTE", "TEAM_VOTE", "STRONG_VOTE"}}.get(action["reason"])
         if needed and not any(public[n]["kind"] in needed for n in refs):
             raise ValueError("The reason must cite matching public history")
 
@@ -92,6 +146,12 @@ class Game:
         self.phase = "team"
         self.team = []
         self.spoken = set()
+        self.resolve = dict.fromkeys(self.ids, MAX_RESOLVE)
+        self.pending_reactions = set()
+        self.reaction_queue = []
+        self.reaction_trigger = None
+        self.challenge_window = None
+        self.focused_evidence = []
         self.winner = None
         self.events = []
         self.missions = []
@@ -99,6 +159,7 @@ class Game:
         self._emit("LEADER", actor=self.leader, reason="random_draw")
         self._emit("DIRECTION", direction=self.direction, order=self.speaking_order)
         self._round_event()
+        self._refresh_resolve()
 
     @property
     def leader(self):
@@ -131,6 +192,47 @@ class Game:
     def _rotate(self):
         self.leader_index = (self.leader_index + 1) % len(self.ids)
 
+    def _can_spend(self, actor, amount):
+        if not isinstance(actor, str) or actor not in self.players:
+            raise ValueError("Invalid Resolve owner")
+        if type(amount) is not int or amount < 0:
+            raise ValueError("Resolve costs must be nonnegative integers")
+        if type(self.resolve[actor]) is not int or not 0 <= self.resolve[actor] <= MAX_RESOLVE:
+            raise ValueError("Invalid Resolve balance")
+        return self.resolve[actor] >= amount
+
+    def _spend_resolve(self, actor, amount):
+        if not self._can_spend(actor, amount):
+            raise ValueError("Insufficient Resolve")
+        self.resolve[actor] -= amount
+        return {"resolve_cost": amount, "resolve_after": self.resolve[actor]}
+
+    def _refresh_resolve(self):
+        self.resolve = dict.fromkeys(self.ids, MAX_RESOLVE)
+        self._emit("RESOLVE_REFRESH", resolve=self.resolve, max_resolve=MAX_RESOLVE)
+
+    @property
+    def next_actor(self):
+        if self.phase == "discussion":
+            return self.speaking_order[len(self.spoken)]
+        if self.phase == "challenge":
+            return self.challenge_window.target
+        if self.phase == "reaction":
+            return self.reaction_queue[0]
+        if self.phase in {"team", "revision"}:
+            return self.leader
+        return None
+
+    def legal_actions(self, actor):
+        if self.phase == "vote":
+            kinds = ("VOTE", "STRONG_VOTE")
+        elif actor != self.next_actor:
+            return []
+        else:
+            kinds = {"discussion": DISCUSSION_ACTIONS, "challenge": ("DECLINE", "RESPOND"),
+                     "reaction": ("SKIP", "REACT"), "revision": ("LOCK", "REVISE")}.get(self.phase, ())
+        return [kind for kind in kinds if self._can_spend(actor, RESOLVE_COSTS[kind])]
+
     def propose(self, actor, team):
         self._require("team")
         if actor != self.leader:
@@ -141,32 +243,106 @@ class Game:
             raise ValueError(f"Choose {self.team_size} distinct valid players.")
         self.team = list(team)
         self.spoken.clear()
+        self.pending_reactions.clear()
+        self.reaction_queue.clear()
+        self.reaction_trigger = None
+        self.challenge_window = None
+        self.focused_evidence.clear()
         self.phase = "discussion"
         self._emit("TEAM", actor=actor, team=team, speaking_order=self.speaking_order)
 
-    def social(self, actor, action):
-        self._require("discussion")
-        if actor not in self.players or actor in self.spoken:
-            raise ValueError("Each player may play one social card per proposal.")
-        if actor != self.speaking_order[len(self.spoken)]:
-            raise ValueError("Wait for this player's speaking turn.")
-        validate_social(action, self.ids, self.events)
-        self.spoken.add(actor)
-        self._emit("SOCIAL", actor=actor, **action)
+    def social(self, actor, action, *, committed=False):
+        if type(committed) is not bool:
+            raise ValueError("Commitment must be boolean")
+        self.act(actor, {"kind": "COMMITTED_SOCIAL" if committed else "SOCIAL", "social": action})
 
-    def vote(self, votes, reasons=None):
-        self._require("discussion")
-        if self.spoken != set(self.ids):
-            raise ValueError("Every player must play a social card before voting.")
+    def act(self, actor, action):
+        """One atomic public action. No controller can bypass the proposal lifecycle."""
+        cost = validate_action(action, self.ids, self.events)
+        kind = action["kind"]
+        if kind not in self.legal_actions(actor):
+            raise ValueError("Action is not legal for this turn or Resolve balance")
+        if kind == "CHALLENGE" and action["target"] == actor:
+            raise ValueError("A challenge must target another player")
+        if kind == "REVISE" and (action["removed"] not in self.team or action["added"] in self.team):
+            raise ValueError("Revision must replace exactly one team member")
+        payment = self._spend_resolve(actor, cost)
+        if self.phase == "discussion":
+            self.spoken.add(actor)
+            if kind in {"SOCIAL", "COMMITTED_SOCIAL"}:
+                self._emit("SOCIAL", actor=actor, committed=kind == "COMMITTED_SOCIAL",
+                           **action["social"], **payment)
+            else:
+                self._emit(kind, actor=actor, **{k: v for k, v in action.items() if k != "kind"}, **payment)
+            trigger = self.events[-1]["seq"]
+            if kind == "HOLD":
+                self.pending_reactions.add(actor)
+            if kind == "CITE":
+                self.focused_evidence.append(action["evidence"])
+            # Only a normal turn opens windows. Responses/reactions never recurse.
+            self.reaction_trigger = trigger
+            self.reaction_queue = [p for p in self.speaking_order if p in self.pending_reactions and p != actor]
+            if kind == "CHALLENGE":
+                self.challenge_window = ChallengeWindow(actor, action["target"], action["evidence"], trigger)
+                self.phase = "challenge"
+            else:
+                self._continue_discussion()
+        elif self.phase == "challenge":
+            window = self.challenge_window
+            self._emit("CHALLENGE_RESPONSE", actor=actor, challenger=window.actor, challenge=window.seq,
+                       declined=kind == "DECLINE", **action.get("social", {}), **payment)
+            self.challenge_window = None
+            self._continue_discussion()
+        elif self.phase == "reaction":
+            self.reaction_queue.pop(0)
+            if kind == "REACT":
+                self.pending_reactions.remove(actor)
+            self._emit("REACT" if kind == "REACT" else "REACTION_SKIP", actor=actor,
+                       trigger=self.reaction_trigger, **action.get("social", {}), **payment)
+            self._continue_discussion()
+        elif self.phase == "revision":
+            if kind == "REVISE":
+                self.team = [action["added"] if p == action["removed"] else p for p in self.team]
+                self._emit("TEAM_REVISE", actor=actor, removed=action["removed"], added=action["added"],
+                           team=self.team, **payment)
+            else:
+                self._emit("TEAM_LOCK", actor=actor, team=self.team, **payment)
+            self.phase = "vote"
+
+    def _continue_discussion(self):
+        if self.reaction_queue:
+            self.phase = "reaction"
+        elif len(self.spoken) < len(self.ids):
+            self.reaction_trigger = None
+            self.phase = "discussion"
+        else:
+            self._emit("DISCUSSION_END", expired_reactions=[p for p in self.speaking_order if p in self.pending_reactions])
+            self.pending_reactions.clear()
+            self.reaction_trigger = None
+            self.phase = "revision"
+
+    def vote(self, votes, reasons=None, *, strong=None):
+        self._require("vote")
+        if not isinstance(votes, dict):
+            raise ValueError("Every player must submit one boolean vote.")
         if set(votes) != set(self.ids) or any(type(v) is not bool for v in votes.values()):
             raise ValueError("Every player must submit one boolean vote.")
-        reasons = reasons or {p: "team_risk" for p in self.ids}
-        if set(reasons) != set(self.ids) or any(r not in REASONS for r in reasons.values()):
+        reasons = {p: "team_risk" for p in self.ids} if reasons is None else reasons
+        if (not isinstance(reasons, dict) or set(reasons) != set(self.ids)
+                or any(not isinstance(r, str) or r not in REASONS for r in reasons.values())):
             raise ValueError("Invalid vote reason codes.")
+        strong = dict.fromkeys(self.ids, False) if strong is None else strong
+        if (not isinstance(strong, dict) or set(strong) != set(self.ids)
+                or any(type(v) is not bool for v in strong.values())):
+            raise ValueError("Every ballot needs a boolean strong modifier")
+        costs = {p: RESOLVE_COSTS["STRONG_VOTE" if strong[p] else "VOTE"] for p in self.ids}
+        if not all(self._can_spend(p, costs[p]) for p in self.ids):
+            raise ValueError("Insufficient Resolve for Strong Vote")
         # All ballots are received before any are made public.
         approved = sum(votes.values()) > len(self.ids) / 2
         for pid in self.ids:
-            self._emit("VOTE", actor=pid, approve=votes[pid], reason=reasons[pid])
+            self._emit("VOTE", actor=pid, approve=votes[pid], reason=reasons[pid], strong=strong[pid],
+                       **self._spend_resolve(pid, costs[pid]))
         self._emit("TEAM_VOTE", team=self.team, votes=votes, approved=approved)
         if approved:
             self.phase = "mission"
@@ -209,6 +385,7 @@ class Game:
             self.team = []
             self.phase = "team"
             self._round_event()
+            self._refresh_resolve()
 
     def assassinate(self, actor, target):
         self._require("assassination")
@@ -230,6 +407,11 @@ class Game:
         """A fresh, bounded view: only this seat's role-authorized information."""
         player = self.players[pid]
         knows_evil = player.role == "MERLIN" or player.role in EVIL_ROLES
+        focused = set(self.focused_evidence)
+        if self.challenge_window:
+            focused.add(self.challenge_window.evidence)
+        if self.reaction_trigger:
+            focused.add(self.reaction_trigger)
         return deepcopy({
             "self": pid, "role": player.role,
             "known_evil": [p.id for p in self.players.values() if p.role in EVIL_ROLES]
@@ -239,4 +421,11 @@ class Game:
             "speaking_direction": self.direction, "speaking_order": self.speaking_order,
             "phase": self.phase, "successes": self.successes, "failures": self.failures,
             "missions": self.missions, "recent_events": self.events[-20:],
+            "resolve": self.resolve, "max_resolve": MAX_RESOLVE, "resolve_costs": RESOLVE_COSTS,
+            "next_actor": self.next_actor, "legal_actions": self.legal_actions(pid),
+            "pending_reactions": [p for p in self.speaking_order if p in self.pending_reactions],
+            "reaction_queue": self.reaction_queue, "reaction_trigger": self.reaction_trigger,
+            "challenge": vars(self.challenge_window) if self.challenge_window else None,
+            "discussion_status": {p: "completed" if p in self.spoken else "waiting" for p in self.ids},
+            "focused_events": [e for e in self.events if e["seq"] in focused],
         })

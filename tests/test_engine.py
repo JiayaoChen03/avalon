@@ -14,7 +14,11 @@ def fixed_game(count=5):
 
 def discuss(game):
     for pid in game.speaking_order:
-        game.social(pid, {"card": "HEDGE", "target": "P1", "reason": "observe"})
+        if game.resolve[pid]:
+            game.social(pid, {"card": "HEDGE", "target": "P1", "reason": "observe"})
+        else:
+            game.act(pid, {"kind": "PASS"})
+    game.act(game.leader, {"kind": "LOCK"})
 
 
 def approve(game, team):
@@ -45,7 +49,7 @@ class RuleTests(unittest.TestCase):
 
     def test_opening_draw_precedes_round_and_later_leaders_rotate(self):
         game = Game(make_players(5, 12), seed=7)
-        self.assertEqual([e["kind"] for e in game.events], ["START", "LEADER", "DIRECTION", "ROUND"])
+        self.assertEqual([e["kind"] for e in game.events], ["START", "LEADER", "DIRECTION", "ROUND", "RESOLVE_REFRESH"])
         self.assertEqual(game.events[1]["actor"], "P1")
         self.assertEqual(game.events[3]["leader"], "P1")
         game.propose("P1", ["P1", "P2"])
@@ -95,7 +99,7 @@ class RuleTests(unittest.TestCase):
         for votes in ({"P1": True}, {p: "approve" for p in game.ids}):
             with self.assertRaises(ValueError):
                 game.vote(votes)
-        self.assertEqual(game.phase, "discussion")
+        self.assertEqual(game.phase, "vote")
 
     def test_tie_rejects_and_leader_rotates(self):
         game = fixed_game(6)

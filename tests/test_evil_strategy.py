@@ -46,11 +46,15 @@ class EvilStrategyTests(unittest.TestCase):
         game.propose(game.leader, team)
         for pid in game.speaking_order:
             card, target = actions[pid]
-            game.social(pid, {"card": card, "target": target, "reason": "observe"})
+            if game.resolve[pid]:
+                game.social(pid, {"card": card, "target": target, "reason": "observe"})
+            else:
+                game.act(pid, {"kind": "PASS"})
         for event in game.events:
             manager.observe(event)
 
     def observed_vote(self, game, manager, votes):
+        game.act(game.leader, {"kind": "LOCK"})
         game.vote(votes)
         for event in game.events:
             manager.observe(event)
@@ -477,6 +481,7 @@ class EvilStrategyTests(unittest.TestCase):
                 action = {"card": "HEDGE", "target": "P2", "reason": "observe"}
             game.social(pid, action)
             manager.observe(game.events[-1])
+        game.act(game.leader, {"kind": "LOCK"})
         game.vote({p: False for p in game.ids})
         for event in game.events:
             manager.observe(event)
@@ -581,7 +586,8 @@ class EvilStrategyTests(unittest.TestCase):
         self.assertEqual(decision.agent_id, "P3")
         self.assertEqual(decision.primary_objective, context.primary_objective)
         self.assertEqual(decision.action, {"kind": "social", "seq": event["seq"],
-            "card": action["card"], "target": action["target"], "reason": "observe", "evidence": [team_seq]})
+            "card": action["card"], "target": action["target"], "reason": "observe", "evidence": [team_seq],
+            "committed": False, "resolve_cost": 1, "resolve_after": 2})
         manager.observe(deepcopy(event))
         manager.tactical_context(game.view("P3"))
         self.assertEqual(len(manager.decisions), 1)
@@ -619,11 +625,17 @@ class EvilStrategyTests(unittest.TestCase):
         actions = {"P1": ("ACCUSE", "P3"), "P2": ("ACCUSE", "P3"),
                    "P3": ("HEDGE", "P1"), "P4": ("HEDGE", "P2"), "P5": ("DEFEND", "P4")}
         for attempt in range(1, 5):
-            self.observed_discussion(game, manager, ["P1", "P2"], actions)
-            if attempt < 4:
+            self.observed_discussion(game, manager, ["P1", "P2", "P5"][:game.team_size], actions)
+            if attempt < 3:
                 self.observed_vote(game, manager, {p: False for p in game.ids})
+            elif attempt == 3:
+                # Further paid accusations need the next Mission Round's refresh.
+                self.observed_vote(game, manager, dict.fromkeys(game.ids, True))
+                game.resolve_mission(dict.fromkeys(game.team, "SUCCESS"))
+                for event in game.events:
+                    manager.observe(event)
         context = manager.tactical_context(game.view("P3"), phase="vote")
-        self.assertEqual(game.attempt, 4)
+        self.assertEqual((game.round, game.attempt), (2, 1))
         self.assertEqual(context.strategy_mode, "SACRIFICE")
         self.assertEqual(manager.state.sacrifice_target, "P3")
         self.assertGreaterEqual(manager.state.public_suspicion["P3"], .78)

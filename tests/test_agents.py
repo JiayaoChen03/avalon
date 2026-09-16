@@ -140,6 +140,32 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(agent.plans, {})
         self.assertEqual(agent.memory, memory)
 
+    def test_invalid_plan_retries_with_only_safe_validation_feedback(self):
+        view = fixed_game().view("P5")
+        contexts = []
+
+        class RepairClient:
+            def complete(self, context):
+                contexts.append(deepcopy(context))
+                if "validation_feedback" not in context:
+                    return {"social.statement": "PRIVATE_SENTINEL"}
+                return valid_plan(context["game"])
+
+        agent = Agent(view, RepairClient(), retry_delay=0)
+        errors = []
+        agent.prepare(view, on_retry=lambda error, *_: errors.append(error))
+        self.assertEqual(agent.calls, {1: 2})
+        retried = deepcopy(contexts[1])
+        feedback = retried.pop("validation_feedback")
+        self.assertEqual(retried, contexts[0])
+        self.assertIn("beliefs", feedback["rule"])
+        self.assertIn("social", feedback["rule"])
+        self.assertEqual(feedback["error"], "invalid_plan")
+        self.assertNotIn("PRIVATE_SENTINEL", json.dumps(feedback))
+        self.assertEqual(errors[0].diagnostic, "invalid_plan: Invalid plan keys")
+        self.assertEqual(errors[0].public_code, "invalid_plan")
+        self.assertEqual(agent.social_action(), valid_plan(view)["social"])
+
     def test_permanent_errors_do_not_retry(self):
         view = fixed_game().view("P5")
         for code in ("http_400", "http_401", "http_402", "http_403", "http_404", "http_422",

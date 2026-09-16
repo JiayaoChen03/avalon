@@ -32,7 +32,7 @@ def successful_response(request):
 
 def expected_llm_events(events):
     roles = next(e["roles"] for e in events if e["kind"] == "REVEAL")
-    return [e for e in events if e["kind"] == "SOCIAL" or
+    return [e for e in events if e["kind"] in {"SOCIAL", "PASS"} or
             (e["kind"] == "TEAM" and roles[e["actor"]] in {"GOOD", "MERLIN"})]
 
 
@@ -62,7 +62,7 @@ class TerminalTests(unittest.TestCase):
             self.assertIn(f"[{name}]", text)
         events = [json.loads(line) for line in log.getvalue().splitlines()]
         self.assertEqual(events, game.events)
-        self.assertTrue(any(e["kind"] == "SOCIAL" and e["actor"] == "P1" for e in events))
+        self.assertTrue(any(e["kind"] == "PASS" and e["actor"] == "P1" for e in events))
         self.assertTrue(all(sum(agent.calls.values()) > 0 for agent in agents.values()))
         self.assertIn("理由摘要", text)
         self.assertIn("目前公开证据有限", text)
@@ -72,7 +72,7 @@ class TerminalTests(unittest.TestCase):
             if event["kind"] == "TEAM_VOTE":
                 same_proposal = [e for e in events if e["round"] == event["round"]
                                  and e["attempt"] == event["attempt"]]
-                self.assertEqual(sum(e["kind"] == "SOCIAL" for e in same_proposal), 5)
+                self.assertEqual(sum(e["kind"] in {"SOCIAL", "PASS"} for e in same_proposal), 5)
                 self.assertEqual(sum(e["kind"] == "VOTE" for e in same_proposal), 5)
 
     def test_demo_many_seeds_always_terminates_and_is_reproducible(self):
@@ -126,6 +126,27 @@ class TerminalTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("[EXIT]", result.stdout)
         self.assertNotIn("[RESULT]", result.stdout)
+
+    def test_cli_env_file_overrides_shell_credentials(self):
+        cwd = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as directory, endpoint(successful_response) as (url, requests):
+            env_file = Path(directory) / ".env"
+            env_file.write_text(f"OPENAI_API_KEY=project-key\nOPENAI_MODEL=project-model\n"
+                                f"OPENAI_BASE_URL={url}\n", encoding="utf-8")
+            env = cli_env(OPENAI_API_KEY="shell-key", OPENAI_MODEL="shell-model",
+                          OPENAI_BASE_URL=url, PYTHON_DOTENV_DISABLED="0")
+            result = subprocess.run([sys.executable, "-m", "avalon", "--demo", "--seed", "7",
+                                     "--env-file", str(env_file)], cwd=cwd, env=env,
+                                    capture_output=True, text=True, encoding="utf-8", timeout=15)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("[RESULT]", result.stdout)
+            self.assertTrue(requests)
+            for _, headers, body in requests:
+                self.assertEqual({k.lower(): v for k, v in headers.items()}["authorization"],
+                                 "Bearer project-key")
+                self.assertEqual(body["model"], "project-model")
+            for key in ("project-key", "shell-key"):
+                self.assertNotIn(key, result.stdout + result.stderr)
 
     def test_cli_missing_or_invalid_configuration_does_not_start_a_game(self):
         cwd = Path(__file__).resolve().parents[1]
@@ -245,6 +266,49 @@ class TerminalTests(unittest.TestCase):
             self.assertIn("invalid_response", result.stdout)
             self.assertNotIn("[TEAM]", result.stdout)
             self.assertNotIn("[RESULT]", result.stdout)
+
+    def test_cli_invalid_plan_is_corrected_with_private_diagnostics(self):
+        cwd = Path(__file__).resolve().parents[1]
+        for recover in (False, True):
+            contexts = []
+            repaired = False
+
+            def response(request):
+                nonlocal repaired
+                context = json.loads(request["messages"][1]["content"])
+                contexts.append(context)
+                if recover and "validation_feedback" in context:
+                    repaired = True
+                if not repaired:
+                    return envelope(json.dumps({"social.statement": "PRIVATE_SENTINEL"}))
+                return successful_response(request)
+
+            with self.subTest(recover=recover), tempfile.TemporaryDirectory() as directory, endpoint(response) as (url, requests):
+                public = Path(directory) / "public.jsonl"
+                result = subprocess.run([sys.executable, "-m", "avalon", "--demo", "--seed", "7",
+                                         "--debug-strategy", "--log", str(public)], cwd=cwd,
+                                        env=cli_env(OPENAI_API_KEY="test-key", OPENAI_MODEL="test-model",
+                                                    OPENAI_BASE_URL=url, OPENAI_MAX_RETRIES="1",
+                                                    OPENAI_RETRY_DELAY_SECONDS="0"),
+                                        capture_output=True, text=True, encoding="utf-8", timeout=15)
+                self.assertEqual(result.returncode, 0 if recover else 1, result.stdout)
+                self.assertEqual(contexts[0]["game"], contexts[1]["game"])
+                self.assertIn("validation_feedback", contexts[1])
+                self.assertIn("Invalid plan keys", result.stderr)
+                self.assertNotIn("Invalid plan keys", result.stdout)
+                log = public.read_text(encoding="utf-8")
+                self.assertNotIn("PRIVATE_SENTINEL", result.stdout + result.stderr + log)
+                self.assertNotIn("validation_feedback", result.stdout + log)
+                if recover:
+                    self.assertIn("[RESULT]", result.stdout)
+                    events = [json.loads(line) for line in log.splitlines()]
+                    self.assertEqual(len(requests), len(expected_llm_events(events)) + 1)
+                    self.assertNotIn("validation_feedback", json.dumps(contexts[2:]))
+                else:
+                    self.assertIn("模型返回内容未通过行动校验", result.stdout)
+                    self.assertNotIn("网络", result.stdout)
+                    self.assertNotIn("[SOCIAL]", result.stdout)
+                    self.assertEqual(len(requests), 2)
 
     def test_cli_strategy_debug_and_trace_use_private_sinks(self):
         cwd = Path(__file__).resolve().parents[1]

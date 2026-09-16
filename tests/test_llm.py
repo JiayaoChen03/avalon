@@ -62,6 +62,17 @@ def envelope(content='{"ok": true}', finish="stop"):
 
 
 class ClientTests(unittest.TestCase):
+    def test_validation_diagnostics_and_feedback_never_include_unknown_error_text(self):
+        error = LLMError("invalid_plan", validation_reason="raw response PRIVATE_SENTINEL\n[REVEAL]")
+        self.assertEqual(error.diagnostic, "invalid_plan")
+        self.assertIsNone(error.validation_reason)
+        self.assertNotIn("PRIVATE_SENTINEL", json.dumps(error.retry_feedback))
+        self.assertNotIn("REVEAL", json.dumps(error.retry_feedback))
+        error = LLMError("invalid_plan", validation_reason="Invalid performance keys")
+        self.assertIn("Invalid performance keys", error.diagnostic)
+        self.assertIn("social, discussion, revision and strong_vote", error.retry_feedback["rule"])
+        self.assertEqual(error.public_code, "invalid_plan")
+
     def test_world_prompt_loads_from_an_isolated_user_install(self):
         source = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory() as directory:
@@ -109,7 +120,7 @@ class ClientTests(unittest.TestCase):
                 self.assertEqual(json.loads(body["messages"][1]["content"]), context)
                 for old_goal in ("MERLIN and GOOD want", "ASSASSIN and EVIL want", "Your goal is the Evil team's success"):
                     self.assertNotIn(old_goal, system["content"])
-                self.assertIn("EXACTLY one key, social" if "tactical" in context else "beliefs: object", system["content"])
+            self.assertIn("social, discussion, revision and strong_vote" if "tactical" in context else "beliefs: object", system["content"])
 
     def test_world_prompt_is_loaded_once_per_client_even_across_a_retry(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -197,17 +208,34 @@ class ClientTests(unittest.TestCase):
                 self.assertNotIn("test-key", str(caught.exception))
                 self.assertEqual(len(requests), 1)
 
-    def test_dotenv_fixed_path_bom_and_environment_precedence(self):
+    def test_dotenv_fixed_path_bom_and_file_precedence(self):
         with tempfile.TemporaryDirectory() as directory:
             env = Path(directory) / ".env"
             env.write_text("OPENAI_API_KEY=file-key\nOPENAI_MODEL=test-model\n"
                            "OPENAI_BASE_URL=http://localhost:1234/v1\n",
                            encoding="utf-8-sig")
-            with patch.dict(os.environ, {"OPENAI_API_KEY": "process-key"}, clear=True):
+            with patch.dict(os.environ, {"OPENAI_API_KEY": "process-key",
+                                         "OPENAI_MODEL": "process-model",
+                                         "OPENAI_BASE_URL": "http://localhost:4321/v1",
+                                         "OPENAI_TIMEOUT_SECONDS": "17"}, clear=True):
                 settings = Settings.load(env)
-                self.assertEqual(settings.api_key, "process-key")
+                self.assertEqual(settings.api_key, "file-key")
                 self.assertEqual(settings.model, "test-model")
                 self.assertEqual(settings.base_url, "http://localhost:1234/v1")
+                self.assertEqual(settings.timeout, 17)
+
+    def test_environment_configuration_when_dotenv_missing_or_disabled(self):
+        with tempfile.TemporaryDirectory() as directory:
+            env = Path(directory) / ".env"
+            env.write_text("OPENAI_API_KEY=file-key\nOPENAI_MODEL=file-model\n", encoding="utf-8")
+            for path, disabled in ((env, "1"), (env.with_name("missing.env"), "0")):
+                with self.subTest(path=path.name, disabled=disabled), patch.dict(os.environ, {
+                    "OPENAI_API_KEY": "process-key", "OPENAI_MODEL": "process-model",
+                    "PYTHON_DOTENV_DISABLED": disabled,
+                }, clear=True):
+                    settings = Settings.load(path)
+                    self.assertEqual(settings.api_key, "process-key")
+                    self.assertEqual(settings.model, "process-model")
 
     def test_aliases_disabled_dotenv_and_invalid_settings(self):
         with patch.dict(os.environ, {"LLM_API_KEY": "test-key", "LLM_MODEL": "test-model",
@@ -216,7 +244,8 @@ class ClientTests(unittest.TestCase):
             settings = Settings.load()
             self.assertTrue(settings.ready)
             self.assertEqual(settings.endpoint, "http://localhost/v1/chat/completions")
-        with patch.dict(os.environ, {"OPENAI_TIMEOUT_SECONDS": "nan"}, clear=True):
+        with patch.dict(os.environ, {"OPENAI_TIMEOUT_SECONDS": "nan",
+                                     "PYTHON_DOTENV_DISABLED": "1"}, clear=True):
             with self.assertRaises(ValueError):
                 Settings.load()
         self.assertFalse(Settings().ready)

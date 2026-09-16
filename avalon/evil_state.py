@@ -5,7 +5,7 @@ from copy import deepcopy
 from dataclasses import dataclass, field
 import re
 
-from .engine import CARDS
+from .engine import CARDS, EVIDENCE_KINDS, SOCIAL_EVENTS
 
 
 def bounded(value):
@@ -92,19 +92,28 @@ class PublicEvidence:
             "VOTE": ("actor", "approve", "reason"),
             "MISSION": ("team", "success", "fail_count", "successes", "failures"),
             "ROUND": ("leader", "team_size", "successes", "failures"),
+            "PASS": ("actor",), "HOLD": ("actor",),
+            "CHALLENGE": ("actor", "target", "evidence"),
+            "CITE": ("actor", "evidence"),
+            "REACT": ("actor", "target", "card", "reason", "trigger"),
+            "CHALLENGE_RESPONSE": ("actor", "target", "card", "reason", "challenger", "challenge", "declined"),
+            "TEAM_REVISE": ("actor", "removed", "added", "team"),
         }
         if kind not in fields:
             return False
         clean = {k: deepcopy(event[k]) for k in ("seq", "kind", "round", "attempt") + fields[kind]
                  if k in event}
+        for field in ("committed", "strong", "resolve_cost", "resolve_after"):
+            if field in event:
+                clean[field] = deepcopy(event[field])
         if not self._valid(clean):
             return False
         self.seen.add(seq)
         self.round, self.attempt = clean.get("round", self.round), clean.get("attempt", self.attempt)
-        if kind == "SOCIAL":
+        if kind in SOCIAL_EVENTS and "card" in clean:
             refs = event.get("evidence", [])
             if isinstance(refs, list):
-                allowed = {e["seq"] for e in self.events if e["kind"] in {"TEAM", "SOCIAL", "VOTE", "TEAM_VOTE", "MISSION"}}
+                allowed = {e["seq"] for e in self.events if e["kind"] in EVIDENCE_KINDS}
                 clean["evidence"] = list(dict.fromkeys(n for n in refs if type(n) is int and n in allowed))[:3]
             self._social(clean, self._pair_allegation(event))
         elif kind == "TEAM_VOTE":
@@ -137,11 +146,11 @@ class PublicEvidence:
             if key in event and (type(event[key]) is not int or not 1 <= event[key] <= 5):
                 return False
         kind = event["kind"]
-        if kind in {"SOCIAL", "VOTE", "TEAM"} and event.get("actor") not in self.ids:
+        if kind not in {"ROUND", "MISSION", "TEAM_VOTE"} and event.get("actor") not in self.ids:
             return False
-        if kind == "SOCIAL":
+        if kind in SOCIAL_EVENTS and not event.get("declined", False):
             return event.get("target") in self.ids and event.get("card") in CARDS
-        if kind in {"TEAM", "TEAM_VOTE", "MISSION"}:
+        if kind in {"TEAM", "TEAM_REVISE", "TEAM_VOTE", "MISSION"}:
             team = event.get("team")
             if (not isinstance(team, list) or not team or
                     any(p not in self.ids for p in team) or len(set(team)) != len(team)):
@@ -190,7 +199,7 @@ class PublicEvidence:
             self._profile(actor, "retaliation", float(aggressive and target == self.attackers.pop(actor)))
         if aggressive and actor != target:
             self.attackers[target] = actor
-        recent = [e for e in self.events if e["kind"] == "SOCIAL"]
+        recent = [e for e in self.events if e["kind"] in SOCIAL_EVENTS and "card" in e]
         if recent:
             previous = recent[-1]
             agrees = target == previous["target"] and card == previous["card"]

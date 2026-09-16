@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 
 from .agents import Agent
-from .engine import CARDS, DIRECTIONS, EVIL_ROLES, Game, REASONS, make_players
+from .engine import CARDS, DIRECTIONS, EVIL_ROLES, Game, REASONS, RESOLVE_COSTS, make_players
 from .evil_strategy import EvilStrategyManager
 from .llm import ChatClient, LLMError, Settings
 
@@ -24,6 +24,14 @@ class Human:
         self.ids = [p["id"] for p in view["players"]]
         self.known_evil = set(view["known_evil"])
         self.input_fn, self.write = input_fn, write
+        self._view = deepcopy(view)
+
+    def update_view(self, view):
+        self._view = deepcopy(view)
+
+    def show_resolve(self):
+        current, maximum = self._view["resolve"][self.id], self._view["max_resolve"]
+        self.write(f"[{self.id}] RESOLVE {'●' * current}{'○' * (maximum-current)} ({current}/{maximum})")
 
     def _ask(self, prompt):
         while True:
@@ -35,7 +43,12 @@ class Human:
                 raise QuitGame
             if value in {"HELP", "?"}:
                 self.write("选队：1 3 或 P1 P3；出牌：ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT + 座位；"
-                           "投票：y/n；任务：s/f；回车采用提示默认值；q 退出。")
+                           "PASS [0]；SOCIAL [1]；COMMIT ACCUSE P3 [2]；CHALLENGE P3 #编号 [1]；"
+                           "CITE #编号 [1]；HOLD [1]，之后 REACT 卡牌 座位 [0] 或 SKIP [0]；"
+                           "挑战回应 RESPOND 卡牌 座位 [1] / DECLINE [0]；"
+                           "LOCK [0] / REVISE P3 P2 [1]；投票 A/R 或 y/n [0]，SA/SR [1]；"
+                           "任务 s/f；回车始终免费（PASS / SKIP / DECLINE / LOCK / 普通赞成）；q 退出。"
+                           "每任务轮 3 Resolve，提案否决不恢复。")
                 continue
             return value
 
@@ -51,6 +64,7 @@ class Human:
         self.write("输入 help 查看操作；输入 q 可随时退出。")
 
     def choose_team(self, size, attempt=1):
+        self.show_resolve()
         default = [self.id] + [p for p in self.ids if p != self.id][:size-1]
         while True:
             value = self._ask(f"[{self.id}] 选队 {size} 人（回车={' '.join(default)}）> ")
@@ -60,22 +74,104 @@ class Human:
             self.write(f"请输入 {size} 个不同的有效座位，例如 {' '.join(default)}。")
 
     def social_action(self):
-        default_target = next(p for p in self.ids if p != self.id)
+        """Explicit card input retained for callers; empty input means no action."""
+        menu = (f"SOCIAL [1] {'/'.join(CARDS)} + 目标"
+                if self._view["resolve"][self.id] >= RESOLVE_COSTS["SOCIAL"] else "PASS [0]")
         while True:
-            value = self._ask(f"[{self.id}] 出牌 {'/'.join(CARDS)} + 目标（回车=HEDGE {default_target}）> ")
-            parts = value.split() if value else ["HEDGE", default_target]
-            if len(parts) == 2 and parts[0] in CARDS and self._seat(parts[1]) in self.ids:
-                return {"card": parts[0], "target": self._seat(parts[1]), "reason": "human_choice"}
+            value = self._ask(f"[{self.id}] {menu}（回车=PASS [0]）> ")
+            if not value or value in {"PASS", "SILENCE"}:
+                return None
+            social = self._parse_social(value.split())
+            if social and self._view["resolve"][self.id] >= RESOLVE_COSTS["SOCIAL"]:
+                return social
             self.write("输入卡牌和有效座位，例如 PRESSURE P3。")
 
-    def vote(self, team, attempt):
+    def _parse_social(self, parts):
+        if len(parts) == 2 and parts[0] in CARDS and self._seat(parts[1]) in self.ids:
+            return {"card": parts[0], "target": self._seat(parts[1]), "reason": "human_choice"}
+        return None
+
+    def discussion_action(self):
+        self.show_resolve()
+        legal = self._view["legal_actions"]
+        labels = {"COMMITTED_SOCIAL": "COMMIT"}
+        menu = " / ".join(f"{labels.get(k, k)} [{RESOLVE_COSTS[k]}]" for k in legal)
         while True:
-            value = self._ask(f"[{self.id}] 赞成队伍 {' '.join(team)}？y/n（回车=y）> ")
+            value = self._ask(f"[{self.id}] {menu}（回车=PASS）> ")
+            parts = value.split()
+            if not parts or value in {"PASS", "SILENCE"}:
+                return {"kind": "PASS"}
+            kind = {"COMMIT": "COMMITTED_SOCIAL"}.get(parts[0], parts[0])
+            social_parts = parts[1:]
+            if parts[0] in CARDS:
+                kind, social_parts = "SOCIAL", parts
+            if kind not in legal:
+                self.write("请选择当前可用行动；回车免费 PASS。")
+                continue
+            if kind in {"SOCIAL", "COMMITTED_SOCIAL"}:
+                social = self._parse_social(social_parts)
+                if social:
+                    return {"kind": kind, "social": social}
+            elif kind == "HOLD" and len(parts) == 1:
+                return {"kind": kind}
+            elif kind in {"CITE", "CHALLENGE"} and len(parts) == (2 if kind == "CITE" else 3):
+                try:
+                    seq = int(parts[-1].lstrip("#"))
+                except ValueError:
+                    pass
+                else:
+                    action = {"kind": kind, "evidence": seq}
+                    if kind == "CHALLENGE":
+                        action["target"] = self._seat(parts[1])
+                    return action
+            self.write("示例：ACCUSE P3 / COMMIT DEFEND P2 / CHALLENGE P3 #7 / CITE #7 / HOLD。")
+
+    def window_action(self):
+        self.show_resolve()
+        legal = self._view["legal_actions"]
+        free = "DECLINE" if self._view["phase"] == "challenge" else "SKIP"
+        paid = "RESPOND" if free == "DECLINE" else "REACT"
+        menu = " / ".join(f"{k} [{RESOLVE_COSTS[k]}]" for k in legal)
+        while True:
+            value = self._ask(f"[{self.id}] {menu} + 卡牌 目标（回车={free}）> ")
+            if not value or value == free:
+                return {"kind": free}
+            parts = value.split()
+            if paid in legal and parts[0] == paid:
+                social = self._parse_social(parts[1:])
+                if social:
+                    return {"kind": paid, "social": social}
+            self.write(f"输入 {free} 或可用的 {paid} PRESSURE P2。")
+
+    def revise_team(self):
+        self.show_resolve()
+        can_revise = "REVISE" in self._view["legal_actions"]
+        menu = "LOCK [0] / REVISE 移除座位 加入座位 [1]" if can_revise else "LOCK [0]"
+        while True:
+            value = self._ask(f"[{self.id}] {menu}（回车=LOCK）> ")
+            if not value or value == "LOCK":
+                return {"kind": "LOCK"}
+            parts = value.split()
+            if can_revise and len(parts) == 3 and parts[0] == "REVISE":
+                return {"kind": "REVISE", "removed": self._seat(parts[1]), "added": self._seat(parts[2])}
+            self.write("请输入 LOCK 或合法的单人替换。")
+
+    def vote(self, team, attempt):
+        return self.ballot(team, attempt)["approve"]
+
+    def ballot(self, team, attempt):
+        self.show_resolve()
+        can_strong = self._view["resolve"][self.id] >= RESOLVE_COSTS["STRONG_VOTE"]
+        menu = "A 赞成 / R 反对 [0]" + (" / SA 强赞成 / SR 强反对 [1]" if can_strong else "")
+        while True:
+            value = self._ask(f"[{self.id}] 队伍 {' '.join(team)}：{menu}（回车=A）> ")
             if value in {"", "Y", "YES", "A", "APPROVE"}:
-                return True
+                return {"approve": True, "strong": False}
             if value in {"N", "NO", "R", "REJECT"}:
-                return False
-            self.write("请输入 y（赞成）或 n（反对）。")
+                return {"approve": False, "strong": False}
+            if can_strong and value in {"SA", "SR", "STRONG APPROVE", "STRONG REJECT"}:
+                return {"approve": value in {"SA", "STRONG APPROVE"}, "strong": True}
+            self.write("请选择当前可用投票；普通赞成 / 反对免费。")
 
     def mission(self):
         if self.role not in EVIL_ROLES:
@@ -103,6 +199,30 @@ def format_event(event, players):
     kind = event["kind"]
     actor = event.get("actor")
     tag = f"[{players[actor].name}/{actor}]" if actor else ""
+    payment = (f" | Resolve -{event['resolve_cost']} → {event['resolve_after']}"
+               if "resolve_cost" in event else "")
+    if kind == "RESOLVE_REFRESH":
+        return f"[RESOLVE REFRESH] 全员恢复 {event['max_resolve']} Resolve"
+    if kind == "PASS":
+        return f"[PASS] {tag}{payment}"
+    if kind == "HOLD":
+        return f"[HOLD] {tag} 预留一次稍后回应{payment}"
+    if kind == "CITE":
+        return f"[CITE] {tag} 提请关注 #{event['evidence']}{payment}"
+    if kind == "CHALLENGE":
+        return f"[CHALLENGE] {tag} 要求 {event['target']} 回应公开记录 #{event['evidence']}{payment}"
+    if kind == "CHALLENGE_RESPONSE" and event["declined"]:
+        return f"[CHALLENGE_RESPONSE] {tag} DECLINED CHALLENGE from {event['challenger']}{payment}"
+    if kind == "REACTION_SKIP":
+        return f"[REACTION_SKIP] {tag} 暂不回应 #{event['trigger']}{payment}"
+    if kind == "DISCUSSION_END":
+        expired = " ".join(event["expired_reactions"])
+        return "[DISCUSSION END] 讨论结束" + (f"；未用 HOLD 到期：{expired}" if expired else "")
+    if kind == "TEAM_LOCK":
+        return f"[TEAM_LOCK] {tag} {' '.join(event['team'])}{payment}"
+    if kind == "TEAM_REVISE":
+        return (f"[TEAM_REVISE] {tag} {event['removed']} -> {event['added']} | "
+                f"{' '.join(event['team'])}{payment}")
     if kind == "START":
         return "[PLAYERS] " + " | ".join(f"{p['id']} {p['name']}" for p in event["players"])
     if kind == "LEADER":
@@ -116,15 +236,17 @@ def format_event(event, players):
     if kind == "TEAM":
         return (f"[TEAM] {tag} selects {' '.join(event['team'])} | 提案 {event['attempt']}/5\n"
                 f"[SPEAKING ORDER] {' -> '.join(event['speaking_order'])}")
-    if kind == "SOCIAL":
-        label = f"[SOCIAL] {tag} {event['card']} {event['target']}"
+    if kind in {"SOCIAL", "REACT", "CHALLENGE_RESPONSE"}:
+        commit = "COMMITTED " if event.get("committed") else ""
+        label = f"[{kind}] {tag} {commit}{event['card']} {event['target']}{payment}"
         if "statement" not in event:
             return f"{label} | reason: {REASONS[event['reason']]}"
-        evidence = ", ".join(f"#{seq}" for seq in event["evidence"]) or "试探性观点，未引用历史记录"
-        return (f"{label} | 表态：{event['statement']}\n"
-                f"  理由摘要：{event['rationale']} | 公开依据：{evidence}")
+        return (f"{label}\n"
+                f"  表态：{event['statement']}\n"
+                f"  理由摘要：{event['rationale']}")
     if kind == "VOTE":
-        return f"[VOTE] {tag} votes {'APPROVE' if event['approve'] else 'REJECT'} | reason: {REASONS[event['reason']]}"
+        strong = "STRONG " if event.get("strong") else ""
+        return f"[VOTE] {tag} votes {strong}{'APPROVE' if event['approve'] else 'REJECT'} | reason: {REASONS[event['reason']]}{payment}"
     if kind == "TEAM_VOTE":
         yes = sum(event["votes"].values())
         return f"[TEAM VOTE] {yes}/{len(players)} 赞成 -> {'通过' if event['approved'] else '否决，队长轮换'}"
@@ -202,58 +324,79 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
         flush_strategy()
 
     def controller(pid):
-        if pid in agents:
-            agents[pid].update_view(game.view(pid))
-        return human if human is not None and pid == human.id else agents[pid]
+        seat = human if human is not None and pid == human.id else agents[pid]
+        seat.update_view(game.view(pid))
+        return seat
 
-    def prepare_agent(pid):
+    def prepare_agent(pid, *, window=False):
         def report_retry(error, retry_no, delay):
             write(f"[RETRY] [{game.players[pid].name}/{pid}] 调用失败（{error.public_code}），"
                   f"{delay:g} 秒后重试（{retry_no}/{agents[pid].max_retries}）…")
             if debug_write is not None:
-                debug_write(f"[PRIVATE DEBUG] LLM RETRY {pid}: {error}")
+                debug_write(f"[PRIVATE DEBUG] LLM RETRY {pid}: {error.diagnostic}")
         view = game.view(pid)
         if pid in controlled_evil:
-            tactic = manager.tactical_context(view).to_dict()
+            tactic = manager.tactical_context(view, phase="discussion" if window else None).to_dict()
             planned = {key: tactic[key] for key in
                        ("strategy_mode", "role", "primary_objective", "secondary_objective", "primary_target")}
             debug_strategy("EVIL TACTICAL PLAN", {"status": "planned", "agent_id": pid,
                            "round": game.round, "attempt": game.attempt, "phase": game.phase, **planned})
         try:
+            if window:
+                return controller(pid).window_action(on_retry=report_retry)
             agents[pid].prepare(view, on_retry=report_retry)
         except LLMError as error:
             if debug_write is not None:
-                debug_write(f"[PRIVATE DEBUG] LLM STOP {pid}: {error}")
+                debug_write(f"[PRIVATE DEBUG] LLM STOP {pid}: {error.diagnostic}")
             raise
+
+    def take_action(pid, choose):
+        while True:
+            action = choose()
+            try:
+                game.act(pid, action)
+            except ValueError as error:
+                if pid in agents:
+                    raise LLMError("invalid_plan") from None
+                write(f"[INVALID] {error}；未消耗 Resolve。")
+            else:
+                flush()
+                return
 
     flush()
     if human is not None:
         human.reveal()
     while game.winner is None:
         round_no = game.round
-        while game.phase in {"team", "discussion", "mission"} and game.round == round_no:
+        while game.phase in {"team", "discussion", "challenge", "reaction", "revision", "vote", "mission"} and game.round == round_no:
             leader = game.leader
-            if leader in agents:
-                write(f"[AGENT] [{game.players[leader].name}/{leader}] 正在准备队伍…")
-                if leader not in controlled_evil:
-                    prepare_agent(leader)
-            game.propose(leader, controller(leader).choose_team(game.team_size, game.attempt))
-            flush_strategy()
-            flush()
-            for pid in game.speaking_order:
+            if game.phase == "team":
+                if leader in agents:
+                    write(f"[AGENT] [{game.players[leader].name}/{leader}] 正在准备队伍…")
+                    if leader not in controlled_evil:
+                        prepare_agent(leader)
+                game.propose(leader, controller(leader).choose_team(game.team_size, game.attempt))
+                flush()
+            elif game.phase == "discussion":
+                pid = game.next_actor
                 if pid in agents:
                     write(f"[TURN] [{game.players[pid].name}/{pid}] 正在调用 LLM 准备发言…")
-                    # The previous speaker's event is flushed before taking this fresh view.
                     prepare_agent(pid)
-                game.social(pid, controller(pid).social_action())
+                take_action(pid, lambda: controller(pid).discussion_action())
+            elif game.phase in {"challenge", "reaction"}:
+                pid = game.next_actor
+                take_action(pid, lambda: prepare_agent(pid, window=True) if pid in agents else controller(pid).window_action())
+            elif game.phase == "revision":
+                take_action(leader, lambda: controller(leader).revise_team())
+            elif game.phase == "vote":
+                # No engine mutation or public flush until EVERY sealed ballot is collected.
+                ballots = {pid: controller(pid).ballot(list(game.team), game.attempt) for pid in game.ids}
+                reasons = {pid: "human_choice" if human and pid == human.id else
+                           "last_chance" if game.attempt == 5 else "team_risk" for pid in game.ids}
+                game.vote({p: b["approve"] for p, b in ballots.items()}, reasons,
+                          strong={p: b["strong"] for p, b in ballots.items()})
                 flush()
-            votes = {pid: controller(pid).vote(list(game.team), game.attempt) for pid in game.ids}
-            flush_strategy()
-            reasons = {pid: "human_choice" if human and pid == human.id else
-                       "last_chance" if game.attempt == 5 else "team_risk" for pid in game.ids}
-            game.vote(votes, reasons)
-            flush()
-            if game.phase == "mission":
+            elif game.phase == "mission":
                 external_cards = ({human.id: human.mission()}
                                   if human and human.role in EVIL_ROLES and human.id in game.team else {})
                 evil_view = game.view(next(p for p in game.ids if p in controlled_evil))
@@ -281,12 +424,16 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
             for snapshot in agent.snapshots:
                 profile, belief = snapshot["profile"], snapshot["belief"]
                 social = snapshot["social"]
+                action = snapshot["discussion"]
+                action_text = (f"{social['card']} {social['target']}" if not action or action["kind"] == "SOCIAL"
+                               else action["kind"])
+                if action and action.get("committed"):
+                    action_text = "COMMITTED " + action_text
                 strategy_text = f"strategy={snapshot['strategy']} | " if agent.evil_strategy is None else ""
                 write(f"[DOSSIER] {game.players[pid].name}/{pid} R{snapshot['round']} | "
                       f"P1 evil={belief['evil']:.2f} | aggression={profile['aggression']:.2f} "
                       f"retaliation={profile['retaliation']:.2f} approval={profile['approval']:.2f} | "
-                      f"{strategy_text}{social['card']} {social['target']}")
-                write("  近期公开依据：" + json.dumps(snapshot["evidence"][-2:], ensure_ascii=False))
+                      f"{strategy_text}{action_text}")
     return game
 
 
@@ -305,7 +452,7 @@ def main(argv=None):
     parser.add_argument("--log", type=Path, help="保存公开 JSONL 事件（包含赛后身份揭晓）")
     parser.add_argument("--dossier", action="store_true", help="结束后显示 AI 对 P1 的行为画像变化")
     parser.add_argument("--debug-strategy", action="store_true",
-                        help="开发者专用：将邪恶内部战略输出到 stderr；会显示隐藏信息")
+                        help="开发者专用：将内部战略和校验原因输出到 stderr；会显示隐藏信息")
     parser.add_argument("--strategy-log", type=Path, help="开发者专用：另存私有结构化战略 JSONL")
     args = parser.parse_args(argv)
     write = lambda value: print(value, flush=True)
@@ -357,7 +504,11 @@ def main(argv=None):
     except (QuitGame, KeyboardInterrupt):
         write("\n[EXIT] 已退出对局。")
     except LLMError as error:
-        write(f"[ERROR] LLM 调用失败（{error.public_code}），对局已停止。请检查模型配置或网络后重新启动。")
+        if error.public_code == "invalid_plan":
+            write("[ERROR] 模型返回内容未通过行动校验（invalid_plan），对局已停止。"
+                  "开发排查可使用 --debug-strategy 查看校验原因。")
+        else:
+            write(f"[ERROR] LLM 调用失败（{error.public_code}），对局已停止。请检查模型配置或网络后重新启动。")
         return 1
     except OSError:
         write("[ERROR] 无法写入公开日志，请检查 --log 路径与权限。")

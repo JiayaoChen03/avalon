@@ -1,4 +1,4 @@
-"""Private evil coordination: code chooses actions; the language model only speaks."""
+"""Private evil tactics and core policies; agents choose use of the public Resolve budget."""
 
 from collections import Counter
 from copy import deepcopy
@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass
 from itertools import combinations
 import random
 
-from .engine import EVIL_ROLES, TEAM_SIZES
+from .engine import EVIDENCE_KINDS, EVIL_ROLES, SOCIAL_EVENTS, TEAM_SIZES
 from .evil_state import EvilSharedState, PublicEvidence, bounded
 
 
@@ -80,14 +80,19 @@ class EvilStrategyManager:
                 "successes": self._evidence.successes, "failures": self._evidence.failures}
             view = dict(view, successes=self._evidence.successes, failures=self._evidence.failures)
             self.state.mode_scores = self._scores(view)
-            if event["kind"] == "SOCIAL" and event["actor"] in self.controlled_evil_ids:
+            if (event["kind"] in SOCIAL_EVENTS | {"PASS", "HOLD", "CHALLENGE", "CITE", "TEAM_REVISE"}
+                    and event.get("actor") in self.controlled_evil_ids):
                 key = (event.get("round"), event.get("attempt"), "discussion", event["actor"])
                 context = self._contexts.get(key)
                 if context is not None:
                     refs = event.get("evidence", [])
                     refs = [seq for seq in refs if type(seq) is int and seq > 0][:3] if isinstance(refs, list) else []
-                    action = {"kind": "social", "seq": event["seq"], "card": event["card"],
-                              "target": event["target"], "reason": event.get("reason", "observe"), "evidence": refs}
+                    fields = ("card", "target", "reason", "committed", "resolve_cost", "resolve_after",
+                              "challenger", "challenge", "declined", "trigger", "removed", "added", "team")
+                    action = {"kind": event["kind"].lower(), "seq": event["seq"],
+                              **{k: deepcopy(event[k]) for k in fields if k in event}}
+                    if "evidence" in event:
+                        action["evidence"] = refs if isinstance(event["evidence"], list) else event["evidence"]
                     accepted = {"round": event["round"], "attempt": event["attempt"], "self": event["actor"]}
                     self._record(accepted, "discussion", context, action)
 
@@ -135,13 +140,13 @@ class EvilStrategyManager:
         return None
 
     def _social_events(self, view):
-        return [e for e in self._evidence.events if e["kind"] == "SOCIAL"
+        return [e for e in self._evidence.events if e["kind"] in SOCIAL_EVENTS and "card" in e
                 and e.get("round") == view["round"] and e.get("attempt") == view["attempt"]]
 
     def _partner_seed(self, view, pid):
         # A public suspicion can persist across a proposal; no invented "seed"
         # is needed when the previous proposal already contains the argument.
-        events = [e for e in self._evidence.events if e["kind"] == "SOCIAL"
+        events = [e for e in self._evidence.events if e["kind"] in SOCIAL_EVENTS and "card" in e
                   and view["round"] - 1 <= e.get("round", 0) <= view["round"]][-12:]
         partner = next(p for p in self.evil_ids if p != pid)
         for index in range(len(events) - 1, -1, -1):
@@ -302,7 +307,7 @@ class EvilStrategyManager:
 
     def _relevant_events(self, target):
         refs = {seq for narrative in self.state.active_narratives for seq in narrative["evidence"]}
-        candidates = [e for e in self._evidence.events if e["kind"] in {"TEAM", "SOCIAL", "VOTE", "TEAM_VOTE", "MISSION"}]
+        candidates = [e for e in self._evidence.events if e["kind"] in EVIDENCE_KINDS]
         important = [e for e in candidates if e["seq"] in refs]
         related = [e for e in candidates if e not in important and
                    (e.get("target") == target or e.get("actor") == target or target in e.get("team", []))]
@@ -310,7 +315,7 @@ class EvilStrategyManager:
         return deepcopy(sorted(selected, key=lambda e: e["seq"]))
 
     def _record(self, view, phase, context, action):
-        key = (view["round"], view["attempt"], phase, view["self"], action["kind"])
+        key = (view["round"], view["attempt"], phase, view["self"], action["kind"], action.get("seq"))
         if key in self._recorded:
             return
         self._recorded.add(key)

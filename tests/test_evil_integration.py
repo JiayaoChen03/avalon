@@ -83,7 +83,11 @@ class EvilIntegrationTests(unittest.TestCase):
                 agent = self.agent(client=client, retry_delay=0)
                 agent.prepare(self.game.view("P3"))
                 self.assertEqual(agent.calls, {1: 2})
-                self.assertEqual(client.contexts[0], client.contexts[1])
+                retried = deepcopy(client.contexts[1])
+                feedback = retried.pop("validation_feedback")
+                self.assertEqual(client.contexts[0], retried)
+                self.assertIn("public observations", feedback["rule"])
+                self.assertNotIn(disclosure, json.dumps(feedback))
                 self.assertEqual(agent.social_action()["statement"],
                                  "我想先听听这个选择的公开依据，再作判断。")
 
@@ -101,6 +105,21 @@ class EvilIntegrationTests(unittest.TestCase):
         self.assertIsNone(agent.plan)
         self.assertEqual(self.game.events, before)
         self.assertFalse(any(d.action["kind"] == "social" for d in self.manager.decisions))
+
+    def test_invalid_envelope_retries_with_feedback_and_frozen_tactics(self):
+        def incorrect_until_feedback(result, context):
+            return result if "validation_feedback" in context else {"social.statement": "PRIVATE_SENTINEL"}
+
+        client = PerformanceClient(incorrect_until_feedback)
+        agent = self.agent(client=client, retry_delay=0)
+        agent.prepare(self.game.view("P3"))
+        self.assertEqual(agent.calls, {1: 2})
+        retried = deepcopy(client.contexts[1])
+        feedback = retried.pop("validation_feedback")
+        self.assertEqual(retried, client.contexts[0])
+        self.assertIn("social, discussion, revision and strong_vote", feedback["rule"])
+        self.assertNotIn("PRIVATE_SENTINEL", json.dumps(feedback))
+        self.assertEqual(agent.social_action(), performance(client.contexts[1])["social"])
 
     def test_model_receives_copies_without_other_private_plans(self):
         def mutate(result, context):
@@ -144,7 +163,7 @@ class EvilIntegrationTests(unittest.TestCase):
             self.assertEqual(requests[0][2]["messages"][0], requests[1][2]["messages"][0])
             self.assertNotEqual(contexts[0]["game"]["phase"], contexts[1]["game"]["phase"])
             self.assertNotIn("PRIVATE_SENTINEL", json.dumps(agent.plan))
-            self.assertLess(len(requests[0][2]["messages"][0]["content"]), 6000)
+            self.assertLess(len(requests[0][2]["messages"][0]["content"]), 10000)
 
     def test_full_game_keeps_debug_and_trace_out_of_public_channels(self):
         clients = {p: PerformanceClient() for p in self.game.ids}
@@ -187,7 +206,7 @@ class EvilIntegrationTests(unittest.TestCase):
         cards = manager.mission_cards(self.game.view("P4"), external_cards={"P3": "FAIL"})
         self.assertEqual(cards, {"P4": "SUCCESS"})
         self.game.resolve_mission({"P3": "FAIL", **cards})
-        self.assertEqual(self.game.events[-2]["fail_count"], 1)
+        self.assertEqual(next(e for e in self.game.events if e["kind"] == "MISSION")["fail_count"], 1)
 
     def test_full_game_with_human_evil_preserves_input_and_single_fail(self):
         mission_inputs = []

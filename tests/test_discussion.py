@@ -31,7 +31,7 @@ class DiscussionTests(unittest.TestCase):
         agents = {p: Agent(game.view(p), client) for p, client in clients.items()}
         run_game(game, agents, human, write=lambda _: None)
         context = clients["P3"].contexts[0]
-        earlier = [e["actor"] for e in context["game"]["recent_events"] if e["kind"] == "SOCIAL"]
+        earlier = [e["actor"] for e in context["game"]["recent_events"] if e["kind"] in {"SOCIAL", "PASS"}]
         self.assertEqual(earlier, ["P1", "P2"])
         self.assertEqual(context["game"]["team"], ["P1", "P2"])
 
@@ -77,7 +77,11 @@ class DiscussionTests(unittest.TestCase):
                     self.assertEqual(agent.prepare(view, on_retry=lambda error, *_: retries.append(error.public_code)), "llm")
                     self.assertEqual(agent.social_action(), good["social"])
                     self.assertEqual(agent.calls, {1: 2})
-                    self.assertEqual(client.contexts[0], client.contexts[1])
+                    retried = deepcopy(client.contexts[1])
+                    feedback = retried.pop("validation_feedback")
+                    self.assertEqual(client.contexts[0], retried)
+                    self.assertIn("public observations", feedback["rule"])
+                    self.assertNotIn(disclosure, json.dumps(feedback))
                     self.assertEqual(retries, ["invalid_plan"])
 
     def test_disclosure_retry_exhaustion_does_not_publish_replacement_dialogue(self):
@@ -195,15 +199,15 @@ class DiscussionTests(unittest.TestCase):
         self.assertNotIn("chain_of_thought", text)
         for proposal in (e for e in game.events if e["kind"] == "TEAM"):
             same = [e for e in game.events if e["round"] == proposal["round"]
-                    and e["attempt"] == proposal["attempt"] and e["kind"] == "SOCIAL"]
+                    and e["attempt"] == proposal["attempt"] and e["kind"] in {"SOCIAL", "PASS"}]
             start = game.ids.index(proposal["actor"])
             self.assertEqual([e["actor"] for e in same],
                              [game.ids[(start - n) % 6] for n in range(6)])
-            self.assertTrue(all(e["statement"] and e["rationale"] for e in same))
+            self.assertTrue(all(e["statement"] and e["rationale"] for e in same if e["kind"] == "SOCIAL"))
         for pid, agent in agents.items():
             expected = {}
             for event in game.events:
-                if (event["kind"] == "SOCIAL" or event["kind"] == "TEAM"
+                if (event["kind"] in {"SOCIAL", "PASS"} or event["kind"] == "TEAM"
                         and game.players[pid].role in {"GOOD", "MERLIN"}) and event["actor"] == pid:
                     expected[event["round"]] = expected.get(event["round"], 0) + 1
             self.assertEqual(agent.calls, expected)
