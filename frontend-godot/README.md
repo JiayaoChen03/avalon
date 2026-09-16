@@ -31,6 +31,7 @@ The local bridge binds only to `127.0.0.1:8765`.
 - Human or AI team proposal
 - Public Resolve display (3 per mission round)
 - PASS / Social / committed Social / Challenge / Cite / Hold / React
+- Challenge response: RESPOND for 1 Resolve or DECLINE for free
 - Human team lock or one-player revision
 - Sealed normal / strong voting
 - Good-only SUCCESS restriction and Evil FAIL option
@@ -51,6 +52,9 @@ Godot 4 / GDScript
 avalon.ui_server
         |
         v
+avalon.ui_playable_session
+        |
+        v
 avalon.ui_session
         |
         +-- existing Game engine
@@ -66,4 +70,5 @@ rules are not implemented in GDScript.
 
 `tests/test_ui_session.py` uses a deterministic fake LLM client so the UI state
 machine can be exercised without network/API calls. It includes a full-match
-path driven only by the same commands exposed to Godot.
+path driven only by the same commands exposed to Godot, including interrupt
+phases such as reactions and challenge responses.
