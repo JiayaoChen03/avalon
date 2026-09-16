@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .llm import LLMError
 from .ui_playable_session import PlayableUISession
 from .ui_session import UIError
 
@@ -20,6 +21,11 @@ class ResilientUISession(PlayableUISession):
             self.pending = ""
             try:
                 self._advance()
+            except LLMError as exc:
+                if not self.pending and self.game.winner is None:
+                    self.pending = "AI_RETRY"
+                self.last_error = f"LLM action failed: {exc.public_code}"
+                raise UIError(self.last_error) from None
             except UIError:
                 if not self.pending and self.game.winner is None:
                     self.pending = "AI_RETRY"
@@ -28,7 +34,7 @@ class ResilientUISession(PlayableUISession):
         try:
             return super().handle(payload)
         except UIError:
-            # Human validation errors retain their original pending phase.  Only
+            # Human validation errors retain their original pending phase. Only
             # transitions that had already accepted the human action can arrive
             # here with no pending UI phase.
             if not self.pending and self.game.winner is None:
