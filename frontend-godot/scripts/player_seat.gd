@@ -11,7 +11,7 @@ func configure(data: Dictionary, max_resolve: int, selectable: bool = false) -> 
     button_pressed = selected_for_team if selectable else false
 
     var name := str(data.get("name", player_id))
-    var tags: Array[String] = []
+    var tags := PackedStringArray()
     if bool(data.get("is_human", false)):
         tags.append("HUMAN")
     else:
