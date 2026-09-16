@@ -8,12 +8,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from threading import Lock
 from urllib.parse import urlparse
 
-from .ui_session import UIError, UISession
+from .ui_playable_session import PlayableUISession
+from .ui_session import UIError
 
 
 class SessionStore:
     def __init__(self):
-        self.session: UISession | None = None
+        self.session: PlayableUISession | None = None
         self.lock = Lock()
 
 
@@ -74,7 +75,7 @@ class Handler(BaseHTTPRequestHandler):
                         seed = None
                     elif type(seed) is not int:
                         raise UIError("Seed must be an integer or empty.")
-                    STORE.session = UISession(player_count=count, seed=seed, human_name=str(name))
+                    STORE.session = PlayableUISession(player_count=count, seed=seed, human_name=str(name))
                     self._json(200, STORE.session.state())
                     return
                 if path == "/action":
