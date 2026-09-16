@@ -19,6 +19,12 @@ func _clear_dynamic_controls() -> void:
         action_box.remove_child(child)
         child.queue_free()
 
+func _join_values(values: Array, separator: String = " / ") -> String:
+    var parts := PackedStringArray()
+    for value in values:
+        parts.append(str(value))
+    return separator.join(parts)
+
 func _render_action_panel() -> void:
     _clear_dynamic_controls()
     var phase := str(game_state.get("phase", "START"))
@@ -35,6 +41,8 @@ func _render_action_panel() -> void:
             _render_discussion()
         "REACTION":
             _render_reaction()
+        "CHALLENGE_RESPONSE":
+            _render_challenge_response()
         "TEAM_CONFIRM":
             _render_team_confirm()
         "VOTE":
@@ -49,6 +57,48 @@ func _render_action_panel() -> void:
             _render_game_over()
         _:
             hint_label.text = "Waiting for backend transition..."
+
+func _render_role_reveal() -> void:
+    var human: Dictionary = game_state.get("human", {})
+    var role := str(human.get("role", "UNKNOWN"))
+    var known: Array = human.get("known_evil", [])
+    hint_label.text = "YOU ARE %s" % role
+    if not known.is_empty():
+        hint_label.text += "\nLegitimately known Evil seats: " + _join_values(known)
+    var button := Button.new()
+    button.text = "CONTINUE"
+    button.pressed.connect(_send_action.bind({"type": "CONTINUE"}))
+    action_box.add_child(button)
+
+func _render_team_confirm() -> void:
+    var team: Array = game_state.get("proposed_team", [])
+    hint_label.text = "CURRENT TEAM: " + _join_values(team)
+    var row := HBoxContainer.new()
+    action_box.add_child(row)
+    _add_button(row, "LOCK TEAM [0]", _send_action.bind({"type": "TEAM_CONFIRM", "action": "LOCK_TEAM"}), false)
+    _add_button(row, "REVISE TEAM [1]", _open_revision_editor, _human_resolve() < 1)
+
+func _render_vote() -> void:
+    var team: Array = game_state.get("proposed_team", [])
+    hint_label.text = "SEALED TEAM VOTE — " + _join_values(team)
+    var row := HBoxContainer.new()
+    action_box.add_child(row)
+    _add_button(row, "APPROVE [0]", _send_action.bind({"type": "VOTE", "approve": true, "strong": false}), false)
+    _add_button(row, "REJECT [0]", _send_action.bind({"type": "VOTE", "approve": false, "strong": false}), false)
+    _add_button(row, "STRONG APPROVE [1]", _send_action.bind({"type": "VOTE", "approve": true, "strong": true}), _human_resolve() < 1)
+    _add_button(row, "STRONG REJECT [1]", _send_action.bind({"type": "VOTE", "approve": false, "strong": true}), _human_resolve() < 1)
+
+func _render_challenge_response() -> void:
+    var trigger: Dictionary = game_state.get("challenge_trigger", {})
+    hint_label.text = "P%s CHALLENGED YOU\nEvidence: #%s — %s" % [
+        str(trigger.get("seq", "?")),
+        str(trigger.get("seq", "?")),
+        str(trigger.get("text", "")),
+    ]
+    var row := HBoxContainer.new()
+    action_box.add_child(row)
+    _add_button(row, "RESPOND [1]", _open_challenge_response_editor, _human_resolve() < 1)
+    _add_button(row, "DECLINE [0]", _send_action.bind({"type": "CHALLENGE_RESPONSE", "action": "DECLINE"}), false)
 
 func _open_social_editor(is_reaction: bool) -> void:
     _clear_dynamic_controls()
@@ -70,6 +120,33 @@ func _open_social_editor(is_reaction: bool) -> void:
     confirm.pressed.connect(_submit_social.bind(card, target, commit, is_reaction))
     row.add_child(confirm)
     _add_button(row, "CANCEL", _render_action_panel, false)
+
+func _open_challenge_response_editor() -> void:
+    _clear_dynamic_controls()
+    hint_label.text = "Respond with one normal Social Action. Cost: 1 Resolve."
+    var row := HBoxContainer.new()
+    action_box.add_child(row)
+    var card := OptionButton.new()
+    for value in game_state.get("social_cards", []):
+        card.add_item(str(value))
+    row.add_child(card)
+    var target := _player_picker(_all_player_ids())
+    row.add_child(target)
+    var confirm := Button.new()
+    confirm.text = "CONFIRM RESPONSE [1]"
+    confirm.pressed.connect(_submit_challenge_response.bind(card, target))
+    row.add_child(confirm)
+    _add_button(row, "CANCEL", _render_action_panel, false)
+
+func _submit_challenge_response(card: OptionButton, target: OptionButton) -> void:
+    if target.item_count == 0:
+        return
+    _send_action({
+        "type": "CHALLENGE_RESPONSE",
+        "action": "RESPOND",
+        "card": card.get_item_text(card.selected),
+        "target": target.get_item_text(target.selected),
+    })
 
 func _open_challenge_editor() -> void:
     _clear_dynamic_controls()
