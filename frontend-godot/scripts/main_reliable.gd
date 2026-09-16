@@ -1,7 +1,7 @@
 extends "res://scripts/main.gd"
 
 func _on_backend_response(data: Dictionary) -> void:
-    if not bool(data.get("ok", false)) and data.get("state") is Dictionary:
+    if not bool(data.get("ok", false)) and typeof(data.get("state")) == TYPE_DICTIONARY:
         loading = false
         game_state = data["state"]
         last_phase = str(game_state.get("phase", last_phase))
