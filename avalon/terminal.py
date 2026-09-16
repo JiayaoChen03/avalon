@@ -9,7 +9,7 @@ import sys
 
 from .agents import Agent
 from .engine import CARDS, DIRECTIONS, EVIL_ROLES, Game, REASONS, make_players
-from .llm import ChatClient, Settings
+from .llm import ChatClient, LLMError, Settings
 
 
 class QuitGame(Exception):
@@ -165,13 +165,11 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
     def controller(pid):
         return human if human is not None and pid == human.id else agents[pid]
 
-    def prepare(pid):
-        if pid not in agents or game.round in agents[pid].plans:
-            return
-        if agents[pid].client is not None:
-            write(f"[SYSTEM] [{game.players[pid].name}/{pid}] 正在根据当前公开信息准备表态。")
-        source = agents[pid].prepare(game.view(pid))
-        write(f"[AGENT] [{game.players[pid].name}/{pid}] 本轮决策来源：{source}")
+    def prepare_agent(pid):
+        def report_retry(error, retry_no, delay):
+            write(f"[RETRY] [{game.players[pid].name}/{pid}] 调用失败（{error}），"
+                  f"{delay:g} 秒后重试（{retry_no}/{agents[pid].max_retries}）…")
+        agents[pid].prepare(game.view(pid), on_retry=report_retry)
 
     flush()
     if human is not None:
@@ -180,13 +178,16 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
         round_no = game.round
         while game.phase in {"team", "discussion", "mission"} and game.round == round_no:
             leader = game.leader
-            prepare(leader)  # The leader's one plan covers both team selection and speech.
+            if leader in agents:
+                write(f"[AGENT] [{game.players[leader].name}/{leader}] 正在调用 LLM 选队…")
+                prepare_agent(leader)
             game.propose(leader, controller(leader).choose_team(game.team_size, game.attempt))
             flush()
             for pid in game.speaking_order:
-                prepare(pid)  # Earlier statements have already been broadcast and observed.
-                if pid in agents and game.attempt > 1:
-                    write(f"[REUSE] [{game.players[pid].name}/{pid}] 沿用本任务轮首次表态与策略；不追加请求。")
+                if pid in agents:
+                    write(f"[TURN] [{game.players[pid].name}/{pid}] 正在调用 LLM 准备发言…")
+                    # The previous speaker's event is flushed before taking this fresh view.
+                    prepare_agent(pid)
                 game.social(pid, controller(pid).social_action())
                 flush()
             votes = {pid: controller(pid).vote(list(game.team), game.attempt) for pid in game.ids}
@@ -225,10 +226,9 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
 def main(argv=None):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    parser = argparse.ArgumentParser(description="Terminal Avalon：1 位人类 + LLM agents，支持离线试玩。")
+    parser = argparse.ArgumentParser(description="Terminal Avalon：1 位人类 + LLM agents，自动读取模型配置并轮流发言。")
     parser.add_argument("--players", type=int, choices=(5, 6), default=5, help="总人数，默认 5")
     parser.add_argument("--name", default="YOU", help="人类 P1 昵称")
-    parser.add_argument("--mock", action="store_true", help="强制 deterministic agents；不读 .env、不访问网络")
     parser.add_argument("--demo", action="store_true", help="自动演示：P1 也由 agent 控制，无人类输入")
     parser.add_argument("--seed", type=int, help="固定发牌、首任队长与发言方向，便于复现；默认随机")
     parser.add_argument("--direction", choices=DIRECTIONS, help="顺时针 clockwise / 逆时针 counterclockwise；默认开局随机决定")
@@ -239,20 +239,26 @@ def main(argv=None):
     write = lambda value: print(value, flush=True)
     write("=== TERMINAL AVALON ===")
     write("[MODE] 自动演示（无真人）" if args.demo else "[MODE] 1 位人类 P1 + 其余 AI agents")
-    settings = Settings()
-    if not args.mock:
-        try:
-            settings = Settings.load(args.env_file)
-        except (ValueError, OSError):
-            write("[CONFIG] 配置无效，已切换 deterministic/mock；请检查 .env.example。")
+    try:
+        settings = Settings.load(args.env_file)
+    except (ValueError, OSError):
+        write("[CONFIG] 配置无效，无法启动。请检查 .env.example 中的地址和参数格式。")
+        return 1
     if settings.notice:
         write("[CONFIG] " + settings.notice)
-    client = ChatClient(settings) if settings.ready and not args.mock else None
-    write("[BACKEND] LLM；异常时自动 fallback" if client else "[BACKEND] deterministic/mock（无需 API）")
+    if not settings.ready:
+        missing = [name for name, value in (("OPENAI_API_KEY", settings.api_key),
+                                            ("OPENAI_MODEL", settings.model)) if not value]
+        write("[CONFIG] 缺少 " + "、".join(missing)
+              + "。请复制 .env.example 为 .env 并填入配置，或设置对应环境变量后重新启动。")
+        return 1
+    client = ChatClient(settings)
+    write("[BACKEND] LLM；每位 agent 按发言顺序实时生成回应")
     name = "".join(c for c in args.name if c.isprintable()).strip()[:24] or "YOU"
     game = Game(make_players(args.players, args.seed, name), seed=args.seed, direction=args.direction)
     human = None if args.demo else Human(game.view("P1"), write=write)
-    agents = {p: Agent(game.view(p), client) for p in game.ids if human is None or p != human.id}
+    agents = {p: Agent(game.view(p), client, max_retries=settings.max_retries, retry_delay=settings.retry_delay)
+              for p in game.ids if human is None or p != human.id}
     try:
         if args.log:
             args.log.parent.mkdir(parents=True, exist_ok=True)
@@ -260,6 +266,9 @@ def main(argv=None):
             run_game(game, agents, human, write, log, dossier=args.dossier)
     except (QuitGame, KeyboardInterrupt):
         write("\n[EXIT] 已退出对局。")
+    except LLMError as error:
+        write(f"[ERROR] LLM 调用失败（{error}），对局已停止。请检查模型配置或网络后重新启动。")
+        return 1
     except OSError:
         write("[ERROR] 无法写入公开日志，请检查 --log 路径与权限。")
         return 1

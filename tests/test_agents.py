@@ -1,6 +1,7 @@
 from copy import deepcopy
 import json
 import unittest
+from unittest.mock import call, patch
 
 from avalon.agents import Agent, validate_plan
 from avalon.llm import LLMError
@@ -20,6 +21,19 @@ class FixedClient:
         return deepcopy(self.response)
 
 
+class SequenceClient:
+    def __init__(self, responses):
+        self.responses = iter(responses)
+        self.contexts = []
+
+    def complete(self, context):
+        self.contexts.append(deepcopy(context))
+        response = next(self.responses)
+        if isinstance(response, BaseException):
+            raise response
+        return deepcopy(response)
+
+
 def valid_plan(view):
     ids = [p["id"] for p in view["players"]]
     return {
@@ -29,41 +43,120 @@ def valid_plan(view):
         "strategy": "probe", "team_rank": list(reversed(ids)),
         "vote_threshold": 0.9, "approve_last": True, "mission": "FAIL",
         "social": {"card": "BAIT", "target": "P1", "reason": "test_reaction",
-                   "statement": "我想听听 P1 的组队建议。", "rationale": "先试探，不把猜测当结论。", "evidence": []},
+                   "statement": "P1，请解释你对当前队伍的看法，我暂时保留判断。",
+                   "rationale": "目前公开证据有限，需要结合发言与后续投票再判断。", "evidence": []},
         "assassin_rank": ids,
     }
 
 
 class AgentTests(unittest.TestCase):
-    def test_one_call_per_mission_even_on_reproposals_and_assassination(self):
+    def test_fresh_plan_for_each_proposal_and_speech_with_no_duplicate_requests(self):
         game = fixed_game()
         view = game.view("P3")
         client = FixedClient(valid_plan(view))
         agent = Agent(view, client)
         for attempt in range(1, 6):
             view["attempt"] = attempt
+            view["phase"] = "team"
             agent.prepare(view)
             agent.choose_team(2, attempt)
+            view["phase"] = "discussion"
+            agent.prepare(view)
+            agent.prepare(view)
             agent.social_action()
             agent.vote(["P1", "P3"], attempt)
             agent.mission()
         agent.assassinate()
-        self.assertEqual(agent.calls, {1: 1})
-        self.assertEqual(len(client.contexts), 1)
+        self.assertEqual(agent.calls, {1: 10})
+        self.assertEqual(len(client.contexts), 10)
         view["round"] = 2
         agent.prepare(view)
-        self.assertEqual(agent.calls, {1: 1, 2: 1})
+        self.assertEqual(agent.calls, {1: 10, 2: 1})
         self.assertEqual(agent.social_action()["card"], "BAIT")
 
-    def test_invalid_or_failed_api_falls_back_once(self):
+    def test_invalid_or_failed_api_stops_without_fabricating_a_plan(self):
         view = fixed_game().view("P1")
-        for client in (FixedClient(error=LLMError("http_401")), FixedClient({"bad": 1})):
-            agent = Agent(view, client)
-            self.assertTrue(agent.prepare(view).startswith("fallback"))
-            agent.prepare(view)
+        for client, code in ((FixedClient(error=LLMError("http_401")), "http_401"),
+                             (FixedClient({"bad": 1}), "invalid_plan")):
+            agent = Agent(view, client, max_retries=0)
+            memory = deepcopy(agent.memory)
+            with self.assertRaisesRegex(LLMError, code):
+                agent.prepare(view)
             self.assertEqual(agent.calls, {1: 1})
-            self.assertEqual(len(agent.choose_team(2)), 2)
-            self.assertEqual(agent.mission(), "SUCCESS")
+            self.assertIsNone(agent.plan)
+            self.assertEqual(agent.plans, {})
+            self.assertEqual(agent.memory, memory)
+
+    def test_missing_client_never_creates_a_mock_plan(self):
+        view = fixed_game().view("P1")
+        agent = Agent(view)
+        with self.assertRaisesRegex(LLMError, "missing_configuration"):
+            agent.prepare(view)
+        self.assertIsNone(agent.plan)
+        self.assertEqual(agent.calls, {})
+
+    def test_transient_errors_retry_the_same_turn_and_cache_only_success(self):
+        view = fixed_game().view("P5")
+        client = SequenceClient([LLMError("invalid_response"), LLMError("connection_error"), valid_plan(view)])
+        agent = Agent(view, client)
+        with patch("time.sleep") as sleep:
+            try:
+                self.assertEqual(agent.prepare(view), "llm")
+            except LLMError as error:
+                self.fail(f"A recoverable error should be retried: {error}")
+            self.assertEqual(agent.calls, {1: 3})
+            self.assertEqual(sleep.call_args_list, [call(2), call(4)])
+        self.assertEqual(client.contexts[0], client.contexts[1])
+        self.assertEqual(client.contexts[1], client.contexts[2])
+        self.assertEqual(agent.social_action(), valid_plan(view)["social"])
+        agent.prepare(view)
+        self.assertEqual(agent.calls, {1: 3})
+
+    def test_retry_exhaustion_leaves_private_state_and_plan_unchanged(self):
+        view = fixed_game().view("P5")
+        client = FixedClient({"bad": "PRIVATE_SENTINEL"})
+        agent = Agent(view, client)
+        memory = deepcopy(agent.memory)
+        with patch("time.sleep") as sleep, self.assertRaisesRegex(LLMError, "invalid_plan"):
+            agent.prepare(view)
+        self.assertEqual(agent.calls, {1: 3})
+        self.assertEqual(len(client.contexts), 3)
+        self.assertEqual(sleep.call_args_list, [call(2), call(4)])
+        self.assertIsNone(agent.plan)
+        self.assertEqual(agent.plans, {})
+        self.assertEqual(agent.memory, memory)
+
+    def test_permanent_errors_do_not_retry(self):
+        view = fixed_game().view("P5")
+        for code in ("http_400", "http_401", "http_402", "http_403", "http_404", "http_422",
+                     "refusal", "content_filtered", "missing_configuration"):
+            with self.subTest(code=code), patch("time.sleep") as sleep:
+                agent = Agent(view, FixedClient(error=LLMError(code)))
+                with self.assertRaisesRegex(LLMError, code):
+                    agent.prepare(view)
+                self.assertEqual(agent.calls, {1: 1})
+                self.assertEqual(sleep.call_args_list, [])
+
+    def test_network_and_provider_failures_can_recover(self):
+        view = fixed_game().view("P5")
+        for code in ("timeout", "connection_error", "http_408", "http_429", "http_500", "http_502",
+                     "http_503", "http_504", "empty_response", "truncated_response", "response_too_large"):
+            with self.subTest(code=code), patch("time.sleep"):
+                agent = Agent(view, SequenceClient([LLMError(code), valid_plan(view)]))
+                try:
+                    agent.prepare(view)
+                except LLMError as error:
+                    self.fail(f"A recoverable error should be retried: {error}")
+                self.assertEqual(agent.calls, {1: 2})
+                self.assertIsNotNone(agent.plan)
+
+    def test_ctrl_c_during_retry_wait_stops_without_another_request(self):
+        view = fixed_game().view("P5")
+        agent = Agent(view, FixedClient(error=LLMError("timeout")))
+        with patch("time.sleep", side_effect=KeyboardInterrupt), self.assertRaises(KeyboardInterrupt):
+            agent.prepare(view)
+        self.assertEqual(agent.calls, {1: 1})
+        self.assertIsNone(agent.plan)
 
     def test_known_facts_cannot_be_overwritten_by_model(self):
         view = fixed_game().view("P2")
@@ -92,7 +185,7 @@ class AgentTests(unittest.TestCase):
 
     def test_observations_change_beliefs_profiles_and_vote(self):
         game = fixed_game()
-        agent = Agent(game.view("P1"))
+        agent = Agent(game.view("P1"), FixedClient(valid_plan(game.view("P1"))))
         agent.prepare(game.view("P1"))
         agent.plan["vote_threshold"] = 0.49
         before = agent.memory["beliefs"]["P3"]["evil"]
@@ -101,18 +194,19 @@ class AgentTests(unittest.TestCase):
                            "team": ["P3", "P4"], "success": False, "fail_count": 1})
         self.assertGreater(agent.memory["beliefs"]["P3"]["evil"], before)
         self.assertFalse(agent.vote(["P3", "P4"], 1))
+        profile_before = deepcopy(agent.memory["profiles"]["P1"])
         agent.observe({"seq": 4, "kind": "SOCIAL", "round": 3, "actor": "P2",
                        "target": "P1", "card": "PRESSURE"})
         agent.observe({"seq": 5, "kind": "SOCIAL", "round": 3, "actor": "P1",
                        "target": "P2", "card": "ACCUSE"})
-        self.assertGreater(agent.memory["profiles"]["P1"]["retaliation"], 0.5)
-        self.assertGreater(agent.memory["profiles"]["P1"]["aggression"], 0.5)
+        self.assertGreater(agent.memory["profiles"]["P1"]["retaliation"], profile_before["retaliation"])
+        self.assertGreater(agent.memory["profiles"]["P1"]["aggression"], profile_before["aggression"])
         snapshot = deepcopy(agent.memory)
         agent.observe({"seq": 5, "kind": "SOCIAL", "round": 3, "actor": "P1",
                        "target": "P2", "card": "ACCUSE"})
         self.assertEqual(agent.memory, snapshot)
 
-    def test_plan_rejects_invalid_numbers_ids_and_free_text(self):
+    def test_plan_rejects_invalid_numbers_ids_and_private_reasoning_fields(self):
         view = fixed_game().view("P1")
         valid = valid_plan(view)
         bad_plans = []
@@ -136,14 +230,38 @@ class AgentTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 validate_plan(bad, [p["id"] for p in view["players"]])
 
-    def test_mock_is_reproducible_and_assassin_has_legal_target(self):
+    def test_public_speech_requires_bounded_printable_text_and_summary(self):
+        view = fixed_game().view("P1")
+        ids = [p["id"] for p in view["players"]]
+        for field in ("statement", "rationale"):
+            for value in (None, "", "   ", "x" * 401, "text\x1b[2J", "text\n[RESULT]", "a\u202eb"):
+                with self.subTest(field=field, value=value):
+                    plan = valid_plan(view)
+                    plan["social"][field] = value
+                    with self.assertRaises(ValueError):
+                        validate_plan(plan, ids)
+            plan = valid_plan(view)
+            del plan["social"][field]
+            with self.assertRaises(ValueError):
+                validate_plan(plan, ids)
+        plan = valid_plan(view)
+        self.assertEqual(validate_plan(plan, ids)["social"], plan["social"])
+
+    def test_assassin_has_legal_target_from_llm_plan(self):
         view = fixed_game().view("P3")
-        one, two = Agent(view), Agent(view)
+        one, two = Agent(view, FixedClient(valid_plan(view))), Agent(view, FixedClient(valid_plan(view)))
         one.prepare(view)
         two.prepare(view)
         self.assertEqual(one.plan, two.plan)
-        self.assertEqual(one.calls, {})
+        self.assertEqual(one.calls, {1: 1})
         self.assertIn(one.assassinate(), ["P1", "P2", "P5"])
+
+    def test_new_proposal_uses_fresh_llm_ranking_without_rotating_its_choice(self):
+        view = fixed_game().view("P1")
+        view["attempt"] = 2
+        agent = Agent(view, FixedClient(valid_plan(view)))
+        agent.prepare(view)
+        self.assertEqual(agent.choose_team(2, attempt=2), ["P5", "P4"])
 
 
 if __name__ == "__main__":

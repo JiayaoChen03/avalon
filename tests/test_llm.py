@@ -132,19 +132,46 @@ class ClientTests(unittest.TestCase):
                 Settings.load()
         self.assertFalse(Settings().ready)
 
-    def test_network_timeout_and_incomplete_http_body_fall_back(self):
+    def test_retry_settings_load_and_reject_invalid_limits(self):
+        with patch.dict(os.environ, {"PYTHON_DOTENV_DISABLED": "1", "OPENAI_MAX_RETRIES": "4",
+                                     "OPENAI_RETRY_DELAY_SECONDS": "1.5"}, clear=True):
+            settings = Settings.load()
+            self.assertEqual(getattr(settings, "max_retries", None), 4)
+            self.assertEqual(getattr(settings, "retry_delay", None), 1.5)
+        for name, value in (("OPENAI_MAX_RETRIES", "-1"), ("OPENAI_MAX_RETRIES", "6"),
+                            ("OPENAI_MAX_RETRIES", "1.5"), ("OPENAI_RETRY_DELAY_SECONDS", "nan"),
+                            ("OPENAI_RETRY_DELAY_SECONDS", "-1"), ("OPENAI_RETRY_DELAY_SECONDS", "31")):
+            with self.subTest(name=name, value=value):
+                with patch.dict(os.environ, {"PYTHON_DOTENV_DISABLED": "1", name: value}, clear=True):
+                    with self.assertRaises(ValueError):
+                        Settings.load()
+
+    def test_incomplete_empty_and_refused_responses_have_distinct_safe_codes(self):
+        refused = envelope()
+        refused["choices"][0]["message"]["refusal"] = "PRIVATE_SENTINEL"
+        for body, code in ((envelope(finish="length"), "truncated_response"),
+                           (envelope(content="  "), "empty_response"), (envelope(content=None), "empty_response"),
+                           (refused, "refusal"), (envelope(finish="content_filter"), "content_filtered")):
+            with self.subTest(code=code), endpoint(body) as (url, requests):
+                client = ChatClient(Settings(api_key="test", model="test", base_url=url))
+                with self.assertRaisesRegex(LLMError, code):
+                    client.complete({})
+                self.assertEqual(len(requests), 1)
+
+    def test_network_timeout_and_incomplete_http_body_stop_the_agent(self):
         from avalon.agents import Agent
         from test_engine import fixed_game
         for options in ({"delay": 0.1}, {"broken_chunk": True}):
             with endpoint(envelope(), **options) as (url, requests):
                 client = ChatClient(Settings(api_key="test", model="test", base_url=url, timeout=0.03))
                 view = fixed_game().view("P1")
-                agent = Agent(view, client)
-                self.assertTrue(agent.prepare(view).startswith("fallback"))
-                self.assertEqual(agent.mission(), "SUCCESS")
+                agent = Agent(view, client, max_retries=0)
+                with self.assertRaises(LLMError):
+                    agent.prepare(view)
+                self.assertIsNone(agent.plan)
                 self.assertEqual(len(requests), 1)
 
-    def test_complete_human_game_over_real_http_uses_one_call_per_agent_per_round(self):
+    def test_http_game_requests_follow_speaker_order_with_previous_speeches(self):
         from collections import Counter
         from avalon.agents import Agent
         from avalon.terminal import Human, run_game
@@ -155,6 +182,7 @@ class ClientTests(unittest.TestCase):
             context = json.loads(request["messages"][1]["content"])
             plan = valid_plan(context["game"])
             plan["mission"] = "SUCCESS"
+            plan["social"]["statement"] = f"{context['game']['self']}：我会比较这次队伍与此前的公开表现。"
             return envelope(json.dumps(plan))
 
         with endpoint(response) as (url, requests):
@@ -162,19 +190,27 @@ class ClientTests(unittest.TestCase):
             client = ChatClient(Settings(api_key="test", model="test", base_url=url))
             agents = {p: Agent(game.view(p), client) for p in game.ids if p != "P1"}
             human = Human(game.view("P1"), input_fn=lambda _: "", write=lambda _: None)
-            run_game(game, agents, human, write=lambda _: None)
+            output = []
+            run_game(game, agents, human, write=output.append)
             self.assertEqual(game.successes, 3)
             self.assertTrue(any(e["kind"] == "ASSASSINATE" for e in game.events))
-            self.assertEqual(len(requests), 12)
+            self.assertEqual(len(requests), 14)  # R1 has a human leader; R2/R3 have agent leaders.
             contexts = [json.loads(r[2]["messages"][1]["content"]) for r in requests]
-            counts = Counter((c["game"]["self"], c["game"]["round"]) for c in contexts)
+            counts = Counter((c["game"]["self"], c["game"]["round"],
+                              c["game"]["attempt"], c["game"]["phase"]) for c in contexts)
             self.assertEqual(set(counts.values()), {1})
-            for context in contexts:
-                view = context["game"]
-                before_self = view["speaking_order"][:view["speaking_order"].index(view["self"])]
-                spoken = [e["actor"] for e in view["recent_events"] if e["kind"] == "SOCIAL"
-                          and (e["round"], e["attempt"]) == (view["round"], view["attempt"])]
-                self.assertEqual(spoken, before_self)
+            speeches = [c["game"] for c in contexts if c["game"]["phase"] == "discussion"]
+            self.assertEqual([c["self"] for c in speeches],
+                             ["P2", "P3", "P4", "P5", "P2", "P3", "P4", "P5", "P3", "P4", "P5", "P2"])
+            for view in speeches:
+                before = [e for e in game.events if e["kind"] == "SOCIAL"
+                          and e["round"] == view["round"] and e["attempt"] == view["attempt"]]
+                index = next(i for i, event in enumerate(before) if event["actor"] == view["self"])
+                actual = [e for e in view["recent_events"] if e["kind"] == "SOCIAL"
+                          and e["round"] == view["round"] and e["attempt"] == view["attempt"]]
+                self.assertEqual(actual, before[:index])
+                self.assertTrue(view["team"])
+            self.assertNotIn("PRIVATE_SENTINEL", "\n".join(output) + json.dumps(game.events))
             self.assertTrue(all(source == "llm" for a in agents.values() for source in a.sources.values()))
 
 

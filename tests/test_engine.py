@@ -186,6 +186,37 @@ class RuleTests(unittest.TestCase):
         self.assertNotIn("role", json.dumps(game.events))
         self.assertNotIn("seed", json.dumps(game.view("P1")))
 
+    def test_discussion_enforces_leader_first_and_clockwise_turns(self):
+        game = fixed_game()
+        game.propose("P1", ["P1", "P2"])
+        action = {"card": "HEDGE", "target": "P1", "reason": "observe"}
+        before = len(game.events)
+        with self.assertRaises(ValueError):
+            game.social("P2", action)
+        self.assertEqual(len(game.events), before)
+        discuss(game)
+        game.vote({p: False for p in game.ids})
+        game.propose("P2", ["P2", "P3"])
+        with self.assertRaises(ValueError):
+            game.social("P1", action)
+        discuss(game)
+        self.assertEqual([e["actor"] for e in game.events if e["kind"] == "SOCIAL"][-5:],
+                         ["P2", "P3", "P4", "P5", "P1"])
+
+    def test_public_speech_is_logged_and_visible_to_the_next_speaker(self):
+        game = fixed_game()
+        game.propose("P1", ["P1", "P2"])
+        action = {"card": "HEDGE", "target": "P2", "reason": "observe",
+                  "statement": "我希望先听听 P2 的选队依据。", "rationale": "首轮还没有任务记录。",
+                  "evidence": []}
+        game.social("P1", action)
+        self.assertEqual(game.view("P2")["recent_events"][-1], game.events[-1])
+        self.assertEqual(game.events[-1]["statement"], action["statement"])
+        for field, value in (("reasoning_content", "PRIVATE"), ("statement", "\x1b[2J")):
+            bad = {**action, field: value}
+            with self.assertRaises(ValueError):
+                game.social("P2", bad)
+
 
 if __name__ == "__main__":
     unittest.main()

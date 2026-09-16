@@ -1,11 +1,12 @@
-"""Independent private state and a cached per-mission LLM action policy."""
+"""Independent private state and LLM policies refreshed for each speaking turn."""
 
 from collections import deque
 from copy import deepcopy
 import math
 import re
+import time
 
-from .engine import CARDS, EVIL_ROLES, REASONS, validate_social
+from .engine import EVIL_ROLES, REASONS, validate_social
 from .llm import LLMError
 
 
@@ -69,11 +70,12 @@ def validate_plan(raw, ids, public_events=None):
 
 
 class Agent:
-    def __init__(self, view, client=None):
+    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0):
         self.id, self.role = view["self"], view["role"]
         self.ids = [p["id"] for p in view["players"]]
         self.known_evil = set(view["known_evil"])
         self.client = client
+        self.max_retries, self.retry_delay = max_retries, retry_delay
         self.memory = {
             "beliefs": {p: {"evil": 2 / (len(self.ids) - 1), "merlin": 0.1} for p in self.ids},
             "profiles": {p: {key: 0.5 for key in sorted(PROFILE_FIELDS)} for p in self.ids},
@@ -100,70 +102,43 @@ class Agent:
                 belief["merlin"] = float(self.role == "MERLIN")
             belief["merlin"] = max(0.0, min(1 - belief["evil"], belief["merlin"]))
 
-    def _mock_plan(self, view):
-        beliefs = self.memory["beliefs"]
-        seat = self.ids.index(self.id)
-        # Tie breaks depend on this seat, never the referee's shuffle seed/other roles.
-        tie = lambda p: (self.ids.index(p) - seat) % len(self.ids)
-        rank = sorted(self.ids, key=lambda p: (beliefs[p]["evil"], tie(p)))
-        if self.role in EVIL_ROLES:
-            rank = [self.id] + [p for p in rank if p != self.id]
-        others = [p for p in self.ids if p != self.id]
-        target = max(others, key=lambda p: (beliefs[p]["evil"], -tie(p)))
-        card = CARDS[(view["round"] + seat) % len(CARDS)]
-        if card in {"PRESSURE", "BAIT"}:
-            target = max(others, key=lambda p: self.memory["profiles"][p]["retaliation"])
-        elif card == "DEFEND":
-            target = min(others, key=lambda p: (beliefs[p]["evil"], tie(p)))
-        statements = {"ACCUSE": f"我先对 {target} 提出怀疑，请说明你的组队想法。",
-                      "DEFEND": f"我愿意暂时支持 {target}，继续观察。",
-                      "HEDGE": f"对 {target} 暂时保留判断，先听后面的发言。",
-                      "PRESSURE": f"请 {target} 说说你愿意带谁执行任务。",
-                      "BAIT": f"我想试探 {target}：你最想验证哪位玩家？"}
-        return {
-            **deepcopy(self.memory),
-            "strategy": "probe" if card in {"PRESSURE", "BAIT"} else "observe",
-            "team_rank": rank, "vote_threshold": 0.56, "approve_last": True,
-            "mission": "FAIL" if self.role in EVIL_ROLES and (view["round"] > 1 or seat % 2 == 0)
-            else "SUCCESS",
-            "social": {"card": card, "target": target,
-                       "reason": "test_reaction" if card in {"PRESSURE", "BAIT"} else "observe",
-                       "statement": statements[card],
-                       "rationale": "这是离线策略的试探性表态，后续以公开投票与任务结果验证。",
-                       "evidence": []},
-            "assassin_rank": sorted(self.ids, key=lambda p: (-beliefs[p]["merlin"], tie(p))),
-        }
-
-    def prepare(self, view):
+    def prepare(self, view, on_retry=None):
+        """Retry recoverable failures in place; publish/cache only a validated plan."""
         round_no = view["round"]
-        if round_no in self.plans:
-            self.plan = deepcopy(self.plans[round_no])
-            return self.sources[round_no]
-        plan, source = None, "mock"
-        if self.client is not None:
-            self.calls[round_no] = 1  # Reserve budget before I/O, including failed requests.
-            has_model_history = self.sources.get(round_no - 1) == "llm"
-            context = {"game": deepcopy(view),
-                       "memory": deepcopy(self.memory) if has_model_history else {"beliefs": {}, "profiles": {}},
-                       "memory_status": "model_estimates" if has_model_history else "no_previous_model",
-                       "evidence": list(self.evidence)}
+        turn = (round_no, view["attempt"], view["phase"])
+        if turn in self.plans:
+            self.plan = deepcopy(self.plans[turn])
+            return "llm"
+        self.plan = None
+        if self.client is None:
+            raise LLMError("missing_configuration")
+        has_model_history = bool(self.plans)
+        context = {"game": deepcopy(view),
+                   "memory": deepcopy(self.memory) if has_model_history else {"beliefs": {}, "profiles": {}},
+                   "memory_status": "model_estimates" if has_model_history else "no_previous_model",
+                   "evidence": deepcopy(list(self.evidence))}
+        for attempt in range(self.max_retries + 1):
+            self.calls[round_no] = self.calls.get(round_no, 0) + 1
             try:
-                plan = validate_plan(self.client.complete(context), self.ids,
+                plan = validate_plan(self.client.complete(deepcopy(context)), self.ids,
                                      view["recent_events"] + list(self.evidence))
                 _guard_public_speech(plan["social"])
-                source = "llm"
-            except LLMError as error:
-                source = f"fallback:{error}"
-            except (ValueError, TypeError):
-                source = "fallback:invalid_plan"
-        if plan is None:
-            plan = self._mock_plan(view)
+            except (LLMError, ValueError, TypeError) as cause:
+                error = cause if isinstance(cause, LLMError) else LLMError("invalid_plan")
+                if not error.retryable or attempt == self.max_retries:
+                    raise error from None
+                delay = min(self.retry_delay * 2 ** attempt, 30.0)
+                if on_retry is not None:
+                    on_retry(error, attempt + 1, delay)
+                time.sleep(delay)
+            else:
+                break
         self.memory = {key: deepcopy(plan[key]) for key in ("beliefs", "profiles")}
         self._lock_facts()
         self.plan = plan
-        self.plans[round_no] = deepcopy(plan)
-        self.sources[round_no] = source
-        return source
+        self.plans[turn] = deepcopy(plan)
+        self.sources[round_no] = "llm"
+        return "llm"
 
     def observe(self, event):
         """Update from public facts only; repeated delivery is harmless."""
@@ -209,11 +184,7 @@ class Agent:
         self._lock_facts()
 
     def choose_team(self, size, attempt=1):
-        rank = self.plan["team_rank"]
-        ordered = sorted(rank, key=lambda p: rank.index(p) / len(rank)
-                         + 0.3 * self.memory["beliefs"][p]["evil"])
-        candidates = ordered[size-1:]
-        return ordered[:size-1] + [candidates[(attempt - 1) % len(candidates)]]
+        return self.plan["team_rank"][:size]
 
     def social_action(self):
         return deepcopy(self.plan["social"])

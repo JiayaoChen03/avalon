@@ -41,19 +41,21 @@ class DiscussionTests(unittest.TestCase):
         plan["social"].update(statement="开局先打个招呼，我想听听大家准备怎么组队。",
                               rationale="目前没有任务或投票记录，我先观察。", evidence=[])
         agent = Agent(view, FixedClient(plan))
-        with patch.object(agent, "_mock_plan", side_effect=AssertionError("Unexpected mock plan")):
+        with patch.object(agent, "_mock_plan", side_effect=AssertionError("Unexpected mock plan"), create=True):
             self.assertEqual(agent.prepare(view), "llm")
         self.assertEqual(agent.social_action()["statement"], plan["social"]["statement"])
 
-    def test_fallback_estimates_are_not_presented_as_model_history(self):
+    def test_failed_requests_are_not_presented_as_model_history(self):
         view = fixed_game().view("P1")
         client = FixedClient(error=LLMError("timeout"))
-        agent = Agent(view, client)
-        self.assertEqual(agent.prepare(view), "fallback:timeout")
+        agent = Agent(view, client, max_retries=0)
+        with self.assertRaisesRegex(LLMError, "timeout"):
+            agent.prepare(view)
         client.error, client.response = None, valid_plan(view)
         view["round"] = 2
         self.assertEqual(agent.prepare(view), "llm")
         self.assertEqual(client.contexts[-1]["memory"], {"beliefs": {}, "profiles": {}})
+        self.assertEqual(client.contexts[-1]["memory_status"], "no_previous_model")
 
     def test_public_summary_drops_private_role_disclosures_without_another_call(self):
         view = fixed_game().view("P3")
@@ -155,7 +157,7 @@ class DiscussionTests(unittest.TestCase):
         plan["social"]["evidence"] = [mission_seq]
         self.assertEqual(validate_plan(plan, game.ids, game.events)["social"]["evidence"], [mission_seq])
 
-    def test_all_proposals_print_statements_and_keep_one_call_per_mission(self):
+    def test_all_proposals_print_statements_and_refresh_each_turn(self):
         game = Game(make_players(6, 12), seed=12, direction="counterclockwise")
         clients = {p: FixedClient(valid_plan(game.view(p))) for p in game.ids}
         agents = {p: Agent(game.view(p), client) for p, client in clients.items()}
@@ -176,5 +178,13 @@ class DiscussionTests(unittest.TestCase):
             self.assertEqual([e["actor"] for e in same],
                              [game.ids[(start - n) % 6] for n in range(6)])
             self.assertTrue(all(e["statement"] and e["rationale"] for e in same))
-        self.assertTrue(all(set(a.calls.values()) == {1} for a in agents.values()))
+        for pid, agent in agents.items():
+            expected = {}
+            for event in game.events:
+                if event["kind"] in {"TEAM", "SOCIAL"} and event["actor"] == pid:
+                    expected[event["round"]] = expected.get(event["round"], 0) + 1
+            self.assertEqual(agent.calls, expected)
+            turns = [(c["game"]["round"], c["game"]["attempt"], c["game"]["phase"])
+                     for c in clients[pid].contexts]
+            self.assertEqual(len(turns), len(set(turns)))
         self.assertEqual(json.loads(log.getvalue().splitlines()[-2])["kind"], "RESULT")
