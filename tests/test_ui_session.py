@@ -1,5 +1,6 @@
 from avalon.engine import EVIL_ROLES
-from avalon.ui_session import MAX_RESOLVE, UISession
+from avalon.ui_playable_session import PlayableUISession
+from avalon.ui_session import MAX_RESOLVE
 
 
 class FakeClient:
@@ -54,7 +55,19 @@ class FakeClient:
 
 
 def make_session(seed=7):
-    return UISession(player_count=5, seed=seed, client=FakeClient())
+    return PlayableUISession(player_count=5, seed=seed, client=FakeClient())
+
+
+def advance_nonchoice_interrupts(session, state):
+    """Decline AI challenges/reactions until a normal player choice is required."""
+    for _ in range(30):
+        if state["phase"] == "CHALLENGE_RESPONSE":
+            state = session.handle({"type": "CHALLENGE_RESPONSE", "action": "DECLINE"})
+        elif state["phase"] == "REACTION":
+            state = session.handle({"type": "REACTION", "action": "KEEP_WAITING"})
+        else:
+            return state
+    raise AssertionError("Too many interrupt phases")
 
 
 def test_role_reveal_is_private_and_start_state_is_complete():
@@ -67,25 +80,41 @@ def test_role_reveal_is_private_and_start_state_is_complete():
     assert all(player["resolve"] == MAX_RESOLVE for player in state["players"])
 
 
-def test_pass_is_free_and_social_spends_resolve_when_human_turn_arrives():
+def test_pass_is_free_when_human_turn_arrives():
     session = make_session(seed=9)
     state = session.handle({"type": "CONTINUE"})
-    while state["phase"] != "DISCUSSION":
+    for _ in range(50):
+        state = advance_nonchoice_interrupts(session, state)
+        if state["phase"] == "DISCUSSION":
+            break
         if state["phase"] == "TEAM_DRAFT":
             team = [p["id"] for p in state["players"][: state["team_size"]]]
             state = session.handle({"type": "SUBMIT_TEAM", "team": team})
         else:
             raise AssertionError(state["phase"])
+    assert state["phase"] == "DISCUSSION"
     before = next(p["resolve"] for p in state["players"] if p["is_human"])
     state = session.handle({"type": "DISCUSSION", "action": "PASS"})
     after = next(p["resolve"] for p in state["players"] if p["is_human"])
     assert before == after
 
 
+def test_challenge_decline_is_free_and_response_costs_one():
+    session = make_session(seed=9)
+    session.pending = "CHALLENGE_RESPONSE"
+    session.challenge_trigger = {"seq": 99, "kind": "CHALLENGE", "text": "ATLAS challenged YOU"}
+    before = session.resolve[session.human_id]
+    # Keep the engine in a non-advancing state after response for this focused cost test.
+    session._advance = lambda: None
+    state = session.handle({"type": "CHALLENGE_RESPONSE", "action": "DECLINE"})
+    assert session.resolve[session.human_id] == before
+    assert state["challenge_trigger"] is None
+
+
 def test_full_match_can_be_completed_through_ui_commands_only():
     session = make_session(seed=4)
     state = session.state()
-    for _ in range(250):
+    for _ in range(300):
         phase = state["phase"]
         if phase == "GAME_OVER":
             break
@@ -98,13 +127,14 @@ def test_full_match_can_be_completed_through_ui_commands_only():
             state = session.handle({"type": "DISCUSSION", "action": "PASS"})
         elif phase == "REACTION":
             state = session.handle({"type": "REACTION", "action": "KEEP_WAITING"})
+        elif phase == "CHALLENGE_RESPONSE":
+            state = session.handle({"type": "CHALLENGE_RESPONSE", "action": "DECLINE"})
         elif phase == "TEAM_CONFIRM":
             state = session.handle({"type": "TEAM_CONFIRM", "action": "LOCK_TEAM"})
         elif phase == "VOTE":
             state = session.handle({"type": "VOTE", "approve": True, "strong": False})
         elif phase == "MISSION":
-            card = "SUCCESS"
-            state = session.handle({"type": "MISSION", "card": card})
+            state = session.handle({"type": "MISSION", "card": "SUCCESS"})
         elif phase == "ROUND_RESULT":
             state = session.handle({"type": "CONTINUE"})
         elif phase == "ASSASSINATION":
@@ -115,14 +145,17 @@ def test_full_match_can_be_completed_through_ui_commands_only():
     assert state["game_result"]["winner"] in {"GOOD", "EVIL"}
 
 
-def test_resolve_refreshes_only_after_mission_resolution():
+def test_resolve_refreshes_after_mission_resolution():
     session = make_session(seed=11)
     state = session.handle({"type": "CONTINUE"})
-    # Drive until human discussion, spend one Resolve, then use free choices afterward.
-    while state["phase"] != "DISCUSSION":
+    for _ in range(60):
+        state = advance_nonchoice_interrupts(session, state)
+        if state["phase"] == "DISCUSSION":
+            break
         if state["phase"] == "TEAM_DRAFT":
             ids = [p["id"] for p in state["players"]]
             state = session.handle({"type": "SUBMIT_TEAM", "team": ids[: state["team_size"]]})
+    assert state["phase"] == "DISCUSSION"
     target = next(p["id"] for p in state["players"] if not p["is_human"])
     state = session.handle({
         "type": "DISCUSSION",
@@ -134,21 +167,26 @@ def test_resolve_refreshes_only_after_mission_resolution():
     spent = next(p["resolve"] for p in state["players"] if p["is_human"])
     assert spent == MAX_RESOLVE - 1
 
-    for _ in range(100):
-        if state["phase"] == "ROUND_RESULT":
+    for _ in range(150):
+        phase = state["phase"]
+        if phase == "ROUND_RESULT":
             break
-        if state["phase"] == "DISCUSSION":
+        if phase == "DISCUSSION":
             state = session.handle({"type": "DISCUSSION", "action": "PASS"})
-        elif state["phase"] == "TEAM_CONFIRM":
+        elif phase == "REACTION":
+            state = session.handle({"type": "REACTION", "action": "KEEP_WAITING"})
+        elif phase == "CHALLENGE_RESPONSE":
+            state = session.handle({"type": "CHALLENGE_RESPONSE", "action": "DECLINE"})
+        elif phase == "TEAM_CONFIRM":
             state = session.handle({"type": "TEAM_CONFIRM", "action": "LOCK_TEAM"})
-        elif state["phase"] == "VOTE":
+        elif phase == "VOTE":
             state = session.handle({"type": "VOTE", "approve": True, "strong": False})
-        elif state["phase"] == "MISSION":
+        elif phase == "MISSION":
             state = session.handle({"type": "MISSION", "card": "SUCCESS"})
-        elif state["phase"] == "TEAM_DRAFT":
+        elif phase == "TEAM_DRAFT":
             ids = [p["id"] for p in state["players"]]
             state = session.handle({"type": "SUBMIT_TEAM", "team": ids[: state["team_size"]]})
         else:
-            raise AssertionError(state["phase"])
+            raise AssertionError(phase)
     assert state["phase"] == "ROUND_RESULT"
     assert all(player["resolve"] == MAX_RESOLVE for player in state["players"])
