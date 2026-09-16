@@ -8,7 +8,7 @@ from avalon.agents import Agent, validate_plan
 from avalon.engine import Game, make_players
 from avalon.llm import LLMError
 from avalon.terminal import Human, run_game
-from test_agents import FixedClient, valid_plan
+from test_agents import FixedClient, SequenceClient, valid_plan
 from test_engine import fixed_game, discuss
 
 
@@ -57,21 +57,43 @@ class DiscussionTests(unittest.TestCase):
         self.assertEqual(client.contexts[-1]["memory"], {"beliefs": {}, "profiles": {}})
         self.assertEqual(client.contexts[-1]["memory_status"], "no_previous_model")
 
-    def test_public_summary_drops_private_role_disclosures_without_another_call(self):
-        view = fixed_game().view("P3")
-        for field, disclosure in (("rationale", "作为邪恶方，先保持中立并收集信息。"),
-                                  ("statement", "我是刺客，P4 是我的同伴。"),
-                                  ("rationale", "As an evil player, I want to hide my role."),
-                                  ("rationale", "我的角色是刺客，P3 是我的同伴。"),
-                                  ("rationale", "I am on the evil team with P3.")):
-            plan = valid_plan(view)
-            plan["social"][field] = disclosure
-            agent = Agent(view, FixedClient(plan))
-            self.assertEqual(agent.prepare(view), "llm")
-            self.assertNotIn(disclosure, json.dumps(agent.social_action(), ensure_ascii=False))
-            self.assertTrue(agent.social_action()[field])
-            self.assertEqual(agent.plan["team_rank"], plan["team_rank"])
-            self.assertEqual(agent.calls, {1: 1})
+    def test_private_disclosures_retry_for_model_authored_castle_speech(self):
+        for pid in ("P1", "P2", "P3"):
+            view = fixed_game().view(pid)
+            for field, disclosure in (("rationale", "作为邪恶方，先保持中立并收集信息。"),
+                                      ("statement", "我是刺客，P4 是我的同伴。"),
+                                      ("rationale", "As an evil player, I want to hide my role."),
+                                      ("rationale", "我的角色是刺客，P3 是我的同伴。"),
+                                      ("rationale", "I am on the evil team with P3.")):
+                with self.subTest(pid=pid, field=field, disclosure=disclosure):
+                    good = valid_plan(view)
+                    good["social"].update(statement="P1，你愿意跟我出堡找些粮食吗？",
+                                          rationale="现在没有谁外出归来的消息，我仍拿不准城外的风险。")
+                    bad = deepcopy(good)
+                    bad["social"][field] = disclosure
+                    client = SequenceClient([bad, good])
+                    agent = Agent(view, client, retry_delay=0)
+                    retries = []
+                    self.assertEqual(agent.prepare(view, on_retry=lambda error, *_: retries.append(error.public_code)), "llm")
+                    self.assertEqual(agent.social_action(), good["social"])
+                    self.assertEqual(agent.calls, {1: 2})
+                    self.assertEqual(client.contexts[0], client.contexts[1])
+                    self.assertEqual(retries, ["invalid_plan"])
+
+    def test_disclosure_retry_exhaustion_does_not_publish_replacement_dialogue(self):
+        for pid in ("P1", "P2"):
+            with self.subTest(pid=pid):
+                view = fixed_game().view(pid)
+                plan = valid_plan(view)
+                plan["social"].update(statement="我的角色是梅林，我知道谁是邪恶方。", reason="strategy")
+                agent = Agent(view, FixedClient(plan), max_retries=1, retry_delay=0)
+                memory = deepcopy(agent.memory)
+                with self.assertRaisesRegex(LLMError, "private_disclosure"):
+                    agent.prepare(view)
+                self.assertIsNone(agent.plan)
+                self.assertEqual(agent.plans, {})
+                self.assertEqual(agent.memory, memory)
+                self.assertEqual(agent.calls, {1: 2})
 
     def test_direction_is_announced_before_round_and_fixes_speaking_order(self):
         for direction, expected in (("clockwise", ["P1", "P2", "P3", "P4", "P5"]),
@@ -181,7 +203,8 @@ class DiscussionTests(unittest.TestCase):
         for pid, agent in agents.items():
             expected = {}
             for event in game.events:
-                if event["kind"] in {"TEAM", "SOCIAL"} and event["actor"] == pid:
+                if (event["kind"] == "SOCIAL" or event["kind"] == "TEAM"
+                        and game.players[pid].role in {"GOOD", "MERLIN"}) and event["actor"] == pid:
                     expected[event["round"]] = expected.get(event["round"], 0) + 1
             self.assertEqual(agent.calls, expected)
             turns = [(c["game"]["round"], c["game"]["attempt"], c["game"]["phase"])

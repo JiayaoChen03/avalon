@@ -15,3 +15,6 @@ avalon = "avalon.terminal:main"
 
 [tool.setuptools.packages.find]
 include = ["avalon*"]
+
+[tool.setuptools.data-files]
+"share/terminal-avalon-mvp" = ["prompts/corrupted_castle_system.md"]

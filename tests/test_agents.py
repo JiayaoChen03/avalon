@@ -18,6 +18,10 @@ class FixedClient:
         self.contexts.append(deepcopy(context))
         if self.error:
             raise self.error
+        if "tactical" in context and isinstance(self.response, dict) and set(self.response) == {
+                "beliefs", "profiles", "strategy", "team_rank", "vote_threshold", "approve_last",
+                "mission", "social", "assassin_rank"}:
+            return model_response(context, self.response)
         return deepcopy(self.response)
 
 
@@ -47,6 +51,16 @@ def valid_plan(view):
                    "rationale": "目前公开证据有限，需要结合发言与后续投票再判断。", "evidence": []},
         "assassin_rank": ids,
     }
+
+
+def model_response(context, plan=None):
+    """Provider fixture follows the separate good-policy and evil-performance protocols."""
+    plan = deepcopy(plan) if plan is not None else valid_plan(context["game"])
+    if "tactical" not in context:
+        return plan
+    plan["social"]["target"] = context["tactical"]["primary_target"]
+    plan["social"]["card"] = context["tactical"]["allowed_cards"][0]
+    return {"social": plan["social"]}
 
 
 class AgentTests(unittest.TestCase):

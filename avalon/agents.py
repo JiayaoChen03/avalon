@@ -6,7 +6,7 @@ import math
 import re
 import time
 
-from .engine import EVIL_ROLES, REASONS, validate_social
+from .engine import EVIL_ROLES, validate_social
 from .llm import LLMError
 
 
@@ -17,15 +17,28 @@ _PRIVATE_DISCLOSURE = re.compile(
     r"(?:作为|身为|我是|我属于|我扮演|我拿到|我的.{0,4}(?:角色|身份|阵营)|我知道).{0,24}" + _ROLE_WORDS
     + r"|(?:as (?:an? |the )?|i(?: am|'m|’m) (?:on (?:the )?|an? |the )?|my (?:role|alignment) is )" + _ROLE_WORDS
     + r"|known_evil|已知邪恶|私有(?:身份|信息|判断)|private (?:role|belief)", re.IGNORECASE)
+_TACTICAL_DISCLOSURE = re.compile(
+    r"evil[_ ]?shared[_ ]?state|tactical[_ ]?context|strategy[_ ]?mode|mission[_ ]?fail[_ ]?owner"
+    r"|evil_partner|likely_merlin|merlin_probabilities|active_narratives|framed_players|agenda_topic"
+    r"|aggressor_agent_id|sleeper_agent_id|partner_agreement_count|partner_defense_count"
+    r"|suspicion_scores|trust_scores|pair_suspicion"
+    r"|primary[_ ]?objective|secondary[_ ]?objective|distance[_ ]?strength|sacrifice[_ ]?target"
+    r"|NORMAL_DECEPTION|FAKE_CONFLICT|CONSENSUS_SEEDING|AGENDA_CAPTURE|MERLIN_HUNT|CRISIS_RECOVERY"
+    r"|CREATE_DISTANCE_FROM_PARTNER|MAINTAIN_INDEPENDENCE|SACRIFICE_SELF|SACRIFICE_PARTNER"
+    r"|REDUCE_SELF_SUSPICION|REDUCE_PARTNER_SUSPICION|INCREASE_TARGET_SUSPICION|BUILD_TRUST"
+    r"|CONTROL_AGENDA|PROBE_MERLIN|SEED_NARRATIVE|REINFORCE_NARRATIVE|CAUSE_UNCERTAINTY"
+    r"|MAXIMIZE_PARTNER_SURVIVAL|MAXIMIZE_ENEMY_MISDIRECTION|\bSACRIFICE\b"
+    r"|(?:my|our) (?:evil )?(?:partner|teammate)|(?:我的|我方)(?:邪恶)?(?:队友|同伙)"
+    r"|战术(?:上下文|指令|目标)|共享(?:状态|战略)|策略管理器|失败票负责人"
+    r"|我(?:是|负责|担任).{0,8}(?:潜伏|进攻|aggressor|sleeper)"
+    r"|我(?:和|与|跟)\s*P\d+.{0,8}(?:都是|同为|同属).{0,4}(?:坏人|邪恶)", re.IGNORECASE)
 
 
 def _guard_public_speech(action):
-    """Keep explicit private-role explanations out of the public statement fields."""
-    replacements = {"statement": f"我选择 {action['card']} {action['target']}，想听听对方的回应。",
-                    "rationale": REASONS[action["reason"]] + "；先依据公开行动继续观察。"}
-    for field, replacement in replacements.items():
+    """Retry disclosures; only validated, model-authored dialogue may be published."""
+    for field in ("statement", "rationale"):
         if _PRIVATE_DISCLOSURE.search(action[field]):
-            action[field] = replacement
+            raise LLMError("private_disclosure")
 
 
 def _probability(value):
@@ -58,7 +71,12 @@ def validate_plan(raw, ids, public_events=None):
             or raw["mission"] not in ("SUCCESS", "FAIL")):
         raise ValueError("Invalid policy")
     plan = deepcopy(raw)
-    social = plan["social"]
+    plan["social"] = _validate_public_social(plan["social"], ids, public_events)
+    return plan
+
+
+def _validate_public_social(raw, ids, public_events):
+    social = deepcopy(raw)
     refs = social.get("evidence") if isinstance(social, dict) else None
     visible = None if public_events is None else {e["seq"] for e in public_events
               if e["kind"] in {"TEAM", "SOCIAL", "VOTE", "TEAM_VOTE", "MISSION"}}
@@ -66,11 +84,34 @@ def validate_plan(raw, ids, public_events=None):
     if isinstance(refs, list) and all(type(n) is int and n > 0 and (visible is None or n in visible) for n in refs):
         social["evidence"] = list(dict.fromkeys(refs))[:3]
     validate_social(social, ids, public_events, require_statement=True)
-    return plan
+    return social
+
+
+def validate_performance(raw, ids, public_events, tactical):
+    """Managed evil may express a tactic, never overwrite strategic state."""
+    if not isinstance(raw, dict) or set(raw) != {"social"}:
+        raise ValueError("Invalid performance keys")
+    social = _validate_public_social(raw["social"], ids, public_events)
+    if social["target"] != tactical["primary_target"] or social["card"] not in tactical["allowed_cards"]:
+        raise ValueError("Social action does not implement the assigned tactic")
+    private_labels = [tactical.get(key) for key in
+                      ("strategy_mode", "primary_objective", "secondary_objective", "role", "agenda_topic")]
+    private_labels.extend(tactical.get("constraints", []))
+    private_labels.extend(narrative.get("category") for narrative in tactical.get("active_narratives", [])
+                          if isinstance(narrative, dict))
+    # Protect code labels and their readable spellings, while allowing public IDs/cards/evidence.
+    private_patterns = [re.compile(r"[\s_-]+".join(re.escape(part) for part in re.split(r"[\s_-]+", label.strip())),
+                                   re.IGNORECASE)
+                        for label in private_labels if isinstance(label, str) and label.strip()]
+    for field in ("statement", "rationale"):
+        if (_PRIVATE_DISCLOSURE.search(social[field]) or _TACTICAL_DISCLOSURE.search(social[field])
+                or any(pattern.search(social[field]) for pattern in private_patterns)):
+            raise LLMError("private_disclosure")
+    return {"social": social, "strategy": tactical["strategy_mode"]}
 
 
 class Agent:
-    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0):
+    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0, evil_strategy=None):
         self.id, self.role = view["self"], view["role"]
         self.ids = [p["id"] for p in view["players"]]
         self.known_evil = set(view["known_evil"])
@@ -86,7 +127,25 @@ class Agent:
         self.attacks = {}
         self.evidence = deque(maxlen=6)
         self.snapshots = []
+        self.evil_strategy = None
+        self._view = deepcopy(view)
+        self.tactical = None
+        if evil_strategy is not None:
+            self.bind_evil_strategy(evil_strategy)
         self._lock_facts()
+
+    def bind_evil_strategy(self, manager):
+        if (self.role not in EVIL_ROLES or self.id not in manager.controlled_evil_ids
+                or self.known_evil != set(manager.evil_ids)):
+            raise ValueError("Only an authorized evil AI can bind the shared strategy")
+        if self.evil_strategy is not None and self.evil_strategy is not manager:
+            raise ValueError("An agent cannot change shared strategy mid-game")
+        self.evil_strategy = manager
+
+    def update_view(self, view):
+        if view["self"] != self.id or view["role"] != self.role:
+            raise ValueError("An agent can only receive its own view")
+        self._view = deepcopy(view)
 
     def _lock_facts(self):
         for pid, belief in self.memory["beliefs"].items():
@@ -104,6 +163,7 @@ class Agent:
 
     def prepare(self, view, on_retry=None):
         """Retry recoverable failures in place; publish/cache only a validated plan."""
+        self.update_view(view)
         round_no = view["round"]
         turn = (round_no, view["attempt"], view["phase"])
         if turn in self.plans:
@@ -112,17 +172,30 @@ class Agent:
         self.plan = None
         if self.client is None:
             raise LLMError("missing_configuration")
-        has_model_history = bool(self.plans)
-        context = {"game": deepcopy(view),
-                   "memory": deepcopy(self.memory) if has_model_history else {"beliefs": {}, "profiles": {}},
-                   "memory_status": "model_estimates" if has_model_history else "no_previous_model",
-                   "evidence": deepcopy(list(self.evidence))}
+        if self.evil_strategy is not None:
+            self.tactical = self.evil_strategy.tactical_context(view).to_dict()
+            context = {"game": deepcopy(view), "tactical": deepcopy(self.tactical)}
+            if view["phase"] == "team":
+                context["planned_action"] = {"team": self.evil_strategy.choose_team(view)}
+            elif view["phase"] == "discussion" and view["leader"] == self.id:
+                context["planned_action"] = {"team": list(view["team"])}
+            public_events = view["recent_events"] + self.tactical["relevant_public_events"]
+        else:
+            has_model_history = bool(self.plans)
+            context = {"game": deepcopy(view),
+                       "memory": deepcopy(self.memory) if has_model_history else {"beliefs": {}, "profiles": {}},
+                       "memory_status": "model_estimates" if has_model_history else "no_previous_model",
+                       "evidence": deepcopy(list(self.evidence))}
+            public_events = view["recent_events"] + list(self.evidence)
         for attempt in range(self.max_retries + 1):
             self.calls[round_no] = self.calls.get(round_no, 0) + 1
             try:
-                plan = validate_plan(self.client.complete(deepcopy(context)), self.ids,
-                                     view["recent_events"] + list(self.evidence))
-                _guard_public_speech(plan["social"])
+                raw = self.client.complete(deepcopy(context))
+                if self.evil_strategy is not None:
+                    plan = validate_performance(raw, self.ids, public_events, self.tactical)
+                else:
+                    plan = validate_plan(raw, self.ids, public_events)
+                    _guard_public_speech(plan["social"])
             except (LLMError, ValueError, TypeError) as cause:
                 error = cause if isinstance(cause, LLMError) else LLMError("invalid_plan")
                 if not error.retryable or attempt == self.max_retries:
@@ -133,7 +206,8 @@ class Agent:
                 time.sleep(delay)
             else:
                 break
-        self.memory = {key: deepcopy(plan[key]) for key in ("beliefs", "profiles")}
+        if self.evil_strategy is None:
+            self.memory = {key: deepcopy(plan[key]) for key in ("beliefs", "profiles")}
         self._lock_facts()
         self.plan = plan
         self.plans[turn] = deepcopy(plan)
@@ -184,12 +258,16 @@ class Agent:
         self._lock_facts()
 
     def choose_team(self, size, attempt=1):
+        if self.evil_strategy is not None:
+            return self.evil_strategy.choose_team(self._view)
         return self.plan["team_rank"][:size]
 
     def social_action(self):
         return deepcopy(self.plan["social"])
 
     def vote(self, team, attempt):
+        if self.evil_strategy is not None:
+            return self.evil_strategy.vote(self._view)
         if attempt == 5 and self.plan["approve_last"]:
             return True
         if self.role in EVIL_ROLES:
@@ -198,10 +276,14 @@ class Agent:
             risk = sum(self.memory["beliefs"][p]["evil"] for p in team) / len(team)
         return risk <= self.plan["vote_threshold"]
 
-    def mission(self):
+    def mission(self, external_cards=None):
+        if self.evil_strategy is not None:
+            return self.evil_strategy.mission_cards(self._view, external_cards=external_cards)[self.id]
         return self.plan["mission"] if self.role in EVIL_ROLES else "SUCCESS"
 
     def assassinate(self):
+        if self.evil_strategy is not None:
+            return self.evil_strategy.assassinate(self._view)
         rank = self.plan["assassin_rank"]
         candidates = [p for p in rank if p not in self.known_evil and p != self.id]
         return max(candidates, key=lambda p: self.memory["beliefs"][p]["merlin"]

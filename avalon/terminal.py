@@ -1,14 +1,16 @@
 """Human input, public event rendering, and the complete terminal game loop."""
 
 import argparse
-from contextlib import nullcontext
+from contextlib import ExitStack
 from copy import deepcopy
+from dataclasses import asdict
 import json
 from pathlib import Path
 import sys
 
 from .agents import Agent
 from .engine import CARDS, DIRECTIONS, EVIL_ROLES, Game, REASONS, make_players
+from .evil_strategy import EvilStrategyManager
 from .llm import ChatClient, LLMError, Settings
 
 
@@ -145,11 +147,45 @@ def format_event(event, players):
     raise ValueError(f"Unknown public event: {kind}")
 
 
-def run_game(game, agents, human=None, write=print, log=None, dossier=False):
+def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
+             strategy_manager=None, strategy_seed=None, debug_write=None, strategy_log=None):
     """Normal play has one Human. Passing only agents is explicit demo/test mode."""
     if set(agents) | ({human.id} if human else set()) != set(game.ids):
         raise ValueError("Every seat requires a controller.")
+    evil_ids = {p.id for p in game.players.values() if p.role in EVIL_ROLES}
+    controlled_evil = evil_ids & set(agents)
+    manager = strategy_manager or EvilStrategyManager(game.ids, evil_ids, seed=strategy_seed,
+                                                       controlled_evil_ids=controlled_evil)
+    if set(manager.evil_ids) != evil_ids or set(manager.controlled_evil_ids) != controlled_evil:
+        raise ValueError("The strategy manager must match this game's evil AI seats")
+    for pid in controlled_evil:
+        agents[pid].bind_evil_strategy(manager)
     cursor = 0
+    strategy_cursor = 0
+
+    def debug_strategy(label, record):
+        if debug_write is None:
+            return
+        snapshot = manager.debug_snapshot()
+        fields = ("strategy_mode", "aggressor_agent_id", "sleeper_agent_id", "roles",
+                  "primary_target", "secondary_target", "sacrifice_target", "mission_fail_owner",
+                  "likely_merlin", "merlin_probabilities", "pair_suspicion", "distance_strength",
+                  "active_narratives", "agenda_topic")
+        summary = {key: snapshot[key] for key in fields if key in snapshot}
+        debug_write(f"[PRIVATE DEBUG] {label}\n"
+                    + json.dumps({"decision": record, "state": summary}, ensure_ascii=False,
+                                 allow_nan=False, indent=2))
+
+    def flush_strategy():
+        nonlocal strategy_cursor
+        for decision in manager.decisions[strategy_cursor:]:
+            record = asdict(decision)
+            if strategy_log is not None:
+                strategy_log.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
+                strategy_log.flush()
+            # Development output has a separate sink and is never broadcast to agents.
+            debug_strategy("EVIL STRATEGY UPDATE", record)
+        strategy_cursor = len(manager.decisions)
 
     def flush():
         nonlocal cursor
@@ -158,18 +194,37 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
             if log is not None:
                 log.write(json.dumps(event, ensure_ascii=False, allow_nan=False) + "\n")
                 log.flush()
+            manager.observe(deepcopy(event))
             for agent in agents.values():
                 agent.observe(deepcopy(event))
         cursor = len(game.events)
+        # Accepted SOCIAL events, not model attempts, create discussion decisions.
+        flush_strategy()
 
     def controller(pid):
+        if pid in agents:
+            agents[pid].update_view(game.view(pid))
         return human if human is not None and pid == human.id else agents[pid]
 
     def prepare_agent(pid):
         def report_retry(error, retry_no, delay):
-            write(f"[RETRY] [{game.players[pid].name}/{pid}] 调用失败（{error}），"
+            write(f"[RETRY] [{game.players[pid].name}/{pid}] 调用失败（{error.public_code}），"
                   f"{delay:g} 秒后重试（{retry_no}/{agents[pid].max_retries}）…")
-        agents[pid].prepare(game.view(pid), on_retry=report_retry)
+            if debug_write is not None:
+                debug_write(f"[PRIVATE DEBUG] LLM RETRY {pid}: {error}")
+        view = game.view(pid)
+        if pid in controlled_evil:
+            tactic = manager.tactical_context(view).to_dict()
+            planned = {key: tactic[key] for key in
+                       ("strategy_mode", "role", "primary_objective", "secondary_objective", "primary_target")}
+            debug_strategy("EVIL TACTICAL PLAN", {"status": "planned", "agent_id": pid,
+                           "round": game.round, "attempt": game.attempt, "phase": game.phase, **planned})
+        try:
+            agents[pid].prepare(view, on_retry=report_retry)
+        except LLMError as error:
+            if debug_write is not None:
+                debug_write(f"[PRIVATE DEBUG] LLM STOP {pid}: {error}")
+            raise
 
     flush()
     if human is not None:
@@ -179,9 +234,11 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
         while game.phase in {"team", "discussion", "mission"} and game.round == round_no:
             leader = game.leader
             if leader in agents:
-                write(f"[AGENT] [{game.players[leader].name}/{leader}] 正在调用 LLM 选队…")
-                prepare_agent(leader)
+                write(f"[AGENT] [{game.players[leader].name}/{leader}] 正在准备队伍…")
+                if leader not in controlled_evil:
+                    prepare_agent(leader)
             game.propose(leader, controller(leader).choose_team(game.team_size, game.attempt))
+            flush_strategy()
             flush()
             for pid in game.speaking_order:
                 if pid in agents:
@@ -191,12 +248,20 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
                 game.social(pid, controller(pid).social_action())
                 flush()
             votes = {pid: controller(pid).vote(list(game.team), game.attempt) for pid in game.ids}
+            flush_strategy()
             reasons = {pid: "human_choice" if human and pid == human.id else
                        "last_chance" if game.attempt == 5 else "team_risk" for pid in game.ids}
             game.vote(votes, reasons)
             flush()
             if game.phase == "mission":
-                cards = {pid: controller(pid).mission() for pid in game.team}
+                external_cards = ({human.id: human.mission()}
+                                  if human and human.role in EVIL_ROLES and human.id in game.team else {})
+                evil_view = game.view(next(p for p in game.ids if p in controlled_evil))
+                managed_cards = manager.mission_cards(evil_view, external_cards=external_cards)
+                cards = {pid: external_cards[pid] if pid in external_cards else
+                         managed_cards[pid] if pid in managed_cards else controller(pid).mission()
+                         for pid in game.team}
+                flush_strategy()
                 game.resolve_mission(cards)
                 flush()
         for agent in agents.values():
@@ -204,6 +269,7 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
         if game.phase == "assassination":
             assassin = next(p.id for p in game.players.values() if p.role == "ASSASSIN")
             game.assassinate(assassin, controller(assassin).assassinate())
+            flush_strategy()
             flush()
 
     for pid, agent in agents.items():
@@ -215,10 +281,11 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
             for snapshot in agent.snapshots:
                 profile, belief = snapshot["profile"], snapshot["belief"]
                 social = snapshot["social"]
+                strategy_text = f"strategy={snapshot['strategy']} | " if agent.evil_strategy is None else ""
                 write(f"[DOSSIER] {game.players[pid].name}/{pid} R{snapshot['round']} | "
                       f"P1 evil={belief['evil']:.2f} | aggression={profile['aggression']:.2f} "
                       f"retaliation={profile['retaliation']:.2f} approval={profile['approval']:.2f} | "
-                      f"strategy={snapshot['strategy']} | {social['card']} {social['target']}")
+                      f"{strategy_text}{social['card']} {social['target']}")
                 write("  近期公开依据：" + json.dumps(snapshot["evidence"][-2:], ensure_ascii=False))
     return game
 
@@ -226,6 +293,8 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False):
 def main(argv=None):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description="Terminal Avalon：1 位人类 + LLM agents，自动读取模型配置并轮流发言。")
     parser.add_argument("--players", type=int, choices=(5, 6), default=5, help="总人数，默认 5")
     parser.add_argument("--name", default="YOU", help="人类 P1 昵称")
@@ -235,6 +304,9 @@ def main(argv=None):
     parser.add_argument("--env-file", type=Path, help="显式 dotenv 文件路径")
     parser.add_argument("--log", type=Path, help="保存公开 JSONL 事件（包含赛后身份揭晓）")
     parser.add_argument("--dossier", action="store_true", help="结束后显示 AI 对 P1 的行为画像变化")
+    parser.add_argument("--debug-strategy", action="store_true",
+                        help="开发者专用：将邪恶内部战略输出到 stderr；会显示隐藏信息")
+    parser.add_argument("--strategy-log", type=Path, help="开发者专用：另存私有结构化战略 JSONL")
     args = parser.parse_args(argv)
     write = lambda value: print(value, flush=True)
     write("=== TERMINAL AVALON ===")
@@ -252,22 +324,40 @@ def main(argv=None):
         write("[CONFIG] 缺少 " + "、".join(missing)
               + "。请复制 .env.example 为 .env 并填入配置，或设置对应环境变量后重新启动。")
         return 1
-    client = ChatClient(settings)
+    try:
+        client = ChatClient(settings)
+    except LLMError:
+        write("[CONFIG] 无法加载腐化城堡提示词，请检查 prompts/corrupted_castle_system.md 是否存在且为非空 UTF-8 文本。")
+        return 1
     write("[BACKEND] LLM；每位 agent 按发言顺序实时生成回应")
+    write("[WORLD] 腐化城堡；角色为自身存活交涉，外出寻找生存物资")
     name = "".join(c for c in args.name if c.isprintable()).strip()[:24] or "YOU"
     game = Game(make_players(args.players, args.seed, name), seed=args.seed, direction=args.direction)
     human = None if args.demo else Human(game.view("P1"), write=write)
     agents = {p: Agent(game.view(p), client, max_retries=settings.max_retries, retry_delay=settings.retry_delay)
               for p in game.ids if human is None or p != human.id}
     try:
-        if args.log:
-            args.log.parent.mkdir(parents=True, exist_ok=True)
-        with args.log.open("w", encoding="utf-8") if args.log else nullcontext() as log:
-            run_game(game, agents, human, write, log, dossier=args.dossier)
+        protected_envs = {Path(__file__).resolve().parents[1] / ".env"}
+        protected_envs.add(client.world_prompt_path.resolve())
+        if args.env_file:
+            protected_envs.add(args.env_file.resolve())
+        paths = [path.resolve() for path in (args.log, args.strategy_log) if path]
+        if len(paths) != len(set(paths)) or any(path in protected_envs for path in paths):
+            write("[CONFIG] 公开日志、私有战略日志、环境配置和场景提示词必须使用不同文件。")
+            return 1
+        with ExitStack() as stack:
+            logs = []
+            for path in (args.log, args.strategy_log):
+                if path:
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                logs.append(stack.enter_context(path.open("w", encoding="utf-8")) if path else None)
+            debug_write = (lambda value: print(value, file=sys.stderr, flush=True)) if args.debug_strategy else None
+            run_game(game, agents, human, write, logs[0], dossier=args.dossier,
+                     strategy_seed=args.seed, debug_write=debug_write, strategy_log=logs[1])
     except (QuitGame, KeyboardInterrupt):
         write("\n[EXIT] 已退出对局。")
     except LLMError as error:
-        write(f"[ERROR] LLM 调用失败（{error}），对局已停止。请检查模型配置或网络后重新启动。")
+        write(f"[ERROR] LLM 调用失败（{error.public_code}），对局已停止。请检查模型配置或网络后重新启动。")
         return 1
     except OSError:
         write("[ERROR] 无法写入公开日志，请检查 --log 路径与权限。")

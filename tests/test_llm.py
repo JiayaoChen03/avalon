@@ -3,6 +3,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
+import shutil
+import subprocess
+import sys
 import tempfile
 import threading
 import time
@@ -59,6 +62,92 @@ def envelope(content='{"ok": true}', finish="stop"):
 
 
 class ClientTests(unittest.TestCase):
+    def test_world_prompt_loads_from_an_isolated_user_install(self):
+        source = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            env = dict(os.environ, PYTHONUSERBASE=str(root / "user"), PYTHONPATH="",
+                       PYTHON_DOTENV_DISABLED="1")
+            locations = subprocess.run(
+                [sys.executable, "-c", "import json, site, sysconfig; "
+                 "print(json.dumps([site.getusersitepackages(), "
+                 "sysconfig.get_path('data', scheme=sysconfig.get_preferred_scheme('user'))]))"],
+                cwd=root, env=env, capture_output=True, text=True, timeout=30, check=True)
+            user_site, data = [Path(path).resolve() for path in json.loads(locations.stdout)]
+            self.assertTrue(user_site.is_relative_to(root))
+            self.assertTrue(data.is_relative_to(root))
+            shutil.copytree(source / "avalon", user_site / "avalon",
+                            ignore=shutil.ignore_patterns("__pycache__"))
+            installed_scene = data / "share" / "terminal-avalon-mvp" / "corrupted_castle_system.md"
+            installed_scene.parent.mkdir(parents=True)
+            shutil.copyfile(source / "prompts" / installed_scene.name, installed_scene)
+            # Explicitly expose the isolated user site even when tests run in a venv.
+            env["PYTHONPATH"] = str(user_site)
+            result = subprocess.run(
+                [sys.executable, "-c", "from avalon.llm import ChatClient, Settings; "
+                 "client = ChatClient(Settings(api_key='test-key', model='test-model')); "
+                 "print(client.world_prompt_path.resolve())"],
+                cwd=root, env=env, capture_output=True, text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(Path(result.stdout.strip()), installed_scene)
+
+    def test_castle_prompt_reaches_every_role_as_system_instructions(self):
+        scene = (Path(__file__).resolve().parents[1] / "prompts" / "corrupted_castle_system.md").read_text(encoding="utf-8").strip()
+        with endpoint(envelope()) as (url, requests):
+            client = ChatClient(Settings(api_key="test-key", base_url=url, model="test-model"))
+            contexts = [{"game": {"self": "P1", "role": "GOOD"}},
+                        {"game": {"self": "P2", "role": "MERLIN"}},
+                        {"game": {"self": "P3", "role": "ASSASSIN"}, "tactical": {"primary_target": "P1"}},
+                        {"game": {"self": "P4", "role": "EVIL"}, "tactical": {"primary_target": "P2"}}]
+            for context in contexts:
+                client.complete(context)
+            for context, (_, _, body) in zip(contexts, requests):
+                system = body["messages"][0]
+                self.assertEqual(system["role"], "system")
+                self.assertIn(scene, system["content"])
+                self.assertEqual(system["content"].count(scene), 1)
+                self.assertEqual(json.loads(body["messages"][1]["content"]), context)
+                for old_goal in ("MERLIN and GOOD want", "ASSASSIN and EVIL want", "Your goal is the Evil team's success"):
+                    self.assertNotIn(old_goal, system["content"])
+                self.assertIn("EXACTLY one key, social" if "tactical" in context else "beliefs: object", system["content"])
+
+    def test_world_prompt_is_loaded_once_per_client_even_across_a_retry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            scene = Path(directory) / "scene.md"
+            scene.write_text("城堡 WORLD_VERSION_ONE", encoding="utf-8")
+            attempts = []
+            def respond(body):
+                attempts.append(body)
+                if len(attempts) == 1:
+                    scene.write_text("城堡 WORLD_VERSION_TWO", encoding="utf-8")
+                    return envelope("not json")
+                return envelope()
+            with patch("avalon.llm.WORLD_PROMPT_PATH", scene, create=True), endpoint(respond) as (url, requests):
+                settings = Settings(api_key="test-key", base_url=url, model="test-model")
+                client = ChatClient(settings)
+                with self.assertRaisesRegex(LLMError, "invalid_response"):
+                    client.complete({})
+                client.complete({})
+                ChatClient(settings).complete({})
+                systems = [r[2]["messages"][0]["content"] for r in requests]
+                self.assertIn("WORLD_VERSION_ONE", systems[0])
+                self.assertEqual(systems[0], systems[1])
+                self.assertIn("WORLD_VERSION_TWO", systems[2])
+                self.assertNotIn("WORLD_VERSION_ONE", systems[2])
+
+    def test_missing_empty_or_invalid_world_prompt_fails_without_a_request(self):
+        with tempfile.TemporaryDirectory() as directory, endpoint(envelope()) as (url, requests):
+            scene = Path(directory) / "scene.md"
+            for content in (None, b" \n\t", b"\xff"):
+                with self.subTest(content=content), patch("avalon.llm.WORLD_PROMPT_PATH", scene, create=True):
+                    if content is not None:
+                        scene.write_bytes(content)
+                    with self.assertRaisesRegex(LLMError, "world_prompt_unavailable") as caught:
+                        ChatClient(Settings(api_key="private-test-key", base_url=url, model="test-model")).complete({})
+                    self.assertFalse(caught.exception.retryable)
+                    self.assertNotIn("private-test-key", str(caught.exception))
+            self.assertEqual(requests, [])
+
     def test_real_http_contract_and_no_reasoning_output(self):
         with endpoint(envelope()) as (url, requests):
             client = ChatClient(Settings(api_key="test-key", base_url=url, model="test-model"))
@@ -175,13 +264,14 @@ class ClientTests(unittest.TestCase):
         from collections import Counter
         from avalon.agents import Agent
         from avalon.terminal import Human, run_game
-        from test_agents import valid_plan
+        from test_agents import model_response
         from test_engine import fixed_game
 
         def response(request):
             context = json.loads(request["messages"][1]["content"])
-            plan = valid_plan(context["game"])
-            plan["mission"] = "SUCCESS"
+            plan = model_response(context)
+            if "mission" in plan:
+                plan["mission"] = "SUCCESS"
             plan["social"]["statement"] = f"{context['game']['self']}：我会比较这次队伍与此前的公开表现。"
             return envelope(json.dumps(plan))
 
@@ -191,17 +281,21 @@ class ClientTests(unittest.TestCase):
             agents = {p: Agent(game.view(p), client) for p in game.ids if p != "P1"}
             human = Human(game.view("P1"), input_fn=lambda _: "", write=lambda _: None)
             output = []
-            run_game(game, agents, human, write=output.append)
-            self.assertEqual(game.successes, 3)
-            self.assertTrue(any(e["kind"] == "ASSASSINATE" for e in game.events))
-            self.assertEqual(len(requests), 14)  # R1 has a human leader; R2/R3 have agent leaders.
+            run_game(game, agents, human, write=output.append, strategy_seed=7)
+            self.assertIn(game.winner, {"GOOD", "EVIL"})
+            expected_calls = [(e["actor"], e["round"], e["attempt"],
+                               "team" if e["kind"] == "TEAM" else "discussion")
+                              for e in game.events if (e["kind"] == "SOCIAL" or
+                              e["kind"] == "TEAM" and game.players[e["actor"]].role in {"GOOD", "MERLIN"})
+                              and e["actor"] in agents]
+            self.assertEqual(len(requests), len(expected_calls))
             contexts = [json.loads(r[2]["messages"][1]["content"]) for r in requests]
             counts = Counter((c["game"]["self"], c["game"]["round"],
                               c["game"]["attempt"], c["game"]["phase"]) for c in contexts)
             self.assertEqual(set(counts.values()), {1})
+            self.assertEqual(list(counts), expected_calls)
             speeches = [c["game"] for c in contexts if c["game"]["phase"] == "discussion"]
-            self.assertEqual([c["self"] for c in speeches],
-                             ["P2", "P3", "P4", "P5", "P2", "P3", "P4", "P5", "P3", "P4", "P5", "P2"])
+            self.assertEqual([c["self"] for c in speeches[:4]], ["P2", "P3", "P4", "P5"])
             for view in speeches:
                 before = [e for e in game.events if e["kind"] == "SOCIAL"
                           and e["round"] == view["round"] and e["attempt"] == view["attempt"]]
