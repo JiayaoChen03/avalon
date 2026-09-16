@@ -17,6 +17,10 @@ func _ready() -> void:
     add_child(_http)
     _http.request_completed.connect(_on_request_completed)
 
+func _exit_tree() -> void:
+    if _backend_pid > 0 and OS.is_process_running(_backend_pid):
+        OS.kill(_backend_pid)
+
 func launch_backend() -> void:
     if _backend_pid > 0:
         return
