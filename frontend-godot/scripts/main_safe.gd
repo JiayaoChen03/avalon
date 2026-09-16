@@ -3,13 +3,19 @@ extends "res://scripts/main.gd"
 var _startup_retries := 8
 
 func _on_backend_response(data: Dictionary) -> void:
-    if not bool(data.get("ok", false)) and str(data.get("path", "")) == "/state" and _startup_retries > 0:
+    if not bool(data.get("ok", false)) and str(data.get("path", "")) == "/state" and _startup_retries > 0 and not data.has("state"):
         loading = false
         _startup_retries -= 1
         error_label.text = ""
         hint_label.text = "Waiting for local Python backend..."
         await get_tree().create_timer(0.5).timeout
         backend.get_state()
+        return
+    if not bool(data.get("ok", false)) and typeof(data.get("state")) == TYPE_DICTIONARY:
+        loading = false
+        game_state = data["state"]
+        _render()
+        error_label.text = str(data.get("error", "Backend action failed."))
         return
     super._on_backend_response(data)
 
@@ -53,6 +59,8 @@ func _render_action_panel() -> void:
             _render_round_result()
         "ASSASSINATION":
             _render_assassination()
+        "AI_RETRY":
+            _render_ai_retry()
         "GAME_OVER":
             _render_game_over()
         _:
@@ -90,15 +98,18 @@ func _render_vote() -> void:
 
 func _render_challenge_response() -> void:
     var trigger: Dictionary = game_state.get("challenge_trigger", {})
-    hint_label.text = "P%s CHALLENGED YOU\nEvidence: #%s — %s" % [
-        str(trigger.get("seq", "?")),
-        str(trigger.get("seq", "?")),
-        str(trigger.get("text", "")),
-    ]
+    hint_label.text = "CHALLENGE RECEIVED\n%s" % str(trigger.get("text", ""))
     var row := HBoxContainer.new()
     action_box.add_child(row)
     _add_button(row, "RESPOND [1]", _open_challenge_response_editor, _human_resolve() < 1)
     _add_button(row, "DECLINE [0]", _send_action.bind({"type": "CHALLENGE_RESPONSE", "action": "DECLINE"}), false)
+
+func _render_ai_retry() -> void:
+    hint_label.text = "An AI/backend transition failed after your accepted action. The authoritative game state is preserved."
+    var button := Button.new()
+    button.text = "RETRY AI ACTION"
+    button.pressed.connect(_send_action.bind({"type": "RETRY_AI"}))
+    action_box.add_child(button)
 
 func _open_social_editor(is_reaction: bool) -> void:
     _clear_dynamic_controls()
