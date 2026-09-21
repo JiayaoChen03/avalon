@@ -1,0 +1,12 @@
+{
+  "python_version": "3.12.0",
+  "files": {
+    "avalon/llm.py": "f9e0fe38f7b8e2ca7bd806c53431b7a62733d71d7872a50f408d21605b728b5f",
+    "avalon/agents.py": "54b6510a26a519f8f3644996270109039021561b128d5453db9fc6428efb8714",
+    "avalon/engine.py": "75be3b76d808269be257209bf5f4ca972a3d430d12798e7c6265e19c70ea6b5f",
+    "avalon/evil_strategy.py": "6df2cae186f8a34b6738e5c646a3fddfde1820cdf24f831c15141459c9d364f1",
+    "avalon/evil_state.py": "8ec0d6523a25448cdcff1fc06db489a287a974c376847de6e4503610e3f86939",
+    "prompts/corrupted_castle_system.md": "714ebbfc8ccc29c2da549db5d61c3d74c16413800742c34a70ee287c18f5f711",
+    "scripts/benchmark_llm_concurrency.py": "2fc8eea2d69ba426a6350b24af192d0bcfabfe1eca5c60160069f83fee6bfdd1"
+  }
+}

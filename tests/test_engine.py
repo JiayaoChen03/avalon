@@ -2,6 +2,7 @@ import json
 import unittest
 
 from avalon.engine import CARDS, Game, Player, make_players
+from avalon.chronicle import context_record
 
 
 def fixed_game(count=5):
@@ -25,6 +26,15 @@ def approve(game, team):
     game.propose(game.leader, team)
     discuss(game)
     game.vote({pid: True for pid in game.ids})
+
+
+def finish_council(game, target=None, votes=None):
+    """Complete the new council when a test is focused on another rule."""
+    while game.phase == "council_discussion":
+        game.act(game.next_actor, {"kind": "PASS"})
+    game.nominate_exile(game.leader, target or game.exile_candidates()[0])
+    game.vote_exile(votes or dict.fromkeys(game.ids, "ABSTAIN"))
+    game.finish_council()
 
 
 class RuleTests(unittest.TestCase):
@@ -58,6 +68,7 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(game.leader, "P2")
         approve(game, ["P1", "P2"])
         game.resolve_mission({"P1": "SUCCESS", "P2": "SUCCESS"})
+        finish_council(game)
         self.assertEqual(game.leader, "P3")
         self.assertEqual(sum(e["kind"] == "LEADER" for e in game.events), 1)
         self.assertNotIn("seed", json.dumps(game.events))
@@ -81,6 +92,7 @@ class RuleTests(unittest.TestCase):
                 approve(game, team)
                 game.resolve_mission({p: "FAIL" if p == "P3" and not success else "SUCCESS"
                                       for p in team})
+                finish_council(game)
             self.assertEqual(game.phase, "assassination")
 
     def test_invalid_teams_are_rejected_without_events(self):
@@ -131,6 +143,7 @@ class RuleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             game.resolve_mission({"P1": "SUCCESS"})
         game.resolve_mission({"P1": "SUCCESS", "P3": "FAIL"})
+        finish_council(game)
         self.assertEqual((game.failures, game.round, game.attempt, game.leader), (1, 2, 1, "P2"))
         mission = next(e for e in game.events if e["kind"] == "MISSION")
         self.assertEqual(mission["fail_count"], 1)
@@ -142,6 +155,7 @@ class RuleTests(unittest.TestCase):
             team = ["P3"] + [p for p in game.ids if p != "P3"][:game.team_size-1]
             approve(game, team)
             game.resolve_mission({p: "FAIL" if p == "P3" else "SUCCESS" for p in team})
+            finish_council(game)
         self.assertEqual(game.winner, "EVIL")
         self.assertEqual(game.events[-2]["reason"], "three_failed_missions")
 
@@ -152,6 +166,7 @@ class RuleTests(unittest.TestCase):
                 team = ["P1", "P2", "P5"][:game.team_size]
                 approve(game, team)
                 game.resolve_mission({p: "SUCCESS" for p in team})
+                finish_council(game)
             self.assertIsNone(game.winner)
             self.assertFalse(any(e["kind"] == "REVEAL" for e in game.events))
             with self.assertRaises(ValueError):
@@ -214,7 +229,7 @@ class RuleTests(unittest.TestCase):
                   "statement": "我希望先听听 P2 的选队依据。", "rationale": "首轮还没有任务记录。",
                   "evidence": []}
         game.social("P1", action)
-        self.assertEqual(game.view("P2")["recent_events"][-1], game.events[-1])
+        self.assertEqual(game.view("P2")["recent_events"][-1], context_record(game.events[-1]))
         self.assertEqual(game.events[-1]["statement"], action["statement"])
         for field, value in (("reasoning_content", "PRIVATE"), ("statement", "\x1b[2J")):
             bad = {**action, field: value}

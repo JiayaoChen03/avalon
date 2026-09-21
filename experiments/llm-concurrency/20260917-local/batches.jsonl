@@ -1,0 +1,10 @@
+{"workers": 4, "block": 0, "warmup": true, "wall_s": 14.232086, "first_ordered_result_s": 2.896406, "first_valid_completion_s": 2.077686, "valid_jobs": 4}
+{"workers": 1, "block": 1, "warmup": false, "wall_s": 8.391157, "first_ordered_result_s": 2.673923, "first_valid_completion_s": 2.673923, "valid_jobs": 4}
+{"workers": 2, "block": 1, "warmup": false, "wall_s": 5.270682, "first_ordered_result_s": 2.890071, "first_valid_completion_s": 1.368065, "valid_jobs": 4}
+{"workers": 4, "block": 1, "warmup": false, "wall_s": 2.63953, "first_ordered_result_s": 2.58751, "first_valid_completion_s": 1.628015, "valid_jobs": 4}
+{"workers": 2, "block": 2, "warmup": false, "wall_s": 5.188094, "first_ordered_result_s": 2.581387, "first_valid_completion_s": 1.624974, "valid_jobs": 4}
+{"workers": 4, "block": 2, "warmup": false, "wall_s": 2.855308, "first_ordered_result_s": 2.854052, "first_valid_completion_s": 1.567688, "valid_jobs": 4}
+{"workers": 1, "block": 2, "warmup": false, "wall_s": 7.917661, "first_ordered_result_s": 2.380972, "first_valid_completion_s": 2.380972, "valid_jobs": 4}
+{"workers": 4, "block": 3, "warmup": false, "wall_s": 2.523923, "first_ordered_result_s": 2.344647, "first_valid_completion_s": 1.555026, "valid_jobs": 4}
+{"workers": 1, "block": 3, "warmup": false, "wall_s": 7.508854, "first_ordered_result_s": 2.191202, "first_valid_completion_s": 2.191202, "valid_jobs": 4}
+{"workers": 2, "block": 3, "warmup": false, "wall_s": 5.243978, "first_ordered_result_s": 2.516117, "first_valid_completion_s": 1.32006, "valid_jobs": 4}

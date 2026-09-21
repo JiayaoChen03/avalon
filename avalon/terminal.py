@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 
 from .agents import Agent
+from .chronicle import new_chronicle_path
 from .engine import CARDS, DIRECTIONS, EVIL_ROLES, Game, REASONS, RESOLVE_COSTS, make_players
 from .evil_strategy import EvilStrategyManager
 from .llm import ChatClient, LLMError, Settings
@@ -47,6 +48,7 @@ class Human:
                            "CITE #编号 [1]；HOLD [1]，之后 REACT 卡牌 座位 [0] 或 SKIP [0]；"
                            "挑战回应 RESPOND 卡牌 座位 [1] / DECLINE [0]；"
                            "LOCK [0] / REVISE P3 P2 [1]；投票 A/R 或 y/n [0]，SA/SR [1]；"
+                           "议会提名：有效座位；出局投票 A 赞成 / R 反对 / B 弃票 [0]（回车弃票）；"
                            "任务 s/f；回车始终免费（PASS / SKIP / DECLINE / LOCK / 普通赞成）；q 退出。"
                            "每任务轮 3 Resolve，提案否决不恢复。")
                 continue
@@ -185,6 +187,25 @@ class Human:
                 return "FAIL"
             self.write("请输入 s 或 f。")
 
+    def council_decision(self):
+        if self._view["phase"] == "exile_nomination":
+            candidates = self._view["exile_candidates"]
+            while True:
+                value = self._ask(f"[{self.id}] 提名一人出局 {'/'.join(candidates)}（回车={candidates[0]}）> ")
+                target = self._seat(value) if value else candidates[0]
+                if target in candidates:
+                    return {"target": target}
+                self.write("请选择仍存活的角色。")
+        else:
+            choices = {"A": "APPROVE", "赞成": "APPROVE", "APPROVE": "APPROVE",
+                       "R": "REJECT", "反对": "REJECT", "REJECT": "REJECT",
+                       "B": "ABSTAIN", "弃票": "ABSTAIN", "ABSTAIN": "ABSTAIN", "": "ABSTAIN"}
+            while True:
+                value = self._ask(f"[{self.id}] 是否让 {self._view['exile_nominee']} 出局？A 赞成 / R 反对 / B 弃票（回车=弃票）> ")
+                if value in choices:
+                    return {"choice": choices[value]}
+                self.write("请输入 A（赞成）、R（反对）或 B（弃票）；出局须全员过半赞成。")
+
     def assassinate(self):
         candidates = [p for p in self.ids if p not in self.known_evil and p != self.id]
         while True:
@@ -229,10 +250,11 @@ def format_event(event, players):
         return f"[LEADER] {tag} 随机当选首任队长"
     if kind == "DIRECTION":
         direction = "顺时针（座位号递增）" if event["direction"] == "clockwise" else "逆时针（座位号递减）"
-        return f"[DIRECTION] 本局{direction}发言；每次提案由队长开始。"
+        return f"[DIRECTION] 本局{direction}落笔；每次提案由队长开始。"
     if kind == "ROUND":
         return (f"\n[ROUND {event['round']}/5] 任务人数 {event['team_size']} | "
-                f"善良 {event['successes']} : 邪恶 {event['failures']} | 队长 {event['leader']}")
+                f"善良 {event['successes']} : 邪恶 {event['failures']} | 队长 {event['leader']} | "
+                + ("安全轮：任务失败不导致死亡" if event.get("safe_round") else "危险轮"))
     if kind == "TEAM":
         return (f"[TEAM] {tag} selects {' '.join(event['team'])} | 提案 {event['attempt']}/5\n"
                 f"[SPEAKING ORDER] {' -> '.join(event['speaking_order'])}")
@@ -241,9 +263,10 @@ def format_event(event, players):
         label = f"[{kind}] {tag} {commit}{event['card']} {event['target']}{payment}"
         if "statement" not in event:
             return f"{label} | reason: {REASONS[event['reason']]}"
+        citations = " ".join(f"[{rid}]" for rid in event.get("citations", []))
         return (f"{label}\n"
-                f"  表态：{event['statement']}\n"
-                f"  理由摘要：{event['rationale']}")
+                f"  手写：{event['statement']}"
+                + (f"\n  证据：{citations}" if citations else ""))
     if kind == "VOTE":
         strong = "STRONG " if event.get("strong") else ""
         return f"[VOTE] {tag} votes {strong}{'APPROVE' if event['approve'] else 'REJECT'} | reason: {REASONS[event['reason']]}{payment}"
@@ -255,11 +278,27 @@ def format_event(event, players):
     if kind == "MISSION":
         return (f"[MISSION] {' '.join(event['team'])} -> {'SUCCESS' if event['success'] else 'FAILED'} | "
                 f"失败票 {event['fail_count']}，成功票 {len(event['team'])-event['fail_count']} | "
-                f"善良 {event['successes']} : 邪恶 {event['failures']}")
+                f"善良 {event['successes']} : 邪恶 {event['failures']}"
+                + (" | 安全轮：队员不会因任务失败死亡" if event.get("safe_round") else ""))
+    if kind == "COUNCIL_START":
+        return f"[COUNCIL] 任务后议会：全员讨论、队长提名、出局投票；须 {event['required_approvals']} 票赞成。"
+    if kind == "EXILE_NOMINATION":
+        return f"[EXILE NOMINATION] {tag} 提名 {event['target']} 出局"
+    if kind == "EXILE_VOTE":
+        choice = {"APPROVE": "赞成", "REJECT": "反对", "ABSTAIN": "弃票"}[event["choice"]]
+        return f"[EXILE VOTE] {tag} 对 {event['target']} 出局投下{choice}票"
+    if kind == "EXILE_RESULT":
+        c = event["counts"]
+        return (f"[EXILE RESULT] {event['target']} {'出局' if event['exiled'] else '未出局'} | "
+                f"赞成 {c['APPROVE']} / 反对 {c['REJECT']} / 弃票 {c['ABSTAIN']}")
     if kind == "ASSASSINATION_PHASE":
         return "[ASSASSIN] 三次任务成功；刺客现在选择 Merlin。身份尚未揭晓。"
     if kind == "ASSASSINATE":
         return f"[ASSASSIN] {tag} targets {event['target']}"
+    if kind == "DEATH":
+        return f"[DEATH] {event['target']} 第 {event['life']} 次生命结束；前世记忆已压缩，等待重生"
+    if kind == "REBIRTH":
+        return f"[REBIRTH] {event['target']} 第 {event['life']} 次生命；身份与重要记忆延续"
     if kind == "RESULT":
         reasons = {"five_rejections": "连续五次提案被否决", "three_failed_missions": "三次任务失败",
                    "merlin_assassinated": "Merlin 被刺杀", "merlin_survived": "Merlin 成功存活"}
@@ -270,7 +309,8 @@ def format_event(event, players):
 
 
 def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
-             strategy_manager=None, strategy_seed=None, debug_write=None, strategy_log=None):
+             strategy_manager=None, strategy_seed=None, debug_write=None, strategy_log=None,
+             cognition_write=None):
     """Normal play has one Human. Passing only agents is explicit demo/test mode."""
     if set(agents) | ({human.id} if human else set()) != set(game.ids):
         raise ValueError("Every seat requires a controller.")
@@ -282,6 +322,8 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
         raise ValueError("The strategy manager must match this game's evil AI seats")
     for pid in controlled_evil:
         agents[pid].bind_evil_strategy(manager)
+    for agent in agents.values():
+        agent.bind_chronicle(game.chronicle.reader())
     cursor = 0
     strategy_cursor = 0
 
@@ -311,15 +353,20 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
 
     def flush():
         nonlocal cursor
-        for event in game.events[cursor:]:
-            write(f"[#{event['seq']}] {format_event(event, game.players).lstrip()}")
+        for event in game.chronicle.since(cursor):
+            write(f"[#{event['seq']}] {format_event(event, game.players).lstrip()} [{event['record_id']}]")
             if log is not None:
                 log.write(json.dumps(event, ensure_ascii=False, allow_nan=False) + "\n")
                 log.flush()
             manager.observe(deepcopy(event))
             for agent in agents.values():
                 agent.observe(deepcopy(event))
-        cursor = len(game.events)
+        cursor = len(game.chronicle)
+        for agent in agents.values():
+            agent.update_view(game.view(agent.id))
+            if cognition_write is not None:
+                cognition_write("[PRIVATE DEBUG] AGENT COGNITION\n" + json.dumps(
+                    agent.cognition_debug_view(), ensure_ascii=False, allow_nan=False, indent=2))
         # Accepted SOCIAL events, not model attempts, create discussion decisions.
         flush_strategy()
 
@@ -336,7 +383,8 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
                 debug_write(f"[PRIVATE DEBUG] LLM RETRY {pid}: {error.diagnostic}")
         view = game.view(pid)
         if pid in controlled_evil:
-            tactic = manager.tactical_context(view, phase="discussion" if window else None).to_dict()
+            phase = "council_discussion" if view.get("discussion_stage") == "council" else "discussion"
+            tactic = manager.tactical_context(view, phase=phase if window else None).to_dict()
             planned = {key: tactic[key] for key in
                        ("strategy_mode", "role", "primary_objective", "secondary_objective", "primary_target")}
             debug_strategy("EVIL TACTICAL PLAN", {"status": "planned", "agent_id": pid,
@@ -368,7 +416,7 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
         human.reveal()
     while game.winner is None:
         round_no = game.round
-        while game.phase in {"team", "discussion", "challenge", "reaction", "revision", "vote", "mission"} and game.round == round_no:
+        while game.phase not in {"ended", "assassination"} and game.round == round_no:
             leader = game.leader
             if game.phase == "team":
                 if leader in agents:
@@ -377,10 +425,10 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
                         prepare_agent(leader)
                 game.propose(leader, controller(leader).choose_team(game.team_size, game.attempt))
                 flush()
-            elif game.phase == "discussion":
+            elif game.phase in {"discussion", "council_discussion"}:
                 pid = game.next_actor
                 if pid in agents:
-                    write(f"[TURN] [{game.players[pid].name}/{pid}] 正在调用 LLM 准备发言…")
+                    write(f"[TURN] [{game.players[pid].name}/{pid}] 正在调用 LLM 准备落笔…")
                     prepare_agent(pid)
                 take_action(pid, lambda: controller(pid).discussion_action())
             elif game.phase in {"challenge", "reaction"}:
@@ -407,6 +455,17 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
                 flush_strategy()
                 game.resolve_mission(cards)
                 flush()
+            elif game.phase == "exile_nomination":
+                game.nominate_exile(leader, controller(leader).council_decision()["target"])
+                flush()
+            elif game.phase == "exile_vote":
+                # Exile ballots stay sealed just like team ballots.
+                votes = {pid: controller(pid).council_decision()["choice"] for pid in game.ids}
+                game.vote_exile(votes)
+                flush()
+            elif game.phase == "council_result":
+                game.finish_council()
+                flush()
         for agent in agents.values():
             agent.record_snapshot(round_no, human.id if human else "P1")
         if game.phase == "assassination":
@@ -425,8 +484,8 @@ def run_game(game, agents, human=None, write=print, log=None, dossier=False, *,
                 profile, belief = snapshot["profile"], snapshot["belief"]
                 social = snapshot["social"]
                 action = snapshot["discussion"]
-                action_text = (f"{social['card']} {social['target']}" if not action or action["kind"] == "SOCIAL"
-                               else action["kind"])
+                action_text = (f"{social['card']} {social['target']}" if social and (not action or action["kind"] == "SOCIAL")
+                               else action["kind"] if action else "PASS")
                 if action and action.get("committed"):
                     action_text = "COMMITTED " + action_text
                 strategy_text = f"strategy={snapshot['strategy']} | " if agent.evil_strategy is None else ""
@@ -442,17 +501,19 @@ def main(argv=None):
         sys.stdout.reconfigure(encoding="utf-8")
     if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8")
-    parser = argparse.ArgumentParser(description="Terminal Avalon：1 位人类 + LLM agents，自动读取模型配置并轮流发言。")
+    parser = argparse.ArgumentParser(description="Terminal Avalon：1 位人类 + LLM agents，自动读取模型配置并轮流落笔。")
     parser.add_argument("--players", type=int, choices=(5, 6), default=5, help="总人数，默认 5")
     parser.add_argument("--name", default="YOU", help="人类 P1 昵称")
     parser.add_argument("--demo", action="store_true", help="自动演示：P1 也由 agent 控制，无人类输入")
-    parser.add_argument("--seed", type=int, help="固定发牌、首任队长与发言方向，便于复现；默认随机")
+    parser.add_argument("--seed", type=int, help="固定发牌、首任队长与落笔方向，便于复现；默认随机")
     parser.add_argument("--direction", choices=DIRECTIONS, help="顺时针 clockwise / 逆时针 counterclockwise；默认开局随机决定")
     parser.add_argument("--env-file", type=Path, help="显式 dotenv 文件路径")
     parser.add_argument("--log", type=Path, help="保存公开 JSONL 事件（包含赛后身份揭晓）")
     parser.add_argument("--dossier", action="store_true", help="结束后显示 AI 对 P1 的行为画像变化")
     parser.add_argument("--debug-strategy", action="store_true",
                         help="开发者专用：将内部战略和校验原因输出到 stderr；会显示隐藏信息")
+    parser.add_argument("--debug-cognition", action="store_true",
+                        help="开发者专用：在 stderr 查看合法私有知识、联合假设、公开立场、证据和排除原因")
     parser.add_argument("--strategy-log", type=Path, help="开发者专用：另存私有结构化战略 JSONL")
     args = parser.parse_args(argv)
     write = lambda value: print(value, flush=True)
@@ -476,10 +537,11 @@ def main(argv=None):
     except LLMError:
         write("[CONFIG] 无法加载腐化城堡提示词，请检查 prompts/corrupted_castle_system.md 是否存在且为非空 UTF-8 文本。")
         return 1
-    write("[BACKEND] LLM；每位 agent 按发言顺序实时生成回应")
-    write("[WORLD] 腐化城堡；角色为自身存活交涉，外出寻找生存物资")
+    write("[BACKEND] LLM；每位 agent 按落笔顺序实时生成回应")
+    write("[WORLD] 腐化城堡；旧神监听言语，只能手写。手稿永久归档，死亡后于下一轮重生。")
     name = "".join(c for c in args.name if c.isprintable()).strip()[:24] or "YOU"
-    game = Game(make_players(args.players, args.seed, name), seed=args.seed, direction=args.direction)
+    game = Game(make_players(args.players, args.seed, name), seed=args.seed, direction=args.direction,
+                chronicle_path=new_chronicle_path())
     human = None if args.demo else Human(game.view("P1"), write=write)
     agents = {p: Agent(game.view(p), client, max_retries=settings.max_retries, retry_delay=settings.retry_delay)
               for p in game.ids if human is None or p != human.id}
@@ -500,7 +562,9 @@ def main(argv=None):
                 logs.append(stack.enter_context(path.open("w", encoding="utf-8")) if path else None)
             debug_write = (lambda value: print(value, file=sys.stderr, flush=True)) if args.debug_strategy else None
             run_game(game, agents, human, write, logs[0], dossier=args.dossier,
-                     strategy_seed=args.seed, debug_write=debug_write, strategy_log=logs[1])
+                     strategy_seed=args.seed, debug_write=debug_write, strategy_log=logs[1],
+                     cognition_write=(lambda value: print(value, file=sys.stderr, flush=True))
+                     if args.debug_cognition else None)
     except (QuitGame, KeyboardInterrupt):
         write("\n[EXIT] 已退出对局。")
     except LLMError as error:

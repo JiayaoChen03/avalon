@@ -2,7 +2,7 @@
 
 from collections import Counter
 from copy import deepcopy
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from itertools import combinations
 import random
 
@@ -12,7 +12,8 @@ from .evil_state import EvilSharedState, PublicEvidence, bounded
 
 MODES = ("NORMAL_DECEPTION", "FAKE_CONFLICT", "CONSENSUS_SEEDING", "AGENDA_CAPTURE",
          "MERLIN_HUNT", "SACRIFICE", "CRISIS_RECOVERY")
-PHASES = {"team", "discussion", "vote", "mission", "assassination"}
+PHASES = {"team", "discussion", "vote", "mission", "assassination",
+          "council_discussion", "exile_nomination", "exile_vote"}
 
 
 @dataclass(frozen=True)
@@ -82,7 +83,8 @@ class EvilStrategyManager:
             self.state.mode_scores = self._scores(view)
             if (event["kind"] in SOCIAL_EVENTS | {"PASS", "HOLD", "CHALLENGE", "CITE", "TEAM_REVISE"}
                     and event.get("actor") in self.controlled_evil_ids):
-                key = (event.get("round"), event.get("attempt"), "discussion", event["actor"])
+                phase = "council_discussion" if event.get("discussion_stage") == "council" else "discussion"
+                key = (event.get("round"), event.get("attempt"), phase, event["actor"])
                 context = self._contexts.get(key)
                 if context is not None:
                     refs = event.get("evidence", [])
@@ -94,7 +96,7 @@ class EvilStrategyManager:
                     if "evidence" in event:
                         action["evidence"] = refs if isinstance(event["evidence"], list) else event["evidence"]
                     accepted = {"round": event["round"], "attempt": event["attempt"], "self": event["actor"]}
-                    self._record(accepted, "discussion", context, action)
+                    self._record(accepted, phase, context, action)
 
     def _validate_view(self, view):
         if not isinstance(view, dict) or view.get("self") not in self.evil_ids or view.get("role") not in EVIL_ROLES:
@@ -157,7 +159,7 @@ class EvilStrategyManager:
                 return event, separated
         return None, False
 
-    def _scores(self, view):
+    def _scores(self, view, merlin_probabilities=None):
         state = self.state
         sus = [state.public_suspicion[p] for p in self.evil_ids]
         trust = [state.public_trust[p] for p in self.evil_ids]
@@ -168,7 +170,8 @@ class EvilStrategyManager:
         seeds = [self._partner_seed(view, pid) for pid in sorted(self.evil_ids)]
         seeded = any(seed is not None for seed, _ in seeds)
         separated = any(seed is not None and gap for seed, gap in seeds)
-        concentration = max(state.merlin_probabilities[p] for p in self.good_ids) - 1 / len(self.good_ids)
+        probabilities = merlin_probabilities if merlin_probabilities is not None else state.merlin_probabilities
+        concentration = max(probabilities[p] for p in self.good_ids) - 1 / len(self.good_ids)
         sacrifice = self._sacrifice_candidate()
         scores = {
             "NORMAL_DECEPTION": .65 + .15 * sum(trust) / 2 - .15 * max(sus),
@@ -186,11 +189,11 @@ class EvilStrategyManager:
         recent = Counter(item["strategy_mode"] for item in state.mode_history[-6:])
         return {mode: round(value - .055 * recent[mode], 6) for mode, value in scores.items()}
 
-    def _phase(self, view, phase):
+    def _phase(self, view, phase, merlin_probabilities=None):
         key = (view["round"], view["attempt"], phase)
         current = dict(view, phase=phase)
         self._latest_view = {k: current[k] for k in ("round", "attempt", "phase", "successes", "failures")}
-        self.state.mode_scores = self._scores(current)
+        self.state.mode_scores = self._scores(current, merlin_probabilities)
         if key not in self._phases:
             state = self.state
             exposure = {p: state.public_suspicion[p] - state.public_trust[p] for p in self.evil_ids}
@@ -212,27 +215,44 @@ class EvilStrategyManager:
         self.state.distance_strength = selection["distance_strength"]
         return selection
 
-    def _target(self, *, exclude=(), merlin=False):
+    def _target(self, *, exclude=(), merlin=False, merlin_probabilities=None):
         candidates = [p for p in self.good_ids if p not in exclude] or list(self.good_ids)
         state = self.state
         def score(pid):
             if merlin:
-                return state.merlin_probabilities[pid] + self._random.uniform(0, .005)
+                probabilities = merlin_probabilities if merlin_probabilities is not None else state.merlin_probabilities
+                return probabilities[pid] + self._random.uniform(0, .005)
             tags = set(state.public_tags[pid])
             return (.45 * state.public_suspicion[pid] + .25 * (1-state.public_trust[pid])
                     + .12 * ("emotional" in tags) + .10 * ("follows_consensus" in tags)
                     - .05 * ("independent" in tags) + self._random.uniform(-.015, .015))
         return max(candidates, key=score)
 
-    def tactical_context(self, view, phase=None):
+    def _merlin_projection(self, view, joint_beliefs):
+        if joint_beliefs is None:
+            return self.state.merlin_probabilities
+        if (getattr(joint_beliefs, "observer_id", None) != view["self"]
+                or set(joint_beliefs.player_ids) != set(self.player_ids)
+                or joint_beliefs.P_role(view["self"], view["role"]) < 1 - 1e-12
+                or any(joint_beliefs.P_alignment(p, "EVIL") < 1 - 1e-12 for p in self.evil_ids)):
+            raise ValueError("Strategy requires this seat's legal joint beliefs")
+        return {p: joint_beliefs.P_role(p, "MERLIN") for p in self.player_ids}
+
+    def tactical_context(self, view, phase=None, *, joint_beliefs=None):
         self._validate_view(view)
         phase = phase or view["phase"]
         if phase not in PHASES:
             raise ValueError("Unknown strategy phase")
-        selection = self._phase(view, phase)
+        probabilities = self._merlin_projection(view, joint_beliefs)
+        selection = self._phase(view, phase, probabilities)
         pid = view["self"]
         key = (view["round"], view["attempt"], phase, pid)
         if key in self._contexts:
+            if joint_beliefs is not None and self._contexts[key].primary_objective == "PROBE_MERLIN":
+                # Refresh a target after semantic evidence without storing or
+                # sharing the caller's private distribution in the manager.
+                target = max(self.good_ids, key=lambda p: (probabilities[p], p))
+                self._contexts[key] = replace(self._contexts[key], primary_target=target)
             return deepcopy(self._contexts[key])
         mode, role = selection["strategy_mode"], selection["roles"][pid]
         partner = next(p for p in self.evil_ids if p != pid)
@@ -279,7 +299,7 @@ class EvilStrategyManager:
             if self.state.mission_history:
                 topic = "MISSION_ACCOUNTABILITY"
         elif mode == "MERLIN_HUNT":
-            objective, target, cards = "PROBE_MERLIN", self._target(merlin=True), ["BAIT", "PRESSURE", "HEDGE"]
+            objective, target, cards = "PROBE_MERLIN", self._target(merlin=True, merlin_probabilities=probabilities), ["BAIT", "PRESSURE", "HEDGE"]
         elif mode == "CRISIS_RECOVERY":
             objective, secondary, cards = "REDUCE_SELF_SUSPICION", "CAUSE_UNCERTAINTY", ["HEDGE", "BAIT"]
             if role == "Aggressor":
@@ -314,7 +334,7 @@ class EvilStrategyManager:
         selected = important[-4:] + related[-(8-len(important[-4:])):]
         return deepcopy(sorted(selected, key=lambda e: e["seq"]))
 
-    def _record(self, view, phase, context, action):
+    def _record(self, view, phase, context, action, *, role_confidence=None):
         key = (view["round"], view["attempt"], phase, view["self"], action["kind"], action.get("seq"))
         if key in self._recorded:
             return
@@ -324,7 +344,7 @@ class EvilStrategyManager:
         other = max((v for k, v in scores.items() if k != context.strategy_mode), default=0)
         confidence = bounded(.5 + .20 * (high-other))
         if phase == "assassination":
-            confidence = self.state.merlin_probabilities[context.primary_target]
+            confidence = self.state.merlin_probabilities[context.primary_target] if role_confidence is None else role_confidence
         self.decisions.append(StrategyDecision(view["round"], view["attempt"], phase, view["self"],
             context.strategy_mode, context.primary_objective, context.secondary_objective,
             context.primary_target, confidence, context.role, deepcopy(action)))
@@ -421,16 +441,17 @@ class EvilStrategyManager:
         self._missions[key] = (fingerprint, deepcopy(cards))
         return cards
 
-    def assassinate(self, view):
+    def assassinate(self, view, *, joint_beliefs=None):
         self._validate_view(view)
         if view["role"] != "ASSASSIN":
             raise ValueError("Only the assassin may select an assassination target")
-        context = self.tactical_context(view, phase="assassination")
+        context = self.tactical_context(view, phase="assassination", joint_beliefs=joint_beliefs)
         key = (view["round"], view["attempt"], view["self"])
         if key not in self._assassinations:
             target = context.primary_target
             self._assassinations[key] = target
-            self._record(view, "assassination", context, {"kind": "assassinate", "target": target})
+            probability = self._merlin_projection(view, joint_beliefs)[target]
+            self._record(view, "assassination", context, {"kind": "assassinate", "target": target}, role_confidence=probability)
         return self._assassinations[key]
 
     def debug_snapshot(self):
@@ -438,6 +459,9 @@ class EvilStrategyManager:
         snapshot["evil_ids"] = sorted(self.evil_ids)
         snapshot["controlled_evil_ids"] = sorted(self.controlled_evil_ids)
         snapshot["likely_merlin"] = max(self.good_ids, key=self.state.merlin_probabilities.get)
+        snapshot["merlin_probabilities"] = self.state.merlin_probabilities
+        snapshot["merlin_probability_source"] = "STANDALONE_ROLE_PRIOR; live decisions use the acting agent's joint beliefs"
+        snapshot["public_suspicion_status"] = "PUBLIC_REPUTATION_HEURISTIC_NOT_ROLE_PROBABILITY"
         snapshot["narratives"] = deepcopy(snapshot["active_narratives"])
         snapshot["decisions"] = [asdict(decision) for decision in self.decisions]
         return snapshot

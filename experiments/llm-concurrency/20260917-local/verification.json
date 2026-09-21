@@ -1,0 +1,23 @@
+{
+  "local_tests": {
+    "passed": 6,
+    "failed": 0,
+    "network": "loopback test server only; these six checks did not call the paid API",
+    "cases": [
+      "test_llm_benchmark.BenchmarkTests.test_concurrent_requests_preserve_inputs_validation_and_private_boundaries",
+      "test_llm_benchmark.BenchmarkTests.test_retry_latency_and_usage_are_included",
+      "test_llm.ClientTests.test_castle_prompt_reaches_every_role_as_system_instructions",
+      "test_llm.ClientTests.test_http_game_requests_follow_speaker_order_with_previous_speeches",
+      "test_agents.AgentTests.test_transient_errors_retry_the_same_turn_and_cache_only_success",
+      "test_gui.GUITests.test_dialogue_publishes_accepted_ai_speech_once_without_private_fields"
+    ]
+  },
+  "live_data_checks": {
+    "measured_jobs": 36,
+    "warmup_jobs": 4,
+    "http_attempts": 41,
+    "identical_first_request_body_hash_per_fixture_across_all_modes": true,
+    "measured_peak_concurrency_matches_workers_in_every_batch": true,
+    "all_measured_jobs_passed_plan_and_game_action_validation": true
+  }
+}

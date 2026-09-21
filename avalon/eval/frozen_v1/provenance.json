@@ -1,0 +1,11 @@
+{
+  "reference": "results/joint_belief/20260917-local500/source",
+  "sha256": {
+    "cognition.py": "dcf18948b68b92ec83530bd0af93b4683e04ea893c1e2247e59fd3fd09a86ab6",
+    "evidence.py": "e738baf03946648aa35c4df39b0caf96f8fa17f9b79879e49e77b79d3fe3d504",
+    "joint_beliefs.py": "1ededfb749b93aed314109a2134592feb4d79a16e605e4681eb4725f6fdaa230",
+    "engine.py": "ded2b6d25ae6b83c399eb74fe36cf6110212535bbfb9ac3fd64efb4517598bc6",
+    "chronicle.py": "4e2617a9dc20bb4e00859e689a83efab79aa19a05f699c08a45596cf609316c5",
+    "legacy_beliefs.py": "d0452663d583cfa6635f337d67836f6d452bdf4f9834a8c684d651677616e265"
+  }
+}

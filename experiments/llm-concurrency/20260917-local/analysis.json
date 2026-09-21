@@ -1,0 +1,134 @@
+{
+  "total_jobs": 40,
+  "measured_jobs": 36,
+  "actual_http_attempts": 41,
+  "elapsed_batches_s": 61.771273,
+  "settings": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "timeout": 60.0,
+    "max_tokens": 2400,
+    "token_field": "max_tokens",
+    "json_mode": true,
+    "thinking": "disabled",
+    "max_retries": 2,
+    "retry_delay": 2.0
+  },
+  "mean_job_s": 2.044697361111111,
+  "job_range_s": [
+    1.242849,
+    2.878037
+  ],
+  "statement_mean": 58.75,
+  "statement_range": [
+    44,
+    79
+  ],
+  "actions": {
+    "SOCIAL": 24,
+    "PASS": 12
+  },
+  "protocols": {
+    "policy": {
+      "jobs": 18,
+      "mean_job_s": 2.5508853333333334,
+      "mean_completion_tokens": 523.5555555555555
+    },
+    "performance": {
+      "jobs": 18,
+      "mean_job_s": 1.538509388888889,
+      "mean_completion_tokens": 134.66666666666666
+    }
+  },
+  "modes": {
+    "1": {
+      "speedup": 1.0,
+      "reduction_pct": 0.0,
+      "median_first_ordered_s": 2.380972,
+      "input_cache_hit_pct": 95.10235026535254
+    },
+    "2": {
+      "speedup": 1.509857783537612,
+      "reduction_pct": 33.768596559009026,
+      "median_first_ordered_s": 2.581387,
+      "input_cache_hit_pct": 95.10235026535254
+    },
+    "4": {
+      "speedup": 2.999648043401666,
+      "reduction_pct": 66.66275557895192,
+      "median_first_ordered_s": 2.58751,
+      "input_cache_hit_pct": 95.10235026535254
+    }
+  },
+  "total_usage": {
+    "prompt_tokens": 203479,
+    "completion_tokens": 14744,
+    "total_tokens": 218223
+  },
+  "observed_concurrency_peaks": [
+    {
+      "workers": 4,
+      "block": 0,
+      "warmup": true,
+      "peak": 4
+    },
+    {
+      "workers": 1,
+      "block": 1,
+      "warmup": false,
+      "peak": 1
+    },
+    {
+      "workers": 2,
+      "block": 1,
+      "warmup": false,
+      "peak": 2
+    },
+    {
+      "workers": 4,
+      "block": 1,
+      "warmup": false,
+      "peak": 4
+    },
+    {
+      "workers": 2,
+      "block": 2,
+      "warmup": false,
+      "peak": 2
+    },
+    {
+      "workers": 4,
+      "block": 2,
+      "warmup": false,
+      "peak": 4
+    },
+    {
+      "workers": 1,
+      "block": 2,
+      "warmup": false,
+      "peak": 1
+    },
+    {
+      "workers": 4,
+      "block": 3,
+      "warmup": false,
+      "peak": 4
+    },
+    {
+      "workers": 1,
+      "block": 3,
+      "warmup": false,
+      "peak": 1
+    },
+    {
+      "workers": 2,
+      "block": 3,
+      "warmup": false,
+      "peak": 2
+    }
+  ],
+  "request_payloads_identical_per_fixture": true,
+  "returned_models": [
+    "deepseek-flash"
+  ]
+}

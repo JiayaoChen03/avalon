@@ -1,0 +1,61 @@
+{
+  "started_at_utc": "2026-09-17T01:56:47.461138+00:00",
+  "settings": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "timeout": 60.0,
+    "max_tokens": 2400,
+    "token_field": "max_tokens",
+    "json_mode": true,
+    "thinking": "disabled",
+    "max_retries": 2,
+    "retry_delay": 2.0
+  },
+  "workers": [
+    1,
+    2,
+    4
+  ],
+  "repeats": 3,
+  "warmup": true,
+  "scope": "identical recorded scripted-game contexts; not live interdependent gameplay",
+  "timing": "non-streaming full response; header time is not first-token time",
+  "fixtures": [
+    {
+      "id": "P2",
+      "protocol": "policy",
+      "context_sha256": "8a387f5ec240fbe05ab407f2b620e98337321b7c0af0995c45305192bdf19f7b",
+      "context_characters": 2664,
+      "visible_events": 7,
+      "system_characters": 11289,
+      "system_sha256": "0241b56ddadb90ba54df9697728d01a3de1a17e4d5c166fcf6b79201707b5f94"
+    },
+    {
+      "id": "P3",
+      "protocol": "performance",
+      "context_sha256": "dc3594ab85025f02431511089813487907d9042f74070eaba657df24d5d909eb",
+      "context_characters": 2994,
+      "visible_events": 8,
+      "system_characters": 9301,
+      "system_sha256": "8671fa913becab271b0e9a0600d5756b296e5b8150c7ebdfc78ea5ae0ebe40ea"
+    },
+    {
+      "id": "P4",
+      "protocol": "performance",
+      "context_sha256": "39022fad12a8be3045874bb86f576788b2f2a5775b5b5e1ea52427b7291035bb",
+      "context_characters": 3857,
+      "visible_events": 9,
+      "system_characters": 9301,
+      "system_sha256": "8671fa913becab271b0e9a0600d5756b296e5b8150c7ebdfc78ea5ae0ebe40ea"
+    },
+    {
+      "id": "P5",
+      "protocol": "policy",
+      "context_sha256": "0c90fd095c044436c6e19e71525a90f49edbe646169ba58a2074ac3bfede2621",
+      "context_characters": 4510,
+      "visible_events": 10,
+      "system_characters": 11289,
+      "system_sha256": "0241b56ddadb90ba54df9697728d01a3de1a17e4d5c166fcf6b79201707b5f94"
+    }
+  ]
+}

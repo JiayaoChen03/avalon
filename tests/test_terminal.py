@@ -32,7 +32,7 @@ def successful_response(request):
 
 def expected_llm_events(events):
     roles = next(e["roles"] for e in events if e["kind"] == "REVEAL")
-    return [e for e in events if e["kind"] in {"SOCIAL", "PASS"} or
+    return [e for e in events if e["kind"] in {"SOCIAL", "PASS", "EXILE_NOMINATION", "EXILE_VOTE"} or
             (e["kind"] == "TEAM" and roles[e["actor"]] in {"GOOD", "MERLIN"})]
 
 
@@ -64,14 +64,14 @@ class TerminalTests(unittest.TestCase):
         self.assertEqual(events, game.events)
         self.assertTrue(any(e["kind"] == "PASS" and e["actor"] == "P1" for e in events))
         self.assertTrue(all(sum(agent.calls.values()) > 0 for agent in agents.values()))
-        self.assertIn("理由摘要", text)
-        self.assertIn("目前公开证据有限", text)
+        self.assertIn("手写：", text)
+        self.assertNotIn("理由摘要", text)
         self.assertNotIn("beliefs", log.getvalue())
         self.assertNotIn("PRIVATE", log.getvalue())
         for event in events:
             if event["kind"] == "TEAM_VOTE":
                 same_proposal = [e for e in events if e["round"] == event["round"]
-                                 and e["attempt"] == event["attempt"]]
+                                 and e["attempt"] == event["attempt"] and e.get("discussion_stage") != "council"]
                 self.assertEqual(sum(e["kind"] in {"SOCIAL", "PASS"} for e in same_proposal), 5)
                 self.assertEqual(sum(e["kind"] == "VOTE" for e in same_proposal), 5)
 
@@ -109,7 +109,8 @@ class TerminalTests(unittest.TestCase):
             self.assertIn("演示", result.stdout)
             self.assertIn("[BACKEND] LLM", result.stdout)
             self.assertIn("[WORLD] 腐化城堡", result.stdout)
-            self.assertIn("理由摘要", result.stdout)
+            self.assertIn("手写：", result.stdout)
+            self.assertNotIn("理由摘要", result.stdout)
             self.assertNotIn("fallback", result.stdout)
             self.assertNotIn("mock", result.stdout)
             self.assertNotIn("PRIVATE_SENTINEL", result.stdout)
@@ -243,8 +244,8 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual(contexts[retry_index], contexts[retry_index + 1])
             events = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()]
             self.assertEqual(len(requests), len(expected_llm_events(events)) + 1)
-            self.assertEqual(sum(e["kind"] == "SOCIAL" for e in events),
-                             5 * sum(e["kind"] == "TEAM" for e in events))
+            self.assertEqual(sum(e["kind"] in {"SOCIAL", "PASS"} for e in events),
+                             5 * sum(e["kind"] in {"TEAM", "COUNCIL_START"} for e in events))
             self.assertEqual([e["actor"] for e in events if e["kind"] == "SOCIAL"][:5],
                              ["P1", "P2", "P3", "P4", "P5"])
             self.assertNotIn("PRIVATE_SENTINEL", log.read_text(encoding="utf-8"))

@@ -1,0 +1,43 @@
+{
+  "image": "/Users/jiayaochen/Desktop/avalon/renders/chapel_lighting.png",
+  "size": [
+    1600,
+    1000
+  ],
+  "display_referred_luminance_mean": 0.10130372107843137,
+  "display_referred_luminance_median": 0.07261490196078431,
+  "luminance_percentiles": {
+    "5": 0.00864078431372549,
+    "25": 0.04547843137254902,
+    "50": 0.07261490196078431,
+    "75": 0.12097490196078431,
+    "90": 0.19146431372549022,
+    "95": 0.24711686274509803,
+    "99": 0.8371294117647059
+  },
+  "dark_pixels_below_0.12_percent": 74.7034375,
+  "warm_pixels_over_0.2_percent": 7.9958125,
+  "all_channels_clipped_percent": 0.0049375,
+  "histogram_edges": [
+    0,
+    0.02,
+    0.04,
+    0.08,
+    0.12,
+    0.2,
+    0.35,
+    0.6,
+    1.00001
+  ],
+  "histogram_percent": [
+    7.951125,
+    13.120125,
+    34.23375,
+    19.3984375,
+    16.3435,
+    6.9808125,
+    0.45075000000000004,
+    1.5214999999999999
+  ],
+  "note": "Luminance measured on the displayed AgX PNG, not scene-linear radiance. Thresholds are explicitly defined; visual inspection is still required."
+}

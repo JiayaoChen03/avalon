@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avalon — Beneath the Hollow Crown</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #060304;
+      overflow: hidden;
+    }
+    canvas { display: block; }
+    #hint {
+      position: fixed;
+      left: 8px;
+      bottom: 6px;
+      font: 12px/1.6 monospace;
+      color: #7a6a70;
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="hint">鼠标移动=视差 · 点击/S=震屏 · K=腐化脉冲 · L=层标签</div>
+  <!-- 挂起 load 事件直到场景就绪（配合 vite.config.js 的 scene-ready-gate，仅 dev 有效） -->
+  <img src="/__gate" hidden alt="">
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

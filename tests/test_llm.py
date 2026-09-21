@@ -14,6 +14,7 @@ from unittest.mock import patch
 from urllib.request import ProxyHandler, build_opener as real_build_opener
 
 from avalon.llm import ChatClient, LLMError, Settings
+from avalon.chronicle import context_record
 
 
 @contextmanager
@@ -120,7 +121,10 @@ class ClientTests(unittest.TestCase):
                 self.assertEqual(json.loads(body["messages"][1]["content"]), context)
                 for old_goal in ("MERLIN and GOOD want", "ASSASSIN and EVIL want", "Your goal is the Evil team's success"):
                     self.assertNotIn(old_goal, system["content"])
-            self.assertIn("social, discussion, revision and strong_vote" if "tactical" in context else "beliefs: object", system["content"])
+            self.assertIn("social, discussion, revision and strong_vote" if "tactical" in context else
+                          "Code owns beliefs/profiles and weights", system["content"])
+            self.assertIn("PRIVATE BELIEF DOES NOT EQUAL PUBLIC STANCE", system["content"])
+            self.assertIn('"recommended_action"', system["content"])
 
     def test_world_prompt_is_loaded_once_per_client_even_across_a_retry(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -301,7 +305,8 @@ class ClientTests(unittest.TestCase):
             plan = model_response(context)
             if "mission" in plan:
                 plan["mission"] = "SUCCESS"
-            plan["social"]["statement"] = f"{context['game']['self']}：我会比较这次队伍与此前的公开表现。"
+            if "social" in plan:
+                plan["social"]["statement"] = f"{context['game']['self']}：我会比较这次队伍与此前的公开表现。"
             return envelope(json.dumps(plan))
 
         with endpoint(response) as (url, requests):
@@ -313,8 +318,9 @@ class ClientTests(unittest.TestCase):
             run_game(game, agents, human, write=output.append, strategy_seed=7)
             self.assertIn(game.winner, {"GOOD", "EVIL"})
             expected_calls = [(e["actor"], e["round"], e["attempt"],
-                               "team" if e["kind"] == "TEAM" else "discussion")
-                              for e in game.events if (e["kind"] == "SOCIAL" or
+                               {"TEAM": "team", "EXILE_NOMINATION": "exile_nomination", "EXILE_VOTE": "exile_vote"}.get(
+                                   e["kind"], "council_discussion" if e.get("discussion_stage") == "council" else "discussion"))
+                              for e in game.events if (e["kind"] in {"SOCIAL", "EXILE_NOMINATION", "EXILE_VOTE"} or
                               e["kind"] == "TEAM" and game.players[e["actor"]].role in {"GOOD", "MERLIN"})
                               and e["actor"] in agents]
             self.assertEqual(len(requests), len(expected_calls))
@@ -331,7 +337,7 @@ class ClientTests(unittest.TestCase):
                 index = next(i for i, event in enumerate(before) if event["actor"] == view["self"])
                 actual = [e for e in view["recent_events"] if e["kind"] == "SOCIAL"
                           and e["round"] == view["round"] and e["attempt"] == view["attempt"]]
-                self.assertEqual(actual, before[:index])
+                self.assertEqual(actual, [context_record(e) for e in before[:index]])
                 self.assertTrue(view["team"])
             self.assertNotIn("PRIVATE_SENTINEL", "\n".join(output) + json.dumps(game.events))
             self.assertTrue(all(source == "llm" for a in agents.values() for source in a.sources.values()))

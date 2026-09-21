@@ -1,0 +1,52 @@
+{
+  "stage": "blockout",
+  "blender": "4.5.3 LTS",
+  "triangles_evaluated": 112537,
+  "triangles_unique_meshes": 19873,
+  "triangles_by_collection": {
+    "01 Floor": 16308,
+    "02 Walls": 65340,
+    "04 Columns": 4128,
+    "03 Arches": 11256,
+    "05 Altar": 935,
+    "06 Council table": 2160,
+    "07 Hooded placeholders": 3962,
+    "08 Candles": 8436,
+    "10 Atmosphere": 12
+  },
+  "objects": 1272,
+  "materials": 14,
+  "external_image_textures": 0,
+  "external_texture_memory_bytes": 0,
+  "texture_memory_note": "All surface textures are procedural. Render buffers and GPU working memory excluded.",
+  "render_samples": 64,
+  "render_device": "GPU",
+  "parameters": {
+    "room_m": [
+      9.0,
+      14.0,
+      8.2
+    ],
+    "table_m": [
+      6.1,
+      3.0,
+      0.82
+    ],
+    "camera_mm": 39.0,
+    "camera_location": [
+      0.045,
+      -4.7,
+      1.59
+    ],
+    "camera_target": [
+      0.0,
+      2.5,
+      1.02
+    ],
+    "candle_power_w": 16.0,
+    "fog_density": 0.012,
+    "world_strength": 0.004,
+    "exposure": -1.15
+  },
+  "godot_note": "Modular meshes, metres, Principled materials, no subdivision. Procedural shaders need baking or recreation; Cycles atmosphere and grading need recreation in Godot. No engine integration performed."
+}

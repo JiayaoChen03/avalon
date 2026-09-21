@@ -6,6 +6,7 @@ import json
 import unittest
 
 from avalon.engine import CARDS, Game, Player
+from avalon.cognition import BeliefEngine
 
 
 def game_for(count=5):
@@ -64,6 +65,16 @@ class EvilStrategyTests(unittest.TestCase):
         manager.state.public_suspicion.update(P3=.82, P4=.23)
         manager.state.public_trust.update(P3=.20, P4=.74)
 
+    def role_beliefs(self, target):
+        from test_cognition import language_update
+        engine = BeliefEngine(self.game.view("P3"))
+        for seq in range(30, 36):
+            event = self.social(seq, target, "P4", public_writing=f"{target} predicted both opponents precisely.")
+            evidence = language_update(event, target=target, strength="strong")
+            evidence["reason_type"] = "privileged_information_signal"
+            engine.apply_soft_updates([evidence], [event], 1)
+        return engine.beliefs
+
     def test_initial_estimates_are_hypotheses_without_fictional_history(self):
         state = self.manager.state
         self.assertEqual(state.active_narratives, [])
@@ -101,25 +112,27 @@ class EvilStrategyTests(unittest.TestCase):
         self.manager.observe({"seq": 99, "kind": "REVEAL", "roles": {"P2": "MERLIN"}})
         self.assertEqual(self.manager.debug_snapshot(), before)
 
-    def test_social_changes_suspicion_trust_profiles_and_normalized_merlin_hypotheses(self):
+    def test_social_changes_reputation_but_not_a_shared_role_belief(self):
         before = deepcopy(self.manager.state)
         self.manager.observe(self.social(1, "P1", "P3"))
         after = self.manager.state
         self.assertGreater(after.public_suspicion["P3"], before.public_suspicion["P3"])
         self.assertLess(after.public_trust["P3"], before.public_trust["P3"])
         self.assertGreater(after.profiles["P1"]["aggression"], .5)
-        self.assertGreater(after.merlin_probabilities["P1"], 1/3)
+        self.assertEqual(after.merlin_probabilities, before.merlin_probabilities)
         self.assertLess(max(after.merlin_probabilities.values()), .6)
         self.assertAlmostEqual(sum(after.merlin_probabilities.values()), 1)
         self.assertEqual(after.merlin_probabilities["P3"], 0)
 
     def test_consistently_rejecting_dirty_teams_builds_merlin_likelihood(self):
+        engine = BeliefEngine(self.game.view("P3"))
         for seq in range(1, 5):
-            self.manager.observe(self.vote_event(seq, ["P3", "P5"],
-                                 {"P1": True, "P2": False, "P3": True,
-                                  "P4": True, "P5": True}, attempt=seq))
-        self.assertGreater(self.manager.state.merlin_probabilities["P2"], .4)
-        self.assertLess(self.manager.state.merlin_probabilities["P2"], .95)
+            event = self.vote_event(seq, ["P3", "P5"],
+                                   {"P1": True, "P2": False, "P3": True, "P4": True, "P5": True}, attempt=seq)
+            self.manager.observe(event)
+            engine.observe(event)
+        self.assertGreater(engine.P_role("P2", "MERLIN"), .4)
+        self.assertLess(engine.P_role("P2", "MERLIN"), .95)
         self.assertIn("follows_consensus", self.manager.state.public_tags["P1"])
         self.assertGreater(self.manager.state.pair_suspicion, .1)
 
@@ -208,8 +221,7 @@ class EvilStrategyTests(unittest.TestCase):
         self.assertIsNone(self.manager.state.sacrifice_target)
 
     def test_merlin_hunt_uses_probability_concentration(self):
-        self.manager.state.merlin_probabilities.update(P1=.1, P2=.8, P5=.1)
-        context = self.manager.tactical_context(self.view()).to_dict()
+        context = self.manager.tactical_context(self.view(), joint_beliefs=self.role_beliefs("P2")).to_dict()
         self.assertEqual(context["strategy_mode"], "MERLIN_HUNT")
         self.assertEqual(context["primary_target"], "P2")
         self.assertIn(context["primary_objective"], {"PROBE_MERLIN", "OBSERVE_MERLIN_REACTION"})
@@ -396,12 +408,12 @@ class EvilStrategyTests(unittest.TestCase):
                          {"P4": "FAIL"})
 
     def test_assassination_uses_code_likelihood_and_never_true_merlin_identity(self):
-        self.manager.state.merlin_probabilities.update(P1=.8, P2=.1, P5=.1)
+        beliefs = self.role_beliefs("P1")
         view = self.view(phase="assassination", successes=3)
         view["merlin_probabilities"] = {"P2": 1}
         view["true_merlin"] = "P2"
-        self.assertEqual(self.manager.assassinate(view), "P1")
-        self.assertEqual(self.manager.assassinate(view), "P1")
+        self.assertEqual(self.manager.assassinate(view, joint_beliefs=beliefs), "P1")
+        self.assertEqual(self.manager.assassinate(view, joint_beliefs=beliefs), "P1")
         self.assertNotIn("true_merlin", json.dumps(self.manager.debug_snapshot()))
 
     def test_decisions_are_structured_and_repeated_actions_do_not_duplicate_them(self):
@@ -458,13 +470,13 @@ class EvilStrategyTests(unittest.TestCase):
         self.manager.observe(self.social(8, "P5", "P4"))
         self.assertIn("leader", self.manager.state.public_tags["P1"])
 
-    def test_merlin_likelihood_changes_after_mission_verifies_prior_vote_accuracy(self):
+    def test_mission_does_not_recount_a_vote_with_known_evil_team(self):
         self.manager.observe(self.vote_event(1, ["P3", "P5"],
             {"P1": True, "P2": False, "P3": True, "P4": True, "P5": True}))
         before = self.manager.state.merlin_probabilities["P2"]
         self.manager.observe({"seq": 2, "kind": "MISSION", "round": 1, "attempt": 1,
             "team": ["P3", "P5"], "success": False, "fail_count": 1, "successes": 0, "failures": 1})
-        self.assertGreater(self.manager.state.merlin_probabilities["P2"], before)
+        self.assertEqual(self.manager.state.merlin_probabilities["P2"], before)
         self.assertAlmostEqual(sum(self.manager.state.merlin_probabilities.values()), 1)
 
     def test_consensus_carries_a_grounded_seed_to_the_next_real_proposal(self):
@@ -632,6 +644,8 @@ class EvilStrategyTests(unittest.TestCase):
                 # Further paid accusations need the next Mission Round's refresh.
                 self.observed_vote(game, manager, dict.fromkeys(game.ids, True))
                 game.resolve_mission(dict.fromkeys(game.team, "SUCCESS"))
+                from test_engine import finish_council
+                finish_council(game)
                 for event in game.events:
                     manager.observe(event)
         context = manager.tactical_context(game.view("P3"), phase="vote")
@@ -657,7 +671,7 @@ class EvilStrategyTests(unittest.TestCase):
         self.assertTrue(all(manager.state.public_suspicion[p] >= .65 for p in ("P3", "P4")))
         self.assertIsNone(manager.state.sacrifice_target)
 
-    def test_repeated_public_accurate_reads_can_reach_merlin_hunt(self):
+    def test_repeated_public_accurate_votes_feed_the_seat_joint_beliefs(self):
         game, manager = game_for(6), self.make_manager(count=6)
         actions = {p: ("HEDGE", "P1") for p in game.ids}
         actions["P2"] = ("ACCUSE", "P3")
@@ -666,15 +680,18 @@ class EvilStrategyTests(unittest.TestCase):
             supporters = {"P1", "P3", "P5"} if attempt < 3 else {"P1", "P3", "P5", "P6"}
             self.observed_vote(game, manager, {p: p in supporters for p in game.ids})
         game.resolve_mission({"P1": "SUCCESS", "P3": "FAIL"})
+        from test_engine import finish_council
+        finish_council(game)
+        engine = BeliefEngine(game.view("P3"))
         for event in game.events:
             manager.observe(event)
-        context = manager.tactical_context(game.view("P3"))
+            engine.observe(event)
+        context = manager.tactical_context(game.view("P3"), joint_beliefs=engine.beliefs)
         self.assertEqual((game.round, game.failures), (2, 1))
-        self.assertEqual(context.strategy_mode, "MERLIN_HUNT")
-        self.assertEqual(context.primary_objective, "PROBE_MERLIN")
-        self.assertEqual(context.primary_target, "P2")
-        self.assertGreater(manager.state.merlin_probabilities["P2"], .45)
-        self.assertLess(manager.state.merlin_probabilities["P2"], .95)
+        self.assertIn(context.primary_target, game.ids)
+        self.assertGreater(engine.P_role("P2", "MERLIN"), .25)
+        self.assertLess(engine.P_role("P2", "MERLIN"), .95)
+        self.assertAlmostEqual(manager.state.merlin_probabilities["P2"], .25)
 
 
 if __name__ == "__main__":

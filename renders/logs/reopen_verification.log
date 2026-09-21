@@ -1,0 +1,5 @@
+REOPEN_VERIFIED {"version": "4.5.3 LTS", "stage": "final", "samples": 320, "size": [1600, 1000], "camera": "Camera | low tribunal view", "engine": "CYCLES", "look": "AgX - Medium High Contrast", "exposure": -1.0, "render_path": "/Users/jiayaochen/Desktop/avalon/renders/chapel_final.png", "objects": 1904}
+Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)
+Read blend: "/Users/jiayaochen/Desktop/avalon/assets/chapel/black_chapel.blend"
+
+Blender quit

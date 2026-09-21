@@ -1,0 +1,1095 @@
+Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)
+RNA_float_set: NodeSocket.default_value not found.
+Fra:1 Mem:76.09M (Peak 76.09M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Floor foundation
+Fra:1 Mem:76.10M (Peak 76.10M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FloorTile_00_00
+Fra:1 Mem:76.14M (Peak 76.14M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back wall mass
+Fra:1 Mem:76.15M (Peak 76.15M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneWall_Back_00_00
+Fra:1 Mem:76.16M (Peak 76.16M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneWall_Side_-1_00_00
+Fra:1 Mem:76.34M (Peak 76.34M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_square_plinth
+Fra:1 Mem:76.35M (Peak 76.35M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.002
+Fra:1 Mem:76.35M (Peak 76.35M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft
+Fra:1 Mem:76.36M (Peak 76.36M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.001
+Fra:1 Mem:76.36M (Peak 76.36M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.002
+Fra:1 Mem:76.37M (Peak 76.37M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital
+Fra:1 Mem:76.37M (Peak 76.37M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.007
+Fra:1 Mem:76.38M (Peak 76.38M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.009
+Fra:1 Mem:76.39M (Peak 76.39M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.010
+Fra:1 Mem:76.39M (Peak 76.39M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.011
+Fra:1 Mem:76.40M (Peak 76.40M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.003
+Fra:1 Mem:76.40M (Peak 76.40M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.004
+Fra:1 Mem:76.40M (Peak 76.40M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.005
+Fra:1 Mem:76.41M (Peak 76.41M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.002
+Fra:1 Mem:76.42M (Peak 76.42M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.014
+Fra:1 Mem:76.42M (Peak 76.42M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.016
+Fra:1 Mem:76.43M (Peak 76.43M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.017
+Fra:1 Mem:76.43M (Peak 76.43M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.019
+Fra:1 Mem:76.44M (Peak 76.44M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.020
+Fra:1 Mem:76.44M (Peak 76.44M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.006
+Fra:1 Mem:76.45M (Peak 76.45M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.008
+Fra:1 Mem:76.45M (Peak 76.45M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck.002
+Fra:1 Mem:76.46M (Peak 76.46M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.003
+Fra:1 Mem:76.46M (Peak 76.46M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.023
+Fra:1 Mem:76.47M (Peak 76.47M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.024
+Fra:1 Mem:76.47M (Peak 76.47M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.025
+Fra:1 Mem:76.47M (Peak 76.47M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.026
+Fra:1 Mem:76.48M (Peak 76.48M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.027
+Fra:1 Mem:76.48M (Peak 76.48M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.009
+Fra:1 Mem:76.48M (Peak 76.48M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.011
+Fra:1 Mem:76.49M (Peak 76.49M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck.003
+Fra:1 Mem:76.49M (Peak 76.49M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.004
+Fra:1 Mem:76.50M (Peak 76.50M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.028
+Fra:1 Mem:76.50M (Peak 76.50M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.029
+Fra:1 Mem:76.50M (Peak 76.50M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.030
+Fra:1 Mem:76.50M (Peak 76.50M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.032
+Fra:1 Mem:76.51M (Peak 76.51M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.033
+Fra:1 Mem:76.51M (Peak 76.51M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.012
+Fra:1 Mem:76.51M (Peak 76.51M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.013
+Fra:1 Mem:76.52M (Peak 76.52M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.014
+Fra:1 Mem:76.53M (Peak 76.53M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck.004
+Fra:1 Mem:76.53M (Peak 76.53M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.005
+Fra:1 Mem:76.53M (Peak 76.53M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.035
+Fra:1 Mem:76.54M (Peak 76.54M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.037
+Fra:1 Mem:76.54M (Peak 76.54M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.039
+Fra:1 Mem:76.54M (Peak 76.54M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.041
+Fra:1 Mem:76.56M (Peak 76.56M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.015
+Fra:1 Mem:76.56M (Peak 76.56M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.017
+Fra:1 Mem:76.56M (Peak 76.56M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck.005
+Fra:1 Mem:76.57M (Peak 76.57M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir
+Fra:1 Mem:76.57M (Peak 76.57M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.001
+Fra:1 Mem:76.57M (Peak 76.57M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.002
+Fra:1 Mem:76.58M (Peak 76.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.003
+Fra:1 Mem:76.58M (Peak 76.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.005
+Fra:1 Mem:76.58M (Peak 76.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.006
+Fra:1 Mem:76.58M (Peak 76.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.007
+Fra:1 Mem:76.58M (Peak 76.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.008
+Fra:1 Mem:76.59M (Peak 76.59M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.009
+Fra:1 Mem:76.59M (Peak 76.59M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.011
+Fra:1 Mem:76.59M (Peak 76.59M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.012
+Fra:1 Mem:76.59M (Peak 76.59M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.013
+Fra:1 Mem:76.60M (Peak 76.60M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.014
+Fra:1 Mem:76.61M (Peak 76.61M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.015
+Fra:1 Mem:76.61M (Peak 76.61M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.016
+Fra:1 Mem:76.61M (Peak 76.61M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.019
+Fra:1 Mem:76.61M (Peak 76.61M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.021
+Fra:1 Mem:76.62M (Peak 76.62M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.022
+Fra:1 Mem:76.62M (Peak 76.62M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.023
+Fra:1 Mem:76.62M (Peak 76.62M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.024
+Fra:1 Mem:76.62M (Peak 76.62M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.025
+Fra:1 Mem:76.62M (Peak 76.62M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.027
+Fra:1 Mem:76.63M (Peak 76.63M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.028
+Fra:1 Mem:76.63M (Peak 76.63M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.029
+Fra:1 Mem:76.63M (Peak 76.63M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.030
+Fra:1 Mem:76.63M (Peak 76.63M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.031
+Fra:1 Mem:76.63M (Peak 76.63M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.032
+Fra:1 Mem:76.64M (Peak 76.64M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.033
+Fra:1 Mem:76.64M (Peak 76.64M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.035
+Fra:1 Mem:76.65M (Peak 76.65M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.037
+Fra:1 Mem:76.65M (Peak 76.65M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.038
+Fra:1 Mem:76.66M (Peak 76.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.042
+Fra:1 Mem:76.66M (Peak 76.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.044
+Fra:1 Mem:76.66M (Peak 76.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.045
+Fra:1 Mem:76.66M (Peak 76.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.047
+Fra:1 Mem:76.66M (Peak 76.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.048
+Fra:1 Mem:76.66M (Peak 76.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.049
+Fra:1 Mem:76.67M (Peak 76.67M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.050
+Fra:1 Mem:76.67M (Peak 76.67M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.051
+Fra:1 Mem:76.67M (Peak 76.67M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.052
+Fra:1 Mem:76.67M (Peak 76.67M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.053
+Fra:1 Mem:76.68M (Peak 76.68M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.054
+Fra:1 Mem:76.68M (Peak 76.68M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.056
+Fra:1 Mem:76.68M (Peak 76.68M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.057
+Fra:1 Mem:76.68M (Peak 76.68M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.058
+Fra:1 Mem:76.68M (Peak 76.68M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.059
+Fra:1 Mem:76.68M (Peak 76.68M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.060
+Fra:1 Mem:76.69M (Peak 76.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.061
+Fra:1 Mem:76.69M (Peak 76.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.063
+Fra:1 Mem:76.69M (Peak 76.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.064
+Fra:1 Mem:76.69M (Peak 76.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.065
+Fra:1 Mem:76.69M (Peak 76.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.066
+Fra:1 Mem:76.69M (Peak 76.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.067
+Fra:1 Mem:76.70M (Peak 76.70M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.070
+Fra:1 Mem:76.70M (Peak 76.70M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.071
+Fra:1 Mem:76.70M (Peak 76.70M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.072
+Fra:1 Mem:76.70M (Peak 76.70M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.074
+Fra:1 Mem:76.71M (Peak 76.71M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.075
+Fra:1 Mem:76.71M (Peak 76.71M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.076
+Fra:1 Mem:76.71M (Peak 76.71M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.077
+Fra:1 Mem:76.71M (Peak 76.71M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_pier
+Fra:1 Mem:76.71M (Peak 76.71M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.001
+Fra:1 Mem:76.72M (Peak 76.72M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.003
+Fra:1 Mem:76.72M (Peak 76.72M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.004
+Fra:1 Mem:76.72M (Peak 76.72M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.006
+Fra:1 Mem:76.72M (Peak 76.72M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.008
+Fra:1 Mem:76.73M (Peak 76.73M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.009
+Fra:1 Mem:76.73M (Peak 76.73M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.010
+Fra:1 Mem:76.73M (Peak 76.73M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.011
+Fra:1 Mem:76.73M (Peak 76.73M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.012
+Fra:1 Mem:76.74M (Peak 76.74M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.013
+Fra:1 Mem:76.74M (Peak 76.74M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.014
+Fra:1 Mem:76.74M (Peak 76.74M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.015
+Fra:1 Mem:76.74M (Peak 76.74M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.017
+Fra:1 Mem:76.74M (Peak 76.74M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.018
+Fra:1 Mem:76.75M (Peak 76.75M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.019
+Fra:1 Mem:76.75M (Peak 76.75M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.020
+Fra:1 Mem:76.75M (Peak 76.75M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.021
+Fra:1 Mem:76.75M (Peak 76.75M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.023
+Fra:1 Mem:76.75M (Peak 76.75M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.024
+Fra:1 Mem:76.76M (Peak 76.76M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.025
+Fra:1 Mem:76.76M (Peak 76.76M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_pier
+Fra:1 Mem:76.76M (Peak 76.76M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.001
+Fra:1 Mem:76.77M (Peak 76.77M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.002
+Fra:1 Mem:76.77M (Peak 76.77M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.004
+Fra:1 Mem:76.78M (Peak 76.78M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.006
+Fra:1 Mem:76.78M (Peak 76.78M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.008
+Fra:1 Mem:76.78M (Peak 76.78M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.010
+Fra:1 Mem:76.78M (Peak 76.78M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.011
+Fra:1 Mem:76.79M (Peak 76.79M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.012
+Fra:1 Mem:76.79M (Peak 76.79M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.014
+Fra:1 Mem:76.79M (Peak 76.79M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.015
+Fra:1 Mem:76.79M (Peak 76.79M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.016
+Fra:1 Mem:76.80M (Peak 76.80M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.017
+Fra:1 Mem:76.80M (Peak 76.80M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.018
+Fra:1 Mem:76.80M (Peak 76.80M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.021
+Fra:1 Mem:76.80M (Peak 76.80M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.022
+Fra:1 Mem:76.80M (Peak 76.80M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.023
+Fra:1 Mem:76.81M (Peak 76.81M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.025
+Fra:1 Mem:76.81M (Peak 76.81M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_pier
+Fra:1 Mem:76.81M (Peak 76.81M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir
+Fra:1 Mem:76.82M (Peak 76.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.001
+Fra:1 Mem:76.82M (Peak 76.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.002
+Fra:1 Mem:76.82M (Peak 76.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.003
+Fra:1 Mem:76.82M (Peak 76.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.004
+Fra:1 Mem:76.82M (Peak 76.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.005
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.007
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.008
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.009
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.012
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.013
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.014
+Fra:1 Mem:76.83M (Peak 76.83M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.015
+Fra:1 Mem:76.84M (Peak 76.84M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.016
+Fra:1 Mem:76.84M (Peak 76.84M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.019
+Fra:1 Mem:76.84M (Peak 76.84M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.020
+Fra:1 Mem:76.84M (Peak 76.84M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.021
+Fra:1 Mem:76.84M (Peak 76.84M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.022
+Fra:1 Mem:76.85M (Peak 76.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.025
+Fra:1 Mem:76.85M (Peak 76.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Faint crimson above altar
+Fra:1 Mem:76.85M (Peak 76.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.026
+Fra:1 Mem:76.85M (Peak 76.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_light
+Fra:1 Mem:76.85M (Peak 76.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.027
+Fra:1 Mem:76.85M (Peak 76.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.029
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.031
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.032
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.034
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.035
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_1_light
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.037
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.038
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.039
+Fra:1 Mem:76.86M (Peak 76.86M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.040
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.041
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.042
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.043
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.044
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.045
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.047
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.048
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.049
+Fra:1 Mem:76.87M (Peak 76.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.050
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.051
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_light
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar recessed darkness
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_-1_light
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche shadow
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar colonette
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar colonette.001
+Fra:1 Mem:76.88M (Peak 76.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar column capital
+Fra:1 Mem:76.89M (Peak 76.89M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | WallNiche shadow.001
+Fra:1 Mem:76.90M (Peak 76.90M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar colonette.003
+Fra:1 Mem:76.90M (Peak 76.90M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar upper step
+Fra:1 Mem:76.90M (Peak 76.90M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_-1_light
+Fra:1 Mem:76.90M (Peak 76.90M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar stone pedestal
+Fra:1 Mem:76.91M (Peak 76.91M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar stone mensa
+Fra:1 Mem:76.91M (Peak 76.91M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Crimson in the recess
+Fra:1 Mem:76.91M (Peak 76.91M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Low stone candle shelf
+Fra:1 Mem:76.91M (Peak 76.91M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_00
+Fra:1 Mem:76.93M (Peak 76.93M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_02
+Fra:1 Mem:76.93M (Peak 76.93M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_2_light
+Fra:1 Mem:76.93M (Peak 76.93M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_03
+Fra:1 Mem:76.94M (Peak 76.94M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_1_light
+Fra:1 Mem:76.95M (Peak 76.95M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_04
+Fra:1 Mem:76.95M (Peak 76.95M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_06
+Fra:1 Mem:76.96M (Peak 76.96M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_07
+Fra:1 Mem:76.97M (Peak 76.97M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_08
+Fra:1 Mem:76.97M (Peak 76.97M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Table endgrain breadboard
+Fra:1 Mem:76.98M (Peak 76.98M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Table heavy apron
+Fra:1 Mem:76.98M (Peak 76.98M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Table oak leg
+Fra:1 Mem:76.98M (Peak 76.98M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Table trestle foot
+Fra:1 Mem:76.99M (Peak 76.99M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Table low stretcher
+Fra:1 Mem:77.00M (Peak 77.00M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_1_open_hood
+Fra:1 Mem:77.01M (Peak 77.01M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_1_shadowed_face
+Fra:1 Mem:77.01M (Peak 77.01M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve
+Fra:1 Mem:77.01M (Peak 77.01M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.001
+Fra:1 Mem:77.03M (Peak 77.03M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Simple council seat
+Fra:1 Mem:77.03M (Peak 77.03M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Shadowed chair back
+Fra:1 Mem:77.04M (Peak 77.04M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_2_open_hood
+Fra:1 Mem:77.04M (Peak 77.04M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_2_shadowed_face
+Fra:1 Mem:77.06M (Peak 77.06M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.002
+Fra:1 Mem:77.06M (Peak 77.06M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.003
+Fra:1 Mem:77.07M (Peak 77.07M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_3_cloaked_body
+Fra:1 Mem:77.07M (Peak 77.07M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_3_open_hood
+Fra:1 Mem:77.08M (Peak 77.08M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_3_shadowed_face
+Fra:1 Mem:77.10M (Peak 77.10M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_1_light
+Fra:1 Mem:77.10M (Peak 77.10M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.005
+Fra:1 Mem:77.11M (Peak 77.11M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_0_light
+Fra:1 Mem:77.11M (Peak 77.11M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_4_open_hood
+Fra:1 Mem:77.11M (Peak 77.11M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.006
+Fra:1 Mem:77.12M (Peak 77.12M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.007
+Fra:1 Mem:77.13M (Peak 77.13M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_5_cloaked_body
+Fra:1 Mem:77.13M (Peak 77.13M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_5_open_hood
+Fra:1 Mem:77.14M (Peak 77.14M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_5_shadowed_face
+Fra:1 Mem:77.14M (Peak 77.14M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_low_light
+Fra:1 Mem:77.14M (Peak 77.14M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_light
+Fra:1 Mem:77.14M (Peak 77.14M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_6_cloaked_body
+Fra:1 Mem:77.14M (Peak 77.14M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_light
+Fra:1 Mem:77.17M (Peak 77.17M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_6_open_hood
+Fra:1 Mem:77.17M (Peak 77.17M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_6_shadowed_face
+Fra:1 Mem:77.18M (Peak 77.18M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Draped sleeve.010
+Fra:1 Mem:77.18M (Peak 77.18M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_7_open_hood
+Fra:1 Mem:77.19M (Peak 77.19M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_light
+Fra:1 Mem:77.19M (Peak 77.19M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_light
+Fra:1 Mem:77.19M (Peak 77.19M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Atmosphere volume (render only)
+Fra:1 Mem:77.19M (Peak 77.19M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Tribunal_7_shadowed_face
+Fra:1 Mem:77.19M (Peak 77.19M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_flame
+Fra:1 Mem:77.20M (Peak 77.20M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_holder
+Fra:1 Mem:77.20M (Peak 77.20M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_wax
+Fra:1 Mem:77.22M (Peak 77.22M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_drip_dish
+Fra:1 Mem:77.22M (Peak 77.22M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_wick
+Fra:1 Mem:77.24M (Peak 77.24M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_flame
+Fra:1 Mem:77.24M (Peak 77.24M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_holder
+Fra:1 Mem:77.25M (Peak 77.25M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_drip_dish
+Fra:1 Mem:77.25M (Peak 77.25M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_flame
+Fra:1 Mem:77.27M (Peak 77.27M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_wax
+Fra:1 Mem:77.31M (Peak 77.31M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_drip_dish
+Fra:1 Mem:77.31M (Peak 77.31M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_flame
+Fra:1 Mem:77.33M (Peak 77.33M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_holder
+Fra:1 Mem:77.34M (Peak 77.34M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_wax
+Fra:1 Mem:77.34M (Peak 77.34M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_wick
+Fra:1 Mem:77.35M (Peak 77.35M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_drip_dish
+Fra:1 Mem:77.35M (Peak 77.35M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_low_holder
+Fra:1 Mem:77.39M (Peak 77.39M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_drip_dish
+Fra:1 Mem:77.41M (Peak 77.41M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_low_drip_dish
+Fra:1 Mem:77.43M (Peak 77.43M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_wax
+Fra:1 Mem:77.44M (Peak 77.44M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_low_wick
+Fra:1 Mem:77.47M (Peak 77.47M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | FrontRight_low_flame
+Fra:1 Mem:77.49M (Peak 77.49M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back iron floor stand
+Fra:1 Mem:77.52M (Peak 77.52M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Candelabrum arm
+Fra:1 Mem:77.52M (Peak 77.52M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_0_drip_dish
+Fra:1 Mem:77.54M (Peak 77.54M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_0_wick
+Fra:1 Mem:77.54M (Peak 77.54M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_1_drip_dish
+Fra:1 Mem:77.54M (Peak 77.54M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_1_wick
+Fra:1 Mem:77.55M (Peak 77.55M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_1_flame
+Fra:1 Mem:77.55M (Peak 77.55M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.002
+Fra:1 Mem:77.56M (Peak 77.56M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_2_drip_dish
+Fra:1 Mem:77.58M (Peak 77.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_2_wick
+Fra:1 Mem:77.58M (Peak 77.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_-1_2_flame
+Fra:1 Mem:77.58M (Peak 77.58M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back iron floor stand.001
+Fra:1 Mem:77.59M (Peak 77.59M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.003
+Fra:1 Mem:77.60M (Peak 77.60M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_0_wax
+Fra:1 Mem:77.61M (Peak 77.61M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_0_drip_dish
+Fra:1 Mem:77.62M (Peak 77.62M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_0_wick
+Fra:1 Mem:77.63M (Peak 77.63M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_0_flame
+Fra:1 Mem:77.63M (Peak 77.64M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.004
+Fra:1 Mem:77.64M (Peak 77.64M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_1_wax
+Fra:1 Mem:77.65M (Peak 77.65M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_1_drip_dish
+Fra:1 Mem:77.66M (Peak 77.66M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_1_flame
+Fra:1 Mem:77.67M (Peak 77.67M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_2_drip_dish
+Fra:1 Mem:77.69M (Peak 77.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Back_1_2_flame
+Fra:1 Mem:77.69M (Peak 77.69M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_-1_wax
+Fra:1 Mem:77.70M (Peak 77.70M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_-1_drip_dish
+Fra:1 Mem:77.71M (Peak 77.71M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_holder
+Fra:1 Mem:77.72M (Peak 77.72M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_-1_holder
+Fra:1 Mem:77.73M (Peak 77.73M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_-1_wax
+Fra:1 Mem:77.79M (Peak 77.79M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_-1_drip_dish
+Fra:1 Mem:77.80M (Peak 77.80M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_-1_wick
+Fra:1 Mem:77.82M (Peak 77.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_holder
+Fra:1 Mem:77.82M (Peak 77.82M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_wax
+Fra:1 Mem:77.84M (Peak 77.84M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_drip_dish
+Fra:1 Mem:77.85M (Peak 77.85M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_flame
+Fra:1 Mem:77.87M (Peak 77.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_1_wick
+Fra:1 Mem:77.87M (Peak 77.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_1_holder
+Fra:1 Mem:77.87M (Peak 77.87M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_1_drip_dish
+Fra:1 Mem:77.88M (Peak 77.88M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_1_wax
+Fra:1 Mem:77.89M (Peak 77.89M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_1_wax
+Fra:1 Mem:77.90M (Peak 77.90M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_1_wick
+Fra:1 Mem:77.93M (Peak 77.93M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Altar_1_flame
+Fra:1 Mem:77.95M (Peak 77.95M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Synchronizing object | Niche_1_holder
+Fra:1 Mem:78.01M (Peak 78.01M) | Time:00:00.06 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Initializing
+Fra:1 Mem:47.56M (Peak 78.01M) | Time:00:00.08 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:47.56M (Peak 78.01M) | Time:00:00.08 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:47.56M (Peak 78.01M) | Time:00:00.08 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:47.56M (Peak 78.01M) | Time:00:00.08 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:47.64M (Peak 78.01M) | Time:00:00.15 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:47.64M (Peak 78.01M) | Time:00:00.15 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:47.64M (Peak 78.01M) | Time:00:00.15 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:47.64M (Peak 78.01M) | Time:00:00.15 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:47.64M (Peak 78.01M) | Time:00:00.15 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:47.64M (Peak 78.01M) | Time:00:00.15 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.15 | Mem:0.40M, Peak:0.40M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.15 | Mem:0.40M, Peak:0.40M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.15 | Mem:0.40M, Peak:0.40M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.15 | Mem:0.40M, Peak:0.40M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.15 | Mem:0.40M, Peak:0.40M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:47.92M (Peak 78.01M) | Time:00:00.15 | Mem:0.43M, Peak:0.43M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube 2/203 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.005 7/439 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder 10/439 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Faint crimson above altar 439/439 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_1_light 438/439 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_light 437/439 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Altar_1_light 436/439 | Building BVH
+Fra:1 Mem:47.65M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_-1_light 435/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_light 434/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Altar_-1_light 433/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_1_2_light 432/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_1_1_light 431/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_1_0_light 430/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_-1_2_light 429/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_light 428/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_light 428/439 | Building mesh BLAS |     108 tris | Cube.003
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_-1_0_light 427/439 | Building mesh BLAS |     108 tris | Cube
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Back_-1_0_light 427/439 | Building mesh BLAS |     108 tris | Cube.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH FrontRight_low_light 426/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_light 425/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_stump_light 424/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_light 423/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_tall_light 422/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.036 421/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.27 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.036 421/439 | Building mesh BLAS |      12 tris | Cube.036
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_1_flame_mesh 420/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.003 13/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.007 17/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.008 18/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.008 18/439 | Building mesh BLAS |      44 tris | Cylinder.007
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.008 18/439 | Building mesh BLAS |     120 tris | Rear_bench_1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building mesh BLAS |      44 tris | Cylinder.005
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building mesh BLAS |      44 tris | Cylinder.002
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building mesh BLAS |      36 tris | Cylinder.009
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building mesh BLAS |      44 tris | Cylinder.004
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building mesh BLAS |      36 tris | Cylinder.008
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.009 19/439 | Building mesh BLAS |      44 tris | Cylinder.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.010 20/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.010 20/439 | Building mesh BLAS |      36 tris | Cylinder.010
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.008 21/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.008 21/439 | Building mesh BLAS |     108 tris | Cube.008
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.011 22/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.012 23/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.012 23/439 | Building mesh BLAS |      28 tris | Cylinder.011
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.014 25/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.014 25/439 | Building mesh BLAS |      44 tris | Cylinder.014
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.015 26/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.016 27/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.016 27/439 | Building mesh BLAS |      44 tris | Cylinder.015
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.016 27/439 | Building mesh BLAS |      44 tris | Cylinder.016
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.016 27/439 | Building mesh BLAS |      44 tris | Cylinder.013
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.017 28/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.018 29/439 | Building mesh BLAS |      44 tris | Cylinder.017
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.018 29/439 | Building mesh BLAS |      44 tris | Cylinder.018
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.019 30/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.019 30/439 | Building mesh BLAS |      44 tris | Cylinder.019
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.129 419/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.020 31/439 | Building mesh BLAS |      24 tris | Cylinder.129
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.021 32/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.021 32/439 | Building mesh BLAS |      36 tris | Cylinder.021
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.022 33/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.022 33/439 | Building mesh BLAS |      36 tris | Cylinder.022
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.023 34/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.023 34/439 | Building mesh BLAS |      28 tris | Cylinder.023
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.024 35/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.024 35/439 | Building mesh BLAS |      28 tris | Cylinder.024
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.025 36/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.025 36/439 | Building mesh BLAS |      44 tris | Cylinder.025
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.026 37/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.026 37/439 | Building mesh BLAS |      44 tris | Cylinder.026
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_1_drip_dish_mesh 418/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.027 38/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.028 39/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.028 39/439 | Building mesh BLAS |      44 tris | Cylinder.028
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.029 40/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.029 40/439 | Building mesh BLAS |      44 tris | Cylinder.027
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.031 42/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.030 41/439 | Building mesh BLAS |     200 tris | Rear_bench_1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.030 41/439 | Building mesh BLAS |      44 tris | Cylinder.031
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.030 41/439 | Building mesh BLAS |      44 tris | Cylinder.030
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.032 43/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.032 43/439 | Building mesh BLAS |      36 tris | Cylinder.032
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.033 44/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.033 44/439 | Building mesh BLAS |      36 tris | Cylinder.033
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.034 45/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.035 46/439 | Building mesh BLAS |      36 tris | Cylinder.034
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.036 47/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.036 47/439 | Building mesh BLAS |      28 tris | Cylinder.036
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.128 417/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.128 417/439 | Building mesh BLAS |      60 tris | Cylinder.128
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.037 48/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.039 50/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.039 50/439 | Building mesh BLAS |      44 tris | Cylinder.039
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.040 51/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.041 52/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.041 52/439 | Building mesh BLAS |      44 tris | Cylinder.041
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.042 53/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.042 53/439 | Building mesh BLAS |      44 tris | Cylinder.042
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.044 55/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.044 55/439 | Building mesh BLAS |      36 tris | Cylinder.044
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.045 56/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.045 56/439 | Building mesh BLAS |      44 tris | Cylinder.043
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.045 56/439 | Building mesh BLAS |      36 tris | Cylinder.045
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_1_holder_mesh 416/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_1_holder_mesh 416/439 | Building mesh BLAS |     360 tris | Rear_bench_1_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.046 57/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_flame_mesh 415/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_flame_mesh 415/439 | Building mesh BLAS |     120 tris | Niche_1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_flame_mesh 415/439 | Building mesh BLAS |      44 tris | Cylinder.040
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.048 59/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.047 58/439 | Building mesh BLAS |      28 tris | Cylinder.048
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.049 60/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.049 60/439 | Building mesh BLAS |      28 tris | Cylinder.047
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.127 414/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.050 61/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.050 61/439 | Building mesh BLAS |      24 tris | Cylinder.127
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.050 61/439 | Building mesh BLAS |      44 tris | Cylinder.050
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.051 62/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.052 63/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.052 63/439 | Building mesh BLAS |      44 tris | Cylinder.052
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.052 63/439 | Building mesh BLAS |      44 tris | Cylinder.051
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.053 64/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.053 64/439 | Building mesh BLAS |      44 tris | Cylinder.053
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.054 65/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.055 66/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.056 67/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.056 67/439 | Building mesh BLAS |      44 tris | Cylinder.055
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.056 67/439 | Building mesh BLAS |      36 tris | Cylinder.056
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.057 68/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.058 69/439 | Building mesh BLAS |      36 tris | Cylinder.057
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.058 69/439 | Building mesh BLAS |      36 tris | Cylinder.058
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.059 70/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.059 70/439 | Building mesh BLAS |      28 tris | Cylinder.059
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.060 71/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.060 71/439 | Building mesh BLAS |      28 tris | Cylinder.060
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.061 72/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.061 72/439 | Building mesh BLAS |      44 tris | Cylinder.061
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_drip_dish_mesh 413/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_drip_dish_mesh 413/439 | Building mesh BLAS |     200 tris | Niche_1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.062 73/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.062 73/439 | Building mesh BLAS |      44 tris | Cylinder.062
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.063 74/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.063 74/439 | Building mesh BLAS |      44 tris | Cylinder.063
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.064 75/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.064 75/439 | Building mesh BLAS |      44 tris | Cylinder.064
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.065 76/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.28 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.065 76/439 | Building mesh BLAS |      44 tris | Cylinder.065
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.066 77/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.066 77/439 | Building mesh BLAS |      44 tris | Cylinder.066
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.067 78/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.067 78/439 | Building mesh BLAS |      44 tris | Cylinder.067
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.068 79/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.068 79/439 | Building mesh BLAS |      36 tris | Cylinder.068
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.069 80/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.069 80/439 | Building mesh BLAS |      36 tris | Cylinder.069
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.070 81/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.070 81/439 | Building mesh BLAS |      36 tris | Cylinder.070
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.126 412/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.071 82/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.071 82/439 | Building mesh BLAS |      28 tris | Cylinder.071
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.071 82/439 | Building mesh BLAS |      60 tris | Cylinder.126
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.009 83/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Cube.009 83/439 | Building mesh BLAS |     108 tris | Cube.009
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh 84/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh 84/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.001 85/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.001 85/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.002 86/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.002 86/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.002
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.003 87/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.003 87/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.003
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.004 88/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.004 88/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.004
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.005 89/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.005 89/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.005
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.006 90/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.29 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.006 90/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH Niche_1_holder_mesh 411/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.007 91/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.007 91/439 | Building mesh BLAS |     360 tris | Niche_1_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.007 91/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.007
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.008 92/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.008 92/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.008
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.009 93/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.010 94/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.010 94/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.009
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.010 94/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.010
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.011 95/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.011 95/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.011
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.012 96/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.012 96/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.012
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.013 97/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.59M, Peak:0.59M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.013 97/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.013
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.60M, Peak:0.60M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.014 98/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.60M, Peak:0.60M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.014 98/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.014
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.015 99/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.015 99/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.015
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.016 100/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH Altar_1_flame_mesh 410/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH Altar_1_flame_mesh 410/439 | Building mesh BLAS |     120 tris | Altar_1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.017 101/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.64M, Peak:0.64M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.017 101/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.017
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.65M, Peak:0.65M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.018 102/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.65M, Peak:0.65M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.018 102/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.018
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.66M, Peak:0.66M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.019 103/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.68M, Peak:0.68M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.020 104/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.019
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.68M, Peak:0.68M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.021 105/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.68M, Peak:0.68M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.022 106/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.68M, Peak:0.68M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.022 106/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.021
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.69M, Peak:0.69M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.022 106/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.022
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.69M, Peak:0.69M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.023 107/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.69M, Peak:0.69M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.023 107/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.023
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.70M, Peak:0.70M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.024 108/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.70M, Peak:0.70M | Scene, ViewLayer | Updating Geometry BVH Cylinder.125 409/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.70M, Peak:0.70M | Scene, ViewLayer | Updating Geometry BVH Cylinder.125 409/439 | Building mesh BLAS |      24 tris | Cylinder.125
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.70M, Peak:0.70M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.025 109/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.71M, Peak:0.71M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.025 109/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.025
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.71M, Peak:0.71M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.026 110/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.71M, Peak:0.71M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.027 111/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.71M, Peak:0.71M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.027 111/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.026
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.71M, Peak:0.71M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.027 111/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.027
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.028 112/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.74M, Peak:0.74M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.029 113/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.028
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.74M, Peak:0.74M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.030 114/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.031 115/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.031 115/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.031
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.031 115/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.029
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.032 116/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH Altar_1_drip_dish_mesh 408/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.033 117/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.033 117/439 | Building mesh BLAS |     200 tris | Altar_1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.033 117/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.033
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.033 117/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.032
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.034 118/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.035 119/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.035 119/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.034
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.78M, Peak:0.78M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.035 119/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.035
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.80M, Peak:0.80M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.036 120/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.80M, Peak:0.80M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.037 121/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.80M, Peak:0.80M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.038 122/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.037
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.80M, Peak:0.80M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.038 122/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.038
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.039 123/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH Cylinder.124 407/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH Cylinder.124 407/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.039
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.041 125/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.040 124/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.042 126/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.041
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.042 126/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.040
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.042 126/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.042
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.043 127/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.043 127/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.043
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.044 128/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.30 | Mem:0.81M, Peak:0.81M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.044 128/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.044
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH Altar_1_holder_mesh 406/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.047 131/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.049 133/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.049 133/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.047
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.049 133/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.046
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.049 133/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.048
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.049 133/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.045
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.049 133/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.049
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.83M, Peak:0.83M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.050 134/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.84M, Peak:0.84M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.050 134/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.050
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.84M, Peak:0.84M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.051 135/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_-1_flame_mesh 405/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.053 137/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.055 139/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.057 141/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.058 142/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.053
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.058 142/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.055
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.058 142/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.052
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.058 142/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.056
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.058 142/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.058
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.87M, Peak:0.87M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.059 143/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.87M, Peak:0.87M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.060 144/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.87M, Peak:0.87M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.061 145/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.87M, Peak:0.87M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.062 146/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.060
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.87M, Peak:0.87M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.063 147/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.061
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.064 148/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.065 149/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH Cylinder.123 404/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.064
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH Cylinder.123 404/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.063
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH Cylinder.123 404/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.066
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH Cylinder.123 404/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.065
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH Cylinder.123 404/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.062
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.88M, Peak:0.88M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.067 151/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.068 152/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.069 153/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.070 154/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.070 154/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.069
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.072 156/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.072 156/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.071
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.072 156/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.072
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_-1_drip_dish_mesh 403/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.075 159/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.076 160/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.076 160/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.073
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.076 160/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.076
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.076 160/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.075
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.076 160/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.074
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.077 161/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH GothicRib_voussoir_mesh.077 161/439 | Building mesh BLAS |      12 tris | GothicRib_voussoir_mesh.077
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Cube.010 162/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Cube.010 162/439 | Building mesh BLAS |     108 tris | Cube.010
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh 163/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.002 165/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.002 165/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.002 165/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.002 165/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.002
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Cylinder.122 402/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Cylinder.122 402/439 | Building mesh BLAS |      60 tris | Cylinder.122
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.92M, Peak:0.92M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.003 166/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.92M, Peak:0.92M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.003 166/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.003
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.004 167/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.005 168/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.006 169/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.005
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.007 170/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.007 170/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.007 170/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.007
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.008 171/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.008 171/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.008
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.009 172/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.010 173/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.010 173/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.009
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.010 173/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.010
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.011 174/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.011 174/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.011
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_-1_holder_mesh 401/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Rear_bench_-1_holder_mesh 401/439 | Building mesh BLAS |     360 tris | Rear_bench_-1_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.012 175/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.31 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.012 175/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.012
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.013 176/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.014 177/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.014 177/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.013
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.015 178/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.015 178/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.015
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.016 179/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.016 179/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.016
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.017 180/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.020 183/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.020 183/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.017
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.020 183/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.018
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.020 183/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.020
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_flame_mesh 400/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_flame_mesh 400/439 | Building mesh BLAS |     120 tris | Niche_-1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_flame_mesh 400/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.019
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.021 184/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.021 184/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.021
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.022 185/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.022 185/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.022
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.023 186/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.024 187/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.024 187/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.024
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.025 188/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Geometry BVH Great altar pointed arch_voussoir_mesh.025 188/439 | Building mesh BLAS |      12 tris | Great altar pointed arch_voussoir_mesh.025
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Cylinder.121 399/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Cube.011 189/439 | Building mesh BLAS |      24 tris | Cylinder.121
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh 190/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.001 191/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.001 191/439 | Building mesh BLAS |     108 tris | Cube.011
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.002 192/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.95M, Peak:0.95M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.002 192/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.002
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.003 193/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.003 193/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.003
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.004 194/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.004 194/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.004
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.005 195/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.005 195/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.005
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.006 196/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.006 196/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.97M, Peak:0.97M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.007 197/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:0.97M, Peak:0.97M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.007 197/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.007
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_drip_dish_mesh 398/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.008 198/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.008 198/439 | Building mesh BLAS |     200 tris | Niche_-1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.008 198/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.008
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.009 199/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.009 199/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.009
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.010 200/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.012 202/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.012 202/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.010
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.012 202/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.011
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.00M, Peak:1.00M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.012 202/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.012
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.013 203/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.013 203/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.013
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.014 204/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.014 204/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.014
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.015 205/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.016 206/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.017 207/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.015
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.018 208/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.018 208/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.018
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.019 209/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.021 211/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.022 212/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.019
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.01M, Peak:1.01M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.022 212/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.021
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.02M, Peak:1.02M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.023 213/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.020
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.02M, Peak:1.02M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.024 214/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.02M, Peak:1.02M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.024 214/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.022
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.02M, Peak:1.02M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.024 214/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.024
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.024 214/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.023
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.025 215/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.025 215/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.017
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Altar outer moulding_voussoir_mesh.025 215/439 | Building mesh BLAS |      12 tris | Altar outer moulding_voussoir_mesh.025
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Cube.012 216/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Cube.012 216/439 | Building mesh BLAS |      60 tris | Cylinder.120
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Cube.012 216/439 | Building mesh BLAS |     108 tris | Cube.012
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh 217/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh 217/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.001 218/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_holder_mesh 396/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH Niche_-1_holder_mesh 396/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.002 219/439 | Building mesh BLAS |     360 tris | Niche_-1_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.003 220/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.004 221/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.004 221/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.004
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.03M, Peak:1.03M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.004 221/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.003
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.005 222/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.006 223/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.006 223/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.007 224/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.008 225/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH Altar_-1_flame_mesh 395/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.009 226/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.007
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.009 226/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.002
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.009 226/439 | Building mesh BLAS |     120 tris | Altar_-1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.009 226/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.008
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.009 226/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.009
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.010 227/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.010 227/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.010
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.011 228/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.04M, Peak:1.04M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.011 228/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.011
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.012 229/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.012 229/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.012
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.013 230/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.014 231/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.013
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.014 231/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.014
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.015 232/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.015 232/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.015
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.016 233/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.016 233/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.016
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.017 234/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH Cylinder.119 394/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.019 236/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.019 236/439 | Building mesh BLAS |      24 tris | Cylinder.119
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.019 236/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.018
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.021 238/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.022 239/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.023 240/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.020
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.023 240/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.022
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.023 240/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.021
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.024 241/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.024 241/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.019
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.025 242/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.023
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.025 242/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.024
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.32 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.025 242/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.025
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.025 242/439 | Building mesh BLAS |     200 tris | Altar_-1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.026 243/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.026 243/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.026
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.027 244/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.027 244/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.027
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.028 245/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.028 245/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.028
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.030 247/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.029 246/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.029 246/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.030
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.029 246/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.029
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.031 248/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.031 248/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.031
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH Cylinder.118 392/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH Cylinder.118 392/439 | Building mesh BLAS |      60 tris | Cylinder.118
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.032 249/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.032 249/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.032
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.033 250/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.033 250/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.033
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.034 251/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.035 252/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.035 252/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.034
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.035 252/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.035
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.036 253/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.037 254/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.037 254/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.036
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.037 254/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.037
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.040 257/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.038 255/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.039 256/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.040
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.039 256/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.038
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.039 256/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.039
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.041 258/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH Altar_-1_holder_mesh 391/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH Altar_-1_holder_mesh 391/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.041
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH Altar_-1_holder_mesh 391/439 | Building mesh BLAS |     360 tris | Altar_-1_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.042 259/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.042 259/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.042
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.043 260/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.044 261/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.044 261/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.043
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.044 261/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.044
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.045 262/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.045 262/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.045
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.046 263/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.046 263/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.046
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.047 264/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Back_1_2_flame_mesh 390/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.047
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Back_1_2_flame_mesh 390/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.049
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Back_1_2_flame_mesh 390/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.048
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH WallNiche_voussoir_mesh.051 268/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Altar recessed darkness_mesh 269/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Altar recessed darkness_mesh 269/439 | Building mesh BLAS |     120 tris | Back_1_2_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Altar recessed darkness_mesh 269/439 | Building mesh BLAS |      33 tris | Altar recessed darkness_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Altar recessed darkness_mesh 269/439 | Building mesh BLAS |      12 tris | WallNiche_voussoir_mesh.050
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH WallNiche shadow_mesh 270/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH WallNiche shadow_mesh 270/439 | Building mesh BLAS |      33 tris | WallNiche shadow_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Cylinder.072 271/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Cylinder.073 272/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.12M, Peak:1.12M | Scene, ViewLayer | Updating Geometry BVH Cylinder.073 272/439 | Building mesh BLAS |      44 tris | Cylinder.073
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.013 273/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.013 273/439 | Building mesh BLAS |     108 tris | Cube.013
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH WallNiche shadow_mesh.001 274/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH WallNiche shadow_mesh.001 274/439 | Building mesh BLAS |      33 tris | WallNiche shadow_mesh.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cylinder.074 275/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cylinder.074 275/439 | Building mesh BLAS |      44 tris | Cylinder.074
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cylinder.075 276/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cylinder.075 276/439 | Building mesh BLAS |      44 tris | Cylinder.075
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.014 277/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.014 277/439 | Building mesh BLAS |     108 tris | Cube.014
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.015 278/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.015 278/439 | Building mesh BLAS |     108 tris | Cube.015
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.016 279/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.016 279/439 | Building mesh BLAS |     108 tris | Cube.016
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cylinder.117 389/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.018 281/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.018 281/439 | Building mesh BLAS |      24 tris | Cylinder.117
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.018 281/439 | Building mesh BLAS |     108 tris | Cube.017
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.018 281/439 | Building mesh BLAS |      12 tris | Cube.018
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.035 282/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.035 282/439 | Building mesh BLAS |     108 tris | Cube.035
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.019 283/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Geometry BVH Cube.019 283/439 | Building mesh BLAS |     108 tris | Cube.019
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.020 284/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.020 284/439 | Building mesh BLAS |     108 tris | Cube.020
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.021 285/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.021 285/439 | Building mesh BLAS |     108 tris | Cube.021
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.022 286/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.33 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.022 286/439 | Building mesh BLAS |     108 tris | Cube.022
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.023 287/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.024 288/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.024 288/439 | Building mesh BLAS |     108 tris | Cube.023
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cube.024 288/439 | Building mesh BLAS |     108 tris | Cube.024
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Geometry BVH Back_1_2_drip_dish_mesh 388/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Geometry BVH Back_1_2_drip_dish_mesh 388/439 | Building mesh BLAS |     200 tris | Back_1_2_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Geometry BVH Cube.025 289/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.026 290/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.027 291/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.030 294/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.030 294/439 | Building mesh BLAS |     108 tris | Cube.027
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.031 295/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.031 295/439 | Building mesh BLAS |     108 tris | Cube.028
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.031 295/439 | Building mesh BLAS |     108 tris | Cube.029
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.031 295/439 | Building mesh BLAS |     108 tris | Cube.031
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.031 295/439 | Building mesh BLAS |     108 tris | Cube.030
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.032 296/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Tribunal_1_cloaked_body_mesh 297/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cylinder.116 387/439 | Building mesh BLAS |     108 tris | Cube.032
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Tribunal_1_open_hood_mesh 298/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Icosphere 299/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Icosphere 299/439 | Building mesh BLAS |      38 tris | Tribunal_1_open_hood_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Icosphere 299/439 | Building mesh BLAS |      80 tris | Icosphere
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Cylinder.076 300/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Cylinder.077 301/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Cylinder.077 301/439 | Building mesh BLAS |      60 tris | Cylinder.116
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Cube.033 302/439 | Building mesh BLAS |      36 tris | Cylinder.077
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_cloaked_body_mesh 304/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_cloaked_body_mesh 304/439 | Building mesh BLAS |      36 tris | Cylinder.076
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_cloaked_body_mesh 304/439 | Building mesh BLAS |     160 tris | Tribunal_2_cloaked_body_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_cloaked_body_mesh 304/439 | Building mesh BLAS |     108 tris | Cube.033
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.20M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_cloaked_body_mesh 304/439 | Building mesh BLAS |     108 tris | Cube.034
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_open_hood_mesh 305/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Tribunal_2_open_hood_mesh 305/439 | Building mesh BLAS |      38 tris | Tribunal_2_open_hood_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Icosphere.001 306/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.078 307/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.078 307/439 | Building mesh BLAS |      80 tris | Icosphere.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.078 307/439 | Building mesh BLAS |      36 tris | Cylinder.078
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.079 308/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Tribunal_3_cloaked_body_mesh 309/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Tribunal_3_open_hood_mesh 310/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Icosphere.002 311/439 | Building mesh BLAS |      38 tris | Tribunal_3_open_hood_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.080 312/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.081 313/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.081 313/439 | Building mesh BLAS |      36 tris | Cylinder.081
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.081 313/439 | Building mesh BLAS |      36 tris | Cylinder.080
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.081 313/439 | Building mesh BLAS |      36 tris | Cylinder.115
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.34 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cylinder.081 313/439 | Building mesh BLAS |      80 tris | Icosphere.002
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.22M, Peak:1.22M | Scene, ViewLayer | Updating Geometry BVH Tribunal_4_cloaked_body_mesh 314/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.22M, Peak:1.22M | Scene, ViewLayer | Updating Geometry BVH Tribunal_4_open_hood_mesh 315/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.22M, Peak:1.22M | Scene, ViewLayer | Updating Geometry BVH Icosphere.003 316/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Icosphere.003 316/439 | Building mesh BLAS |      38 tris | Tribunal_4_open_hood_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Icosphere.003 316/439 | Building mesh BLAS |      80 tris | Icosphere.003
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.082 317/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.083 318/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Tribunal_5_open_hood_mesh 320/439 | Building mesh BLAS |      36 tris | Cylinder.082
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Back_1_1_flame_mesh 385/439 | Building mesh BLAS |     160 tris | Tribunal_5_cloaked_body_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.084 322/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.084 322/439 | Building mesh BLAS |      36 tris | Cylinder.083
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.084 322/439 | Building mesh BLAS |      36 tris | Cylinder.084
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.084 322/439 | Building mesh BLAS |     120 tris | Back_1_1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.085 323/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Cylinder.085 323/439 | Building mesh BLAS |      80 tris | Icosphere.004
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Tribunal_6_cloaked_body_mesh 324/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Tribunal_6_cloaked_body_mesh 324/439 | Building mesh BLAS |      36 tris | Cylinder.085
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Tribunal_6_cloaked_body_mesh 324/439 | Building mesh BLAS |     160 tris | Tribunal_6_cloaked_body_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Tribunal_6_open_hood_mesh 325/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.23M, Peak:1.23M | Scene, ViewLayer | Updating Geometry BVH Tribunal_6_open_hood_mesh 325/439 | Building mesh BLAS |      38 tris | Tribunal_6_open_hood_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.24M, Peak:1.24M | Scene, ViewLayer | Updating Geometry BVH Icosphere.005 326/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.24M, Peak:1.24M | Scene, ViewLayer | Updating Geometry BVH Icosphere.005 326/439 | Building mesh BLAS |      80 tris | Icosphere.005
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.24M, Peak:1.24M | Scene, ViewLayer | Updating Geometry BVH Cylinder.086 327/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.24M, Peak:1.24M | Scene, ViewLayer | Updating Geometry BVH Cylinder.086 327/439 | Building mesh BLAS |      36 tris | Cylinder.086
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.24M, Peak:1.24M | Scene, ViewLayer | Updating Geometry BVH Cylinder.087 328/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.087 328/439 | Building mesh BLAS |      36 tris | Cylinder.087
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Tribunal_7_cloaked_body_mesh 329/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Tribunal_7_cloaked_body_mesh 329/439 | Building mesh BLAS |     160 tris | Tribunal_7_cloaked_body_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Tribunal_7_open_hood_mesh 330/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Tribunal_7_open_hood_mesh 330/439 | Building mesh BLAS |      38 tris | Tribunal_7_open_hood_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Icosphere.006 331/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.114 384/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.114 384/439 | Building mesh BLAS |      24 tris | Cylinder.114
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.114 384/439 | Building mesh BLAS |      80 tris | Icosphere.006
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.088 332/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.088 332/439 | Building mesh BLAS |      36 tris | Cylinder.088
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.089 333/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.090 335/439 | Building mesh BLAS |      36 tris | Cylinder.089
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.090 335/439 | Building mesh BLAS |     360 tris | FrontLeft_tall_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cylinder.090 335/439 | Building mesh BLAS |      60 tris | Cylinder.090
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_tall_drip_dish_mesh 336/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_tall_drip_dish_mesh 336/439 | Building mesh BLAS |     200 tris | FrontLeft_tall_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH Cylinder.091 337/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_holder_mesh 339/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_holder_mesh 339/439 | Building mesh BLAS |      24 tris | Cylinder.091
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_holder_mesh 339/439 | Building mesh BLAS |     120 tris | FrontLeft_tall_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_holder_mesh 339/439 | Building mesh BLAS |     360 tris | FrontLeft_low_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH Cylinder.092 340/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_drip_dish_mesh 341/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_drip_dish_mesh 341/439 | Building mesh BLAS |      60 tris | Cylinder.092
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_drip_dish_mesh 341/439 | Building mesh BLAS |     200 tris | FrontLeft_low_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH Back_1_1_drip_dish_mesh 383/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH Back_1_1_drip_dish_mesh 383/439 | Building mesh BLAS |     200 tris | Back_1_1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH Cylinder.093 342/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH Cylinder.093 342/439 | Building mesh BLAS |      24 tris | Cylinder.093
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.28M, Peak:1.28M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_flame_mesh 343/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_low_flame_mesh 343/439 | Building mesh BLAS |     120 tris | FrontLeft_low_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.094 345/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_stump_drip_dish_mesh 346/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.095 347/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.095 347/439 | Building mesh BLAS |      60 tris | Cylinder.094
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.095 347/439 | Building mesh BLAS |     360 tris | FrontLeft_stump_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.095 347/439 | Building mesh BLAS |     200 tris | FrontLeft_stump_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.095 347/439 | Building mesh BLAS |      24 tris | Cylinder.095
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_stump_flame_mesh 348/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.30M, Peak:1.30M | Scene, ViewLayer | Updating Geometry BVH FrontLeft_stump_flame_mesh 348/439 | Building mesh BLAS |     120 tris | FrontLeft_stump_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.30M, Peak:1.30M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_holder_mesh 349/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.30M, Peak:1.30M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_holder_mesh 349/439 | Building mesh BLAS |     360 tris | FrontRight_tall_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.30M, Peak:1.30M | Scene, ViewLayer | Updating Geometry BVH Cylinder.096 350/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.30M, Peak:1.30M | Scene, ViewLayer | Updating Geometry BVH Cylinder.096 350/439 | Building mesh BLAS |      60 tris | Cylinder.096
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_drip_dish_mesh 351/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_drip_dish_mesh 351/439 | Building mesh BLAS |     200 tris | FrontRight_tall_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Cylinder.097 352/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Cylinder.113 382/439 | Building mesh BLAS |      24 tris | Cylinder.097
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_flame_mesh 353/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH FrontRight_tall_flame_mesh 353/439 | Building mesh BLAS |     120 tris | FrontRight_tall_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH FrontRight_low_holder_mesh 354/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH FrontRight_low_holder_mesh 354/439 | Building mesh BLAS |     360 tris | FrontRight_low_holder_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Cylinder.099 357/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Cylinder.099 357/439 | Building mesh BLAS |      60 tris | Cylinder.098
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Cylinder.099 357/439 | Building mesh BLAS |     200 tris | FrontRight_low_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Cylinder.099 357/439 | Building mesh BLAS |      24 tris | Cylinder.099
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH FrontRight_low_flame_mesh 358/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH FrontRight_low_flame_mesh 358/439 | Building mesh BLAS |     120 tris | FrontRight_low_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH Back iron floor stand_mesh 359/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.35 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH Back iron floor stand_mesh 359/439 | Building mesh BLAS |     224 tris | Back iron floor stand_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Cylinder.100 360/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Cylinder.100 360/439 | Building mesh BLAS |      36 tris | Cylinder.100
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Back_-1_0_drip_dish_mesh 362/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Cylinder.102 363/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.38M, Peak:1.38M | Scene, ViewLayer | Updating Geometry BVH Back_-1_0_flame_mesh 364/439 | Building mesh BLAS |      60 tris | Cylinder.101
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.38M, Peak:1.38M | Scene, ViewLayer | Updating Geometry BVH Cylinder.104 366/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.104 366/439 | Building mesh BLAS |     120 tris | Back_-1_0_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.104 366/439 | Building mesh BLAS |      60 tris | Cylinder.104
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.104 366/439 | Building mesh BLAS |      36 tris | Cylinder.103
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_drip_dish_mesh 367/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_drip_dish_mesh 367/439 | Building mesh BLAS |     200 tris | Back_-1_1_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_drip_dish_mesh 367/439 | Building mesh BLAS |      24 tris | Cylinder.102
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_drip_dish_mesh 367/439 | Building mesh BLAS |      36 tris | Cylinder.112
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.105 368/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.105 368/439 | Building mesh BLAS |      24 tris | Cylinder.105
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.40M, Peak:1.40M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_flame_mesh 369/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.40M, Peak:1.40M | Scene, ViewLayer | Updating Geometry BVH Back_-1_1_flame_mesh 369/439 | Building mesh BLAS |     120 tris | Back_-1_1_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Cylinder.106 370/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Cylinder.106 370/439 | Building mesh BLAS |      36 tris | Cylinder.106
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Cylinder.107 371/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Back_-1_2_drip_dish_mesh 372/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Cylinder.108 373/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Back iron floor stand_mesh.001 375/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Back iron floor stand_mesh.001 375/439 | Building mesh BLAS |      24 tris | Cylinder.108
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Back iron floor stand_mesh.001 375/439 | Building mesh BLAS |     224 tris | Back iron floor stand_mesh.001
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Back iron floor stand_mesh.001 375/439 | Building mesh BLAS |     120 tris | Back_-1_2_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Geometry BVH Cylinder.109 376/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.109 376/439 | Building mesh BLAS |      36 tris | Cylinder.109
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.110 377/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.110 377/439 | Building mesh BLAS |     120 tris | Back_1_0_flame_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.110 377/439 | Building mesh BLAS |      60 tris | Cylinder.110
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Back_1_0_drip_dish_mesh 378/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Back_1_0_drip_dish_mesh 378/439 | Building mesh BLAS |     200 tris | Back_1_0_drip_dish_mesh
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Cylinder.111 379/439 | Building BVH
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Cylinder.111 379/439 | Building mesh BLAS |      24 tris | Cylinder.111
+Fra:1 Mem:47.66M (Peak 78.01M) | Time:00:00.36 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:47.68M (Peak 78.01M) | Time:00:00.37 | Mem:1.96M, Peak:1.96M | Scene, ViewLayer | Updating Scene BVH | Building TLAS      |    1298 instances
+Fra:1 Mem:47.69M (Peak 78.01M) | Time:00:00.37 | Mem:2.26M, Peak:2.26M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:47.69M (Peak 78.01M) | Time:00:00.37 | Mem:2.26M, Peak:2.26M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:48.35M (Peak 78.01M) | Time:00:00.37 | Mem:2.26M, Peak:2.26M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:47.69M (Peak 78.01M) | Time:00:00.37 | Mem:2.93M, Peak:2.93M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:47.68M (Peak 78.01M) | Time:00:00.37 | Mem:2.94M, Peak:2.94M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:47.68M (Peak 78.01M) | Time:00:00.37 | Mem:2.94M, Peak:2.94M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:47.68M (Peak 78.01M) | Time:00:00.37 | Mem:2.94M, Peak:2.94M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:47.68M (Peak 78.01M) | Time:00:00.37 | Mem:2.94M, Peak:2.94M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:47.60M (Peak 78.01M) | Time:00:00.37 | Mem:3.04M, Peak:3.04M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:47.60M (Peak 78.01M) | Time:00:00.37 | Mem:3.04M, Peak:3.04M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:47.60M (Peak 78.01M) | Time:00:00.38 | Mem:3.42M, Peak:3.42M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:47.60M (Peak 78.01M) | Time:00:00.38 | Mem:3.42M, Peak:3.42M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:47.68M (Peak 78.01M) | Time:00:00.38 | Mem:3.32M, Peak:3.42M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:47.60M (Peak 78.01M) | Time:00:00.38 | Mem:3.42M, Peak:3.42M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:47.60M (Peak 78.01M) | Time:00:00.38 | Mem:3.42M, Peak:3.42M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:47.62M (Peak 78.01M) | Time:00:00.39 | Mem:3.42M, Peak:3.42M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:47.62M (Peak 79.62M) | Time:00:00.41 | Mem:3523.45M, Peak:3523.45M | Scene, ViewLayer | Sample 0/128 (Using optimized kernels)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:02.72 | Remaining:04:53.35 | Mem:3617.40M, Peak:3617.40M | Scene, ViewLayer | Sample 1/128 (6 kernels to optimize)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:24.85 | Remaining:01:04.94 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 35/128 (1 kernels to optimize)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:32.36 | Remaining:00:53.24 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 48/128 (Using optimized kernels)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:35.67 | Remaining:00:35.26 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 64/128 (Using optimized kernels)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:38.35 | Remaining:00:22.76 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 80/128 (Using optimized kernels)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:40.77 | Remaining:00:13.45 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 96/128 (Using optimized kernels)
+Fra:1 Mem:47.63M (Peak 141.56M) | Time:00:42.82 | Remaining:00:06.05 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 112/128 (Using optimized kernels)
+Fra:1 Mem:87.18M (Peak 146.51M) | Time:00:47.52 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Sample 128/128 (Using optimized kernels)
+Fra:1 Mem:87.18M (Peak 146.51M) | Time:00:47.52 | Mem:3617.41M, Peak:3617.41M | Scene, ViewLayer | Finished
+Fra:1 Mem:86.04M (Peak 146.51M) | Time:00:47.59 | Compositing
+Saved: '/Users/jiayaochen/Desktop/avalon/renders/chapel_lighting.png'
+Time: 00:47.82 (Saving: 00:00.12)
+
+Info: Saved as "black_chapel.blend"
+CHAPEL_STATISTICS {"stage": "lighting", "blender": "4.5.3 LTS", "triangles_evaluated": 115809, "triangles_unique_meshes": 23037, "triangles_by_collection": {"01 Floor": 16308, "02 Walls": 65340, "04 Columns": 4128, "03 Arches": 11256, "05 Altar": 1151, "06 Council table": 2160, "07 Hooded placeholders": 3962, "08 Candles": 11492, "10 Atmosphere": 12}, "objects": 1298, "materials": 14, "external_image_textures": 0, "external_texture_memory_bytes": 0, "texture_memory_note": "All surface textures are procedural. Render buffers and GPU working memory excluded.", "render_samples": 128, "render_device": "GPU", "parameters": {"room_m": [9.0, 14.0, 8.2], "table_m": [6.1, 3.0, 0.82], "camera_mm": 39.0, "camera_location": [0.045, -4.7, 1.59], "camera_target": [0.0, 2.5, 1.02], "candle_power_w": 85.0, "fog_density": 0.012, "world_strength": 0.004, "exposure": -1.2}, "godot_note": "Modular meshes, metres, Principled materials, no subdivision. Procedural shaders need baking or recreation; Cycles atmosphere and grading need recreation in Godot. No engine integration performed."}
+CHAPEL_STAGE_COMPLETE lighting
+
+Blender quit

@@ -7,7 +7,7 @@ import unittest
 from avalon.agents import Agent
 from avalon.llm import ChatClient, LLMError, Settings
 from avalon.terminal import Human, run_game
-from test_agents import FixedClient, valid_plan
+from test_agents import FixedClient, model_response, valid_plan
 from test_engine import fixed_game
 from test_llm import endpoint, envelope
 
@@ -27,6 +27,8 @@ class PerformanceClient:
 
     def complete(self, context):
         self.contexts.append(deepcopy(context))
+        if context.get("decision") in {"exile_nomination", "exile_vote"}:
+            return model_response(context)
         result = performance(context) if "tactical" in context else valid_plan(context["game"])
         return self.transform(result, context) if self.transform else result
 
@@ -251,7 +253,8 @@ class EvilIntegrationTests(unittest.TestCase):
         self.assertTrue(evil_teams)
         for event in evil_teams:
             contexts = [c for c in clients[event["actor"]].contexts
-                        if (c["game"]["round"], c["game"]["attempt"]) == (event["round"], event["attempt"])]
+                        if (c["game"]["round"], c["game"]["attempt"]) == (event["round"], event["attempt"])
+                        and c["game"]["phase"] in {"team", "discussion"}]
             self.assertEqual(len(contexts), 1)
             self.assertEqual(contexts[0]["game"]["phase"], "discussion")
             self.assertEqual(contexts[0]["planned_action"], {"team": event["team"]})

@@ -1,0 +1,43 @@
+{
+  "image": "/Users/jiayaochen/Desktop/avalon/renders/iterations/final_03_lightcheck.png",
+  "size": [
+    1120,
+    700
+  ],
+  "display_referred_luminance_mean": 0.08480561479491798,
+  "display_referred_luminance_median": 0.059198431372549015,
+  "luminance_percentiles": {
+    "5": 0.001667450980392157,
+    "25": 0.03153176470588235,
+    "50": 0.059198431372549015,
+    "75": 0.0991443137254902,
+    "90": 0.1539835294117647,
+    "95": 0.22358745098039215,
+    "99": 0.8049592156862744
+  },
+  "dark_pixels_below_0.12_percent": 82.86301020408163,
+  "warm_pixels_over_0.2_percent": 5.409438775510204,
+  "all_channels_clipped_percent": 0.0021683673469387755,
+  "histogram_edges": [
+    0,
+    0.02,
+    0.04,
+    0.08,
+    0.12,
+    0.2,
+    0.35,
+    0.6,
+    1.00001
+  ],
+  "histogram_percent": [
+    17.132908163265306,
+    15.896938775510206,
+    33.5905612244898,
+    16.242602040816326,
+    10.872321428571428,
+    3.7153061224489794,
+    0.9792091836734694,
+    1.5701530612244898
+  ],
+  "note": "Luminance measured on the displayed AgX PNG, not scene-linear radiance. Thresholds are explicitly defined; visual inspection is still required."
+}

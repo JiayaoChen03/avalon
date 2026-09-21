@@ -18,6 +18,8 @@ class FixedClient:
         self.contexts.append(deepcopy(context))
         if self.error:
             raise self.error
+        if context.get("decision") in {"exile_nomination", "exile_vote"} and isinstance(self.response, dict) and "beliefs" in self.response:
+            return model_response(context)
         if "tactical" in context and isinstance(self.response, dict) and set(self.response) == {
                 "beliefs", "profiles", "strategy", "team_rank", "vote_threshold", "approve_last",
                 "mission", "social", "assassin_rank"}:
@@ -55,6 +57,10 @@ def valid_plan(view):
 
 def model_response(context, plan=None):
     """Provider fixture follows the separate good-policy and evil-performance protocols."""
+    if context.get("decision") == "exile_nomination":
+        return {"target": context["game"]["exile_candidates"][0]}
+    if context.get("decision") == "exile_vote":
+        return {"choice": "ABSTAIN"}
     plan = deepcopy(plan) if plan is not None else valid_plan(context["game"])
     if "tactical" not in context:
         return plan
@@ -229,20 +235,21 @@ class AgentTests(unittest.TestCase):
         agent.prepare(game.view("P1"))
         agent.plan["vote_threshold"] = 0.49
         before = agent.memory["beliefs"]["P3"]["evil"]
-        for seq in range(1, 4):
+        start = agent.seen_seq + 1
+        for seq in range(start, start + 3):
             agent.observe({"seq": seq, "kind": "MISSION", "round": seq,
                            "team": ["P3", "P4"], "success": False, "fail_count": 1})
         self.assertGreater(agent.memory["beliefs"]["P3"]["evil"], before)
         self.assertFalse(agent.vote(["P3", "P4"], 1))
         profile_before = deepcopy(agent.memory["profiles"]["P1"])
-        agent.observe({"seq": 4, "kind": "SOCIAL", "round": 3, "actor": "P2",
+        agent.observe({"seq": start + 3, "kind": "SOCIAL", "round": 3, "actor": "P2",
                        "target": "P1", "card": "PRESSURE"})
-        agent.observe({"seq": 5, "kind": "SOCIAL", "round": 3, "actor": "P1",
+        agent.observe({"seq": start + 4, "kind": "SOCIAL", "round": 3, "actor": "P1",
                        "target": "P2", "card": "ACCUSE"})
         self.assertGreater(agent.memory["profiles"]["P1"]["retaliation"], profile_before["retaliation"])
         self.assertGreater(agent.memory["profiles"]["P1"]["aggression"], profile_before["aggression"])
         snapshot = deepcopy(agent.memory)
-        agent.observe({"seq": 5, "kind": "SOCIAL", "round": 3, "actor": "P1",
+        agent.observe({"seq": start + 4, "kind": "SOCIAL", "round": 3, "actor": "P1",
                        "target": "P2", "card": "ACCUSE"})
         self.assertEqual(agent.memory, snapshot)
 

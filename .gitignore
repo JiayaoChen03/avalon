@@ -8,3 +8,11 @@ __pycache__/
 build/
 dist/
 public-game.jsonl
+.godot/
+.DS_Store
+results/joint_belief/
+results/
+Assets/node_modules/
+Assets/dist/
+Assets/.codely/
+Assets/.codely-cli/

@@ -1,0 +1,160 @@
+{
+  "metadata": {
+    "started_at_utc": "2026-09-17T01:56:47.461138+00:00",
+    "settings": {
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-v4-flash",
+      "timeout": 60.0,
+      "max_tokens": 2400,
+      "token_field": "max_tokens",
+      "json_mode": true,
+      "thinking": "disabled",
+      "max_retries": 2,
+      "retry_delay": 2.0
+    },
+    "workers": [
+      1,
+      2,
+      4
+    ],
+    "repeats": 3,
+    "warmup": true,
+    "scope": "identical recorded scripted-game contexts; not live interdependent gameplay",
+    "timing": "non-streaming full response; header time is not first-token time",
+    "fixtures": [
+      {
+        "id": "P2",
+        "protocol": "policy",
+        "context_sha256": "8a387f5ec240fbe05ab407f2b620e98337321b7c0af0995c45305192bdf19f7b",
+        "context_characters": 2664,
+        "visible_events": 7,
+        "system_characters": 11289,
+        "system_sha256": "0241b56ddadb90ba54df9697728d01a3de1a17e4d5c166fcf6b79201707b5f94"
+      },
+      {
+        "id": "P3",
+        "protocol": "performance",
+        "context_sha256": "dc3594ab85025f02431511089813487907d9042f74070eaba657df24d5d909eb",
+        "context_characters": 2994,
+        "visible_events": 8,
+        "system_characters": 9301,
+        "system_sha256": "8671fa913becab271b0e9a0600d5756b296e5b8150c7ebdfc78ea5ae0ebe40ea"
+      },
+      {
+        "id": "P4",
+        "protocol": "performance",
+        "context_sha256": "39022fad12a8be3045874bb86f576788b2f2a5775b5b5e1ea52427b7291035bb",
+        "context_characters": 3857,
+        "visible_events": 9,
+        "system_characters": 9301,
+        "system_sha256": "8671fa913becab271b0e9a0600d5756b296e5b8150c7ebdfc78ea5ae0ebe40ea"
+      },
+      {
+        "id": "P5",
+        "protocol": "policy",
+        "context_sha256": "0c90fd095c044436c6e19e71525a90f49edbe646169ba58a2074ac3bfede2621",
+        "context_characters": 4510,
+        "visible_events": 10,
+        "system_characters": 11289,
+        "system_sha256": "0241b56ddadb90ba54df9697728d01a3de1a17e4d5c166fcf6b79201707b5f94"
+      }
+    ]
+  },
+  "status": "complete",
+  "groups": {
+    "1": {
+      "batches": 3,
+      "jobs": 12,
+      "valid_jobs": 12,
+      "batch_wall_s": [
+        8.391157,
+        7.917661,
+        7.508854
+      ],
+      "median_batch_wall_s": 7.917661,
+      "mean_job_wall_s": 1.9828705833333333,
+      "mean_http_wall_s": 1.98138825,
+      "first_ordered_result_s": [
+        2.673923,
+        2.380972,
+        2.191202
+      ],
+      "http_attempts": 12,
+      "retries": 0,
+      "mean_statement_characters": 59,
+      "published_speeches": 7,
+      "style_flagged_jobs": 0,
+      "usage_totals": {
+        "prompt_tokens": 59355,
+        "completion_tokens": 4016,
+        "total_tokens": 63371,
+        "prompt_cache_hit_tokens": 56448,
+        "prompt_cache_miss_tokens": 2907
+      },
+      "usage_responses": 12
+    },
+    "2": {
+      "batches": 3,
+      "jobs": 12,
+      "valid_jobs": 12,
+      "batch_wall_s": [
+        5.270682,
+        5.188094,
+        5.243978
+      ],
+      "median_batch_wall_s": 5.243978,
+      "mean_job_wall_s": 2.0238763333333334,
+      "mean_http_wall_s": 2.02231175,
+      "first_ordered_result_s": [
+        2.890071,
+        2.581387,
+        2.516117
+      ],
+      "http_attempts": 12,
+      "retries": 0,
+      "mean_statement_characters": 57.333333333333336,
+      "published_speeches": 8,
+      "style_flagged_jobs": 0,
+      "usage_totals": {
+        "prompt_tokens": 59355,
+        "completion_tokens": 3936,
+        "total_tokens": 63291,
+        "prompt_cache_hit_tokens": 56448,
+        "prompt_cache_miss_tokens": 2907
+      },
+      "usage_responses": 12
+    },
+    "4": {
+      "batches": 3,
+      "jobs": 12,
+      "valid_jobs": 12,
+      "batch_wall_s": [
+        2.63953,
+        2.855308,
+        2.523923
+      ],
+      "median_batch_wall_s": 2.63953,
+      "mean_job_wall_s": 2.1273451666666667,
+      "mean_http_wall_s": 2.12526125,
+      "first_ordered_result_s": [
+        2.58751,
+        2.854052,
+        2.344647
+      ],
+      "http_attempts": 12,
+      "retries": 0,
+      "mean_statement_characters": 59.916666666666664,
+      "published_speeches": 9,
+      "style_flagged_jobs": 0,
+      "usage_totals": {
+        "prompt_tokens": 59355,
+        "completion_tokens": 3896,
+        "total_tokens": 63251,
+        "prompt_cache_hit_tokens": 56448,
+        "prompt_cache_miss_tokens": 2907
+      },
+      "usage_responses": 12
+    }
+  },
+  "total_http_attempts_including_warmup": 41
+}

@@ -1,0 +1,976 @@
+Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)
+Read blend: "/Users/jiayaochen/Desktop/avalon/assets/chapel/black_chapel.blend"
+Fra:1 Mem:114.13M (Peak 114.13M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Floor foundation
+Fra:1 Mem:114.14M (Peak 114.14M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FloorTile_00_00
+Fra:1 Mem:114.17M (Peak 114.17M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back wall mass
+Fra:1 Mem:114.18M (Peak 114.18M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneWall_Back_00_00
+Fra:1 Mem:114.19M (Peak 114.19M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneWall_Side_-1_00_00
+Fra:1 Mem:114.39M (Peak 114.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_square_plinth
+Fra:1 Mem:114.39M (Peak 114.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.001
+Fra:1 Mem:114.42M (Peak 114.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.004
+Fra:1 Mem:114.41M (Peak 114.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.001
+Fra:1 Mem:114.42M (Peak 114.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.002
+Fra:1 Mem:114.42M (Peak 114.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital
+Fra:1 Mem:114.43M (Peak 114.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck
+Fra:1 Mem:114.43M (Peak 114.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.001
+Fra:1 Mem:114.44M (Peak 114.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.007
+Fra:1 Mem:114.45M (Peak 114.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.008
+Fra:1 Mem:114.46M (Peak 114.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.013
+Fra:1 Mem:114.46M (Peak 114.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.003
+Fra:1 Mem:114.47M (Peak 114.47M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.004
+Fra:1 Mem:114.48M (Peak 114.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.005
+Fra:1 Mem:114.49M (Peak 114.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.002
+Fra:1 Mem:114.49M (Peak 114.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.015
+Fra:1 Mem:114.50M (Peak 114.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.016
+Fra:1 Mem:114.50M (Peak 114.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.018
+Fra:1 Mem:114.51M (Peak 114.51M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.019
+Fra:1 Mem:114.52M (Peak 114.52M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.020
+Fra:1 Mem:114.52M (Peak 114.52M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.008
+Fra:1 Mem:114.54M (Peak 114.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck.002
+Fra:1 Mem:114.54M (Peak 114.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.021
+Fra:1 Mem:114.55M (Peak 114.55M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.023
+Fra:1 Mem:114.56M (Peak 114.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.024
+Fra:1 Mem:114.56M (Peak 114.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.025
+Fra:1 Mem:114.57M (Peak 114.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.027
+Fra:1 Mem:114.57M (Peak 114.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.009
+Fra:1 Mem:114.58M (Peak 114.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.011
+Fra:1 Mem:114.58M (Peak 114.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_capital_neck.003
+Fra:1 Mem:114.59M (Peak 114.59M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.004
+Fra:1 Mem:114.60M (Peak 114.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.029
+Fra:1 Mem:114.60M (Peak 114.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.031
+Fra:1 Mem:114.60M (Peak 114.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.032
+Fra:1 Mem:114.61M (Peak 114.61M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.033
+Fra:1 Mem:114.61M (Peak 114.61M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.034
+Fra:1 Mem:114.61M (Peak 114.61M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.013
+Fra:1 Mem:114.62M (Peak 114.62M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.014
+Fra:1 Mem:114.63M (Peak 114.63M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_octagonal_foot.005
+Fra:1 Mem:114.63M (Peak 114.63M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.035
+Fra:1 Mem:114.64M (Peak 114.64M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.036
+Fra:1 Mem:114.64M (Peak 114.64M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.037
+Fra:1 Mem:114.65M (Peak 114.65M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_shaft_module.038
+Fra:1 Mem:114.66M (Peak 114.66M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.016
+Fra:1 Mem:114.67M (Peak 114.67M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StoneColumn_attached_shaft.017
+Fra:1 Mem:114.67M (Peak 114.67M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_pier
+Fra:1 Mem:114.68M (Peak 114.68M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.002
+Fra:1 Mem:114.69M (Peak 114.69M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.003
+Fra:1 Mem:114.70M (Peak 114.70M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.006
+Fra:1 Mem:114.71M (Peak 114.71M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.008
+Fra:1 Mem:114.71M (Peak 114.71M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.009
+Fra:1 Mem:114.72M (Peak 114.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.010
+Fra:1 Mem:114.72M (Peak 114.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.012
+Fra:1 Mem:114.72M (Peak 114.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.013
+Fra:1 Mem:114.72M (Peak 114.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.014
+Fra:1 Mem:114.73M (Peak 114.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.016
+Fra:1 Mem:114.73M (Peak 114.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.018
+Fra:1 Mem:114.73M (Peak 114.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.019
+Fra:1 Mem:114.73M (Peak 114.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.020
+Fra:1 Mem:114.74M (Peak 114.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.022
+Fra:1 Mem:114.74M (Peak 114.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.023
+Fra:1 Mem:114.74M (Peak 114.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.024
+Fra:1 Mem:114.75M (Peak 114.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.025
+Fra:1 Mem:114.75M (Peak 114.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.026
+Fra:1 Mem:114.75M (Peak 114.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.028
+Fra:1 Mem:114.75M (Peak 114.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.029
+Fra:1 Mem:114.76M (Peak 114.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.031
+Fra:1 Mem:114.76M (Peak 114.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.032
+Fra:1 Mem:114.76M (Peak 114.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.033
+Fra:1 Mem:114.77M (Peak 114.77M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.036
+Fra:1 Mem:114.77M (Peak 114.77M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.037
+Fra:1 Mem:114.77M (Peak 114.77M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.038
+Fra:1 Mem:114.77M (Peak 114.77M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.040
+Fra:1 Mem:114.78M (Peak 114.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.042
+Fra:1 Mem:114.78M (Peak 114.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.043
+Fra:1 Mem:114.78M (Peak 114.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.044
+Fra:1 Mem:114.79M (Peak 114.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.046
+Fra:1 Mem:114.79M (Peak 114.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.047
+Fra:1 Mem:114.79M (Peak 114.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.049
+Fra:1 Mem:114.79M (Peak 114.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.050
+Fra:1 Mem:114.80M (Peak 114.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.053
+Fra:1 Mem:114.80M (Peak 114.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.055
+Fra:1 Mem:114.80M (Peak 114.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.056
+Fra:1 Mem:114.80M (Peak 114.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.059
+Fra:1 Mem:114.81M (Peak 114.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.060
+Fra:1 Mem:114.81M (Peak 114.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.061
+Fra:1 Mem:114.81M (Peak 114.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.065
+Fra:1 Mem:114.82M (Peak 114.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.066
+Fra:1 Mem:114.82M (Peak 114.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.067
+Fra:1 Mem:114.82M (Peak 114.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.068
+Fra:1 Mem:114.82M (Peak 114.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.071
+Fra:1 Mem:114.83M (Peak 114.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.072
+Fra:1 Mem:114.83M (Peak 114.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.073
+Fra:1 Mem:114.83M (Peak 114.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.074
+Fra:1 Mem:114.83M (Peak 114.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.075
+Fra:1 Mem:114.83M (Peak 114.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GothicRib_voussoir.076
+Fra:1 Mem:114.84M (Peak 114.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_pier
+Fra:1 Mem:114.84M (Peak 114.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir
+Fra:1 Mem:114.85M (Peak 114.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.002
+Fra:1 Mem:114.85M (Peak 114.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.003
+Fra:1 Mem:114.85M (Peak 114.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.005
+Fra:1 Mem:114.85M (Peak 114.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.006
+Fra:1 Mem:114.86M (Peak 114.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.007
+Fra:1 Mem:114.86M (Peak 114.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.011
+Fra:1 Mem:114.86M (Peak 114.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.012
+Fra:1 Mem:114.87M (Peak 114.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.013
+Fra:1 Mem:114.87M (Peak 114.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.014
+Fra:1 Mem:114.87M (Peak 114.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.016
+Fra:1 Mem:114.87M (Peak 114.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.018
+Fra:1 Mem:114.88M (Peak 114.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.020
+Fra:1 Mem:114.88M (Peak 114.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.021
+Fra:1 Mem:114.88M (Peak 114.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.023
+Fra:1 Mem:114.88M (Peak 114.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Great altar pointed arch_voussoir.024
+Fra:1 Mem:114.89M (Peak 114.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir
+Fra:1 Mem:114.89M (Peak 114.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.001
+Fra:1 Mem:114.89M (Peak 114.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.002
+Fra:1 Mem:114.89M (Peak 114.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.003
+Fra:1 Mem:114.89M (Peak 114.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.004
+Fra:1 Mem:114.90M (Peak 114.90M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.005
+Fra:1 Mem:114.91M (Peak 114.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.006
+Fra:1 Mem:114.91M (Peak 114.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.011
+Fra:1 Mem:114.92M (Peak 114.92M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.012
+Fra:1 Mem:114.92M (Peak 114.92M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.017
+Fra:1 Mem:114.92M (Peak 114.92M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.018
+Fra:1 Mem:114.93M (Peak 114.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.021
+Fra:1 Mem:114.93M (Peak 114.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.022
+Fra:1 Mem:114.93M (Peak 114.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.023
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.024
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar outer moulding_voussoir.025
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_pier
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.001
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.002
+Fra:1 Mem:114.94M (Peak 114.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.004
+Fra:1 Mem:114.95M (Peak 114.95M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.005
+Fra:1 Mem:114.96M (Peak 114.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.006
+Fra:1 Mem:114.96M (Peak 114.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.007
+Fra:1 Mem:114.96M (Peak 114.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.008
+Fra:1 Mem:114.96M (Peak 114.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.010
+Fra:1 Mem:114.96M (Peak 114.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.012
+Fra:1 Mem:114.97M (Peak 114.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.013
+Fra:1 Mem:114.97M (Peak 114.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.014
+Fra:1 Mem:114.97M (Peak 114.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.015
+Fra:1 Mem:114.97M (Peak 114.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.016
+Fra:1 Mem:114.97M (Peak 114.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.019
+Fra:1 Mem:114.98M (Peak 114.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.021
+Fra:1 Mem:114.98M (Peak 114.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.022
+Fra:1 Mem:114.98M (Peak 114.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.023
+Fra:1 Mem:114.99M (Peak 114.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.024
+Fra:1 Mem:114.99M (Peak 114.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.026
+Fra:1 Mem:114.99M (Peak 114.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.027
+Fra:1 Mem:114.99M (Peak 114.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.030
+Fra:1 Mem:114.99M (Peak 114.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.031
+Fra:1 Mem:114.99M (Peak 114.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.032
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.033
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.034
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.035
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.037
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.038
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.039
+Fra:1 Mem:115.00M (Peak 115.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.040
+Fra:1 Mem:115.01M (Peak 115.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.041
+Fra:1 Mem:115.01M (Peak 115.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.042
+Fra:1 Mem:115.01M (Peak 115.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.044
+Fra:1 Mem:115.01M (Peak 115.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.045
+Fra:1 Mem:115.02M (Peak 115.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.046
+Fra:1 Mem:115.02M (Peak 115.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.047
+Fra:1 Mem:115.02M (Peak 115.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.048
+Fra:1 Mem:115.02M (Peak 115.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.050
+Fra:1 Mem:115.02M (Peak 115.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche_voussoir.051
+Fra:1 Mem:115.03M (Peak 115.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar recessed darkness
+Fra:1 Mem:115.03M (Peak 115.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | WallNiche shadow
+Fra:1 Mem:115.03M (Peak 115.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar colonette
+Fra:1 Mem:115.03M (Peak 115.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar colonette.001
+Fra:1 Mem:115.04M (Peak 115.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar column capital
+Fra:1 Mem:115.05M (Peak 115.05M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar colonette.002
+Fra:1 Mem:115.05M (Peak 115.05M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar colonette.003
+Fra:1 Mem:115.06M (Peak 115.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar lower step
+Fra:1 Mem:115.07M (Peak 115.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar stone pedestal
+Fra:1 Mem:115.07M (Peak 115.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar stone mensa
+Fra:1 Mem:115.08M (Peak 115.08M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_01
+Fra:1 Mem:115.09M (Peak 115.09M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_02
+Fra:1 Mem:115.09M (Peak 115.09M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_03
+Fra:1 Mem:115.10M (Peak 115.10M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_04
+Fra:1 Mem:115.11M (Peak 115.11M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_05
+Fra:1 Mem:115.12M (Peak 115.12M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_06
+Fra:1 Mem:115.13M (Peak 115.13M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | TableTop_OakPlank_07
+Fra:1 Mem:115.13M (Peak 115.13M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Table endgrain breadboard
+Fra:1 Mem:115.15M (Peak 115.15M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Table heavy apron
+Fra:1 Mem:115.16M (Peak 115.16M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Table oak leg
+Fra:1 Mem:115.16M (Peak 115.16M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Table trestle foot
+Fra:1 Mem:115.18M (Peak 115.18M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Table low stretcher
+Fra:1 Mem:115.19M (Peak 115.19M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_1_cloaked_body
+Fra:1 Mem:115.20M (Peak 115.20M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_1_open_hood
+Fra:1 Mem:115.21M (Peak 115.21M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_1_shadowed_face
+Fra:1 Mem:115.22M (Peak 115.22M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve
+Fra:1 Mem:115.23M (Peak 115.23M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.001
+Fra:1 Mem:115.23M (Peak 115.23M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Simple council seat
+Fra:1 Mem:115.23M (Peak 115.23M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_2_cloaked_body
+Fra:1 Mem:115.24M (Peak 115.24M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_2_open_hood
+Fra:1 Mem:115.27M (Peak 115.27M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.002
+Fra:1 Mem:115.28M (Peak 115.28M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.003
+Fra:1 Mem:115.28M (Peak 115.28M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_3_open_hood
+Fra:1 Mem:115.29M (Peak 115.29M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_3_shadowed_face
+Fra:1 Mem:115.29M (Peak 115.29M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.004
+Fra:1 Mem:115.31M (Peak 115.31M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.005
+Fra:1 Mem:115.32M (Peak 115.32M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_4_cloaked_body
+Fra:1 Mem:115.34M (Peak 115.34M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_4_shadowed_face
+Fra:1 Mem:115.34M (Peak 115.34M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.007
+Fra:1 Mem:115.34M (Peak 115.34M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_5_shadowed_face
+Fra:1 Mem:115.35M (Peak 115.35M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.008
+Fra:1 Mem:115.36M (Peak 115.36M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.009
+Fra:1 Mem:115.36M (Peak 115.36M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_6_cloaked_body
+Fra:1 Mem:115.38M (Peak 115.38M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_6_open_hood
+Fra:1 Mem:115.39M (Peak 115.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_6_shadowed_face
+Fra:1 Mem:115.40M (Peak 115.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Draped sleeve.010
+Fra:1 Mem:115.40M (Peak 115.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_7_cloaked_body
+Fra:1 Mem:115.41M (Peak 115.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_7_open_hood
+Fra:1 Mem:115.43M (Peak 115.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Tribunal_7_shadowed_face
+Fra:1 Mem:115.43M (Peak 115.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_holder
+Fra:1 Mem:115.44M (Peak 115.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_wax
+Fra:1 Mem:115.45M (Peak 115.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_drip_dish
+Fra:1 Mem:115.45M (Peak 115.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_wick
+Fra:1 Mem:115.48M (Peak 115.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_holder
+Fra:1 Mem:115.48M (Peak 115.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_drip_dish
+Fra:1 Mem:115.48M (Peak 115.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_wick
+Fra:1 Mem:115.49M (Peak 115.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_flame
+Fra:1 Mem:115.55M (Peak 115.55M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_holder
+Fra:1 Mem:115.56M (Peak 115.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_wax
+Fra:1 Mem:115.60M (Peak 115.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_drip_dish
+Fra:1 Mem:115.61M (Peak 115.61M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_wick
+Fra:1 Mem:115.63M (Peak 115.63M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_wick
+Fra:1 Mem:115.65M (Peak 115.65M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_flame
+Fra:1 Mem:115.65M (Peak 115.65M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_low_holder
+Fra:1 Mem:115.73M (Peak 115.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_low_wax
+Fra:1 Mem:115.74M (Peak 115.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_low_drip_dish
+Fra:1 Mem:115.74M (Peak 115.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_0_wax
+Fra:1 Mem:115.76M (Peak 115.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_0_drip_dish
+Fra:1 Mem:115.77M (Peak 115.77M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_0_wick
+Fra:1 Mem:115.78M (Peak 115.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_0_flame
+Fra:1 Mem:115.80M (Peak 115.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.001
+Fra:1 Mem:115.80M (Peak 115.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_1_drip_dish
+Fra:1 Mem:115.82M (Peak 115.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_1_wick
+Fra:1 Mem:115.83M (Peak 115.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.002
+Fra:1 Mem:115.84M (Peak 115.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_2_wax
+Fra:1 Mem:115.84M (Peak 115.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_2_wick
+Fra:1 Mem:115.86M (Peak 115.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_2_flame
+Fra:1 Mem:115.86M (Peak 115.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back iron floor stand.001
+Fra:1 Mem:115.87M (Peak 115.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.003
+Fra:1 Mem:115.88M (Peak 115.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_0_wax
+Fra:1 Mem:115.90M (Peak 115.90M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_0_drip_dish
+Fra:1 Mem:115.92M (Peak 115.92M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Candelabrum arm.004
+Fra:1 Mem:115.93M (Peak 115.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_1_wax
+Fra:1 Mem:115.94M (Peak 115.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_1_drip_dish
+Fra:1 Mem:115.96M (Peak 115.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_1_wick
+Fra:1 Mem:115.97M (Peak 115.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_2_wax
+Fra:1 Mem:115.97M (Peak 115.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_2_drip_dish
+Fra:1 Mem:116.00M (Peak 116.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_2_wick
+Fra:1 Mem:116.00M (Peak 116.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_2_flame
+Fra:1 Mem:116.01M (Peak 116.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_-1_holder
+Fra:1 Mem:116.02M (Peak 116.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_-1_wax
+Fra:1 Mem:116.04M (Peak 116.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_-1_drip_dish
+Fra:1 Mem:116.04M (Peak 116.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_-1_flame
+Fra:1 Mem:116.09M (Peak 116.09M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_-1_holder
+Fra:1 Mem:116.10M (Peak 116.10M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_-1_wax
+Fra:1 Mem:116.15M (Peak 116.15M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_-1_flame
+Fra:1 Mem:116.14M (Peak 116.15M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_holder
+Fra:1 Mem:116.17M (Peak 116.17M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_wax
+Fra:1 Mem:116.18M (Peak 116.18M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_drip_dish
+Fra:1 Mem:116.18M (Peak 116.18M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_flame
+Fra:1 Mem:116.18M (Peak 116.18M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_1_holder
+Fra:1 Mem:116.18M (Peak 116.18M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_1_wax
+Fra:1 Mem:116.20M (Peak 116.20M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_1_drip_dish
+Fra:1 Mem:116.23M (Peak 116.23M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_1_wick
+Fra:1 Mem:116.24M (Peak 116.24M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_1_flame
+Fra:1 Mem:116.24M (Peak 116.24M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_1_holder
+Fra:1 Mem:116.26M (Peak 116.26M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_1_wax
+Fra:1 Mem:116.28M (Peak 116.28M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_1_drip_dish
+Fra:1 Mem:116.31M (Peak 116.31M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_1_wick
+Fra:1 Mem:116.32M (Peak 116.32M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_1_flame
+Fra:1 Mem:116.32M (Peak 116.32M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_holder
+Fra:1 Mem:116.35M (Peak 116.35M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_wax
+Fra:1 Mem:116.36M (Peak 116.36M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_drip_dish
+Fra:1 Mem:116.37M (Peak 116.37M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_wick
+Fra:1 Mem:116.38M (Peak 116.38M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_1_flame
+Fra:1 Mem:116.38M (Peak 116.38M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_vellum_pages
+Fra:1 Mem:116.39M (Peak 116.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_heavy_cover
+Fra:1 Mem:116.40M (Peak 116.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_spine
+Fra:1 Mem:116.40M (Peak 116.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_leather_strap
+Fra:1 Mem:116.41M (Peak 116.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_brass_clasp
+Fra:1 Mem:116.43M (Peak 116.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_page_edges
+Fra:1 Mem:116.44M (Peak 116.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_page_edges.002
+Fra:1 Mem:116.44M (Peak 116.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_page_edges.003
+Fra:1 Mem:116.45M (Peak 116.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_corner_plate
+Fra:1 Mem:116.46M (Peak 116.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_rivet
+Fra:1 Mem:116.46M (Peak 116.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_corner_plate.001
+Fra:1 Mem:116.48M (Peak 116.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_rivet.001
+Fra:1 Mem:116.48M (Peak 116.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_rivet.002
+Fra:1 Mem:116.48M (Peak 116.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left chained folio_rivet.003
+Fra:1 Mem:116.49M (Peak 116.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | orbital darkness
+Fra:1 Mem:116.50M (Peak 116.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | jaw ramus
+Fra:1 Mem:116.50M (Peak 116.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | cheekbone.001
+Fra:1 Mem:116.50M (Peak 116.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | maxilla
+Fra:1 Mem:116.54M (Peak 116.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | nasal aperture
+Fra:1 Mem:116.54M (Peak 116.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | lower mandible
+Fra:1 Mem:116.54M (Peak 116.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | worn tooth
+Fra:1 Mem:116.56M (Peak 116.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | worn tooth.008
+Fra:1 Mem:116.57M (Peak 116.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Skull | age fissure
+Fra:1 Mem:116.57M (Peak 116.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left pewter cup
+Fra:1 Mem:116.58M (Peak 116.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Left pewter cup_dark_dregs
+Fra:1 Mem:116.63M (Peak 116.63M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_vellum_pages
+Fra:1 Mem:116.66M (Peak 116.66M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_spine
+Fra:1 Mem:116.66M (Peak 116.66M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_leather_strap
+Fra:1 Mem:116.67M (Peak 116.67M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_page_edges
+Fra:1 Mem:116.67M (Peak 116.67M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_page_edges.001
+Fra:1 Mem:116.67M (Peak 116.67M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_page_edges.003
+Fra:1 Mem:116.68M (Peak 116.68M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_page_edges.004
+Fra:1 Mem:116.69M (Peak 116.69M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_corner_plate
+Fra:1 Mem:116.69M (Peak 116.69M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_corner_plate.001
+Fra:1 Mem:116.72M (Peak 116.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_rivet.001
+Fra:1 Mem:116.73M (Peak 116.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_corner_plate.002
+Fra:1 Mem:116.73M (Peak 116.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right lower codex_corner_plate.003
+Fra:1 Mem:116.73M (Peak 116.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_vellum_pages
+Fra:1 Mem:116.74M (Peak 116.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_spine
+Fra:1 Mem:116.75M (Peak 116.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_page_edges
+Fra:1 Mem:116.76M (Peak 116.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_page_edges.001
+Fra:1 Mem:116.76M (Peak 116.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_page_edges.002
+Fra:1 Mem:116.76M (Peak 116.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_page_edges.003
+Fra:1 Mem:116.76M (Peak 116.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_page_edges.004
+Fra:1 Mem:116.76M (Peak 116.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_corner_plate
+Fra:1 Mem:116.78M (Peak 116.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_rivet
+Fra:1 Mem:116.78M (Peak 116.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_corner_plate.001
+Fra:1 Mem:116.78M (Peak 116.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_rivet.001
+Fra:1 Mem:116.78M (Peak 116.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_corner_plate.002
+Fra:1 Mem:116.79M (Peak 116.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_rivet.002
+Fra:1 Mem:116.79M (Peak 116.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right middle codex_rivet.003
+Fra:1 Mem:116.79M (Peak 116.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_vellum_pages
+Fra:1 Mem:116.79M (Peak 116.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_spine
+Fra:1 Mem:116.81M (Peak 116.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_leather_strap
+Fra:1 Mem:116.82M (Peak 116.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_page_edges.001
+Fra:1 Mem:116.82M (Peak 116.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_page_edges.002
+Fra:1 Mem:116.82M (Peak 116.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_page_edges.004
+Fra:1 Mem:116.83M (Peak 116.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_corner_plate
+Fra:1 Mem:116.83M (Peak 116.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_rivet
+Fra:1 Mem:116.83M (Peak 116.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_corner_plate.001
+Fra:1 Mem:116.83M (Peak 116.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_rivet.001
+Fra:1 Mem:116.84M (Peak 116.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_corner_plate.002
+Fra:1 Mem:116.84M (Peak 116.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_corner_plate.003
+Fra:1 Mem:116.84M (Peak 116.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right upper codex_rivet.003
+Fra:1 Mem:116.84M (Peak 116.84M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Right tarnished chalice
+Fra:1 Mem:116.85M (Peak 116.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | stepped foot
+Fra:1 Mem:116.86M (Peak 116.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Faint crimson above altar
+Fra:1 Mem:116.91M (Peak 116.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | upper foot
+Fra:1 Mem:116.92M (Peak 116.92M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | dark chamber
+Fra:1 Mem:116.93M (Peak 116.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_pier
+Fra:1 Mem:116.93M (Peak 116.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.001
+Fra:1 Mem:116.94M (Peak 116.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.002
+Fra:1 Mem:116.94M (Peak 116.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.004
+Fra:1 Mem:116.94M (Peak 116.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.005
+Fra:1 Mem:116.94M (Peak 116.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.006
+Fra:1 Mem:116.95M (Peak 116.95M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.007
+Fra:1 Mem:116.96M (Peak 116.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.008
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.010
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.011
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.012
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.013
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.015
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.016
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.017
+Fra:1 Mem:116.97M (Peak 116.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.018
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.019
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.021
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.023
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_1_light
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | lancet frame_voussoir.025
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_1_light
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | column
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | finial
+Fra:1 Mem:116.98M (Peak 116.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | column.001
+Fra:1 Mem:116.99M (Peak 116.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | finial.001
+Fra:1 Mem:116.99M (Peak 116.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | finial.002
+Fra:1 Mem:117.00M (Peak 117.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | column.003
+Fra:1 Mem:117.00M (Peak 117.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | finial.003
+Fra:1 Mem:117.00M (Peak 117.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | pitched roof
+Fra:1 Mem:117.00M (Peak 117.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | crown stud
+Fra:1 Mem:117.00M (Peak 117.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Reliquary | crown needle
+Fra:1 Mem:117.01M (Peak 117.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Loose parchment
+Fra:1 Mem:117.01M (Peak 117.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Folded vellum
+Fra:1 Mem:117.01M (Peak 117.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Seal cord
+Fra:1 Mem:117.02M (Peak 117.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Rear_bench_-1_light
+Fra:1 Mem:117.03M (Peak 117.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Niche_-1_light
+Fra:1 Mem:117.03M (Peak 117.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link
+Fra:1 Mem:117.03M (Peak 117.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Altar_-1_light
+Fra:1 Mem:117.04M (Peak 117.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.001
+Fra:1 Mem:117.07M (Peak 117.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.002
+Fra:1 Mem:117.07M (Peak 117.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.003
+Fra:1 Mem:117.09M (Peak 117.09M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.004
+Fra:1 Mem:117.09M (Peak 117.09M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.006
+Fra:1 Mem:117.10M (Peak 117.10M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.008
+Fra:1 Mem:117.11M (Peak 117.11M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.009
+Fra:1 Mem:117.11M (Peak 117.11M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.010
+Fra:1 Mem:117.12M (Peak 117.12M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.011
+Fra:1 Mem:117.14M (Peak 117.14M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.013
+Fra:1 Mem:117.14M (Peak 117.14M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.012
+Fra:1 Mem:117.16M (Peak 117.16M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.014
+Fra:1 Mem:117.16M (Peak 117.16M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.015
+Fra:1 Mem:117.19M (Peak 117.19M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.016
+Fra:1 Mem:117.19M (Peak 117.19M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.017
+Fra:1 Mem:117.19M (Peak 117.19M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_2_light
+Fra:1 Mem:117.21M (Peak 117.21M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.018
+Fra:1 Mem:117.22M (Peak 117.22M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.020
+Fra:1 Mem:117.24M (Peak 117.24M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.021
+Fra:1 Mem:117.25M (Peak 117.25M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.022
+Fra:1 Mem:117.26M (Peak 117.26M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Book chain | iron link.023
+Fra:1 Mem:117.27M (Peak 117.27M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Small ritual token
+Fra:1 Mem:117.30M (Peak 117.30M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Small ritual token.001
+Fra:1 Mem:117.32M (Peak 117.32M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Small ritual token.002
+Fra:1 Mem:117.32M (Peak 117.32M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Small ritual token.005
+Fra:1 Mem:117.33M (Peak 117.33M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision
+Fra:1 Mem:117.33M (Peak 117.33M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.001
+Fra:1 Mem:117.34M (Peak 117.34M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.003
+Fra:1 Mem:117.34M (Peak 117.34M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.004
+Fra:1 Mem:117.34M (Peak 117.34M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.005
+Fra:1 Mem:117.35M (Peak 117.35M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.006
+Fra:1 Mem:117.35M (Peak 117.35M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.009
+Fra:1 Mem:117.36M (Peak 117.36M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.010
+Fra:1 Mem:117.37M (Peak 117.37M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.011
+Fra:1 Mem:117.37M (Peak 117.37M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.012
+Fra:1 Mem:117.37M (Peak 117.37M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.013
+Fra:1 Mem:117.38M (Peak 117.38M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.014
+Fra:1 Mem:117.38M (Peak 117.38M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.016
+Fra:1 Mem:117.38M (Peak 117.38M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.017
+Fra:1 Mem:117.39M (Peak 117.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.018
+Fra:1 Mem:117.39M (Peak 117.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.019
+Fra:1 Mem:117.39M (Peak 117.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.020
+Fra:1 Mem:117.39M (Peak 117.39M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.022
+Fra:1 Mem:117.40M (Peak 117.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.023
+Fra:1 Mem:117.40M (Peak 117.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.024
+Fra:1 Mem:117.40M (Peak 117.40M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.025
+Fra:1 Mem:117.41M (Peak 117.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.027
+Fra:1 Mem:117.41M (Peak 117.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.028
+Fra:1 Mem:117.41M (Peak 117.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_1_light
+Fra:1 Mem:117.41M (Peak 117.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.029
+Fra:1 Mem:117.41M (Peak 117.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_1_0_light
+Fra:1 Mem:117.41M (Peak 117.41M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.030
+Fra:1 Mem:117.42M (Peak 117.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.031
+Fra:1 Mem:117.42M (Peak 117.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.032
+Fra:1 Mem:117.42M (Peak 117.42M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.034
+Fra:1 Mem:117.43M (Peak 117.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.035
+Fra:1 Mem:117.43M (Peak 117.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.036
+Fra:1 Mem:117.43M (Peak 117.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.037
+Fra:1 Mem:117.43M (Peak 117.43M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.038
+Fra:1 Mem:117.44M (Peak 117.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.039
+Fra:1 Mem:117.44M (Peak 117.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.041
+Fra:1 Mem:117.44M (Peak 117.44M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.042
+Fra:1 Mem:117.45M (Peak 117.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.043
+Fra:1 Mem:117.45M (Peak 117.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.045
+Fra:1 Mem:117.45M (Peak 117.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.046
+Fra:1 Mem:117.45M (Peak 117.45M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.047
+Fra:1 Mem:117.46M (Peak 117.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.048
+Fra:1 Mem:117.46M (Peak 117.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.049
+Fra:1 Mem:117.46M (Peak 117.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.050
+Fra:1 Mem:117.46M (Peak 117.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.052
+Fra:1 Mem:117.46M (Peak 117.46M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.053
+Fra:1 Mem:117.47M (Peak 117.47M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_1_light
+Fra:1 Mem:117.47M (Peak 117.47M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Back_-1_0_light
+Fra:1 Mem:117.47M (Peak 117.47M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.054
+Fra:1 Mem:117.47M (Peak 117.47M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.055
+Fra:1 Mem:117.47M (Peak 117.47M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.056
+Fra:1 Mem:117.48M (Peak 117.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.057
+Fra:1 Mem:117.48M (Peak 117.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.058
+Fra:1 Mem:117.48M (Peak 117.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.059
+Fra:1 Mem:117.48M (Peak 117.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.060
+Fra:1 Mem:117.48M (Peak 117.48M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.063
+Fra:1 Mem:117.49M (Peak 117.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.064
+Fra:1 Mem:117.49M (Peak 117.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.065
+Fra:1 Mem:117.49M (Peak 117.49M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.066
+Fra:1 Mem:117.50M (Peak 117.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.067
+Fra:1 Mem:117.50M (Peak 117.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.068
+Fra:1 Mem:117.50M (Peak 117.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.069
+Fra:1 Mem:117.50M (Peak 117.50M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.070
+Fra:1 Mem:117.51M (Peak 117.51M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.072
+Fra:1 Mem:117.51M (Peak 117.51M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.073
+Fra:1 Mem:117.51M (Peak 117.51M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | old incision.074
+Fra:1 Mem:117.51M (Peak 117.51M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | dried oil stain
+Fra:1 Mem:117.51M (Peak 117.51M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | dried oil stain.001
+Fra:1 Mem:117.52M (Peak 117.52M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | dried oil stain.002
+Fra:1 Mem:117.52M (Peak 117.52M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | dried oil stain.003
+Fra:1 Mem:117.52M (Peak 117.52M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | dried oil stain.004
+Fra:1 Mem:117.53M (Peak 117.53M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop
+Fra:1 Mem:117.53M (Peak 117.53M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.001
+Fra:1 Mem:117.53M (Peak 117.53M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.002
+Fra:1 Mem:117.53M (Peak 117.53M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.003
+Fra:1 Mem:117.54M (Peak 117.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.005
+Fra:1 Mem:117.54M (Peak 117.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.006
+Fra:1 Mem:117.54M (Peak 117.54M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.008
+Fra:1 Mem:117.55M (Peak 117.55M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.009
+Fra:1 Mem:117.55M (Peak 117.55M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.010
+Fra:1 Mem:117.55M (Peak 117.55M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.011
+Fra:1 Mem:117.56M (Peak 117.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.012
+Fra:1 Mem:117.56M (Peak 117.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.014
+Fra:1 Mem:117.56M (Peak 117.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.016
+Fra:1 Mem:117.56M (Peak 117.56M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.017
+Fra:1 Mem:117.57M (Peak 117.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_low_light
+Fra:1 Mem:117.57M (Peak 117.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontRight_tall_light
+Fra:1 Mem:117.57M (Peak 117.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.018
+Fra:1 Mem:117.57M (Peak 117.57M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.020
+Fra:1 Mem:117.58M (Peak 117.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | spilled drop.021
+Fra:1 Mem:117.58M (Peak 117.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | black iron pin
+Fra:1 Mem:117.58M (Peak 117.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | black iron pin.001
+Fra:1 Mem:117.58M (Peak 117.58M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | black iron pin.002
+Fra:1 Mem:117.59M (Peak 117.59M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | black iron pin.003
+Fra:1 Mem:117.59M (Peak 117.59M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | black iron pin.005
+Fra:1 Mem:117.60M (Peak 117.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.002
+Fra:1 Mem:117.60M (Peak 117.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_stump_light
+Fra:1 Mem:117.60M (Peak 117.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_low_light
+Fra:1 Mem:117.60M (Peak 117.60M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.004
+Fra:1 Mem:117.61M (Peak 117.61M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.005
+Fra:1 Mem:117.62M (Peak 117.62M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.006
+Fra:1 Mem:117.63M (Peak 117.63M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.007
+Fra:1 Mem:117.64M (Peak 117.64M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.009
+Fra:1 Mem:117.65M (Peak 117.65M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.010
+Fra:1 Mem:117.65M (Peak 117.65M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | FrontLeft_tall_light
+Fra:1 Mem:117.66M (Peak 117.66M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Atmosphere volume (render only)
+Fra:1 Mem:117.66M (Peak 117.66M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.012
+Fra:1 Mem:117.68M (Peak 117.68M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oak | exposed edge splinter.013
+Fra:1 Mem:117.68M (Peak 117.68M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear
+Fra:1 Mem:117.69M (Peak 117.69M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.001
+Fra:1 Mem:117.70M (Peak 117.70M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.001
+Fra:1 Mem:117.71M (Peak 117.71M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.002
+Fra:1 Mem:117.71M (Peak 117.71M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.003
+Fra:1 Mem:117.71M (Peak 117.71M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.004
+Fra:1 Mem:117.72M (Peak 117.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.004
+Fra:1 Mem:117.72M (Peak 117.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.005
+Fra:1 Mem:117.72M (Peak 117.72M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well
+Fra:1 Mem:117.73M (Peak 117.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.006
+Fra:1 Mem:117.73M (Peak 117.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.006
+Fra:1 Mem:117.73M (Peak 117.73M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.007
+Fra:1 Mem:117.74M (Peak 117.74M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.008
+Fra:1 Mem:117.75M (Peak 117.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.008
+Fra:1 Mem:117.75M (Peak 117.75M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.009
+Fra:1 Mem:117.76M (Peak 117.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.010
+Fra:1 Mem:117.76M (Peak 117.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.019
+Fra:1 Mem:117.76M (Peak 117.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.010
+Fra:1 Mem:117.76M (Peak 117.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.011
+Fra:1 Mem:117.76M (Peak 117.76M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.018
+Fra:1 Mem:117.78M (Peak 117.78M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.001
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.012
+Fra:1 Mem:117.77M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.013
+Fra:1 Mem:117.78M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.013
+Fra:1 Mem:117.78M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.017
+Fra:1 Mem:117.78M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.014
+Fra:1 Mem:117.78M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.016
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.015
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.015
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.015
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.014
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.016
+Fra:1 Mem:117.80M (Peak 117.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.013
+Fra:1 Mem:117.80M (Peak 117.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.017
+Fra:1 Mem:117.80M (Peak 117.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.012
+Fra:1 Mem:117.80M (Peak 117.80M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.011
+Fra:1 Mem:117.81M (Peak 117.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.002
+Fra:1 Mem:117.81M (Peak 117.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.018
+Fra:1 Mem:117.81M (Peak 117.81M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.010
+Fra:1 Mem:117.82M (Peak 117.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.019
+Fra:1 Mem:117.82M (Peak 117.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.020
+Fra:1 Mem:117.82M (Peak 117.82M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.020
+Fra:1 Mem:117.83M (Peak 117.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.021
+Fra:1 Mem:117.83M (Peak 117.83M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.022
+Fra:1 Mem:117.85M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.022
+Fra:1 Mem:117.83M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.023
+Fra:1 Mem:117.84M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.003
+Fra:1 Mem:117.84M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.024
+Fra:1 Mem:117.84M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.025
+Fra:1 Mem:117.84M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.024
+Fra:1 Mem:117.85M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.025
+Fra:1 Mem:117.85M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.008
+Fra:1 Mem:117.85M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.026
+Fra:1 Mem:117.85M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.027
+Fra:1 Mem:117.85M (Peak 117.85M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.007
+Fra:1 Mem:117.86M (Peak 117.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.027
+Fra:1 Mem:117.86M (Peak 117.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.028
+Fra:1 Mem:117.86M (Peak 117.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.029
+Fra:1 Mem:117.86M (Peak 117.86M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.004
+Fra:1 Mem:117.87M (Peak 117.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.030
+Fra:1 Mem:117.87M (Peak 117.87M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.030
+Fra:1 Mem:117.88M (Peak 117.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.031
+Fra:1 Mem:117.88M (Peak 117.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.032
+Fra:1 Mem:117.88M (Peak 117.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.032
+Fra:1 Mem:117.88M (Peak 117.88M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.033
+Fra:1 Mem:117.89M (Peak 117.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.033
+Fra:1 Mem:117.89M (Peak 117.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.034
+Fra:1 Mem:117.89M (Peak 117.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.035
+Fra:1 Mem:117.89M (Peak 117.89M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.005
+Fra:1 Mem:117.90M (Peak 117.90M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.036
+Fra:1 Mem:117.90M (Peak 117.90M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.036
+Fra:1 Mem:117.90M (Peak 117.90M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.037
+Fra:1 Mem:117.91M (Peak 117.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.038
+Fra:1 Mem:117.91M (Peak 117.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.005
+Fra:1 Mem:117.91M (Peak 117.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.039
+Fra:1 Mem:117.91M (Peak 117.91M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.004
+Fra:1 Mem:117.93M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.039
+Fra:1 Mem:117.92M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.040
+Fra:1 Mem:117.92M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.040
+Fra:1 Mem:117.92M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.041
+Fra:1 Mem:117.92M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.041
+Fra:1 Mem:117.92M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.006
+Fra:1 Mem:117.93M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.042
+Fra:1 Mem:117.93M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.042
+Fra:1 Mem:117.93M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.043
+Fra:1 Mem:117.93M (Peak 117.93M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.043
+Fra:1 Mem:117.94M (Peak 117.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.044
+Fra:1 Mem:117.94M (Peak 117.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.044
+Fra:1 Mem:117.94M (Peak 117.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.045
+Fra:1 Mem:117.94M (Peak 117.94M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.046
+Fra:1 Mem:117.95M (Peak 117.95M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.046
+Fra:1 Mem:117.95M (Peak 117.95M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.047
+Fra:1 Mem:117.95M (Peak 117.95M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.047
+Fra:1 Mem:117.95M (Peak 117.95M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.007
+Fra:1 Mem:117.96M (Peak 117.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.048
+Fra:1 Mem:117.96M (Peak 117.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.049
+Fra:1 Mem:117.96M (Peak 117.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.002
+Fra:1 Mem:117.96M (Peak 117.96M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.049
+Fra:1 Mem:117.97M (Peak 117.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.050
+Fra:1 Mem:117.97M (Peak 117.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip.001
+Fra:1 Mem:117.97M (Peak 117.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.050
+Fra:1 Mem:117.97M (Peak 117.97M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Fallen limestone chip
+Fra:1 Mem:117.98M (Peak 117.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.051
+Fra:1 Mem:117.98M (Peak 117.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.052
+Fra:1 Mem:117.98M (Peak 117.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.052
+Fra:1 Mem:117.98M (Peak 117.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.053
+Fra:1 Mem:117.99M (Peak 117.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.008
+Fra:1 Mem:117.99M (Peak 117.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Stone | old fissure.003
+Fra:1 Mem:118.00M (Peak 118.00M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.054
+Fra:1 Mem:118.01M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Stone | old fissure.002
+Fra:1 Mem:118.00M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.056
+Fra:1 Mem:118.00M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.056
+Fra:1 Mem:118.00M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.057
+Fra:1 Mem:118.01M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.057
+Fra:1 Mem:118.01M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.058
+Fra:1 Mem:118.01M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.059
+Fra:1 Mem:118.01M (Peak 118.01M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.059
+Fra:1 Mem:118.02M (Peak 118.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Stone | old fissure.001
+Fra:1 Mem:118.02M (Peak 118.02M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Stone | old fissure
+Fra:1 Mem:118.03M (Peak 118.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.060
+Fra:1 Mem:118.03M (Peak 118.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Obscured heraldic pupil
+Fra:1 Mem:118.03M (Peak 118.03M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Obscured heraldic eye
+Fra:1 Mem:118.04M (Peak 118.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.061
+Fra:1 Mem:118.04M (Peak 118.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.061
+Fra:1 Mem:118.04M (Peak 118.04M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.062
+Fra:1 Mem:118.06M (Peak 118.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.062
+Fra:1 Mem:118.05M (Peak 118.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.063
+Fra:1 Mem:118.05M (Peak 118.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.064
+Fra:1 Mem:118.05M (Peak 118.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.064
+Fra:1 Mem:118.06M (Peak 118.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Torn altar hanging | deep crimson
+Fra:1 Mem:118.06M (Peak 118.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.065
+Fra:1 Mem:118.07M (Peak 118.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.010
+Fra:1 Mem:118.07M (Peak 118.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.066
+Fra:1 Mem:118.07M (Peak 118.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.066
+Fra:1 Mem:118.07M (Peak 118.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.067
+Fra:1 Mem:118.07M (Peak 118.07M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.068
+Fra:1 Mem:118.08M (Peak 118.08M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.068
+Fra:1 Mem:118.08M (Peak 118.08M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.069
+Fra:1 Mem:118.08M (Peak 118.08M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.069
+Fra:1 Mem:118.08M (Peak 118.08M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.070
+Fra:1 Mem:118.09M (Peak 118.09M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.070
+Fra:1 Mem:118.09M (Peak 118.09M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.071
+Fra:1 Mem:118.09M (Peak 118.09M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.071
+Fra:1 Mem:118.09M (Peak 118.09M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.011
+Fra:1 Mem:118.09M (Peak 118.09M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.072
+Fra:1 Mem:118.10M (Peak 118.10M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.073
+Fra:1 Mem:118.10M (Peak 118.10M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.073
+Fra:1 Mem:118.11M (Peak 118.11M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.074
+Fra:1 Mem:118.16M (Peak 118.16M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.074
+Fra:1 Mem:118.16M (Peak 118.16M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.075
+Fra:1 Mem:118.17M (Peak 118.17M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.016
+Fra:1 Mem:118.17M (Peak 118.17M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.076
+Fra:1 Mem:118.17M (Peak 118.17M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.101
+Fra:1 Mem:118.18M (Peak 118.18M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.077
+Fra:1 Mem:118.18M (Peak 118.18M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.101
+Fra:1 Mem:118.18M (Peak 118.18M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.077
+Fra:1 Mem:118.18M (Peak 118.18M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.012
+Fra:1 Mem:118.18M (Peak 118.18M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.078
+Fra:1 Mem:118.19M (Peak 118.19M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.078
+Fra:1 Mem:118.19M (Peak 118.19M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.079
+Fra:1 Mem:118.19M (Peak 118.19M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.079
+Fra:1 Mem:118.19M (Peak 118.19M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.080
+Fra:1 Mem:118.19M (Peak 118.19M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.080
+Fra:1 Mem:118.20M (Peak 118.20M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.100
+Fra:1 Mem:118.20M (Peak 118.20M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.081
+Fra:1 Mem:118.20M (Peak 118.20M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.081
+Fra:1 Mem:118.20M (Peak 118.20M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.100
+Fra:1 Mem:118.21M (Peak 118.21M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.082
+Fra:1 Mem:118.21M (Peak 118.21M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.099
+Fra:1 Mem:118.21M (Peak 118.21M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.082
+Fra:1 Mem:118.21M (Peak 118.21M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.083
+Fra:1 Mem:118.22M (Peak 118.22M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.083
+Fra:1 Mem:118.22M (Peak 118.22M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.084
+Fra:1 Mem:118.22M (Peak 118.22M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.085
+Fra:1 Mem:118.22M (Peak 118.22M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.085
+Fra:1 Mem:118.23M (Peak 118.23M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.086
+Fra:1 Mem:118.23M (Peak 118.23M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.087
+Fra:1 Mem:118.23M (Peak 118.23M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.087
+Fra:1 Mem:118.24M (Peak 118.24M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.088
+Fra:1 Mem:118.24M (Peak 118.24M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.088
+Fra:1 Mem:118.24M (Peak 118.24M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.089
+Fra:1 Mem:118.24M (Peak 118.24M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.090
+Fra:1 Mem:118.25M (Peak 118.25M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.091
+Fra:1 Mem:118.25M (Peak 118.25M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.091
+Fra:1 Mem:118.25M (Peak 118.25M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.092
+Fra:1 Mem:118.26M (Peak 118.26M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.094
+Fra:1 Mem:118.26M (Peak 118.26M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.094
+Fra:1 Mem:118.26M (Peak 118.26M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.098
+Fra:1 Mem:118.26M (Peak 118.26M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.095
+Fra:1 Mem:118.27M (Peak 118.27M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.095
+Fra:1 Mem:118.27M (Peak 118.27M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | burnt well.015
+Fra:1 Mem:118.27M (Peak 118.27M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.096
+Fra:1 Mem:118.27M (Peak 118.27M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.096
+Fra:1 Mem:118.28M (Peak 118.28M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | old rivulet.097
+Fra:1 Mem:118.28M (Peak 118.28M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Wax | hanging tear.097
+Fra:1 Mem:118.30M (Peak 118.30M) | Time:00:00.08 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:69.93M (Peak 118.30M) | Time:00:00.09 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:69.93M (Peak 118.30M) | Time:00:00.09 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:69.93M (Peak 118.30M) | Time:00:00.09 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:69.93M (Peak 118.30M) | Time:00:00.09 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:70.09M (Peak 118.30M) | Time:00:00.09 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:70.09M (Peak 118.30M) | Time:00:00.09 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:70.09M (Peak 118.30M) | Time:00:00.09 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:70.09M (Peak 118.30M) | Time:00:00.09 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:70.09M (Peak 118.30M) | Time:00:00.09 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:70.09M (Peak 118.30M) | Time:00:00.09 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:70.53M (Peak 118.30M) | Time:00:00.09 | Mem:0.51M, Peak:0.51M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:70.53M (Peak 118.30M) | Time:00:00.09 | Mem:0.51M, Peak:0.51M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:70.53M (Peak 118.30M) | Time:00:00.09 | Mem:0.51M, Peak:0.51M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:70.53M (Peak 118.30M) | Time:00:00.09 | Mem:0.51M, Peak:0.51M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:70.53M (Peak 118.30M) | Time:00:00.09 | Mem:0.51M, Peak:0.51M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:71.07M (Peak 118.30M) | Time:00:00.09 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Cube.001 2/8 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Cube.003 4/8 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Cube.007 7/13 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Cube.008 8/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Cube.009 9/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.86M, Peak:0.86M | Scene, ViewLayer | Updating Geometry BVH Cube.010 10/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.89M, Peak:0.89M | Scene, ViewLayer | Updating Geometry BVH Cube.010 10/273 | Building BVH 0%
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.93M, Peak:0.93M | Scene, ViewLayer | Updating Geometry BVH Cylinder.272 273/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.95M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Cube.011 11/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.95M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Icosphere.132 272/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.96M, Peak:0.96M | Scene, ViewLayer | Updating Geometry BVH Cube.012 12/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.97M, Peak:0.97M | Scene, ViewLayer | Updating Geometry BVH Cylinder.271 271/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.98M, Peak:0.98M | Scene, ViewLayer | Updating Geometry BVH Icosphere.131 270/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.98M, Peak:0.98M | Scene, ViewLayer | Updating Geometry BVH Cylinder.270 269/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.98M, Peak:0.98M | Scene, ViewLayer | Updating Geometry BVH Cube.013 13/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.98M, Peak:0.98M | Scene, ViewLayer | Updating Geometry BVH Cube.035 14/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.98M, Peak:0.98M | Scene, ViewLayer | Updating Geometry BVH Cube.033 19/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:0.98M, Peak:0.98M | Scene, ViewLayer | Updating Geometry BVH Cube.034 20/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.05M, Peak:1.05M | Scene, ViewLayer | Updating Geometry BVH Cylinder.269 267/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.05M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH Cylinder.094 23/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH Cylinder.096 24/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH Cylinder.101 26/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.06M, Peak:1.06M | Scene, ViewLayer | Updating Geometry BVH Cylinder.104 27/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.09M, Peak:1.09M | Scene, ViewLayer | Updating Geometry BVH Cylinder.107 28/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.09M, Peak:1.09M | Scene, ViewLayer | Updating Geometry BVH Cylinder.113 30/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH Cylinder.116 31/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.10M, Peak:1.10M | Scene, ViewLayer | Updating Geometry BVH Cylinder.268 265/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH Cylinder.118 32/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.11M, Peak:1.11M | Scene, ViewLayer | Updating Geometry BVH Icosphere.128 264/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.12M, Peak:1.13M | Scene, ViewLayer | Updating Geometry BVH Cylinder.267 263/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.13M, Peak:1.13M | Scene, ViewLayer | Updating Geometry BVH Cylinder.122 34/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cylinder.124 35/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.14M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cylinder.126 36/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Icosphere.127 262/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.15M, Peak:1.15M | Scene, ViewLayer | Updating Geometry BVH Cylinder.128 37/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Geometry BVH Cube.040 40/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.17M, Peak:1.18M | Scene, ViewLayer | Updating Geometry BVH Icosphere.126 260/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.18M, Peak:1.18M | Scene, ViewLayer | Updating Geometry BVH Cylinder.264 259/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.19M, Peak:1.19M | Scene, ViewLayer | Updating Geometry BVH Cube.042 42/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.09 | Mem:1.19M, Peak:1.20M | Scene, ViewLayer | Updating Geometry BVH Cube.044 43/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.20M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cube.046 44/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.21M, Peak:1.21M | Scene, ViewLayer | Updating Geometry BVH Cube.048 45/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.25M, Peak:1.25M | Scene, ViewLayer | Updating Geometry BVH Icosphere.125 258/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.26M, Peak:1.26M | Scene, ViewLayer | Updating Geometry BVH Cube.053 47/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.26M, Peak:1.26M | Scene, ViewLayer | Updating Geometry BVH Cylinder.263 257/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.27M, Peak:1.27M | Scene, ViewLayer | Updating Geometry BVH Cube.057 48/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.28M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Icosphere.124 256/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.29M, Peak:1.29M | Scene, ViewLayer | Updating Geometry BVH Cylinder.262 255/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.30M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Icosphere.123 254/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Cylinder.261 253/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Icosphere.122 252/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Cylinder.260 251/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.001 50/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.004 53/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.31M, Peak:1.31M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.007 56/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.008 57/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.009 58/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.010 59/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Cylinder.258 249/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.32M, Peak:1.32M | Scene, ViewLayer | Updating Geometry BVH Icosphere.120 248/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.33M, Peak:1.33M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.011 60/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.33M, Peak:1.33M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.012 61/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.33M, Peak:1.33M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.014 63/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.33M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.015 64/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.016 65/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.34M, Peak:1.34M | Scene, ViewLayer | Updating Geometry BVH Cylinder.257 247/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.018 67/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH Icosphere.119 246/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.35M, Peak:1.35M | Scene, ViewLayer | Updating Geometry BVH Cylinder.256 245/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.019 68/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.020 69/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.36M, Peak:1.36M | Scene, ViewLayer | Updating Geometry BVH Wax | spilled drop_mesh.021 70/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.37M, Peak:1.37M | Scene, ViewLayer | Updating Geometry BVH Icosphere.118 244/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.38M, Peak:1.38M | Scene, ViewLayer | Updating Geometry BVH Icosphere.033 74/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.38M, Peak:1.38M | Scene, ViewLayer | Updating Geometry BVH Cylinder.255 243/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.38M, Peak:1.38M | Scene, ViewLayer | Updating Geometry BVH Cylinder.155 71/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Icosphere.035 78/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.159 79/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Icosphere.036 80/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Cylinder.160 81/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.39M, Peak:1.39M | Scene, ViewLayer | Updating Geometry BVH Icosphere.037 82/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.40M, Peak:1.40M | Scene, ViewLayer | Updating Geometry BVH Cylinder.162 83/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.40M, Peak:1.40M | Scene, ViewLayer | Updating Geometry BVH Cylinder.164 87/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.40M, Peak:1.40M | Scene, ViewLayer | Updating Geometry BVH Icosphere.117 242/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.41M, Peak:1.41M | Scene, ViewLayer | Updating Geometry BVH Icosphere.040 88/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.41M, Peak:1.41M | Scene, ViewLayer | Updating Geometry BVH Cylinder.165 89/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.41M, Peak:1.41M | Scene, ViewLayer | Updating Geometry BVH Icosphere.041 90/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.41M, Peak:1.41M | Scene, ViewLayer | Updating Geometry BVH Icosphere.042 92/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.41M, Peak:1.41M | Scene, ViewLayer | Updating Geometry BVH Cylinder.167 93/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Cylinder.169 95/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Cylinder.170 97/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.42M, Peak:1.42M | Scene, ViewLayer | Updating Geometry BVH Icosphere.045 98/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Cylinder.171 99/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Cylinder.254 241/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Icosphere.046 100/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Cylinder.172 101/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Icosphere.047 102/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.43M, Peak:1.43M | Scene, ViewLayer | Updating Geometry BVH Cylinder.173 103/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.44M, Peak:1.44M | Scene, ViewLayer | Updating Geometry BVH Icosphere.048 104/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.44M, Peak:1.44M | Scene, ViewLayer | Updating Geometry BVH Cylinder.174 105/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.44M, Peak:1.44M | Scene, ViewLayer | Updating Geometry BVH Icosphere.049 106/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.44M, Peak:1.44M | Scene, ViewLayer | Updating Geometry BVH Cylinder.176 107/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.44M, Peak:1.44M | Scene, ViewLayer | Updating Geometry BVH Icosphere.116 240/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.44M, Peak:1.44M | Scene, ViewLayer | Updating Geometry BVH Icosphere.050 108/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Geometry BVH Cylinder.177 109/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Geometry BVH Icosphere.052 112/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Geometry BVH Cylinder.179 113/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Geometry BVH Icosphere.053 114/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.180 115/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.181 117/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Icosphere.055 118/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.46M, Peak:1.46M | Scene, ViewLayer | Updating Geometry BVH Cylinder.183 119/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Icosphere.056 120/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Cylinder.184 121/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Icosphere.057 122/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Cylinder.185 123/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.47M, Peak:1.47M | Scene, ViewLayer | Updating Geometry BVH Icosphere.058 124/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.47M, Peak:1.48M | Scene, ViewLayer | Updating Geometry BVH Cylinder.186 125/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.48M, Peak:1.48M | Scene, ViewLayer | Updating Geometry BVH Icosphere.059 126/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.48M, Peak:1.48M | Scene, ViewLayer | Updating Geometry BVH Icosphere.060 128/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.48M, Peak:1.48M | Scene, ViewLayer | Updating Geometry BVH Cylinder.188 129/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.48M, Peak:1.48M | Scene, ViewLayer | Updating Geometry BVH Icosphere.061 130/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.48M, Peak:1.48M | Scene, ViewLayer | Updating Geometry BVH Cylinder.253 239/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.49M, Peak:1.49M | Scene, ViewLayer | Updating Geometry BVH Cylinder.190 131/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.49M, Peak:1.49M | Scene, ViewLayer | Updating Geometry BVH Icosphere.062 132/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.49M, Peak:1.49M | Scene, ViewLayer | Updating Geometry BVH Cylinder.191 133/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.49M, Peak:1.49M | Scene, ViewLayer | Updating Geometry BVH Icosphere.063 134/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.49M, Peak:1.49M | Scene, ViewLayer | Updating Geometry BVH Cylinder.192 135/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.49M, Peak:1.49M | Scene, ViewLayer | Updating Geometry BVH Icosphere.115 238/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Geometry BVH Icosphere.064 136/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Geometry BVH Cylinder.251 237/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Geometry BVH Cylinder.193 137/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Geometry BVH Icosphere.065 138/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Geometry BVH Cylinder.194 139/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.50M, Peak:1.50M | Scene, ViewLayer | Updating Geometry BVH Icosphere.066 140/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.51M, Peak:1.51M | Scene, ViewLayer | Updating Geometry BVH Cylinder.195 141/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.51M, Peak:1.51M | Scene, ViewLayer | Updating Geometry BVH Icosphere.067 142/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.51M, Peak:1.51M | Scene, ViewLayer | Updating Geometry BVH Icosphere.114 236/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.52M, Peak:1.52M | Scene, ViewLayer | Updating Geometry BVH Cylinder.199 147/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.52M, Peak:1.52M | Scene, ViewLayer | Updating Geometry BVH Icosphere.070 148/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.52M, Peak:1.52M | Scene, ViewLayer | Updating Geometry BVH Cylinder.200 149/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.52M, Peak:1.52M | Scene, ViewLayer | Updating Geometry BVH Icosphere.071 150/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.52M, Peak:1.52M | Scene, ViewLayer | Updating Geometry BVH Cylinder.201 151/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.53M, Peak:1.53M | Scene, ViewLayer | Updating Geometry BVH Icosphere.073 154/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.53M, Peak:1.53M | Scene, ViewLayer | Updating Geometry BVH Icosphere.074 156/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.54M, Peak:1.54M | Scene, ViewLayer | Updating Geometry BVH Cylinder.206 159/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.54M, Peak:1.54M | Scene, ViewLayer | Updating Geometry BVH Icosphere.076 160/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.54M, Peak:1.54M | Scene, ViewLayer | Updating Geometry BVH Cylinder.207 161/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.55M, Peak:1.55M | Scene, ViewLayer | Updating Geometry BVH Icosphere.077 162/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.55M, Peak:1.55M | Scene, ViewLayer | Updating Geometry BVH Icosphere.078 164/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.55M, Peak:1.55M | Scene, ViewLayer | Updating Geometry BVH Cylinder.209 165/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.55M, Peak:1.55M | Scene, ViewLayer | Updating Geometry BVH Icosphere.079 166/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.55M, Peak:1.55M | Scene, ViewLayer | Updating Geometry BVH Cylinder.211 167/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.55M, Peak:1.56M | Scene, ViewLayer | Updating Geometry BVH Icosphere.080 168/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.56M, Peak:1.56M | Scene, ViewLayer | Updating Geometry BVH Cylinder.212 169/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.56M, Peak:1.56M | Scene, ViewLayer | Updating Geometry BVH Icosphere.081 170/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.56M, Peak:1.56M | Scene, ViewLayer | Updating Geometry BVH Icosphere.113 234/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.57M, Peak:1.57M | Scene, ViewLayer | Updating Geometry BVH Cylinder.214 173/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.57M, Peak:1.57M | Scene, ViewLayer | Updating Geometry BVH Icosphere.083 174/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.57M, Peak:1.57M | Scene, ViewLayer | Updating Geometry BVH Cylinder.216 177/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.57M, Peak:1.57M | Scene, ViewLayer | Updating Geometry BVH Icosphere.086 180/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.57M, Peak:1.57M | Scene, ViewLayer | Updating Geometry BVH Cylinder.219 181/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.58M, Peak:1.58M | Scene, ViewLayer | Updating Geometry BVH Icosphere.087 182/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.58M, Peak:1.58M | Scene, ViewLayer | Updating Geometry BVH Cylinder.220 183/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.58M, Peak:1.58M | Scene, ViewLayer | Updating Geometry BVH Icosphere.088 184/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.58M, Peak:1.58M | Scene, ViewLayer | Updating Geometry BVH Cylinder.249 233/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.58M, Peak:1.58M | Scene, ViewLayer | Updating Geometry BVH Cylinder.221 185/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.59M, Peak:1.59M | Scene, ViewLayer | Updating Geometry BVH Icosphere.089 186/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.59M, Peak:1.59M | Scene, ViewLayer | Updating Geometry BVH Icosphere.090 188/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.59M, Peak:1.59M | Scene, ViewLayer | Updating Geometry BVH Icosphere.091 190/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.59M, Peak:1.59M | Scene, ViewLayer | Updating Geometry BVH Cylinder.225 191/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.60M, Peak:1.60M | Scene, ViewLayer | Updating Geometry BVH Icosphere.092 192/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.60M, Peak:1.60M | Scene, ViewLayer | Updating Geometry BVH Icosphere.093 194/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.61M, Peak:1.61M | Scene, ViewLayer | Updating Geometry BVH Cylinder.228 197/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.61M, Peak:1.61M | Scene, ViewLayer | Updating Geometry BVH Icosphere.095 198/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.61M, Peak:1.61M | Scene, ViewLayer | Updating Geometry BVH Cylinder.229 199/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.62M, Peak:1.62M | Scene, ViewLayer | Updating Geometry BVH Icosphere.096 200/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.62M, Peak:1.62M | Scene, ViewLayer | Updating Geometry BVH Cylinder.230 201/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.62M, Peak:1.62M | Scene, ViewLayer | Updating Geometry BVH Icosphere.097 202/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.62M, Peak:1.62M | Scene, ViewLayer | Updating Geometry BVH Cylinder.233 205/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.62M, Peak:1.63M | Scene, ViewLayer | Updating Geometry BVH Icosphere.099 206/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.63M, Peak:1.63M | Scene, ViewLayer | Updating Geometry BVH Cylinder.234 207/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.63M, Peak:1.63M | Scene, ViewLayer | Updating Geometry BVH Icosphere.101 210/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.63M, Peak:1.63M | Scene, ViewLayer | Updating Geometry BVH Icosphere.102 212/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.64M, Peak:1.64M | Scene, ViewLayer | Updating Geometry BVH Cylinder.237 213/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.64M, Peak:1.64M | Scene, ViewLayer | Updating Geometry BVH Icosphere.103 214/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.65M, Peak:1.65M | Scene, ViewLayer | Updating Geometry BVH Icosphere.104 216/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.65M, Peak:1.65M | Scene, ViewLayer | Updating Geometry BVH Cylinder.240 217/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.65M, Peak:1.65M | Scene, ViewLayer | Updating Geometry BVH Cylinder.241 219/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.65M, Peak:1.65M | Scene, ViewLayer | Updating Geometry BVH Cylinder.242 221/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.65M, Peak:1.65M | Scene, ViewLayer | Updating Geometry BVH Icosphere.107 222/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.65M, Peak:1.65M | Scene, ViewLayer | Updating Geometry BVH Cylinder.243 223/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.66M, Peak:1.66M | Scene, ViewLayer | Updating Geometry BVH Icosphere.108 224/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.66M, Peak:1.66M | Scene, ViewLayer | Updating Geometry BVH Cylinder.244 225/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.66M, Peak:1.66M | Scene, ViewLayer | Updating Geometry BVH Icosphere.109 226/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.66M, Peak:1.66M | Scene, ViewLayer | Updating Geometry BVH Cylinder.247 229/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.67M, Peak:1.67M | Scene, ViewLayer | Updating Geometry BVH Cylinder.246 227/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.67M, Peak:1.67M | Scene, ViewLayer | Updating Geometry BVH Icosphere.110 228/273 | Building BVH
+Fra:1 Mem:70.89M (Peak 118.30M) | Time:00:00.10 | Mem:1.68M, Peak:1.68M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:70.91M (Peak 118.30M) | Time:00:00.10 | Mem:1.68M, Peak:1.68M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:70.91M (Peak 118.30M) | Time:00:00.10 | Mem:4.36M, Peak:5.46M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:70.91M (Peak 118.30M) | Time:00:00.10 | Mem:4.36M, Peak:5.46M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:72.20M (Peak 118.30M) | Time:00:00.10 | Mem:4.36M, Peak:5.46M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:72.20M (Peak 118.30M) | Time:00:00.10 | Mem:5.65M, Peak:5.65M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:72.20M (Peak 118.30M) | Time:00:00.10 | Mem:5.66M, Peak:5.66M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:72.21M (Peak 118.30M) | Time:00:00.10 | Mem:5.67M, Peak:5.67M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:72.21M (Peak 118.30M) | Time:00:00.10 | Mem:5.67M, Peak:5.67M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:72.21M (Peak 118.30M) | Time:00:00.10 | Mem:5.67M, Peak:5.67M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:72.21M (Peak 118.30M) | Time:00:00.10 | Mem:5.75M, Peak:5.75M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:72.21M (Peak 118.30M) | Time:00:00.10 | Mem:5.75M, Peak:5.75M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:72.56M (Peak 118.30M) | Time:00:00.10 | Mem:6.10M, Peak:6.10M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:72.56M (Peak 118.30M) | Time:00:00.10 | Mem:6.10M, Peak:6.10M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:72.57M (Peak 118.30M) | Time:00:00.10 | Mem:6.02M, Peak:6.10M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:72.57M (Peak 118.30M) | Time:00:00.10 | Mem:6.11M, Peak:6.11M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:72.57M (Peak 118.30M) | Time:00:00.10 | Mem:6.11M, Peak:6.11M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:72.60M (Peak 118.30M) | Time:00:00.10 | Mem:6.11M, Peak:6.11M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:72.60M (Peak 118.30M) | Time:00:00.10 | Mem:6.11M, Peak:6.11M | Scene, ViewLayer | Sample 0/128
+Fra:1 Mem:129.58M (Peak 129.58M) | Time:00:01.06 | Remaining:02:01.18 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 1/128
+Fra:1 Mem:129.58M (Peak 129.58M) | Time:00:28.56 | Remaining:01:21.90 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 33/128
+Fra:1 Mem:129.58M (Peak 129.58M) | Time:00:58.10 | Remaining:00:58.00 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 64/128
+Fra:1 Mem:129.58M (Peak 129.58M) | Time:01:10.83 | Remaining:00:42.43 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 80/128
+Fra:1 Mem:129.58M (Peak 129.58M) | Time:01:21.65 | Remaining:00:27.18 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 96/128
+Fra:1 Mem:129.58M (Peak 129.58M) | Time:01:31.60 | Remaining:00:13.07 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 112/128
+Fra:1 Mem:153.51M (Peak 189.40M) | Time:01:42.09 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Sample 128/128
+Fra:1 Mem:153.51M (Peak 189.40M) | Time:01:42.09 | Mem:62.93M, Peak:62.93M | Scene, ViewLayer | Finished
+Fra:1 Mem:91.80M (Peak 189.40M) | Time:01:42.10 | Compositing
+Saved: '/Users/jiayaochen/Desktop/avalon/renders/iterations/final_03_lightcheck.png'
+Time: 01:42.26 (Saving: 00:00.09)
+
+
+Blender quit

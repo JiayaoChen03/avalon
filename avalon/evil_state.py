@@ -3,9 +3,11 @@
 from collections import deque
 from copy import deepcopy
 from dataclasses import dataclass, field
+from functools import cached_property
 import re
 
 from .engine import CARDS, EVIDENCE_KINDS, SOCIAL_EVENTS
+from .joint_beliefs import JointBeliefState, enumerate_hypotheses
 
 
 def bounded(value):
@@ -18,7 +20,6 @@ class EvilSharedState:
     public_trust: dict
     profiles: dict
     public_tags: dict
-    merlin_probabilities: dict
     roles: dict
     pair_suspicion: float = 0.0
     distance_strength: float = 0.0
@@ -41,6 +42,24 @@ class EvilSharedState:
     mission_history: list = field(default_factory=list)
     sabotage_history: list = field(default_factory=list)
     mode_history: list = field(default_factory=list)
+
+    @cached_property
+    def _fallback_role_prior(self):
+        # Compatibility for standalone strategy callers. This is a fixed legal
+        # prior, never a second event-updated or shared agent belief distribution.
+        ids, evil = tuple(self.public_tags), set(self.roles)
+        counts = {"GOOD": len(ids) - 3, "MERLIN": 1, "ASSASSIN": 1, "EVIL": 1}
+        alignments = {r: "EVIL" if r in {"ASSASSIN", "EVIL"} else "GOOD" for r in counts}
+        hypotheses = [h for h in enumerate_hypotheses(ids, counts)
+                      if {p for p, r in h.roles.items() if alignments[r] == "EVIL"} == evil]
+        prior = JointBeliefState(hypotheses, counts, alignments)
+        prior.normalize()
+        return prior
+
+    @property
+    def merlin_probabilities(self):
+        """Deprecated read-only prior projection; live callers supply their beliefs."""
+        return {p: self._fallback_role_prior.P_role(p, "MERLIN") for p in self.public_tags}
 
     @property
     def likely_merlin(self):
@@ -68,7 +87,6 @@ class PublicEvidence:
                                         "evidence_use", "leadership", "support")}
                       for p in self.ids},
             public_tags={p: [] for p in self.ids},
-            merlin_probabilities={p: 0.0 if p in self.evil else 1 / len(self.good) for p in self.ids},
             roles=dict(roles),
         )
         self.events = deque(maxlen=80)
@@ -169,14 +187,6 @@ class PublicEvidence:
         profile = self.state.profiles[pid]
         profile[key] = bounded(.75 * profile[key] + .25 * observed)
 
-    def _merlin(self, factors):
-        probabilities = self.state.merlin_probabilities
-        weights = {p: max(.001, probabilities[p]) * factors.get(p, 1) for p in self.good}
-        total = sum(weights.values())
-        # A small prior mixture prevents a single cue (or repetition) becoming certainty.
-        for pid in self.ids:
-            probabilities[pid] = 0.0 if pid in self.evil else .98 * weights[pid] / total + .02 / len(self.good)
-
     def _narratives(self, *records):
         state = self.state
         for category, targets, seq in records:
@@ -214,9 +224,6 @@ class PublicEvidence:
             state.pair_suspicion = bounded(state.pair_suspicion + .38)
             state.pair_allegation_history.append({"seq": seq, "targets": sorted(self.evil)})
             state.pair_allegation_history = state.pair_allegation_history[-25:]
-        if actor in self.good:
-            factor = (1.18 if aggressive else .88 if card == "DEFEND" else 1) if target in self.evil else 1
-            self._merlin({actor: factor})
         if actor in self.evil and target in self.evil and actor != target:
             if card == "DEFEND":
                 state.partner_defense_history.append({"seq": seq, "actor": actor, "target": target})
@@ -237,15 +244,10 @@ class PublicEvidence:
     def _vote(self, event):
         state, votes = self.state, event["votes"]
         approvals = sum(votes.values())
-        dirty = bool(self.evil.intersection(event["team"]))
-        factors = {}
         for pid, approve in votes.items():
             self._profile(pid, "approval", float(approve))
             if approvals * 2 != len(self.ids):
                 self._profile(pid, "consensus", float(approve == (approvals * 2 > len(self.ids))))
-            if pid in self.good:
-                factors[pid] = (1.22 if not approve else .95) if dirty else (1.1 if approve else .98)
-        self._merlin(factors)
         first, second = sorted(self.evil)
         agree = votes[first] == votes[second]
         state.partner_agreement_streak = state.partner_agreement_streak + 1 if agree else 0
@@ -279,7 +281,6 @@ class PublicEvidence:
                     state.public_suspicion[pid] = bounded(state.public_suspicion[pid] + .025)
                 elif approved and success:
                     state.public_trust[pid] = bounded(state.public_trust[pid] + .02)
-            self._merlin({p: 1.06 for p in self.good if vote["votes"][p] == success})
         if self.evil <= set(team) and not success:
             state.pair_suspicion = bounded(state.pair_suspicion + .17)
         state.mission_history.append(deepcopy(event))

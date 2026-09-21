@@ -21,7 +21,7 @@ class DiscussionTests(unittest.TestCase):
         context = client.contexts[0]
         self.assertEqual(context["memory"], {"beliefs": {}, "profiles": {}})
         self.assertEqual(context["memory_status"], "no_previous_model")
-        self.assertEqual(context["evidence"], [])
+        self.assertEqual(context["agent_memory"]["working_memory"], [])
         self.assertEqual(context["game"]["missions"], [])
 
     def test_later_speakers_receive_actual_earlier_statements(self):
@@ -191,15 +191,16 @@ class DiscussionTests(unittest.TestCase):
         run_game(game, agents, write=output.append, log=log)
         text = "\n".join(output)
         self.assertIn("逆时针", text)
-        self.assertIn("表态：", text)
-        self.assertIn("理由摘要：", text)
+        self.assertIn("手写：", text)
+        self.assertNotIn("理由摘要：", text)
         for event in game.events:
             if event["kind"] in {"SOCIAL", "TEAM", "VOTE", "MISSION"}:
                 self.assertIn(f"[#{event['seq']}] [{event['kind']}]", text)
         self.assertNotIn("chain_of_thought", text)
         for proposal in (e for e in game.events if e["kind"] == "TEAM"):
             same = [e for e in game.events if e["round"] == proposal["round"]
-                    and e["attempt"] == proposal["attempt"] and e["kind"] in {"SOCIAL", "PASS"}]
+                    and e["attempt"] == proposal["attempt"] and e["kind"] in {"SOCIAL", "PASS"}
+                    and e.get("discussion_stage") != "council"]
             start = game.ids.index(proposal["actor"])
             self.assertEqual([e["actor"] for e in same],
                              [game.ids[(start - n) % 6] for n in range(6)])
@@ -207,7 +208,7 @@ class DiscussionTests(unittest.TestCase):
         for pid, agent in agents.items():
             expected = {}
             for event in game.events:
-                if (event["kind"] in {"SOCIAL", "PASS"} or event["kind"] == "TEAM"
+                if (event["kind"] in {"SOCIAL", "PASS", "EXILE_NOMINATION", "EXILE_VOTE"} or event["kind"] == "TEAM"
                         and game.players[pid].role in {"GOOD", "MERLIN"}) and event["actor"] == pid:
                     expected[event["round"]] = expected.get(event["round"], 0) + 1
             self.assertEqual(agent.calls, expected)

@@ -1,0 +1,11 @@
+#!/bin/sh
+# Double-clickable source-project launcher; no Terminal window is opened.
+AVALON_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)
+cd "$AVALON_ROOT/frontend-godot" || exit 1
+for AVALON_GODOT in /Applications/Godot.app/Contents/MacOS/Godot "$HOME/Applications/Godot.app/Contents/MacOS/Godot" "$HOME/Downloads/Godot.app/Contents/MacOS/Godot"; do
+    if [ -x "$AVALON_GODOT" ]; then
+        AVALON_BUNDLE=${AVALON_GODOT%/Contents/MacOS/Godot}
+        exec /usr/bin/open -n "$AVALON_BUNDLE" --args --path "$AVALON_ROOT/frontend-godot" "$AVALON_ROOT/frontend-godot/scenes/main.tscn"
+    fi
+done
+exit 1

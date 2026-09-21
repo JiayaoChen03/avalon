@@ -11,7 +11,7 @@ from avalon.evil_strategy import EvilStrategyManager
 from avalon.llm import LLMError, RESOLVE_PROTOCOL
 from avalon.terminal import Human, format_event, run_game
 from test_agents import FixedClient, SequenceClient, model_response, valid_plan
-from test_engine import fixed_game
+from test_engine import fixed_game, finish_council
 
 
 def social(target="P2"):
@@ -89,6 +89,7 @@ class ResolveRulesTests(unittest.TestCase):
         self.assertEqual(game.resolve["P1"], 0)
         game.vote(dict.fromkeys(game.ids, True))
         game.resolve_mission(dict.fromkeys(game.team, "SUCCESS"))
+        finish_council(game)
         self.assertEqual(game.round, 2)
         self.assertEqual(game.resolve, dict.fromkeys(game.ids, 3))
         self.assertEqual(game.events[-1]["kind"], "RESOLVE_REFRESH")
@@ -281,6 +282,7 @@ class ResolveRulesTests(unittest.TestCase):
             finish_discussion(game)
             game.vote(dict.fromkeys(game.ids, True))
             game.resolve_mission(dict.fromkeys(game.team, "SUCCESS"))
+            finish_council(game)
         self.assertEqual(game.phase, "assassination")
         game.assassinate("P3", "P1")
         self.assertEqual(game.winner, "GOOD")
@@ -296,6 +298,8 @@ class ResolveControllerTests(unittest.TestCase):
                 self.contexts.append(deepcopy(context))
                 view = context["game"]
                 plan = model_response(context)
+                if context.get("decision") in {"exile_nomination", "exile_vote"}:
+                    return plan
                 if context.get("decision") == "window":
                     kind = "RESPOND" if view["phase"] == "challenge" else "REACT"
                     return {"action": {"kind": kind, "social": plan["social"]}}
@@ -445,9 +449,16 @@ class ResolveControllerTests(unittest.TestCase):
         b.observe({**base, "committed": True, "resolve_cost": 2})
         self.assertEqual(a.memory, b.memory)
         before = deepcopy(b.memory)
-        for seq, kind in enumerate(("CITE", "PASS", "HOLD", "CHALLENGE", "VOTE"), 2):
+        for seq, kind in enumerate(("CITE", "PASS", "HOLD"), 2):
             b.observe({"seq": seq, "round": 1, "kind": kind, "actor": "P2", "strong": True, "resolve_cost": 1})
         self.assertEqual(b.memory, before)
+        # Real challenge/vote behavior has a conservative likelihood, but an
+        # extra Resolve point/commitment cannot amplify the same behavior.
+        for event in ({"seq": 5, "round": 1, "kind": "CHALLENGE", "actor": "P2", "target": "P4", "evidence": 1},
+                      {"seq": 6, "round": 1, "kind": "VOTE", "actor": "P2", "team": ["P3", "P4"], "approve": False}):
+            a.observe({**event, "strong": False, "resolve_cost": 0})
+            b.observe({**event, "strong": True, "resolve_cost": 1})
+        self.assertEqual(a.memory["beliefs"], b.memory["beliefs"])
 
     def test_window_requests_are_fresh_cached_per_trigger_and_preserve_main_policy(self):
         game = fixed_game()

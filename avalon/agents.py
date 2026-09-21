@@ -1,14 +1,16 @@
 """Independent private state and LLM policies refreshed for each speaking turn."""
 
-from collections import deque
 from copy import deepcopy
 import math
 import re
 import time
 
-from .engine import (DISCUSSION_ACTIONS, EVIDENCE_KINDS, EVIL_ROLES, RESOLVE_COSTS,
-                     SOCIAL_EVENTS, validate_action, validate_social)
+from .engine import (DISCUSSION_ACTIONS, EVIDENCE_KINDS, EVIL_ROLES, EXILE_CHOICES, RESOLVE_COSTS,
+                     SOCIAL_EVENTS, public_social_text, validate_action, validate_social)
+from .chronicle import context_record
+from .cognition import BeliefEngine
 from .llm import LLMError
+from .memory import AgentMemory, bounded_game_view
 
 
 PROFILE_FIELDS = {"aggression", "retaliation", "approval", "consensus"}
@@ -37,8 +39,8 @@ _TACTICAL_DISCLOSURE = re.compile(
 
 def _guard_public_speech(action):
     """Retry disclosures; only validated, model-authored dialogue may be published."""
-    for field in ("statement", "rationale"):
-        if _PRIVATE_DISCLOSURE.search(action[field]):
+    for text in public_social_text(action):
+        if _PRIVATE_DISCLOSURE.search(text):
             raise LLMError("private_disclosure")
 
 
@@ -73,7 +75,7 @@ def validate_plan(raw, ids, public_events=None):
             or raw["mission"] not in ("SUCCESS", "FAIL")):
         raise ValueError("Invalid policy")
     plan = deepcopy(raw)
-    plan["social"] = _validate_public_social(plan["social"], ids, public_events)
+    plan["social"] = _validate_planned_social(plan, ids, public_events)
     _validate_resource_policy(plan, ids, public_events)
     return plan
 
@@ -115,16 +117,26 @@ def _validate_public_social(raw, ids, public_events):
     return social
 
 
+def _validate_planned_social(plan, ids, public_events):
+    discussion = plan.get("discussion")
+    if (plan["social"] is None and isinstance(discussion, dict)
+            and discussion.get("kind") in {"PASS", "CITE", "CHALLENGE", "HOLD"}):
+        return None
+    return _validate_public_social(plan["social"], ids, public_events)
+
+
 def validate_performance(raw, ids, public_events, tactical):
     """Managed evil may express a tactic, never overwrite strategic state."""
     # Some providers flatten the single social object. Restore only its envelope;
     # every value still goes through the same action, evidence and privacy checks.
-    if isinstance(raw, dict) and set(raw) == {"card", "target", "reason", "statement", "rationale", "evidence"}:
+    if isinstance(raw, dict) and set(raw) in ({"card", "target", "reason", "statement", "rationale", "evidence"},
+                                            {"card", "target", "reason", "public_writing", "citations"}):
         raw = {"social": raw}
     if not isinstance(raw, dict) or set(raw) not in ({"social"}, {"social", "discussion", "revision", "strong_vote"}):
         raise ValueError("Invalid performance keys")
-    social = _validate_public_social(raw["social"], ids, public_events)
-    if social["target"] != tactical["primary_target"] or social["card"] not in tactical["allowed_cards"]:
+    social = _validate_planned_social(raw, ids, public_events)
+    if social is not None and (social["target"] != tactical["primary_target"]
+                               or social["card"] not in tactical["allowed_cards"]):
         raise ValueError("Social action does not implement the assigned tactic")
     private_labels = [tactical.get(key) for key in
                       ("strategy_mode", "primary_objective", "secondary_objective", "role", "agenda_topic")]
@@ -135,9 +147,9 @@ def validate_performance(raw, ids, public_events, tactical):
     private_patterns = [re.compile(r"[\s_-]+".join(re.escape(part) for part in re.split(r"[\s_-]+", label.strip())),
                                    re.IGNORECASE)
                         for label in private_labels if isinstance(label, str) and label.strip()]
-    for field in ("statement", "rationale"):
-        if (_PRIVATE_DISCLOSURE.search(social[field]) or _TACTICAL_DISCLOSURE.search(social[field])
-                or any(pattern.search(social[field]) for pattern in private_patterns)):
+    for text in public_social_text(social):
+        if (_PRIVATE_DISCLOSURE.search(text) or _TACTICAL_DISCLOSURE.search(text)
+                or any(pattern.search(text) for pattern in private_patterns)):
             raise LLMError("private_disclosure")
     result = {**deepcopy(raw), "social": social, "strategy": tactical["strategy_mode"]}
     _validate_resource_policy(result, ids, public_events)
@@ -145,14 +157,16 @@ def validate_performance(raw, ids, public_events, tactical):
 
 
 class Agent:
-    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0, evil_strategy=None):
+    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0, evil_strategy=None, chronicle=None):
         self.id, self.role = view["self"], view["role"]
         self.ids = [p["id"] for p in view["players"]]
         self.known_evil = set(view["known_evil"])
         self.client = client
         self.max_retries, self.retry_delay = max_retries, retry_delay
+        self.cognition = BeliefEngine(view)
+        self.state = self.cognition.state
         self.memory = {
-            "beliefs": {p: {"evil": 2 / (len(self.ids) - 1), "merlin": 0.1} for p in self.ids},
+            "beliefs": self.cognition.marginals(),
             "profiles": {p: {key: 0.5 for key in sorted(PROFILE_FIELDS)} for p in self.ids},
         }
         self.plan = None
@@ -160,7 +174,9 @@ class Agent:
         self.window_plans = {}
         self.seen_seq = 0
         self.attacks = {}
-        self.evidence = deque(maxlen=6)
+        self.long_term = AgentMemory(self.id, self.ids)
+        self.evidence = self.long_term.working  # The existing recent-evidence window is Working Memory.
+        self.chronicle = chronicle
         self.snapshots = []
         self.last_discussion = None
         self.evil_strategy = None
@@ -182,20 +198,114 @@ class Agent:
         if view["self"] != self.id or view["role"] != self.role:
             raise ValueError("An agent can only receive its own view")
         self._view = deepcopy(view)
+        self.cognition.sync_view(view)
+        self._lock_facts()
+
+    def bind_chronicle(self, reader):
+        self.chronicle = reader
+
+    def _context(self, view, *, tactical=None, window=False):
+        self.update_view(view)
+        # A reader can replay missed public observations without exposing the host.
+        events = (self.chronicle.observations_since(self.seen_seq) if self.chronicle is not None
+                  else view.get("recent_events", []))
+        for event in events:
+            self.observe(event)
+        if self.evil_strategy is not None:
+            phase = (("council_discussion" if view.get("discussion_stage") == "council" else "discussion")
+                     if view["phase"] in {"challenge", "reaction"} else view["phase"])
+            tactical = self.evil_strategy.tactical_context(view, phase=phase, joint_beliefs=self.cognition.beliefs).to_dict()
+            self.tactical = deepcopy(tactical)
+        context = {"game": bounded_game_view(view), "agent_memory": self.long_term.snapshot()}
+        context.update(self.cognition.prompt_state(), legal_actions=deepcopy(view["legal_options"]),
+                       current_resolve=view["resolve"][self.id])
+        if window:
+            context["decision"] = "window"
+        if tactical is not None:
+            context["tactical"] = deepcopy(tactical)
+            context["strategic_objective"] = tactical["primary_objective"]
+            context["tactical"]["relevant_public_events"] = [context_record(e) for e in
+                                                            tactical["relevant_public_events"][-5:]]
+            target = tactical["primary_target"]
+        else:
+            has_history = bool(self.plans or self.long_term.lives)
+            context.update(memory=deepcopy(self.memory) if has_history else {"beliefs": {}, "profiles": {}},
+                           memory_status="code_derived_estimates" if has_history else "no_previous_model")
+            # A previous-life relationship is a retrieval cue, never a forced target/action.
+            target = (self.long_term.scars[0]["source_character"] if self.long_term.scars else
+                      max(self.long_term.relationships, key=lambda pid: abs(self.long_term.relationships[pid]["trust"])))
+        refs = self.long_term.retrieval_hints(target)
+        for e in view.get("focused_events", []) + view.get("recent_events", [])[-3:]:
+            refs += e.get("citations", [])
+        context["retrieved_chronicle"] = (self.chronicle.search_records(target=target, record_ids=refs)
+                                          if self.chronicle is not None else [])
+        context["pending_language_observations"] = self.cognition.pending_language(self._public_context(context))
+        context["language_interpretation_complete"] = not bool(context["pending_language_observations"])
+        return context
+
+    @staticmethod
+    def _public_context(context):
+        return (context["game"]["recent_events"] + context["game"].get("focused_events", [])
+                + context["agent_memory"]["working_memory"] + context.get("retrieved_chronicle", [])
+                + context.get("tactical", {}).get("relevant_public_events", [])
+                + [{"seq": o["seq"], "round": o["round"], "attempt": o["proposal"],
+                    "actor": o["actor"], "target": o["target"], **o["payload"]}
+                   for o in context.get("observations", [])])
+
+    def _complete(self, context, round_no):
+        # At most one retrieval, one semantic pass and one final action. Legacy
+        # clients can still return actions directly, without inventing evidence.
+        for _ in range(3):
+            self.calls[round_no] = self.calls.get(round_no, 0) + 1
+            raw = self.client.complete(deepcopy(context))
+            if isinstance(raw, dict) and set(raw) == {"memory_query"}:
+                queries = raw["memory_query"]
+                if (context.get("retrieval_complete") or context.get("semantic_pass_complete")
+                        or not isinstance(queries, list) or not 1 <= len(queries) <= 2
+                        or any(not isinstance(q, str) or not q.strip() or len(q) > 120 or not q.isprintable() for q in queries)):
+                    raise ValueError("Invalid memory query")
+                batches = []
+                if self.chronicle is not None:
+                    for query in queries:
+                        batches.append(self.chronicle.search_records(query))
+                records = [batch[i] for i in range(5) for batch in batches if i < len(batch)]
+                context["retrieved_chronicle"] = list({e["record_id"]: e for e in records}.values())[:5]
+                context["retrieval_complete"] = True
+                context["pending_language_observations"] = self.cognition.pending_language(self._public_context(context))
+                context["language_interpretation_complete"] = not bool(context["pending_language_observations"])
+                continue
+            if isinstance(raw, dict) and set(raw) == {"language_evidence"}:
+                if context.get("language_interpretation_complete") or not isinstance(raw["language_evidence"], list):
+                    raise ValueError("Invalid language evidence")
+                public_events = self._public_context(context)
+                reviewed = [o["event_id"] for o in context["pending_language_observations"]]
+                self.cognition.review_language(raw["language_evidence"], public_events, round_no, reviewed)
+                self._lock_facts()
+                context.update(self.cognition.prompt_state())
+                if self.evil_strategy is not None and "tactical" in context:
+                    phase = (("council_discussion" if self._view.get("discussion_stage") == "council" else "discussion")
+                             if self._view["phase"] in {"challenge", "reaction"} else self._view["phase"])
+                    self.tactical = self.evil_strategy.tactical_context(self._view, phase=phase,
+                        joint_beliefs=self.cognition.beliefs).to_dict()
+                    context["tactical"] = deepcopy(self.tactical)
+                    context["strategic_objective"] = self.tactical["primary_objective"]
+                    context["tactical"]["relevant_public_events"] = [context_record(e) for e in
+                        self.tactical["relevant_public_events"][-5:]]
+                if "memory" in context:
+                    context["memory"]["beliefs"] = deepcopy(self.memory["beliefs"])
+                    context["memory_status"] = "code_derived_estimates"
+                context["pending_language_observations"] = []
+                context["language_interpretation_complete"] = True
+                context["semantic_pass_complete"] = True
+                continue
+            if isinstance(raw, dict) and "memory_query" in raw:
+                raise ValueError("Invalid memory query")
+            return raw
+        raise ValueError("Invalid cognition response")
 
     def _lock_facts(self):
-        for pid, belief in self.memory["beliefs"].items():
-            belief["evil"] = max(0.0, min(1.0, belief["evil"]))
-            if pid in self.known_evil:
-                belief["evil"], belief["merlin"] = 1.0, 0.0
-            elif self.known_evil:
-                belief["evil"] = 0.0
-            if self.role == "MERLIN":
-                belief["merlin"] = float(pid == self.id)
-            if pid == self.id:
-                belief["evil"] = float(self.role in EVIL_ROLES)
-                belief["merlin"] = float(self.role == "MERLIN")
-            belief["merlin"] = max(0.0, min(1 - belief["evil"], belief["merlin"]))
+        # Compatibility with vote/dossier consumers; never a second source of beliefs.
+        self.memory["beliefs"] = self.cognition.marginals()
 
     def prepare(self, view, on_retry=None):
         """Retry recoverable failures in place; publish/cache only a validated plan."""
@@ -208,37 +318,35 @@ class Agent:
         self.plan = None
         if self.client is None:
             raise LLMError("missing_configuration")
+        context = self._context(view)
         if self.evil_strategy is not None:
-            self.tactical = self.evil_strategy.tactical_context(view).to_dict()
-            context = {"game": deepcopy(view), "tactical": deepcopy(self.tactical)}
             if view["phase"] == "team":
                 context["planned_action"] = {"team": self.evil_strategy.choose_team(view)}
             elif view["phase"] == "discussion" and view["leader"] == self.id:
                 context["planned_action"] = {"team": list(view["team"])}
-            public_events = view["recent_events"] + view.get("focused_events", []) + self.tactical["relevant_public_events"]
-        else:
-            has_model_history = bool(self.plans)
-            context = {"game": deepcopy(view),
-                       "memory": deepcopy(self.memory) if has_model_history else {"beliefs": {}, "profiles": {}},
-                       "memory_status": "model_estimates" if has_model_history else "no_previous_model",
-                       "evidence": deepcopy(list(self.evidence))}
-            public_events = view["recent_events"] + view.get("focused_events", []) + list(self.evidence)
         for attempt in range(self.max_retries + 1):
-            self.calls[round_no] = self.calls.get(round_no, 0) + 1
             try:
-                raw = self.client.complete(deepcopy(context))
+                raw = self._complete(context, round_no)
+                public_events = self._public_context(context)
+                raw, cognition = self.cognition.unwrap_response(raw, public_events)
                 if self.evil_strategy is not None:
                     plan = validate_performance(raw, self.ids, public_events, self.tactical)
                 else:
+                    if cognition is not None:
+                        if "beliefs" in raw or "profiles" in raw:
+                            raise ValueError("Invalid cognition response")
+                        raw = {**raw, "beliefs": self.cognition.marginals(),
+                               "profiles": deepcopy(self.memory["profiles"])}
                     plan = validate_plan(raw, self.ids, public_events)
                     _guard_public_speech(plan["social"])
-                if view["phase"] == "discussion" and "discussion" in plan:
+                self.cognition.validate_stance_intent(cognition, _discussion_action(plan), view["phase"])
+                if view["phase"] in {"discussion", "council_discussion"} and "discussion" in plan:
                     action = _discussion_action(plan)
                     if (RESOLVE_COSTS[action["kind"]] > view["resolve"][self.id]
                             or action["kind"] == "CHALLENGE" and action["target"] == self.id):
                         raise ValueError("Invalid resource action")
                     revision = plan["revision"]
-                    if revision["kind"] == "REVISE" and (self.id != view["leader"]
+                    if revision["kind"] == "REVISE" and (view["phase"] == "council_discussion" or self.id != view["leader"]
                             or revision["removed"] not in view["team"] or revision["added"] in view["team"]):
                         raise ValueError("Invalid resource action")
             except (LLMError, ValueError, TypeError) as cause:
@@ -253,11 +361,12 @@ class Agent:
                 time.sleep(delay)
             else:
                 break
-        if self.evil_strategy is None:
-            self.memory = {key: deepcopy(plan[key]) for key in ("beliefs", "profiles")}
+        self.cognition.commit_response(cognition, public_events, round_no)
         self._lock_facts()
         self.plan = plan
         self.plans[turn] = deepcopy(plan)
+        while len(self.plans) > 12:
+            del self.plans[next(iter(self.plans))]
         self.sources[round_no] = "llm"
         return "llm"
 
@@ -265,6 +374,7 @@ class Agent:
         """Update from public facts only; repeated delivery is harmless."""
         if event["seq"] <= self.seen_seq:
             return
+        self.cognition.observe(event)
         self.seen_seq = event["seq"]
         kind = event["kind"]
         if kind in {"SOCIAL", "PASS", "CHALLENGE", "CITE", "HOLD"} and event.get("actor") == self.id:
@@ -283,31 +393,19 @@ class Agent:
                 update(actor, "retaliation", float(aggressive and target == attacker))
             if card in {"ACCUSE", "PRESSURE", "BAIT"} and actor != target:
                 self.attacks[target] = actor
-            delta = {"ACCUSE": 0.06, "DEFEND": -0.035, "HEDGE": 0.01}.get(card, 0)
-            beliefs[target]["evil"] += delta * (1 - beliefs[actor]["evil"])
-            self.evidence.append(deepcopy(event))
         elif kind == "TEAM_VOTE":
             votes = event["votes"]
             approvals = sum(votes.values())
-            risk = sum(beliefs[p]["evil"] for p in event["team"]) / len(event["team"])
             for pid, approved in votes.items():
                 update(pid, "approval", float(approved))
                 if approvals * 2 != len(self.ids):
                     update(pid, "consensus", float(approved == (approvals * 2 > len(self.ids))))
-                # Evil knows which teams contain evil; consistent avoidance is a Merlin clue.
-                if self.role in EVIL_ROLES and pid not in self.known_evil:
-                    dirty = bool(set(event["team"]) & self.known_evil)
-                    beliefs[pid]["merlin"] += 0.06 if approved != dirty else -0.025
-                elif risk > 0.6 and approved:
-                    beliefs[pid]["evil"] += 0.02
-        elif kind == "MISSION":
-            for pid in event["team"]:
-                beliefs[pid]["evil"] += -0.09 if event["success"] else 0.25 / len(event["team"])
-            self.evidence.append({k: event[k] for k in ("seq", "round", "kind", "team", "success", "fail_count")})
-        elif kind in {"PASS", "CITE", "CHALLENGE", "CHALLENGE_RESPONSE", "HOLD", "TEAM_REVISE", "VOTE"}:
-            # Visibility is evidence; spending/commitment never applies a belief bonus.
-            self.evidence.append(deepcopy(event))
         self._lock_facts()
+        self.long_term.observe(event, self.memory["beliefs"])
+        if kind == "REBIRTH" and event.get("target") == self.id:
+            self.plans.clear()
+            self.window_plans.clear()
+            self.attacks.clear()
 
     def choose_team(self, size, attempt=1):
         if self.evil_strategy is not None:
@@ -346,30 +444,22 @@ class Agent:
             return deepcopy(self.window_plans[key])
         if self.client is None:
             raise LLMError("missing_configuration")
-        context = {"game": deepcopy(view), "decision": "window"}
-        events = view["recent_events"] + view.get("focused_events", [])
-        if self.evil_strategy is not None:
-            tactic = self.evil_strategy.tactical_context(view, phase="discussion").to_dict()
-            context["tactical"] = tactic
-            events += tactic["relevant_public_events"]
-        else:
-            context["memory"] = deepcopy(self.memory) if self.plans else {"beliefs": {}, "profiles": {}}
-            context["memory_status"] = "model_estimates" if self.plans else "no_previous_model"
-            context["evidence"] = deepcopy(list(self.evidence))
-            events += list(self.evidence)
+        context = self._context(view, window=True)
         for attempt in range(self.max_retries + 1):
-            self.calls[view["round"]] = self.calls.get(view["round"], 0) + 1
             try:
-                raw = self.client.complete(deepcopy(context))
+                raw = self._complete(context, view["round"])
+                events = self._public_context(context)
+                raw, cognition = self.cognition.unwrap_response(raw, events)
                 if not isinstance(raw, dict) or set(raw) != {"action"}:
                     raise ValueError("Invalid resource action")
                 action = raw["action"]
                 validate_action(action, self.ids, events, require_statement=True)
                 if action["kind"] not in allowed:
                     raise ValueError("Invalid resource action")
+                self.cognition.validate_stance_intent(cognition, action, view["phase"])
                 if "social" in action:
                     if self.evil_strategy is not None:
-                        validate_performance({"social": action["social"]}, self.ids, events, tactic)
+                        validate_performance({"social": action["social"]}, self.ids, events, context["tactical"])
                     else:
                         _guard_public_speech(action["social"])
             except (LLMError, ValueError, TypeError) as cause:
@@ -383,8 +473,58 @@ class Agent:
                     on_retry(error, attempt + 1, delay)
                 time.sleep(delay)
             else:
+                self.cognition.commit_response(cognition, events, view["round"])
+                self._lock_facts()
                 self.window_plans[key] = deepcopy(action)
+                while len(self.window_plans) > 12:
+                    del self.window_plans[next(iter(self.window_plans))]
                 return deepcopy(action)
+
+    def council_decision(self, on_retry=None):
+        """Fresh, sealed nomination/ballot decisions with the same bounded memory."""
+        view = self._view
+        phase = view["phase"]
+        if phase not in {"exile_nomination", "exile_vote"} or (
+                phase == "exile_nomination" and view["next_actor"] != self.id):
+            raise ValueError("No council decision opportunity")
+        key = (view["round"], view["attempt"], phase, view["exile_nominee"])
+        if key in self.window_plans:
+            return deepcopy(self.window_plans[key])
+        if self.client is None:
+            raise LLMError("missing_configuration")
+        context = self._context(view)
+        context["decision"] = phase
+        for attempt in range(self.max_retries + 1):
+            try:
+                raw = self._complete(context, view["round"])
+                events = self._public_context(context)
+                raw, cognition = self.cognition.unwrap_response(raw, events)
+                if phase == "exile_nomination":
+                    valid = (isinstance(raw, dict) and set(raw) == {"target"}
+                             and isinstance(raw["target"], str) and raw["target"] in view["exile_candidates"])
+                else:
+                    valid = (isinstance(raw, dict) and set(raw) == {"choice"}
+                             and isinstance(raw["choice"], str) and raw["choice"] in EXILE_CHOICES)
+                if not valid:
+                    raise ValueError("Invalid council decision")
+                self.cognition.validate_stance_intent(cognition, {}, phase)
+            except (LLMError, ValueError, TypeError) as cause:
+                error = cause if isinstance(cause, LLMError) else LLMError("invalid_plan", validation_reason=str(cause))
+                if not error.retryable or attempt == self.max_retries:
+                    raise error from None
+                if error.retry_feedback is not None:
+                    context["validation_feedback"] = error.retry_feedback
+                delay = min(self.retry_delay * 2 ** attempt, 30.0)
+                if on_retry is not None:
+                    on_retry(error, attempt + 1, delay)
+                time.sleep(delay)
+            else:
+                self.cognition.commit_response(cognition, events, view["round"])
+                self._lock_facts()
+                self.window_plans[key] = deepcopy(raw)
+                while len(self.window_plans) > 12:
+                    del self.window_plans[next(iter(self.window_plans))]
+                return deepcopy(raw)
 
     def vote(self, team, attempt):
         if self.evil_strategy is not None:
@@ -394,7 +534,8 @@ class Agent:
         if self.role in EVIL_ROLES:
             risk = 0.0 if set(team) & self.known_evil else 1.0
         else:
-            risk = sum(self.memory["beliefs"][p]["evil"] for p in team) / len(team)
+            risk = min(1.0, sum(w["weight"] for w in self.cognition.worlds
+                                if set(team) & set(w["evil_team"])))
         return risk <= self.plan["vote_threshold"]
 
     def mission(self, external_cards=None):
@@ -404,11 +545,10 @@ class Agent:
 
     def assassinate(self):
         if self.evil_strategy is not None:
-            return self.evil_strategy.assassinate(self._view)
+            return self.evil_strategy.assassinate(self._view, joint_beliefs=self.cognition.beliefs)
         rank = self.plan["assassin_rank"]
         candidates = [p for p in rank if p not in self.known_evil and p != self.id]
-        return max(candidates, key=lambda p: self.memory["beliefs"][p]["merlin"]
-                   - 0.04 * rank.index(p))
+        return max(candidates, key=lambda p: (self.cognition.P_role(p, "MERLIN"), -rank.index(p)))
 
     def record_snapshot(self, round_no, human_id="P1"):
         self.snapshots.append({"round": round_no,
@@ -421,3 +561,7 @@ class Agent:
     def dossier(self):
         return {"agent": self.id, "snapshots": deepcopy(self.snapshots),
                 "calls_by_round": dict(self.calls), "sources": dict(self.sources)}
+
+    def cognition_debug_view(self):
+        """Developer-only detached snapshot. Never used to build model context."""
+        return self.cognition.debug_snapshot()
