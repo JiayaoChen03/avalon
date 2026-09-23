@@ -1,4 +1,6 @@
 /** DOM control surface for the authoritative Avalon browser session. */
+import { advanceLabel, resultPresentation } from './gameFlow.js';
+
 const ACTION_CARD_DEFS = Object.freeze({
   '侦察': { card: 'HEDGE', reason: 'observe', description: '留下保留判断的公开手稿，观察目标的后续行动。' },
   '劝说': { card: 'DEFEND', reason: 'support', description: '公开支持目标，形成一条可追溯的站队记录。' },
@@ -31,7 +33,7 @@ export function mountGameControls(client, game = {}) {
     '<section class="game-status" aria-live="polite"><span class="game-title">AVALON · 围桌手稿</span><span class="game-connection"></span><span class="game-phase"></span><span class="game-prompt"></span></section>',
     '<section class="game-panel" aria-label="任务与行动会话"><div class="panel-heading"><span>任务 · 行动</span><button class="panel-private" type="button">身份</button></div><div class="mission-summary" aria-live="polite" hidden><div class="mission-line"><strong class="mission-round"></strong><span class="mission-stage"></span></div><div class="mission-detail"></div><div class="mission-progress" aria-label="任务轮次进度"></div></div><div class="panel-section-label">当前行动</div><div class="game-action"></div><div class="game-ai"></div><div class="game-error" role="alert"></div></section>',
     '<section class="game-log" aria-label="公开记录"><button class="log-card" type="button" aria-haspopup="dialog" aria-controls="public-records-dialog" aria-expanded="false"><img class="log-card-art" src="/assets/cards/question.jpeg" alt="" draggable="false"><span class="log-card-copy"><span class="log-card-title">公开记录</span><span class="log-card-subtitle">PUBLIC RECORD</span><span class="log-card-preview">暂无公开内容</span><span class="log-card-hint">点击展开</span><span class="log-card-count">暂无记录</span></span></button></section>',
-    '<dialog id="public-records-dialog" class="log-dialog" aria-label="公开记录详情"><form method="dialog"><button class="log-dialog-close" value="close" aria-label="关闭公开记录">×</button><h2>公开记录</h2><div class="log-dialog-list"></div></form></dialog>',
+    '<dialog id="public-records-dialog" class="log-dialog" aria-label="公开记录详情"><form method="dialog"><button class="log-dialog-close" value="close" aria-label="关闭公开记录">×</button><h2>公开记录</h2><div class="log-dialog-list" role="region" aria-label="公开记录列表" tabindex="0"></div></form></dialog>',
     '<section class="card-action-inline" aria-label="卡牌行动选项" hidden><div class="card-action-inline-head"><h2 class="card-action-title">行动卡</h2><button class="card-action-close" type="button" aria-label="收起行动卡">×</button></div><p class="card-action-description"></p><div class="card-action-body"></div><div class="card-action-error" role="alert"></div></section>',
     '<dialog class="game-private"><form method="dialog"><button class="dialog-close" value="close" aria-label="关闭">×</button><h2>你的身份</h2><div class="private-body"></div></form></dialog>',
   ].join('');
@@ -61,7 +63,10 @@ export function mountGameControls(client, game = {}) {
   const privateBody = root.querySelector('.private-body');
   root.querySelector('.panel-private').addEventListener('click', () => privateDialog.showModal());
   logCard.addEventListener('click', () => {
-    if (!logDialog.open) logDialog.showModal();
+    if (!logDialog.open) {
+      logDialog.showModal();
+      log.scrollTop = log.scrollHeight;
+    }
     logCard.setAttribute('aria-expanded', 'true');
   });
   root.querySelector('.log-dialog-close').addEventListener('click', (e) => {
@@ -286,10 +291,12 @@ export function mountGameControls(client, game = {}) {
     const wrap = document.createElement('div'); wrap.className = 'start-card';
     const live = snapshot.mode === 'live';
     const v5 = live && snapshot.merlinVotePolicy === 'v5';
+    const engaged = live && snapshot.discussionPolicy === 'engaged_v1';
     const copy = document.createElement('p');
-    copy.textContent = v5 ? '已选择真实 API 与 V5 梅林投票实验策略；开始游戏时读取当前模型配置。'
+    copy.textContent = (v5 ? '已选择真实 API 与 V5 梅林投票实验策略；开始游戏时读取当前模型配置。'
       : live ? '已选择真实 API；开始游戏时读取当前模型配置。'
-        : '后端规则已接通。当前为离线联调，不调用外部模型。';
+        : '后端规则已接通。当前为离线联调，不调用外部模型。')
+      + (engaged ? ' AI 会积极参与讨论。' : '');
     const count = select('人数', ['5', '6'], '6');
     const seed = document.createElement('input'); seed.type = 'number'; seed.value = '20260922'; seed.className = 'seed-input'; seed.setAttribute('aria-label', '随机种子');
     wrap.append(copy, count.wrap, seed, button(live ? '开始游戏' : '开始离线联调', () => client.command('start', { players: Number(count.input.value), seed: Number(seed.value) }), { className: 'primary' }));
@@ -361,7 +368,7 @@ export function mountGameControls(client, game = {}) {
     const teamSize = Number(state.team_size) || rule.required;
     missionSummary.hidden = false;
     missionRound.textContent = `任务 ${round} / ${MISSION_RULES.length}`;
-    missionStage.textContent = state.phase === 'GAME_OVER' ? '本局结束' : `第 ${round} 轮`;
+    missionStage.textContent = state.phase === 'GAME_OVER' ? '本局结束' : `第 ${Number(state.proposal_attempt) || 1} 次提案`;
     missionDetail.textContent = `需要成员：${teamSize} 人 · 失败条件：${rule.failVotes} 张失败票`;
     missionProgress.replaceChildren(...MISSION_RULES.map((item, index) => {
       const step = document.createElement('span');
@@ -387,16 +394,27 @@ export function mountGameControls(client, game = {}) {
   }
   function renderGate(state) {
     if (state.phase === 'ROLE_REVEAL') panel.appendChild(button('查看公开桌面', () => client.command('continue'), { className: 'primary' }));
-    else if (['VOTE_RESULT', 'ROUND_RESULT', 'EXILE_RESULT'].includes(state.phase)) panel.appendChild(button('继续', () => client.command('continue'), { className: 'primary' }));
+    else if (resultPresentation(state)) {
+      const result = resultPresentation(state);
+      const summary = document.createElement('strong');
+      summary.className = 'gate-summary';
+      summary.textContent = result.summary;
+      const detail = document.createElement('p');
+      detail.className = 'gate-detail';
+      detail.textContent = result.detail;
+      panel.append(summary, detail, button(result.label, () => client.command('continue'), { className: 'primary' }));
+    }
     else if (state.phase === 'GAME_OVER') panel.appendChild(button('重新开始', () => resetGame(state), { className: 'primary' }));
   }
   function render(snapshot) {
     const state = snapshot.state;
     if (activeCardName && (!state || !game.isActionCardEnabled(activeCardName))) closeCardAction();
     root.classList.toggle('offline', snapshot.mode === 'offline');
-    connection.textContent = !snapshot.connected ? '后端未连接'
+    const connectionLabel = !snapshot.connected ? '后端未连接'
       : snapshot.mode === 'offline' ? '离线联调'
         : snapshot.merlinVotePolicy === 'v5' ? '真实 API · V5（实验）' : '真实 API · 基线';
+    connection.textContent = connectionLabel + (snapshot.connected && snapshot.mode === 'live'
+      && snapshot.discussionPolicy === 'engaged_v1' ? ' · 积极发言' : '');
     connection.className = 'game-connection ' + (snapshot.connected ? 'ok' : 'bad');
     phase.textContent = state ? state.phase + (state.mission_round ? ' · 第 ' + state.mission_round + ' 轮' : '') : '';
     prompt.textContent = state?.prompt || '';
@@ -412,7 +430,9 @@ export function mountGameControls(client, game = {}) {
     else if (['ASSASSINATION', 'EXILE_NOMINATION'].includes(state.phase) && state.human_turn) renderSelection(state);
     else if (state.phase === 'EXILE_VOTE' && state.human_turn) renderExileVote(state);
     else renderGate(state);
-    if (state?.can_advance) ai.appendChild(button('推进 AI 行动', () => client.command('advance'), { className: 'ai-button' }));
+    if (state?.can_advance) ai.appendChild(button(advanceLabel(state, snapshot.busy), () => client.advanceAI(), {
+      className: 'ai-button', disabled: snapshot.busy || Boolean(snapshot.pending),
+    }));
     if (state?.retry_ai) {
       const recovery = document.createElement('div');
       recovery.className = 'ai-recovery';
@@ -424,24 +444,35 @@ export function mountGameControls(client, game = {}) {
     }
     if (snapshot.busy) ai.appendChild(document.createTextNode('后端正在处理…'));
     if (snapshot.pending && (snapshot.uncertain || snapshot.error)) ai.appendChild(button('重试刚才的操作', () => client.retryPending(), { className: 'retry' }));
+    if (snapshot.busy || snapshot.pending) panel.querySelectorAll('button, input, select').forEach((control) => { control.disabled = true; });
     error.textContent = snapshot.error || state?.error || state?.notice || '';
     error.classList.toggle('visible', Boolean(error.textContent));
     renderLog(state);
     privateBody.textContent = state?.private ? '角色：' + (state.private.role || '未知') + '\n已知邪恶座位：' + ((state.private.known_evil || []).join('、') || '无') : '尚未开始游戏。';
     layout();
   }
+  let renderedLogRows = [];
   function renderLog(state) {
-    log.replaceChildren();
     const dialogue = new Map((state?.dialogue || []).map((entry) => [entry.seq, entry]));
     const events = (state?.public_events || []).map((entry) => {
       const spoken = dialogue.get(entry.seq);
       return spoken ? { seq: entry.seq, text: spoken.actor + '：' + spoken.statement } : entry;
     });
     const rows = events.map((entry) => entry.text || ('#' + (entry.seq || '')));
-    rows.forEach((text) => { const row = document.createElement('div'); row.className = 'log-row'; row.textContent = text; log.appendChild(row); });
+    if (rows.length !== renderedLogRows.length || rows.some((text, index) => text !== renderedLogRows[index])) {
+      const atBottom = !logDialog.open || log.scrollHeight - log.clientHeight - log.scrollTop <= 2;
+      const previousScrollTop = log.scrollTop;
+      log.replaceChildren(...rows.map((text) => {
+        const row = document.createElement('div');
+        row.className = 'log-row';
+        row.textContent = text;
+        return row;
+      }));
+      renderedLogRows = rows;
+      log.scrollTop = atBottom ? log.scrollHeight : previousScrollTop;
+    }
     logCardCount.textContent = events.length ? `${events.length} 条记录` : '暂无记录';
     logCardLatest.textContent = rows.at(-1) || '暂无公开内容';
-    log.scrollTop = log.scrollHeight;
   }
   function layout() {
     // The Pixi world uses a cover fit while this DOM layer uses a contain fit.

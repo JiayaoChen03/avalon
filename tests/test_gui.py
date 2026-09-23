@@ -1,6 +1,7 @@
 """UI boundary tests use real rules/agents; only the model provider is replaced."""
 
 from copy import deepcopy
+from contextlib import ExitStack
 import json
 import threading
 import unittest
@@ -265,6 +266,73 @@ class GUITests(unittest.TestCase):
         self.assertEqual(game.resolve["P1"], old_resolve["P1"] - 1)
         self.assertTrue(state["result"]["approved"])
         self.assertEqual(len(state["result"]["votes"]), 5)
+
+    def test_six_seat_rejected_vote_continues_to_second_proposal_same_mission(self):
+        game = self.start(count=6)
+        self.draft(["P1", "P2"])
+        self.to_revision()
+        self.action("LOCK")
+        public_before = deepcopy(self.session.snapshot()["public_events"])
+        self.request("vote", {"approve": True})
+
+        with ExitStack() as patches:
+            for pid in game.ids[1:]:
+                patches.enter_context(patch.object(
+                    self.session.agents[pid], "ballot",
+                    return_value={"approve": pid == "P2", "strong": False}))
+            for _ in game.ids[1:-1]:
+                state = self.request("advance")
+                self.assertEqual(state["phase"], "VOTE")
+                self.assertEqual(state["public_events"], public_before)
+            state = self.request("advance")
+
+        self.assertEqual(state["phase"], "VOTE_RESULT")
+        self.assertFalse(state["result"]["approved"])
+        self.assertEqual(sum(state["result"]["votes"].values()), 2)
+        self.assertEqual(len(state["result"]["votes"]), 6)
+        self.assertEqual(game.phase, "team")
+        self.assertEqual(game.attempt, 2)
+        self.assertEqual(game.round, 1)
+        self.assertEqual(len([e for e in game.events if e["kind"] == "VOTE"]), 6)
+        self.assertEqual(len([e for e in game.events if e["kind"] == "TEAM_VOTE"]), 1)
+
+        state = self.request("continue")
+        self.assertEqual(state["phase"], "TEAM_DRAFT")
+        self.assertEqual(state["mission_round"], 1)
+        self.assertEqual(state["proposal_attempt"], 2)
+        self.assertEqual(state["leader"], "P2")
+        self.assertTrue(state["can_advance"])
+        state = self.request("advance")
+        self.assertEqual(state["phase"], "DISCUSSION")
+        self.assertEqual(state["mission_round"], 1)
+        self.assertEqual(state["proposal_attempt"], 2)
+        self.assertEqual((game.events[-1]["kind"], game.events[-1]["attempt"]),
+                         ("TEAM", 2))
+
+    def test_six_seat_approved_vote_continues_to_mission(self):
+        game = self.start(count=6)
+        self.draft(["P1", "P2"])
+        self.to_revision()
+        self.action("LOCK")
+        self.request("vote", {"approve": True})
+
+        with ExitStack() as patches:
+            for pid in game.ids[1:]:
+                patches.enter_context(patch.object(
+                    self.session.agents[pid], "ballot",
+                    return_value={"approve": pid in {"P2", "P3", "P4"}, "strong": False}))
+            for _ in game.ids[1:]:
+                state = self.request("advance")
+
+        self.assertEqual(state["phase"], "VOTE_RESULT")
+        self.assertTrue(state["result"]["approved"])
+        self.assertEqual(sum(state["result"]["votes"].values()), 4)
+        self.assertEqual(game.phase, "mission")
+        state = self.request("continue")
+        self.assertEqual(state["phase"], "MISSION")
+        self.assertEqual(state["mission_round"], 1)
+        self.assertEqual(state["proposal_attempt"], 1)
+        self.assertEqual(state["proposed_team"], ["P1", "P2"])
 
     def test_rejection_keeps_resolve_and_next_leader(self):
         game = self.start()

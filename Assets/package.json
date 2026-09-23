@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "node --test ../tests/game_client.test.mjs ../tests/game_flow.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

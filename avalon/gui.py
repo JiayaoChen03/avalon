@@ -49,12 +49,15 @@ class GameSession:
     human = "P1"
 
     def __init__(self, client_factory=None, *, developer_mode=False, merlin_vote_policy="baseline",
-                 ai_diagnostic_sink=None):
+                 ai_diagnostic_sink=None, discussion_policy="baseline"):
         if merlin_vote_policy not in {"baseline", "v5"}:
             raise ValueError("Unknown Merlin vote policy")
+        if discussion_policy not in {"baseline", "engaged_v1"}:
+            raise ValueError("Unknown discussion policy")
         self.client_factory = client_factory
         self.developer_mode = developer_mode
         self.merlin_vote_policy = merlin_vote_policy
+        self.discussion_policy = discussion_policy
         self.ai_diagnostic_sink = ai_diagnostic_sink
         self.game = None
         self.client = None
@@ -106,7 +109,8 @@ class GameSession:
             raise ValueError("The game is not ready")
         self.agents = {
             pid: Agent(self.game.view(pid), self.client,
-                       chronicle=self.game.chronicle.reader(), **self.agent_options)
+                       chronicle=self.game.chronicle.reader(),
+                       discussion_policy=self.discussion_policy, **self.agent_options)
             for pid in self.game.ids if pid != self.human
         }
         for pid in self.manager.controlled_evil_ids:
@@ -199,6 +203,7 @@ class GameSession:
             "legal_action_kinds": sorted({option["kind"] for option in view["legal_options"]}),
             "attempt_index": attempt_index, "will_retry": will_retry,
             "public_code": error.public_code, "validation_reason": error.validation_reason,
+            "discussion_policy": self.discussion_policy,
             "mock_response_id": None, **self._safe_ai_call_metadata(),
         }
         try:
@@ -219,6 +224,7 @@ class GameSession:
             "legal_actions": list(view["legal_actions"]),
             "legal_action_kinds": sorted({option["kind"] for option in view["legal_options"]}),
             "action_kind": action["kind"],
+            "discussion_policy": self.discussion_policy,
             "plan_social_present": isinstance(agent.plan, dict) and agent.plan.get("social") is not None,
             "retry_count": retry_count, **self._safe_ai_call_metadata(),
         }

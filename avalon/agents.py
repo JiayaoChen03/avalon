@@ -9,6 +9,8 @@ from .engine import (DISCUSSION_ACTIONS, EVIDENCE_KINDS, EVIL_ROLES, EXILE_CHOIC
                      SOCIAL_EVENTS, public_social_text, validate_action, validate_social)
 from .chronicle import context_record
 from .cognition import BeliefEngine
+from .discussion_policy import (engaged_context, engaged_retry_feedback,
+                                validate_engaged_discussion)
 from .llm import LLMError
 from .memory import AgentMemory, bounded_game_view
 
@@ -157,7 +159,11 @@ def validate_performance(raw, ids, public_events, tactical):
 
 
 class Agent:
-    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0, evil_strategy=None, chronicle=None):
+    def __init__(self, view, client=None, *, max_retries=2, retry_delay=2.0, evil_strategy=None,
+                 chronicle=None, discussion_policy="baseline"):
+        if discussion_policy not in {"baseline", "engaged_v1"}:
+            raise ValueError("Unknown discussion policy")
+        self.discussion_policy = discussion_policy
         self.id, self.role = view["self"], view["role"]
         self.ids = [p["id"] for p in view["players"]]
         self.known_evil = set(view["known_evil"])
@@ -241,6 +247,8 @@ class Agent:
                                           if self.chronicle is not None else [])
         context["pending_language_observations"] = self.cognition.pending_language(self._public_context(context))
         context["language_interpretation_complete"] = not bool(context["pending_language_observations"])
+        if self.discussion_policy == "engaged_v1":
+            context.update(engaged_context(view, context, managed=self.evil_strategy is not None))
         return context
 
     @staticmethod
@@ -256,6 +264,10 @@ class Agent:
         # At most one retrieval, one semantic pass and one final action. Legacy
         # clients can still return actions directly, without inventing evidence.
         for _ in range(3):
+            if self.discussion_policy == "engaged_v1":
+                # Retrieval and language review can change legal citations/tactics.
+                context.update(engaged_context(self._view, context,
+                                               managed=self.evil_strategy is not None))
             self.calls[round_no] = self.calls.get(round_no, 0) + 1
             raw = self.client.complete(deepcopy(context))
             if isinstance(raw, dict) and set(raw) == {"memory_query"}:
@@ -349,12 +361,17 @@ class Agent:
                     if revision["kind"] == "REVISE" and (view["phase"] == "council_discussion" or self.id != view["leader"]
                             or revision["removed"] not in view["team"] or revision["added"] in view["team"]):
                         raise ValueError("Invalid resource action")
+                if self.discussion_policy == "engaged_v1":
+                    validate_engaged_discussion(plan, view)
             except (LLMError, ValueError, TypeError) as cause:
                 error = cause if isinstance(cause, LLMError) else LLMError("invalid_plan", validation_reason=str(cause))
                 if not error.retryable or attempt == self.max_retries:
                     raise error from None
                 if error.retry_feedback is not None:
                     context["validation_feedback"] = error.retry_feedback
+                    if self.discussion_policy == "engaged_v1":
+                        context["validation_feedback"] = engaged_retry_feedback(
+                            context["validation_feedback"], view)
                 delay = min(self.retry_delay * 2 ** attempt, 30.0)
                 if on_retry is not None:
                     on_retry(error, attempt + 1, delay)

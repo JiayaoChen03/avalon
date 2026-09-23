@@ -9,9 +9,11 @@ export class GameClient {
     this.state = null;
     this.mode = 'offline';
     this.merlinVotePolicy = 'baseline';
+    this.discussionPolicy = 'baseline';
     this.csrfToken = '';
     this.connected = false;
     this.busy = false;
+    this._advancing = false;
     this.error = '';
     this.uncertain = false;
     this.pending = null;
@@ -30,8 +32,9 @@ export class GameClient {
       state: this.state,
       mode: this.mode,
       merlinVotePolicy: this.merlinVotePolicy,
+      discussionPolicy: this.discussionPolicy,
       connected: this.connected,
-      busy: this.busy,
+      busy: this.busy || this._advancing,
       error: this.error,
       uncertain: this.uncertain,
       pending: this.pending ? { command: this.pending.command } : null,
@@ -82,6 +85,7 @@ export class GameClient {
       const payload = await this._json('/api/session', { method: 'GET' });
       this.mode = payload.mode || 'offline';
       this.merlinVotePolicy = payload.merlin_vote_policy === 'v5' ? 'v5' : 'baseline';
+      this.discussionPolicy = payload.discussion_policy === 'engaged_v1' ? 'engaged_v1' : 'baseline';
       this.csrfToken = payload.csrf_token || '';
       this.state = payload.state || null;
       this.connected = true;
@@ -113,13 +117,47 @@ export class GameClient {
   }
 
   async command(command, payload = {}) {
+    if (this._advancing) return false;
+    return this._command(command, payload);
+  }
+
+  async advanceAI() {
+    if (this.busy || this._advancing || this.pending || !this.state?.can_advance || this.state.human_turn) return false;
+    const votingPhase = ['VOTE', 'EXILE_VOTE'].includes(this.state.phase) ? this.state.phase : null;
+    const limit = votingPhase ? Math.max(1, this.state.players?.length || 1) : 1;
+    this._advancing = true;
+    try {
+      for (let index = 0; index < limit; index += 1) {
+        const revision = this.state.revision;
+        if (!await this._command('advance')) return false;
+        if (this.state.revision <= revision) {
+          this.error = '对局尚未推进，请刷新页面确认当前状态。';
+          return false;
+        }
+        // Each ballot remains a separate versioned engine command. Never cross
+        // a result gate, human choice, or phase boundary on the user's behalf.
+        if (!votingPhase || this.state.phase !== votingPhase || !this.state.can_advance || this.state.human_turn) return true;
+      }
+      return true;
+    } finally {
+      this._advancing = false;
+      this._notify();
+    }
+  }
+
+  async _command(command, payload = {}) {
     if (this.busy) return false;
+    if (this.pending) {
+      this.error = '上次操作的结果尚未确认，请先重试刚才的操作。';
+      this._notify();
+      return false;
+    }
     if (!this.connected || !this.csrfToken) {
       this.error = '尚未连接 Avalon 后端。';
       this._notify();
       return false;
     }
-    const requestId = this.pending?.requestId || this._makeRequestId();
+    const requestId = this._makeRequestId();
     const request = {
       request_id: requestId,
       revision: this.state?.revision ?? 0,
@@ -163,7 +201,7 @@ export class GameClient {
   }
 
   async retryPending() {
-    if (!this.pending || this.busy) return false;
+    if (!this.pending || this.busy || this._advancing) return false;
     const pending = this.pending;
     this.connected = true;
     this.busy = true;

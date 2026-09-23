@@ -49,19 +49,27 @@ def _local_ai_diagnostic_sink(path):
     return append
 
 
-def _session_for_mode(mode, merlin_vote_policy, ai_diagnostic_sink=None):
+def _session_for_mode(mode, merlin_vote_policy, ai_diagnostic_sink=None,
+                      discussion_policy="baseline"):
     if mode == "offline":
         if merlin_vote_policy != "baseline":
             raise ValueError("V5 requires live mode")
+        if discussion_policy != "baseline":
+            raise ValueError("Engaged discussion requires live mode")
         return GameSession(lambda: OfflineClient())
     if mode == "live":
         return GameSession(merlin_vote_policy=merlin_vote_policy,
-                           ai_diagnostic_sink=ai_diagnostic_sink)
+                           ai_diagnostic_sink=ai_diagnostic_sink,
+                           discussion_policy=discussion_policy)
     raise ValueError("Unknown mode")
 
 
 def make_server(*, mode="offline", merlin_vote_policy="baseline", assets_dir=None,
-                host="127.0.0.1", port=8765, ai_diagnostic_path=None):
+                host="127.0.0.1", port=8765, ai_diagnostic_path=None, discussion_policy=None):
+    if discussion_policy is None:
+        discussion_policy = "engaged_v1" if mode == "live" else "baseline"
+    if discussion_policy not in {"baseline", "engaged_v1"}:
+        raise ValueError("Unknown discussion policy")
     token = secrets.token_urlsafe(32)
     diagnostic_path = None
     if mode == "live":
@@ -71,6 +79,7 @@ def make_server(*, mode="offline", merlin_vote_policy="baseline", assets_dir=Non
     session = _session_for_mode(
         mode, merlin_vote_policy,
         _local_ai_diagnostic_sink(diagnostic_path) if diagnostic_path is not None else None,
+        discussion_policy,
     )
     assets = Path(assets_dir).resolve() if assets_dir else None
     server_port = int(port)
@@ -152,6 +161,7 @@ def make_server(*, mode="offline", merlin_vote_policy="baseline", assets_dir=Non
                     return self._send_error(403, "浏览器来源未获允许。")
                 return self._send_json(200, {
                     "ok": True, "mode": mode, "merlin_vote_policy": merlin_vote_policy,
+                    "discussion_policy": discussion_policy,
                     "csrf_token": token, "state": session.snapshot(),
                 })
             if self.path == "/api/state":
@@ -203,6 +213,7 @@ def make_server(*, mode="offline", merlin_vote_policy="baseline", assets_dir=Non
 
     server = ThreadingHTTPServer((host, server_port), Handler)
     server.ai_diagnostic_path = diagnostic_path
+    server.discussion_policy = discussion_policy
     return server
 
 
@@ -210,6 +221,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Avalon browser server")
     parser.add_argument("--mode", choices=("offline", "live"), default="offline")
     parser.add_argument("--merlin-policy", choices=("baseline", "v5"), default="baseline")
+    parser.add_argument("--discussion-policy", choices=("baseline", "engaged_v1"),
+                        help="live defaults to engaged_v1; offline uses baseline")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--assets-dir", type=Path)
@@ -223,13 +236,14 @@ def main(argv=None):
             parser.error("Live mode requires a configured API key and model in this project's .env.")
     try:
         server = make_server(mode=args.mode, merlin_vote_policy=args.merlin_policy,
-                             assets_dir=args.assets_dir, host=args.host, port=args.port)
+                             assets_dir=args.assets_dir, host=args.host, port=args.port,
+                             discussion_policy=args.discussion_policy)
     except ValueError as error:
         parser.error(str(error))
     print("Avalon browser server listening on http://%s:%d (%s, Merlin vote: %s)" %
           (args.host, server.server_port, args.mode, args.merlin_policy), flush=True)
     if server.ai_diagnostic_path is not None:
-        print("Local AI failure diagnostics: %s" % server.ai_diagnostic_path, flush=True)
+        print("Local AI decision diagnostics: %s" % server.ai_diagnostic_path, flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

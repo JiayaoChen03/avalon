@@ -1,4 +1,4 @@
-"""Local live diagnostics preserve invalid model actions without exposing their content."""
+"""Local live diagnostics record safe failure and accepted-action metadata."""
 
 from copy import deepcopy
 import json

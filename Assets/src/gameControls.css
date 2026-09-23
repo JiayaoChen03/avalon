@@ -24,3 +24,12 @@
 .panel-section-label{margin:9px 1px 5px;color:#c49a62;font-size:11px;letter-spacing:2px}
 .game-action{gap:5px}.game-action>button{min-height:26px;padding:2px 8px;font-size:12px}.game-ai{gap:5px;margin-top:7px;padding-top:7px;font-size:11px;line-height:1.25}
 .game-error{max-height:30px;margin-top:7px;padding:6px;font-size:11px;line-height:1.25;overflow:auto}
+
+/* Keep the public record list inside the viewport; the title and close button stay visible. */
+.log-dialog{height:min(640px,calc(100vh - 32px));height:min(640px,calc(100dvh - 32px));max-height:none}
+.log-dialog[open]{display:flex;flex-direction:column}
+.log-dialog form{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden}
+.log-dialog h2{flex:0 0 auto}
+.log-dialog-list{flex:1 1 auto;min-height:0;max-height:none;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch}
+.log-dialog-list:focus-visible{outline:2px solid #d8b46a;outline-offset:-2px}
+.gate-summary{font-size:13px;color:#f0d4ae}.gate-detail{margin:0;font-size:12px;line-height:1.35;color:#b9a6a4}

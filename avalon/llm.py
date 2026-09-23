@@ -91,7 +91,7 @@ class LLMError(RuntimeError):
     @property
     def retry_feedback(self):
         if str(self) == "private_disclosure":
-            rule = ("Rewrite public writing as terse handwriting based only on public observations. "
+            rule = ("Rewrite public writing in concise, natural Chinese based only on public observations. "
                     "Do not disclose roles, secret knowledge, internal labels or tactical instructions.")
         elif str(self) == "invalid_plan":
             rule = VALIDATION_HINTS.get(self.validation_reason,
@@ -252,7 +252,7 @@ RESOLVE_PROTOCOL = """
 PUBLIC WRITING: social={card,target,reason,public_writing,citations}; null for silence.
 card: ACCUSE/DEFEND/HEDGE/PRESSURE/BAIT; target: actual ID.
 reason: observe/mission_record/vote_pattern/support/test_reaction/team_risk/last_chance/strategy.
-public_writing: Chinese medieval handwriting, printable single line, 1-3 sentences, <=240 chars.
+public_writing: natural conversational Chinese, printable single line, 1-3 sentences, <=240 chars.
 citations: 0-3 distinct supplied record IDs (R2-043). mission_record requires MISSION;
 vote_pattern requires VOTE/TEAM_VOTE/STRONG_VOTE/EXILE_VOTE/EXILE_RESULT. Never invent evidence.
 RETRIEVAL: optionally return ONLY {"memory_query":["search"]}, 1-2 queries of <=120 chars.
