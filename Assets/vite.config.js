@@ -48,4 +48,16 @@ function sceneReadyGate() {
 
 export default defineConfig({
   plugins: [sceneReadyGate()],
+  // Keep the browser on one origin during local development. The Python
+  // server owns /api; Vite only serves the Pixi scene and forwards requests.
+  server: {
+    proxy: {
+      '/api': { target: 'http://127.0.0.1:8765', changeOrigin: false },
+    },
+  },
+  preview: {
+    proxy: {
+      '/api': { target: 'http://127.0.0.1:8765', changeOrigin: false },
+    },
+  },
 });

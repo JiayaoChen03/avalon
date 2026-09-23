@@ -10,6 +10,24 @@ npm run dev      # http://localhost:5173
 npm run build    # 产物 dist/
 ```
 
+## 前后端联调
+
+Pixi 场景现在通过同一套 Python `GameSession` 接入后端。后端默认使用**离线联调模型**，不会调用外部 API；规则、身份、投票、任务结果和公开记录仍由 Python 引擎决定。
+
+先在仓库根目录启动后端：
+
+```bash
+PYTHONPATH=. .venv/bin/python -m avalon.web_server --mode offline --port 8765
+```
+
+再在 `Assets/` 启动前端：
+
+```bash
+npm run dev
+```
+
+打开 `http://localhost:5173/`，右上角显示「离线联调」即已连接。需要使用真实模型时，确认 `.env` 已配置后，将后端启动参数改为 `--mode live`；前端协议不变。浏览器每个操作都携带 revision 和 request ID，断线重试不会重复推进对局。
+
 ## 分层（cameraRoot 按 zIndex 排序）
 
 | z | 层 | 视差 | 对应资产 |

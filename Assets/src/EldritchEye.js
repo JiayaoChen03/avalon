@@ -177,6 +177,13 @@ export class EldritchEye {
     this.blinkT0 = 0;
     this.pendingDouble = false;
     this.nextBlinkAt = 6000 + Math.random() * 8000;
+    // 卡牌聚焦（悬停卡 → 突然睁开注视该牌）：openV=睁开因子（开快 0.3/关慢 0.02），
+    // focusOn 期间注视目标锁定卡位、前 350ms snap lerp 猛转头、抑制随机眨眼
+    this.focusOn = false;
+    this.focusX = 0;
+    this.focusY = 800;          // 手牌带高度
+    this.openV = 0;
+    this.focusSnapT = -1e9;
 
     this.buildSprites(eyeTex, cloudTex);
     this.setupMask();
@@ -260,6 +267,15 @@ export class EldritchEye {
     this.atmo.alpha = 0.1;
     this.atmo.scale.set((this.eyeH * 2.2) / 128);
     holder.addChild(this.atmo);
+
+    // 开眼闪光：卡牌聚焦瞬间的 900ms 钟形脉冲（"突然睁开"的可见拍点），
+    // 加法混合盖在眼球基底上、前景遮云之下——云让开时正好露出
+    this.flash = new Sprite(innerGlowTex());
+    this.flash.anchor.set(0.5);
+    this.flash.blendMode = 'add';
+    this.flash.alpha = 0;
+    this.flash.scale.set((this.eyeW * 0.62) / 128, (this.eyeH * 0.5) / 128);
+    holder.addChildAt(this.flash, holder.children.indexOf(this.irisContainer));
   }
 
   setupMask() {
@@ -297,6 +313,19 @@ export class EldritchEye {
     this.externalIntensity = clamp01(v);
   }
 
+  // 卡牌聚焦：悬停卡牌 → 眼突然睁开并注视该牌方向（on=false 缓缓回落）
+  focusCard(x, on) {
+    if (on) {
+      this.focusOn = true;
+      this.focusX = x;
+      this.focusSnapT = this.time;
+      // 受惊式收缩一拍——"突然睁开"的戏剧节拍（直接写 contractStart 绕过冷却）
+      this.contractStart = this.time;
+    } else {
+      this.focusOn = false;
+    }
+  }
+
   destroy() {
     this.layer.removeChild(this.holder);
     this.holder.destroy({ children: true });
@@ -311,9 +340,12 @@ export class EldritchEye {
   }
 
   updateTracking() {
-    // 死区 40px → 归一方向 → 分层椭圆半径 → 分层阻尼
-    const dx = this.targetX - this.centerX;
-    const dy = this.targetY - this.centerY;
+    // 死区 40px → 归一方向 → 分层椭圆半径 → 分层阻尼。
+    // 卡牌聚焦期间目标锁定为该牌位置（无视鼠标），开场 350ms 用 snap 阻尼猛转
+    const tx = this.focusOn ? this.focusX : this.targetX;
+    const ty = this.focusOn ? this.focusY : this.targetY;
+    const dx = tx - this.centerX;
+    const dy = ty - this.centerY;
     const dist = Math.hypot(dx, dy);
     let nx = 0;
     let ny = 0;
@@ -331,10 +363,13 @@ export class EldritchEye {
     const tpX = nx * pupilMaxX;
     const tpY = ny * pupilMaxY;
     // 分层阻尼：pupil 略快于 iris（虹膜拖在瞳孔后面，制造深度）
-    this.iri.x += (tiX - this.iri.x) * 0.08;
-    this.iri.y += (tiY - this.iri.y) * 0.08;
-    this.pup.x += (tpX - this.pup.x) * 0.12;
-    this.pup.y += (tpY - this.pup.y) * 0.12;
+    const snap = this.focusOn && (this.time - this.focusSnapT) < 350;
+    const kI = snap ? 0.35 : 0.08;
+    const kP = snap ? 0.45 : 0.12;
+    this.iri.x += (tiX - this.iri.x) * kI;
+    this.iri.y += (tiY - this.iri.y) * kI;
+    this.pup.x += (tpX - this.pup.x) * kP;
+    this.pup.y += (tpY - this.pup.y) * kP;
     // sclera：±1px 级呼吸漂移（几乎不动）
     const driftX = Math.sin(this.time * 0.00037 + 1.3) * 1;
     const driftY = Math.sin(this.time * 0.00023 + 4.1) * 1;
@@ -368,9 +403,24 @@ export class EldritchEye {
     this.sclera.position.set(this.scl.x, this.scl.y);
 
     // —— 靠近增强：eyeH*1.3 范围内辉光渐升（无 UI 暗示，缓慢趋近）——
-    const nearK = clamp01(1 - Math.hypot(this.targetX - this.centerX, this.targetY - this.centerY) / (this.eyeH * 1.3));
+    const gx = this.focusOn ? this.focusX : this.targetX;
+    const gy = this.focusOn ? this.focusY : this.targetY;
+    const nearK = clamp01(1 - Math.hypot(gx - this.centerX, gy - this.centerY) / (this.eyeH * 1.3));
     const wantI = Math.max(nearK, this.externalIntensity);
     this.intensity += (wantI - this.intensity) * 0.03;
+
+    // —— 卡牌聚焦：睁开因子（开快 0.3 = "突然"，关慢 0.02 = 余威缓缓回落）——
+    this.openV += ((this.focusOn ? 1 : 0) - this.openV) * (this.focusOn ? 0.3 : 0.02);
+    const op = this.openV;
+
+    // 开眼闪光：聚焦起点后 900ms 钟形脉冲（可读的"啪一下"拍点）
+    const ob = this.focusOn ? Math.sin(Math.PI * clamp01((t - this.focusSnapT) / 900)) : 0;
+    this.flash.alpha = 0.42 * ob;
+
+    // 前景遮云让开：睁开时云层退散 75%——"云开眼现"是"睁开"的最强读法
+    for (let i = 0; i < this.occlusion.length; i++) {
+      this.occlusion[i].alpha = 0.66 * (1 - 0.75 * op);
+    }
 
     // —— 受惊收缩：高速鼠标后 400ms 瞳孔纵向压扁 + 内辉脉动 ——
     let contractPulse = 0;
@@ -386,29 +436,36 @@ export class EldritchEye {
     // —— 眨眼压暗：v5 认可的"纯辉光熄灭"——辉光强压、裂口中压、环境光轻压 ——
     const dim = 1 - 0.82 * this.lidT;
 
-    // iris：5.5s ±2% 尺寸呼吸
-    this.iris.scale.set(this.irisBase * (1 + Math.sin(t * 0.001143) * 0.02));
+    // iris：5.5s ±2% 尺寸呼吸；聚焦时放大 6%（"睁大"）
+    this.iris.scale.set(this.irisBase * (1 + Math.sin(t * 0.001143) * 0.02) * (1 + 0.06 * op));
     this.iris.alpha = 1 - 0.5 * this.lidT;
 
     // glow：4.5s+1.7s 双频呼吸 + ±1.5px 双频漂移 + 靠近/受惊增强（空闲 0.15-0.27，靠近至 ~0.32）
-    this.glow.alpha = clamp01(0.21 + 0.06 * Math.sin(t * 0.001396) + 0.02 * Math.sin(t * 0.00371 + 1.7) + 0.11 * this.intensity + contractPulse) * dim;
+    // 聚焦睁开：+0.38 猛增——"突然睁开"的主要亮度信号（随瞳位置移动=方向可读）
+    this.glow.alpha = clamp01(0.21 + 0.06 * Math.sin(t * 0.001396) + 0.02 * Math.sin(t * 0.00371 + 1.7) + 0.11 * this.intensity + contractPulse + 0.38 * op) * dim;
     this.glow.position.set(Math.sin(t * 0.0011) * 1.5, Math.sin(t * 0.0016 + 2.1) * 1.5);
 
     // socket：眨眼时轻压（结构永不动，仅短暂压暗）
     this.socket.alpha = 1 - 0.45 * this.lidT;
 
-    // socketAmbient：缓慢明暗 + 眨眼轻压
+    // socketAmbient：缓慢明暗 + 眨眼轻压 + 聚焦增强（眼窝轮廓点燃）
     for (let i = 0; i < this.socketAmbient.length; i++) {
       const s = this.socketAmbient[i];
-      s.alpha = s.baseAlpha * (1 + 0.15 * Math.sin(t * 0.001 + i * 2.4)) * (1 - 0.35 * this.lidT);
+      s.alpha = s.baseAlpha * (1 + 0.15 * Math.sin(t * 0.001 + i * 2.4)) * (1 + 1.2 * op) * (1 - 0.35 * this.lidT);
     }
 
-    // atmo：6s+1.7s 低频呼吸
-    this.atmo.alpha = (0.1 + 0.03 * Math.sin(t * 0.001047) + 0.015 * Math.sin(t * 0.003696 + 3)) * (1 - 0.35 * this.lidT);
+    // atmo：6s+1.7s 低频呼吸；聚焦时周围血雾 ×(1+3op)——整片天区"醒过来"
+    this.atmo.alpha = (0.1 + 0.03 * Math.sin(t * 0.001047) + 0.015 * Math.sin(t * 0.003696 + 3)) * (1 + 3 * op) * (1 - 0.35 * this.lidT);
   }
 
   updateBlink() {
     // 眨眼状态机（close 130ms / hold 55ms / open 240ms，8-20s 随机，10% 双眨）
+    // 聚焦注视期间抑制新眨眼（正在"盯着牌"时闭眼会破坏读法），进行中的眨眼照常收尾
+    if (this.focusOn && this.blinkState === 'idle') {
+      this.nextBlinkAt = this.time + 5000;
+      this.lidT += (0 - this.lidT) * 0.1;
+      return;
+    }
     if (this.blinkState === 'idle' && this.time > this.nextBlinkAt) {
       this.blinkState = 'close';
       this.blinkT0 = this.time;

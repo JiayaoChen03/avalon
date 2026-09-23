@@ -3,12 +3,11 @@
 
 import { Container, Graphics, Rectangle, Sprite, Text, Texture } from 'pixi.js';
 import {
-  DESIGN_W as W, DESIGN_H as H, BLEED, LAYERS, LAYOUT, CHAR_XS, CHARACTERS, CARDS,
+  DESIGN_W as W, DESIGN_H as H, BLEED, LAYERS, LAYOUT, CHARACTERS, CARDS, SEATS,
 } from './config.js';
 
 const DEBUG_STYLE = { fontFamily: 'monospace', fontSize: 16, fill: 0x9a8a90 };
 const UI_STYLE = { fontFamily: 'serif', fontSize: 20, fill: 0x9a8a90 };
-const PLATE_STYLE = { fontFamily: 'serif', fontSize: 21, fill: 0xd8c8b8 };
 
 // ── 云亮部动态光源 + 邪眼血雾 ────────────────────────────────────
 const glowTexCache = {};
@@ -836,20 +835,109 @@ function drawRoleBody(body, c) {
   }
 }
 
+// ── 局面状态（AP 单例：hud 的 AP 轨与卡牌可用性联动；cardHover 钩子由 main.js
+//    桥接到 EldritchEye——悬停卡牌时邪眼突然睁开注视该牌）─────────────────
+export const GAME = {
+  ap: 3, max: 3, _cb: [], cardHover: null, actionCard: null, cardActionEnabled: null,
+  privateIntel: { ownerSeatId: 'P1', entries: [], manualTrustMarks: {}, seenEntryIds: [], sessionKey: null },
+  // Browser mode keeps Pixi hover feedback but lets the DOM/GameSession own clicks.
+  hoverOnly: false,
+  onApi(fn) { this._cb.push(fn); },
+  notify() { this._cb.forEach((f) => f()); },
+  _intelCb: [],
+  onIntel(fn) { this._intelCb.push(fn); },
+  notifyIntel() { this._intelCb.forEach((f) => f(this.privateIntel)); },
+  setPrivateIntel(value) {
+    this.privateIntel = value || { ownerSeatId: 'P1', entries: [], manualTrustMarks: {}, seenEntryIds: [], sessionKey: null };
+    this.notifyIntel();
+  },
+  cycleTrustMark(seatId) {
+    const marks = { ...(this.privateIntel?.manualTrustMarks || {}) };
+    const order = [null, 'trusted', 'watch', 'suspicious'];
+    const current = marks[seatId] || null;
+    const next = order[(order.indexOf(current) + 1) % order.length];
+    if (next) marks[seatId] = next;
+    else delete marks[seatId];
+    this.privateIntel = { ...this.privateIntel, manualTrustMarks: marks };
+    this.notifyIntel();
+  },
+  spend(n) { this.ap = Math.max(0, this.ap - n); this.notify(); },
+  // —— 任务与队伍（Gameplay UI Restructure）——
+  mission: { round: 1, total: 5, required: 2, failVotes: 1, results: [null, null, null, null, null] },
+  party: [],            // 已选座位 seatId 列表（顺序=选择顺序）
+  _partyCb: [],
+  onParty(fn) { this._partyCb.push(fn); },
+  notifyParty() { this._partyCb.forEach((f) => f()); },
+  // 点选/取消角色（角色本体是主要交互）：再点已选=取消；满员时不可加选；
+  // 结算动画期间锁定（新回合未开启前不接受选人）
+  toggleSeat(seatId) {
+    if (this.resolving) return;
+    const i = this.party.indexOf(seatId);
+    if (i >= 0) this.party.splice(i, 1);
+    else if (this.party.length < this.mission.required) this.party.push(seatId);
+    this.notifyParty();
+  },
+  partyFull() { return this.party.length >= this.mission.required; },
+  // —— 回合闭环：确认派遣 → 结算动画（hud updater 播放）→ nextRound ——
+  resolving: false, resolveStart: 0, resolveOutcome: null, _roundCb: [],
+  onRound(fn) { this._roundCb.push(fn); },
+  confirmReady() { return this.partyFull() && !this.resolving; },
+  beginResolve(outcome) {
+    if (!this.confirmReady()) return false;
+    this.resolving = true;
+    this.resolveOutcome = outcome;
+    this.resolveStart = performance.now();
+    return true;
+  },
+  // 结算落账：结果写入进度条 → 轮次推进 → AP 回满 → 清空队伍 → 全量通知
+  finishResolve() {
+    const m = this.mission;
+    m.results[m.round - 1] = this.resolveOutcome;
+    if (m.round < m.total) m.round++;
+    this.ap = this.max;
+    this.party = [];
+    this.resolving = false;
+    this.notify();        // AP 轨重绘 + 各卡 playOK 重估
+    this.notifyParty();   // token 行按新 required 重建（空队伍）
+    this._roundCb.forEach((f) => f()); // 已出卡复活回手牌等
+  },
+};
+
+// ── 围坐议会布板（2026-09-21 最终融入 pass）──────────────────────────────
+// 左簇(先知/骑士/修女)+右簇(国王/流浪者/医者)；中央 修女右缘(580)→王左缘(866) ≈286px
+// 城堡视窗。体量层级：王(胸线宽 188-194+冠)>骑士(肩甲 197=左墙)>流浪者(背包 179)>
+// 医者(108)>修女(96)≈先知(97 但极窄长)。尺寸刻意不归一（王仅 +4%；骑士成墙允许
+// 盔顶略高于冠——王仍以宽度+王冠保持第一体量）。
+// 议会弧走脚位相对关系：骑士/王最深(最近 797/788)，外侧先知/医者最浅(最远 772/767)——
+// 放大后脚位统一加深保住 44-47% 坐姿裁切（若按字面"外侧上提"裁切破读成站像）。
+// 脚沉在台面后缘弧(y528-538)之后由桌体自然遮挡；烛光受光+接触暗部见 CANDLE_ACCENTS。
+const COUNCIL = {
+  prophet:  { x: 152,  h: 448, feet: 762, top: 331 },  // +18%；兜帽尖 331（全席最高，外侧露最多躯干）
+  knight:   { x: 314,  h: 470, feet: 812, top: 338 },  // +13%；盔顶 338；肩甲 202 宽=左侧之墙(主强化)
+  nun:      { x: 532,  h: 419, feet: 773, top: 347 },  // +8%；兜帽顶 354 附近；高窄
+  king:     { x: 960,  h: 447, feet: 793, top: 341 },  // +4%；冠顶 348 附近；第一体量
+  wanderer: { x: 1168, h: 420, feet: 773, top: 347 },  // +7%；背包顶 353；异形不对称
+  doctor:   { x: 1352, h: 432, feet: 760, top: 335 },  // +13%；帽顶 328 附近；宽檐+喙朝左
+};
+// 议会弧=碗状裁切：中排(骑士/修女/王/流浪者)裁得更高沉进桌后(裁 0.416-0.44)，
+// 外侧(先知/医者)露更多躯干(0.485-0.50)且头更高——桌面切线是平的，弧由躯干露出量表达。
+// 烛光融入层（渲染序=暗盘→反弹→缘口）：只推色相不推明度——全部挂 0xd98a3a 暖橙
+// tint（加法后在暗值上呈深橙可感知，而非被吞成灰白）；bounce=低位反弹(中心 y512),
+// acc=特征缘口受光 [x,y,w,h,alpha]（acc2=可选第二缘口），bias=向最近烛源偏置,
+// ao=切线接触暗部
+const CANDLE_ACCENTS = {
+  prophet:  { acc: [172, 412, 88, 26, 0.22], acc2: [152, 352, 46, 18, 0.10], bw: 121, bias: 14 }, // 兜帽右缘+帽尖(烛1最近)
+  knight:   { acc: [314, 442, 205, 32, 0.26], bw: 226, bias: -12 }, // 肩甲顶缘(烛1在左)
+  nun:      { acc: [532, 472, 84, 26, 0.18], bw: 120, bias: -12 },  // 兜帽缘(烛2在左)
+  king:     { acc: [960, 386, 62, 22, 0.19], bw: 226, bias: -10 }, // 冠缘(烛3在左)
+  wanderer: { acc: [1140, 416, 130, 28, 0.16], bw: 215, bias: -16 }, // 背包缘(烛3在左)
+  doctor:   { acc: [1298, 421, 70, 24, 0.22], bw: 135, bias: 8 },   // 鸟喙面具缘(烛4在右)
+};
+
 function characters(L, charTexs) {
-  // 立绘布板：基高 370×c.scale（352 加大一档：剪影→真立绘后同尺寸读着"离桌远"，
-  // 放大后人物贴着桌沿 looming，"刚站在桌后"的读法）；底中对齐 FOOT_Y。
-  // 站位上提 20px（脚 y600）：脚在桌后不可见区，纯粹换取头顶空间——
-  // 左侧头顶须避开标题组(y≤190)、医者帽须落进任务面板下方
-  // 宽度预算 = 与最近邻座的实际净空（布板不越邻）；国王不吃宽预算（高度优先）
-  // 注意 holder 还会乘 c.scale（剪影体系的缩放容器）——body 预除回去，防双重缩放
-  const BASE_H = 370;
-  const FOOT_Y = LAYOUT.charBaseline - 20;
-  const WIDTH_BUDGET = [160, 190, 180, 999, 175, 160];
-  // 医者立绘下沉：任务面板(y30-350)盖住他天然较高的帽顶——下沉后帽+喙
-  // 全部落进面板下缘以下的可见带（脚沉到桌后不可见区，读作站得更靠后）
-  const Y_SINK = [0, 0, 0, 0, 0, 141];
+  const seatStates = []; // 角色交互态（hover/选中环）——Gameplay UI Restructure
   const figures = CHARACTERS.map((c, i) => {
+    const seat = COUNCIL[c.id];
     const holder = new Container();
     const shadow = new Graphics().ellipse(0, 0, 72, 18).fill({ color: 0x000000, alpha: 0.45 });
     let body;
@@ -857,20 +945,18 @@ function characters(L, charTexs) {
     if (tex) {
       body = new Sprite(tex);
       body.anchor.set(0.5, 1);
-      // 国王不吃宽预算：370×1.12=414 净高优先（宽 ~292 与流浪者仍有净空）
-      const sNet = Math.min(BASE_H * c.scale / tex.height, WIDTH_BUDGET[i] / tex.width);
-      body.scale.set(sNet / c.scale);
-      body.y = 2; // 脚尖略沉进接地阴影（避让下沉走 holder.y，见下）
+      body.scale.set(seat.h / tex.height);
+      body.y = 2; // 脚尖略沉进接地阴影（下沉走 holder.position，见下）
     } else {
       body = new Graphics();
       drawRoleBody(body, c);
+      body.scale.set(seat.h / 352); // 剪影体系按 352 基高等比放大
     }
     holder.addChild(shadow, body);
-    holder.position.set(CHAR_XS[i] * W, FOOT_Y);
-    holder.scale.set(c.scale);
-    // 下沉量并入 holder.y（呼吸 updater 每帧覆写 body.y，sink 若放 body.y 会被
-    // 完全冲掉——v3-v5 医者帽一直顶在面板后就是这个 bug，A/B 差分帧相同暴露的）
-    if (Y_SINK[i]) holder.y += Y_SINK[i];
+    // 脚位并入 holder.position（呼吸 updater 每帧覆写 body.y，sink 若放 body.y 会被
+    // 完全冲掉——v3-v5 医者帽一直顶在面板后就是这个 bug，A/B 差分帧相同暴露的）。
+    // 医者帽顶 364 仍留任务面板(y30-350)下缘 14px 净空
+    holder.position.set(seat.x, seat.feet);
     // 流浪者的佝偻已画进立绘本身，holder 倾斜减半避免过度前倾
     if (c.tilt) body.rotation = tex ? c.tilt * 0.5 : c.tilt;
     // 末端二人补一层暖光纱（加法极淡）：画面两端本就最暗，立绘又是深值——
@@ -879,16 +965,108 @@ function characters(L, charTexs) {
       const warm = new Sprite(getGlowTexture('ember'));
       warm.anchor.set(0.5);
       warm.blendMode = 'add';
-      warm.alpha = c.id === 'prophet' ? 0.09 : 0.07;
+      warm.tint = 0xd98a3a;
+      warm.alpha = c.id === 'prophet' ? 0.11 : 0.07;
       warm.scale.set(190 / 128, 420 / 128);
-      warm.position.set(0, -tex.height * body.scale.x * 0.4);
+      // 暖纱中心跟可见躯干走（0.75≈头肩胸中带）：下沉后光晕若停在躯干
+      // 原中心会整段沉进桌沿以下，躯干只剩淡边——"黑剪影贴黑边"读法回归
+      warm.position.set(0, -tex.height * body.scale.x * 0.75);
       holder.addChild(warm);
     }
     L.addChild(holder);
+    // —— 角色本体=队伍选择交互（Gameplay UI Restructure）——
+    // hover=轻微提亮（暖 tint 不做 glow）；点击=选入/取消（GAME.toggleSeat）；
+    // 选中=脚下细 selection ring（桌游 token 感）。P1 与 AI 座位同一逻辑，不锁定。
+    const seatData = SEATS.find((s) => s.characterId === c.id);
+    if (seatData) {
+      const st2 = { hov: 0 };
+      holder.eventMode = 'static';
+      holder.cursor = 'pointer';
+      holder.on('pointerover', () => { st2.hov = 1; });
+      holder.on('pointerout', () => { st2.hov = 0; });
+      holder.on('pointertap', () => {
+        if (GAME.hoverOnly) return;
+        GAME.toggleSeat(seatData.seatId);
+        window.__TAPLOG.push(seatData.seatId);
+      });
+      // 选中细环：脚下扁椭圆描边（座位 accent，细 1.5px，无 glow）
+      const ring = new Graphics();
+      ring.ellipse(0, -4, seat.h * 0.16, 10).stroke({ width: 1.5, color: seatData.accent, alpha: 0.85 });
+      ring.position.set(0, -seat.h * 0.02);
+      ring.visible = false;
+      holder.addChildAt(ring, 0);
+      seatStates.push({ holder, body, st2, ring, seatId: seatData.seatId });
+    }
     return { body, phase: i * 1.3 };
+  });
+  // 选中环与提亮的统一刷新（GAME.party 驱动）
+  GAME.onParty(() => {
+    for (const s of seatStates) s.ring.visible = GAME.party.includes(s.seatId);
+  });
+  // 调试钩子（CDP 测试用）：角色交互态 + 队伍 + tap 日志
+  window.__TAPLOG = [];
+  window.__SEATS_DEBUG = () => ({
+    ap: GAME.ap, party: [...GAME.party], taps: [...window.__TAPLOG],
+    seats: seatStates.map((s) => ({
+      seatId: s.seatId, sel: GAME.party.includes(s.seatId),
+      hov: s.st2.hov, hovV: +(s.st2.hovV ?? 0).toFixed(2), ring: s.ring.visible,
+    })),
+  });
+  // ── 烛光融入层（加于各 holder 之后=渲染于人物之上，台面 z125 之下）──
+  // 不整体提亮：只给①低位胸面烛光反弹 ②兜帽/肩甲/冠/鸟喙等缘口受光
+  // ③切线接触暗部。背侧与外侧保持暗——受光一律朝最近烛源偏置，从桌面方向来。
+  const candle = [];
+  CHARACTERS.forEach((c, i) => {
+    const seat = COUNCIL[c.id];
+    const spec = CANDLE_ACCENTS[c.id];
+    // 低位反弹：宽扁加法暖光——中心 y512 落进可见带下段，烛光贴桌沿处最亮。
+    // tint 只推色相：加法在暗值上呈深橙可感知，纯提亮会被暗调吞成灰白
+    const bounce = new Sprite(getGlowTexture('ember'));
+    bounce.anchor.set(0.5);
+    bounce.blendMode = 'add';
+    bounce.tint = 0xd98a3a;
+    bounce.position.set(seat.x + spec.bias, 512);
+    bounce.scale.set(spec.bw / 128, 96 / 128);
+    bounce.alpha = 0.16;
+    // 缘口受光：小面积加法亮斑，落点=该剪影特征的实际行高（肩甲顶/冠/喙）；
+    // acc2=可选第二缘口（先知帽尖：把视线引上尖顶，强化可读性而非放大尺寸）
+    const edges = [spec.acc, spec.acc2].filter(Boolean).map(([ax, ay, aw, ah, aa]) => {
+      const e = new Sprite(getGlowTexture('ember'));
+      e.anchor.set(0.5);
+      e.blendMode = 'add';
+      e.tint = 0xd98a3a;
+      e.position.set(ax, ay);
+      e.scale.set(aw / 128, ah / 128);
+      e.alpha = aa;
+      L.addChild(e);
+      return { s: e, a0: aa };
+    });
+    // 接触暗部：y546 压暗盘——下半被台面(z125)盖住，只留躯干下缘 496-538 的
+    // 渐隐暗带，身体"沉进"桌面后缘的环境光遮蔽（贴桌读法的关键）
+    const ao = new Sprite(getGlowTexture('socket'));
+    ao.anchor.set(0.5);
+    ao.position.set(seat.x, 546);
+    ao.scale.set(spec.bw / 128, 100 / 128);
+    ao.alpha = 0.36;
+    // 渲染序：暗盘在最底，反弹/缘口叠其上——烛光在接触线附近穿透 AO
+    L.addChild(ao, bounce);
+    candle.push({ bounce, edges, phase: i * 1.7 });
   });
   return (t) => {
     for (const f of figures) f.body.y = Math.sin(t * 0.0011 + f.phase) * 3;
+    // 角色交互反馈：hover 轻微提亮（向暖白 tint 插值，无 glow 的克制读法）
+    for (const s of seatStates) {
+      s.st2.hovV = (s.st2.hovV ?? 0) + (s.st2.hov - (s.st2.hovV ?? 0)) * 0.1;
+      const k = s.st2.hovV;
+      // 0xffffff → 0xfff2e0：R 恒 255，G/B 微降 31——"提亮"而非"染色"
+      s.body.tint = (0xff << 16) | (Math.round(0xff - 0x0d * k) << 8) | Math.round(0xff - 0x1f * k);
+    }
+    // 受光随烛焰呼吸（低频小幅）：静光在满屏闪烁的烛池旁会读成"死灯"
+    for (const k of candle) {
+      const fl = 1 + Math.sin(t * 0.0007 + k.phase) * 0.12;
+      k.bounce.alpha = 0.16 * fl;
+      for (const e of k.edges) e.s.alpha = e.a0 * fl;
+    }
   };
 }
 
@@ -918,48 +1096,54 @@ function tableProps(L) {
     core.position.set(x, baseY + 4);
     core.alpha = 0.68;
     L.addChild(pool, core);
-    // 蜡油渍（烛座的年代痕迹）
-    const wax = new Graphics();
-    wax.ellipse(-14, 4, 7, 2.5).fill({ color: 0x9a8a6c, alpha: 0.35 });
-    wax.ellipse(12, 5, 5, 2).fill({ color: 0x8a7a5e, alpha: 0.3 });
-    // 烟熏暗渍（烛火经年熏出的黑斑）
-    wax.ellipse(-16, -8, 9, 5).fill({ color: 0x0a0a0c, alpha: 0.28 });
-    // 更宽的极淡烟熏晕（经年烟气扩散的大圈，几乎不可见只添陈旧感）
-    wax.ellipse(-4, -11, 17, 6).fill({ color: 0x0a0a0c, alpha: 0.14 });
-    // 干蜡流痕：自烛座向桌沿的旧蜡滴（年代使用痕迹，走向桌外缘）
-    wax.moveTo(-9, 2).lineTo(-11.5, 14);
-    wax.moveTo(7, 3).lineTo(9, 12).lineTo(8, 21);
-    wax.stroke({ width: 1.5, color: 0x8a7452, alpha: 0.38 });
-    wax.position.set(x, baseY);
-    L.addChild(wax);
-    // 接触阴影 + 烛身 + 烛泪盘
+    // 烛座：接触阴影、铜色托盘和一圈磨损高光，让蜡烛真正压在石桌上
+    const saucer = new Graphics();
+    saucer.ellipse(0, 7, 24, 7).fill({ color: 0x000000, alpha: 0.42 });
+    saucer.ellipse(0, 4, 19, 5.5).fill({ color: 0x28161b, alpha: 0.96 });
+    saucer.ellipse(0, 2, 16, 4.5).fill({ color: 0x6a4130, alpha: 0.8 });
+    saucer.ellipse(0, 0.5, 13, 3.1).stroke({ width: 1.2, color: 0xc18a4b, alpha: 0.5 });
+    saucer.ellipse(0, -1, 9, 2.2).fill({ color: 0x171014, alpha: 0.9 });
+    saucer.position.set(x, baseY);
+    L.addChild(saucer);
+
+    // 烛身：暖白中央受光、暗红侧面、顶部蜡唇和不规则流痕
     const cs = new Graphics();
-    cs.ellipse(0, 3, 19, 6).fill({ color: 0x000000, alpha: 0.32 });
-    cs.ellipse(0, 2.5, 14, 4.5).fill({ color: 0x000000, alpha: 0.58 });
-    cs.rect(-5, -24, 10, 26).fill(0xcfc2a4);
-    cs.rect(-5, -24, 3, 26).fill({ color: 0x8a7a64, alpha: 0.7 });
-    cs.ellipse(0, -25, 5, 2.5).fill(0xbca88a);
+    cs.roundRect(-6, -26, 12, 27, 3).fill({ color: 0x88705c, alpha: 0.98 });
+    cs.roundRect(-4.5, -26, 8, 25, 2.2).fill({ color: 0xd4c2a2, alpha: 0.98 });
+    cs.rect(-3.2, -24, 2.2, 22).fill({ color: 0xf0ddb0, alpha: 0.62 });
+    cs.ellipse(0, -26, 6, 2.5).fill({ color: 0x9b8168, alpha: 0.98 });
+    cs.ellipse(0, -27, 3.9, 1.55).fill({ color: 0xe6d2ab, alpha: 0.9 });
+    cs.moveTo(-4.8, -21).lineTo(-5.8, -14).lineTo(-5.1, -8);
+    cs.moveTo(4.4, -18).lineTo(5.4, -12).lineTo(4.8, -6);
+    cs.stroke({ width: 1.5, color: 0x937457, alpha: 0.72 });
+    cs.ellipse(-5.2, -7, 1.4, 3.2).fill({ color: 0xc1a37b, alpha: 0.64 });
+    // 烟熏与旧蜡渍只留在烛座附近，避免桌面出现新的块状占位感
+    cs.ellipse(-13, 4, 7, 2.5).fill({ color: 0x9a8a6c, alpha: 0.28 });
+    cs.ellipse(12, 5, 5, 2).fill({ color: 0x8a7a5e, alpha: 0.25 });
+    cs.ellipse(-11, -6, 8, 4).fill({ color: 0x0a0a0c, alpha: 0.2 });
     cs.position.set(x, baseY);
     L.addChild(cs);
-    const flame = new Graphics().circle(0, 0, 7).fill(0xffa542);
-    flame.position.set(x, baseY - 31);
+
+    // 灯芯和分层火焰：外焰橙红、内焰金黄、焰心淡色
+    const flame = new Graphics();
+    flame.moveTo(0, -47).lineTo(-5.6, -39).lineTo(-4.1, -32.2).lineTo(0, -28.2);
+    flame.lineTo(4.2, -33.4).lineTo(5.2, -40.2).closePath();
+    flame.fill({ color: 0xc94e2d, alpha: 0.95 });
+    flame.poly([0, -44, -3.2, -38, -2.5, -33, 0, -29.6, 2.6, -34.6, 2.8, -39.6])
+      .fill({ color: 0xffa53e, alpha: 0.98 });
+    flame.ellipse(0, -35.2, 1.8, 4.3).fill({ color: 0xffe4a3, alpha: 0.98 });
+    flame.moveTo(0, -27).lineTo(0, -31).stroke({ width: 1.3, color: 0x24151a, alpha: 0.9 });
+    flame.position.set(x, baseY);
     L.addChild(flame);
     const glow = new Sprite(getGlowTexture('ember'));
     glow.anchor.set(0.5);
     glow.blendMode = 'add';
-    glow.scale.set(34 / 128);
+    glow.scale.set(42 / 128);
     glow.position.set(x, baseY - 34);
-    glow.alpha = 0.55;
+    glow.alpha = 0.48;
     L.addChild(glow);
-    flames.push({ flame, glow, pool, core, phase: flames.length * 2.1 });
+    flames.push({ flame, glow, pool, core, phase: flames.length * 2.1, baseX: x, baseY });
   }
-  // 羊皮纸角 ×2：接触投影垫出"坐在桌上"的接地感；右块内移避让右下日志面板
-  const p = new Graphics();
-  p.roundRect(W * 0.26 + 4, 566, 150, 48, 6).fill({ color: 0x000000, alpha: 0.35 });
-  p.roundRect(W * 0.575 + 4, 570, 140, 44, 6).fill({ color: 0x000000, alpha: 0.35 });
-  p.roundRect(W * 0.26, 560, 150, 48, 6).fill({ color: 0x6e5e42, alpha: 0.9 });
-  p.roundRect(W * 0.575, 564, 140, 44, 6).fill({ color: 0x6e5e42, alpha: 0.78 });
-  L.addChild(p);
   // 高脚杯剪影（右内侧，暗色金属，克制）
   const gob = new Graphics();
   gob.ellipse(0, 1, 12, 4).fill({ color: 0x000000, alpha: 0.4 });
@@ -971,10 +1155,19 @@ function tableProps(L) {
   L.addChild(gob);
   return (t) => {
     for (const f of flames) {
-      const k = 0.65 + Math.sin(t * 0.012 + f.phase) * 0.3;
+      const k = 0.76 + Math.sin(t * 0.012 + f.phase) * 0.16;
+      const sway = Math.sin(t * 0.014 + f.phase) * 0.9;
+      const lift = Math.sin(t * 0.017 + f.phase * 1.2) * 0.55;
       f.flame.alpha = k;
-      f.flame.scale.set(0.85 + Math.sin(t * 0.02 + f.phase * 1.4) * 0.18);
-      f.glow.alpha = 0.4 + 0.25 * k;
+      f.flame.x = f.baseX + sway;
+      f.flame.y = f.baseY + lift;
+      f.flame.scale.set(
+        0.92 + Math.sin(t * 0.02 + f.phase * 1.4) * 0.1,
+        0.96 + Math.sin(t * 0.018 + f.phase) * 0.12,
+      );
+      f.glow.x = f.baseX + sway * 0.35;
+      f.glow.y = f.baseY - 34 + lift * 0.35;
+      f.glow.alpha = 0.34 + 0.22 * k;
       f.pool.alpha = 0.3 + 0.26 * k;
       f.core.alpha = 0.54 + 0.24 * k;
     }
@@ -1384,22 +1577,72 @@ function fgFx(L) {
   };
 }
 
-function nameplates(L) {
-  CHARACTERS.forEach((c, i) => {
-    const name = new Text({ text: c.name, style: PLATE_STYLE });
-    const pw = name.width + 26 + ((i * 17) % 22);
-    const plate = new Graphics();
-    plate.roundRect(-pw / 2, 0, pw, 40, 6).fill({ color: 0x23141a, alpha: 0.95 });
-    plate.roundRect(-pw / 2, 0, pw, 40, 6).stroke({ width: 2, color: 0x6a3a2e });
-    plate.position.set(CHAR_XS[i] * W + c.dx, LAYOUT.plateY + c.dy);
-    plate.rotation = c.rot;
-    name.position.set(-name.width / 2, 7);
-    plate.addChild(name);
-    L.addChild(plate);
+// 角色小标签（替代桌沿大名牌）：每个角色头部附近的小型 "P# · 名字" 标签，
+// labels 层（z150 UI Layer）——跟随 COUNCIL 座位但不烘焙进立绘。
+// P1=人类玩家：编号亮一档 + 左侧小菱形 marker + 金色细 underline + 迷你"你"副字。
+// 每个座位的 P# 与名字都落在对应 accent 色的暗色铭牌上，保证从复杂背景中读出身份。
+function characterLabels(L) {
+  const labelList = [];
+  SEATS.forEach((s) => {
+    const seat = COUNCIL[s.characterId];
+    if (!seat) return; // P7 无立绘不显示
+    const g = new Container();
+    g.position.set(seat.x, seat.top - 26); // 头顶上方（top=COUNCIL 注释的各角色顶点 y）
+    // 底影 + 本体两行文字：P# · 名字（accent 上色 P#，名字 parchment）
+    const numStyle = { fontFamily: 'serif', fontSize: 13, fill: s.isHuman ? 0xd8b46a : s.accent, letterSpacing: 1 };
+    const nameStyle = { fontFamily: 'serif', fontSize: 13, fill: 0xc8b8a8 };
+    const num = new Text({ text: s.seatId, style: numStyle });
+    const dot = new Text({ text: ' · ', style: nameStyle });
+    const nm = new Text({ text: s.name, style: nameStyle });
+    // P1 玩家身份副字："你"（极小 secondary indicator，不做主角光环）
+    let you = null;
+    if (s.isHuman) {
+      you = new Text({ text: '你', style: { fontFamily: 'serif', fontSize: 10, fill: 0x9a8a6a } });
+    }
+    const totalW = num.width + dot.width + nm.width + (you ? you.width + 8 : 0);
+    g.eventMode = 'static';
+    g.cursor = 'pointer';
+    g.hitArea = new Rectangle(-totalW / 2 - 14, -9, totalW + 28, 30);
+    g.on('pointertap', () => GAME.cycleTrustMark?.(s.seatId));
+    let x = -totalW / 2;
+    num.position.set(x, 0); x += num.width;
+    dot.position.set(x, 0); x += dot.width;
+    nm.position.set(x, 0); x += nm.width;
+    if (you) { you.position.set(x + 6, 3); }
+    // 选中 ✓（GAME.party 驱动重绘）
+    const check = new Text({ text: '✓', style: { fontFamily: 'serif', fontSize: 13, fill: s.accent } });
+    check.visible = false;
+    check.position.set(totalW / 2 + 3, 0);
+    // 角色标签打底：暗底压住背景纹理，侧边色条和细描边沿用座位 accent 区分角色。
+    const bgX = -totalW / 2 - 9;
+    const bgW = totalW + 18;
+    const labelBg = new Graphics();
+    labelBg.roundRect(bgX, -6, bgW, 25, 5).fill({ color: 0x0e080d, alpha: 0.88 });
+    labelBg.roundRect(bgX, -6, bgW, 25, 5).stroke({ width: 1.1, color: s.accent, alpha: 0.72 });
+    labelBg.roundRect(bgX, -6, 4, 25, 2).fill({ color: s.accent, alpha: 0.82 });
+    g.addChild(labelBg);
+    // P1 菱形 marker + 金色 underline（非 glow 的身份识别）
+    if (s.isHuman) {
+      const mk = new Graphics();
+      mk.poly([-totalW / 2 - 12, 7, -totalW / 2 - 7, 2, -totalW / 2 - 2, 7, -totalW / 2 - 7, 12])
+        .fill(0xd8b46a);
+      g.addChild(mk);
+      const ul = new Graphics();
+      ul.rect(-num.width / 2 - 1, 15, num.width + 2, 1.2).fill({ color: 0x9a7a3a, alpha: 0.9 });
+      ul.position.set(-(totalW / 2) + num.width / 2, 0);
+      g.addChild(ul);
+    }
+    g.addChild(num, dot, nm, check);
+    if (you) g.addChild(you);
+    L.addChild(g);
+    labelList.push({ g, check, seatId: s.seatId });
+  });
+  GAME.onParty(() => {
+    for (const l of labelList) l.check.visible = GAME.party.includes(l.seatId);
   });
 }
 
-function hud(L) {
+function hud(L, charTexs = null, dragLayer = null) {
   // ── 左上标题系统（整组下移 32px，层级 AVALON > 副标题 > 中文标语）──
   const bl = LAYOUT.bannerL;
   const blc = bl.x + bl.w / 2;
@@ -1409,181 +1652,325 @@ function hud(L) {
   bannerLeft.poly([blc - 8, 290, blc, 278, blc + 8, 290, blc, 302]).fill(0x8a2028);
   bannerLeft.circle(blc, 480, 5).fill(0x6a1820);
   L.addChild(bannerLeft);
+  // 标题组文字（AVALON/分隔线/副标题/标语）已按用户要求移除；竖幅条带装饰保留
 
-  const tx = LAYOUT.title.x;
-  const ty = LAYOUT.title.y;
-  const tTitle = new Text({
-    text: 'AVALON',
-    style: { fontFamily: 'serif', fontSize: 44, fill: 0xd8c8b8, letterSpacing: 6 },
-  });
-  tTitle.position.set(tx, ty);
-  L.addChild(tTitle);
-  const rule = new Graphics().rect(tx, ty + 58, 210, 2).fill(0x6a3a2e);
-  L.addChild(rule);
-  const tSub = new Text({
-    text: '空冠之下 · Beneath the Hollow Crown',
-    style: { fontFamily: 'serif', fontSize: 18, fill: 0x9a8a90 },
-  });
-  tSub.position.set(tx, ty + 70);
-  L.addChild(tSub);
-  const tSlogan = new Text({
-    text: '当信仰腐烂，谁仍能看见人性？',
-    style: { fontFamily: 'serif', fontSize: 15, fill: 0x7a5a62 },
-  });
-  tSlogan.position.set(tx, ty + 98);
-  L.addChild(tSlogan);
+  // 右上任务面板已按用户要求整体移除（标题/进度点/派遣说明/远征预览/引用一并删除）
 
-  // ── 左下对话面板（次要，外框锁定）──
-  const chat = LAYOUT.chat;
-  const dialogue = new Graphics();
-  dialogue.roundRect(0, 0, chat.w, chat.h, 10).fill({ color: 0x1c0f14, alpha: 0.85 });
-  dialogue.roundRect(0, 0, chat.w, chat.h, 10).stroke({ width: 1.5, color: 0x3a2a22 });
-  dialogue.position.set(chat.x, chat.y);
-  L.addChild(dialogue);
-  const tabOn = new Graphics();
-  tabOn.roundRect(12, 623, 56, 24, 6).fill(0x351f26);
-  tabOn.roundRect(12, 623, 56, 24, 6).stroke({ width: 1.5, color: 0x6a3a2e });
-  L.addChild(tabOn);
-  const tabOff = new Graphics();
-  tabOff.roundRect(76, 623, 56, 24, 6).stroke({ width: 1.5, color: 0x2a1a20 });
-  L.addChild(tabOff);
-  [
-    { text: '记录', x: 12, fill: 0xc8b8a8 },
-    { text: '发言', x: 76, fill: 0x5a4a52 },
-  ].forEach((tb) => {
-    const t = new Text({ text: tb.text, style: { fontFamily: 'serif', fontSize: 14, fill: tb.fill } });
-    t.position.set(tb.x + 28 - t.width / 2, 629);
-    L.addChild(t);
-  });
-  const logStyle = { fontFamily: 'serif', fontSize: 13, fill: 0x7a6a70 };
-  const log1 = new Text({ text: '先知：真相从不沉默。', style: logStyle });
-  log1.position.set(22, 668);
-  const log2 = new Text({ text: '医者：我们都已腐烂。', style: logStyle });
-  log2.position.set(22, 690);
-  L.addChild(log1, log2);
-  const inputBox = new Graphics();
-  inputBox.roundRect(10, 958, 295, 34, 6).fill(0x140a0e);
-  inputBox.roundRect(10, 958, 295, 34, 6).stroke({ width: 1.5, color: 0x2a1a20 });
-  L.addChild(inputBox);
-  const inputHint = new Text({ text: '输入消息…', style: { fontFamily: 'serif', fontSize: 13, fill: 0x5a4a50 } });
-  inputHint.position.set(22, 968);
-  L.addChild(inputHint);
-
-  // ── 右上任务面板（外框锁定，26px 内边距五区结构）──
-  const mission = LAYOUT.mission;
-  const p = mission.pad;
-  const missionG = new Graphics();
-  missionG.roundRect(0, 0, mission.w, mission.h, 10).fill({ color: 0x1c0f14, alpha: 0.94 });
-  missionG.roundRect(0, 0, mission.w, mission.h, 10).stroke({ width: 2, color: 0x55392c });
-  missionG.position.set(mission.x, mission.y);
-  L.addChild(missionG);
-  const mText = new Text({ text: '任务 · 第 2 次远征', style: UI_STYLE });
-  mText.position.set(mission.x + p, mission.y + 26);
-  L.addChild(mText);
-  const dots = new Graphics();
-  for (let i = 0; i < 6; i++) {
-    dots.circle(mission.x + p + 4 + i * 24, mission.y + 72, 5).fill(i < 2 ? 0xb0543a : 0x3a2a26);
-  }
-  L.addChild(dots);
-  const reqText = new Text({
-    text: '派遣 3 名成员 · 成功需要 2 票',
-    style: { fontFamily: 'serif', fontSize: 15, fill: 0x7a6a70 },
-  });
-  reqText.position.set(mission.x + p, mission.y + 92);
-  L.addChild(reqText);
-  const preview = new Graphics();
-  preview.roundRect(mission.x + p, mission.y + 118, mission.w - p * 2, 92, 6).fill(0x0d0709);
-  preview.roundRect(mission.x + p, mission.y + 118, mission.w - p * 2, 92, 6).stroke({ width: 1.5, color: 0x3a2a26 });
-  L.addChild(preview);
-  const previewText = new Text({
-    text: '远征预览',
-    style: { fontFamily: 'serif', fontSize: 13, fill: 0x5a4a55 },
-  });
-  previewText.position.set(mission.x + p + 12, mission.y + 156);
-  L.addChild(previewText);
-  const quoteBar = new Graphics().rect(mission.x + p, mission.y + 226, 3, 48).fill(0x6a3a2e);
-  L.addChild(quoteBar);
-  const quote = new Text({
-    text: '「王冠之下，无人生还。」',
-    style: { fontFamily: 'serif', fontSize: 15, fill: 0x8a7a70 },
-  });
-  quote.position.set(mission.x + p + 14, mission.y + 234);
-  L.addChild(quote);
-
-  // ── 中央动作栈：派遣条（2 已选 + 1 空位）──
-  const party = LAYOUT.party;
-  const filled = [CHARACTERS[2], CHARACTERS[4], null];
-  filled.forEach((s, i) => {
-    const sx = W / 2 + (i - 1) * party.gap - party.slot / 2;
-    // 石面接触投影：令牌坐进石面的接地暗晕（短、近锐远柔——只给世界实体，非 UI 投影）
-    const ct = new Graphics();
-    ct.roundRect(3, 5, party.slot, party.slot * 0.4, 12).fill({ color: 0x000000, alpha: 0.38 });
-    ct.position.set(sx, party.y + party.slot - 10);
-    L.addChild(ct);
-    const g = new Graphics();
-    g.roundRect(0, 0, party.slot, party.slot, 10)
-      .fill(s ? { color: s.color, alpha: 0.9 } : 0x140a0e);
-    g.roundRect(0, 0, party.slot, party.slot, 10)
-      .stroke({ width: 2, color: s ? 0x6a3a2e : 0x2c1c22 });
-    g.position.set(sx, party.y);
-    L.addChild(g);
-    if (!s) {
-      const label = new Text({ text: '+', style: { fontFamily: 'serif', fontSize: 30, fill: 0x6a5a60 } });
-      label.position.set(sx + party.slot / 2 - label.width / 2, party.y + 14);
-      L.addChild(label);
+  const partyGlow = []; // 已选 token 的烛光受光纱（hud updater 脉动）
+  // ── 中央 Party Selection（动态人数驱动，Gameplay UI Restructure）──
+  // 槽数 = GAME.mission.required（不硬编码）；只显示已选座位的小 token + 剩余空位凿刻。
+  // token = P# 主识别（accent 色）+ 极小头像。整组比旧 5 槽矮 ~40%，让石桌重新可见。
+  const HEAD_WIN = {
+    prophet: [116, 25], knight: [187, 25], nun: [126, 25], king: [374, 25],
+    wanderer: [95, 45], doctor: [90, 25],
+  };
+  const TOK = 46;              // token 边长（规格 56-68 的紧凑端）
+  const TGAP = 64;             // token 间距
+  const PY = 494;              // token 行顶（上移至悬停放大卡顶 585 之上：按钮底 582 留 3px 净空）
+  let partyUI = null;
+  let countText = null;
+  const buildParty = () => {
+    if (partyUI) L.removeChild(partyUI);
+    if (countText) L.removeChild(countText);
+    partyUI = new Container();
+    const req = GAME.mission.required;
+    countText = new Text({ text: `队伍 ${GAME.party.length} / ${req}`, style: { fontFamily: 'serif', fontSize: 15, fill: 0xc8b8a8, letterSpacing: 2 } });
+    countText.position.set(W / 2 - countText.width / 2, PY - 26);
+    L.addChild(countText);
+    for (let k = 0; k < req; k++) {
+      const cx = W / 2 + (k - (req - 1) / 2) * TGAP;
+      const seatId = GAME.party[k] ?? null;
+      const seat = seatId ? SEATS.find((s) => s.seatId === seatId) : null;
+      const g = new Graphics();
+      g.roundRect(0, 0, TOK, TOK, 7).fill(seat ? 0x241b21 : 0x1a1318);
+      g.roundRect(0, 0, TOK, TOK, 7).stroke({ width: 1.5, color: seat ? seat.accent : 0x3a2c34, alpha: 0.95 });
+      g.roundRect(2, 2, TOK - 4, 2, 1).fill({ color: seat ? 0x8a6a4a : 0x4a3a34, alpha: 0.6 });
+      g.position.set(cx - TOK / 2, PY);
+      partyUI.addChild(g);
+      if (seat) {
+        const tex = charTexs && charTexs[seat.characterId];
+        if (tex) {
+          const [wx, wy] = HEAD_WIN[seat.characterId] ?? [tex.width / 2 - 120, 25];
+          const head = new Sprite(new Texture({ source: tex.source, frame: new Rectangle(wx, wy, 240, 240) }));
+          head.anchor.set(0.5);
+          head.scale.set(24 / 240);
+          head.position.set(TOK / 2 - 8, 18);
+          g.addChild(head);
+        }
+        const pid = new Text({ text: seat.seatId, style: { fontFamily: 'serif', fontSize: 12, fill: seat.isHuman ? 0xd8b46a : seat.accent } });
+        pid.position.set(TOK / 2 + 6 - pid.width / 2, 8);
+        g.addChild(pid);
+        const nm = new Text({ text: seat.name, style: { fontFamily: 'serif', fontSize: 9, fill: 0x9a8a7a } });
+        nm.position.set(TOK / 2 + 6 - nm.width / 2, 24);
+        g.addChild(nm);
+      } else {
+        const dy0 = PY + 12;
+        const mark = new Graphics();
+        mark.poly([cx + 2, dy0 + 5, cx + 7, dy0 + 10, cx + 2, dy0 + 15, cx - 3, dy0 + 10])
+          .fill({ color: 0x020103, alpha: 0.85 });
+        mark.poly([cx, dy0 + 3, cx + 5, dy0 + 9, cx, dy0 + 15, cx - 5, dy0 + 9]).fill(0x2c2028);
+        mark.moveTo(cx - 5, dy0 + 9).lineTo(cx, dy0 + 3).lineTo(cx + 5, dy0 + 9)
+          .stroke({ width: 1.2, color: 0x5a4638, alpha: 0.7 });
+        partyUI.addChild(mark);
+      }
     }
+    L.addChild(partyUI);
+  };
+  buildParty();
+  GAME.onParty(buildParty);
+
+  // ── 确认派遣：窄哥特按钮，三态（disabled/enabled+hover/pressed），结算期锁定 ──
+  const cf = { w: 168, h: 32, y: PY + TOK + 10 };
+  const bx0 = W / 2 - cf.w / 2;
+  const by0 = cf.y;
+  const btnBox = new Container(); // 位移（按下下沉 2px）与绘制分离
+  btnBox.position.set(bx0, by0);
+  btnBox.eventMode = 'static';
+  const btn = new Graphics();
+  btnBox.addChild(btn);
+  // hover 亮边：金描边，alpha 由 updater 缓动（仅激活态显示）
+  const edge = new Graphics();
+  edge.roundRect(1, 1, cf.w - 2, cf.h - 2, 6).stroke({ width: 1.5, color: 0xd8b46a, alpha: 0.9 });
+  edge.alpha = 0;
+  btnBox.addChild(edge);
+  const btnText = new Text({ text: '确认派遣', style: { fontFamily: 'serif', fontSize: 15, fill: 0xc8a888, letterSpacing: 5 } });
+  const btnShadow = new Text({ text: '确认派遣', style: { fontFamily: 'serif', fontSize: 15, fill: 0x050304, letterSpacing: 5 } });
+  // 錾刻铭文双居中（按钮内水平/垂直居中，底影右下偏移 1.5px）
+  btnShadow.position.set(cf.w / 2 - btnShadow.width / 2 + 1.5, (cf.h - btnShadow.height) / 2 + 1.5);
+  btnText.position.set(cf.w / 2 - btnText.width / 2, (cf.h - btnText.height) / 2);
+  btnBox.addChild(btnShadow, btnText);
+  // 按钮挂 drag 层（z180 > 卡牌 z170）：悬停抬起的中央卡命中区盖住按钮区，
+  // 按钮 passive 时 hitTest 会穿透到身后的卡导致 tap 误触选中——static+置顶根治
+  (dragLayer ?? L).addChild(btnBox);
+  const drawBtn = (ok) => {
+    btn.clear();
+    btn.roundRect(0, 0, cf.w, cf.h, 6).fill(ok ? 0x2a1a1e : 0x191217);
+    btn.roundRect(0, 0, cf.w, cf.h, 6).stroke({ width: 1.5, color: ok ? 0x8a4a3a : 0x2c2228 });
+    btn.roundRect(2, 2, cf.w - 4, 2, 1).fill({ color: ok ? 0xa87848 : 0x3a3038, alpha: 0.7 });
+    btn.roundRect(4, 5, cf.w - 8, cf.h - 10, 3).stroke({ width: 1, color: ok ? 0x6a3a2e : 0x241a20, alpha: 0.8 });
+    btnText.style.fill = ok ? 0xd8b090 : 0x5a4a4a;
+    btnText.alpha = ok ? 1 : 0.7;
+    btnShadow.alpha = ok ? 0.9 : 0.55;
+  };
+  let lastOk = null;
+  const refreshBtn = () => {
+    const ok = GAME.confirmReady();
+    if (ok === lastOk) return;
+    lastOk = ok;
+    drawBtn(ok);
+    btnBox.cursor = ok ? 'pointer' : 'default';
+  };
+  refreshBtn();
+  GAME.onParty(refreshBtn);
+  const bSt = { hov: 0, hovV: 0, press: 0, pressV: 0 };
+  btnBox.on('pointerover', () => { bSt.hov = 1; });
+  btnBox.on('pointerout', () => { bSt.hov = 0; });
+  btnBox.on('pointerdown', () => { if (!GAME.hoverOnly && GAME.confirmReady()) bSt.press = 1; });
+  const releasePress = () => { if (!GAME.hoverOnly) bSt.press = 0; };
+  btnBox.on('pointerup', releasePress);
+  btnBox.on('pointerupoutside', releasePress);
+  // 确认派遣：满员且未在结算 → 进入结算动画（占位：50/50 成功/失败）
+  btnBox.on('pointertap', () => {
+    if (GAME.hoverOnly) return;
+    if (GAME.confirmReady()) GAME.beginResolve(Math.random() < 0.5 ? 'success' : 'fail');
   });
 
-  // ── 确认派遣按钮 ──
-  const cf = LAYOUT.confirm;
-  const btn = new Graphics();
-  btn.roundRect(0, 0, cf.w, cf.h, 8).fill(0x6e1a1e);
-  btn.roundRect(0, 0, cf.w, cf.h, 8).stroke({ width: 2, color: 0x8a3026 });
-  btn.position.set(W / 2 - cf.w / 2, cf.y);
-  L.addChild(btn);
-  const btnText = new Text({ text: '确认派遣', style: { fontFamily: 'serif', fontSize: 22, fill: 0xe8d0c0 } });
-  btnText.position.set(W / 2 - btnText.width / 2, cf.y + 8);
-  L.addChild(btnText);
+  // ── 结算反馈层：token 行闪光 + 结果大字（resolve 期间由 updater 驱动）──
+  const resolveFlash = new Graphics();
+  resolveFlash.roundRect(W / 2 - 178, PY - 6, 356, TOK + 12, 8);
+  resolveFlash.visible = false;
+  L.addChild(resolveFlash);
+  const resolveText = new Text({ text: '', style: { fontFamily: 'serif', fontSize: 24, fill: 0xd8c8b8, letterSpacing: 6 } });
+  resolveText.visible = false;
+  L.addChild(resolveText);
 
-  // ── 底部状态 rail：○ ○ ○ ○  行动点 1/3（居中，占底部 ~50px 带宽）──
+  // ── 底部状态 rail：AP 轨与卡牌可用性联动（GAME 单例：出牌扣减即时重绘）──
   const ay = LAYOUT.apLine.y;
-  const rail = new Graphics();
-  for (let i = 0; i < 4; i++) {
-    // 暗点用可读闷色（0x3a2a26 会在木色桌面上隐形）
-    rail.circle(660 + i * 24, ay, 5).fill(i === 0 ? 0xb0543a : 0x6a4a46);
-  }
-  L.addChild(rail);
-  const apText = new Text({ text: '行动点 1/3', style: { ...UI_STYLE, fill: 0xc8b8a8 } });
-  apText.position.set(770, ay - apText.height / 2);
-  L.addChild(apText);
+  const AP_X = 660;
+  const AP_STEP = 24;
+  const AP_COLOR_ON = 0xffb85c;
+  const AP_COLOR_OFF = 0x604249;
+  let rail = null;
+  let apText = null;
+  let apTextShadow = null;
+  const apLights = [];
+  const drawAp = () => {
+    if (rail) L.removeChild(rail);
+    if (apTextShadow) L.removeChild(apTextShadow);
+    if (apText) L.removeChild(apText);
+    rail = new Container();
+    rail.sortableChildren = true;
+    apLights.length = 0;
+    for (let i = 0; i < GAME.max; i++) {
+      const active = i < GAME.ap;
+      const x = AP_X + i * AP_STEP;
+      // 每个 AP 都是一盏小烛灯：柔光层 + 金色环 + 明亮灯芯，随后由 hud updater 呼吸。
+      const glow = new Sprite(getGlowTexture('ember'));
+      glow.anchor.set(0.5);
+      glow.position.set(x, ay);
+      glow.tint = active ? 0xffb65a : 0x4a3034;
+      glow.blendMode = 'add';
+      glow.alpha = active ? 0.32 : 0.02;
+      glow.scale.set((active ? 28 : 18) / 128);
+      glow.zIndex = 0;
+      const ring = new Graphics();
+      ring.circle(x, ay, 8.5).stroke({ width: 1.4, color: active ? 0xf0b45b : AP_COLOR_OFF, alpha: active ? 0.85 : 0.35 });
+      ring.zIndex = 1;
+      const core = new Graphics();
+      core.circle(x, ay, 5.2).fill(active ? AP_COLOR_ON : AP_COLOR_OFF);
+      core.zIndex = 2;
+      rail.addChild(glow, ring, core);
+      apLights.push({ active, glow, ring, core, phase: i * 0.92 });
+    }
+    L.addChild(rail);
+    const apLabel = `行动点 ${GAME.ap}/${GAME.max}`;
+    apTextShadow = new Text({ text: apLabel, style: { ...UI_STYLE, fill: 0x160a0c, letterSpacing: 1 } });
+    apText = new Text({ text: apLabel, style: { ...UI_STYLE, fill: 0xf0d7a2, letterSpacing: 1 } });
+    apTextShadow.position.set(769, ay - apTextShadow.height / 2 + 2);
+    apText.position.set(767, ay - apText.height / 2);
+    L.addChild(apTextShadow, apText);
+  };
+  drawAp();
+  GAME.onApi(drawAp);
 
-  // ── 右下羊皮纸情报面板：多层纸张错位叠放（外框锁定）──
+  // ── 右下 P1 私密记录：只读公开状态 + P1 自己的身份，手动标记只存前端 ──
   const note = LAYOUT.note;
+  const intelBaseW = note.w;
+  let intelW = intelBaseW;
+  let intelCompact = false;
+  const intelCollapsedH = 78;
+  const intelExpandedH = 310;
   const noteC = new Container();
-  const sheet2 = new Graphics();
-  sheet2.roundRect(18, 12, note.w - 12, note.h - 4, 6).fill({ color: 0x5c4a34, alpha: 0.85 });
-  sheet2.roundRect(18, 12, note.w - 12, note.h - 4, 6).stroke({ width: 2, color: 0x241812 });
-  const sheet3 = new Graphics();
-  sheet3.roundRect(-14, -8, 90, 70, 4).fill({ color: 0x7a6845, alpha: 0.9 });
-  const sheet1 = new Graphics();
-  sheet1.roundRect(0, 0, note.w, note.h, 6).fill({ color: 0x6e5a3f, alpha: 0.95 });
-  sheet1.roundRect(0, 0, note.w, note.h, 6).stroke({ width: 2, color: 0x2e2118 });
-  noteC.addChild(sheet2, sheet3, sheet1);
-  const crown = new Graphics();
-  const cxn = note.w / 2;
-  crown.circle(cxn, 56, 5).fill(0x7c2a20);
-  crown.poly([cxn - 18, 70, cxn - 12, 52, cxn - 6, 70]).fill(0x7c2a20);
-  crown.poly([cxn - 4, 70, cxn + 2, 48, cxn + 8, 70]).fill(0x7c2a20);
-  crown.poly([cxn + 6, 70, cxn + 12, 52, cxn + 18, 70]).fill(0x7c2a20);
-  noteC.addChild(crown);
-  const noteStyle = { fontFamily: 'serif', fontSize: 22, fill: 0x241a10 };
-  const n1 = new Text({ text: '真相尚未到来，', style: noteStyle });
-  const n2 = new Text({ text: '但它正在靠近。', style: noteStyle });
-  n1.position.set(note.w / 2 - n1.width / 2, 110);
-  n2.position.set(note.w / 2 - n2.width / 2, 146);
-  noteC.addChild(n1, n2);
-  noteC.position.set(note.x, note.y);
-  noteC.rotation = 0.015;
+  const cardRight = LAYOUT.cards.centerX
+    + ((CARDS.length - 1) / 2) * LAYOUT.cards.spacing
+    + LAYOUT.cards.w / 2
+    + 12;
+  const updateIntelViewport = () => {
+    // The world uses a cover fit, so a short/narrow viewport crops the design
+    // edges. Keep this lower-right panel inside the visible edge and leave a
+    // small gap after the card fan instead of allowing the parchment to be
+    // clipped or to cover a card.
+    const viewportW = window.innerWidth || W;
+    const viewportH = window.innerHeight || H;
+    const worldScale = Math.max(viewportW / W, viewportH / H);
+    const worldLeft = (viewportW - W * worldScale) / 2;
+    const visibleRight = (viewportW - worldLeft) / worldScale - 10;
+    const minX = cardRight + 8;
+    const available = visibleRight - minX;
+    intelCompact = available < intelBaseW;
+    intelW = intelCompact ? Math.min(intelBaseW, Math.max(120, available)) : intelBaseW;
+    noteC.position.set(intelCompact ? Math.max(minX, visibleRight - intelW) : note.x, note.y);
+    noteC.rotation = intelCompact ? 0 : 0.015;
+  };
+  updateIntelViewport();
+  let intelBody = null;
+  let intelExpanded = false;
+  let intelPulseRows = [];
+  const intelToggle = new Graphics();
+  intelToggle.eventMode = 'static';
+  intelToggle.cursor = 'pointer';
+  intelToggle.on('pointertap', () => {
+    intelExpanded = !intelExpanded;
+    renderIntelPanel();
+  });
+  const markNames = { trusted: '可信', watch: '观察', suspicious: '可疑' };
+  const markColors = { trusted: 0x9da98c, watch: 0xb29a6a, suspicious: 0xa0645c };
+  const intelGroups = [
+    { type: 'confirmed', title: '已确认', color: 0xc6ae82, empty: '暂无已确认记录' },
+    { type: 'clue', title: '线索', color: 0x9aa8b4, empty: '暂无新线索' },
+    { type: 'suspicion', title: '怀疑', color: 0xa0645c, empty: '暂无手动怀疑标记' },
+  ];
+  const seatLabel = (seatId) => {
+    const seat = SEATS.find((entry) => entry.seatId === seatId);
+    return `${seatId} · ${seat?.name || seatId}`;
+  };
+  const renderIntelPanel = () => {
+    if (intelBody) {
+      noteC.removeChild(intelBody);
+      intelBody.destroy({ children: true });
+    }
+    intelPulseRows = [];
+    const info = GAME.privateIntel || {};
+    const entries = Array.isArray(info.entries) ? info.entries : [];
+    const marks = info.manualTrustMarks || {};
+    const panelH = intelExpanded ? intelExpandedH : intelCollapsedH;
+    intelBody = new Container();
+
+    const shadow = new Graphics();
+    shadow.roundRect(10, 11, intelW - 2, panelH - 3, 8).fill({ color: 0x050305, alpha: 0.58 });
+    const paper = new Graphics();
+    paper.roundRect(0, 0, intelW, panelH, 8).fill({ color: 0x24151b, alpha: 0.97 });
+    paper.roundRect(0, 0, intelW, panelH, 8).stroke({ width: 1.5, color: 0x6c493d, alpha: 0.9 });
+    paper.roundRect(7, 7, intelW - 14, panelH - 14, 5).stroke({ width: 1, color: 0x3d292a, alpha: 0.8 });
+    intelBody.addChild(shadow, paper);
+
+    const title = new Text({ text: `${info.ownerSeatId || 'P1'} · 私密记录`, style: { fontFamily: 'serif', fontSize: intelCompact ? 15 : 18, fill: 0xd8b46a, letterSpacing: intelCompact ? 0.5 : 1 } });
+    title.position.set(16, 12);
+    const subtitle = new Text({ text: '仅你可见', style: { fontFamily: 'serif', fontSize: intelCompact ? 9 : 10, fill: 0x9f8e88, letterSpacing: intelCompact ? 0.5 : 1 } });
+    subtitle.position.set(17, 35);
+    const arrow = new Text({ text: intelExpanded ? '⌃' : '⌄', style: { fontFamily: 'serif', fontSize: intelCompact ? 16 : 18, fill: 0xc49a62 } });
+    arrow.position.set(intelW - (intelCompact ? 24 : 31), 15);
+    const newCount = entries.filter((entry) => entry.isNew).length;
+    const collapsedCount = newCount
+      ? (intelCompact ? `● ${newCount}` : `● ${newCount} 条新线索`)
+      : (intelCompact ? `${entries.length} 条` : `${entries.length} 条记录`);
+    const count = new Text({ text: collapsedCount, style: { fontFamily: 'serif', fontSize: intelCompact ? 9 : 11, fill: newCount ? 0xc49a62 : 0x938486 } });
+    count.position.set(intelW - count.width - (intelCompact ? 25 : 34), 38);
+    intelBody.addChild(title, subtitle, arrow, count);
+
+    const rule = new Graphics();
+    rule.moveTo(16, 53).lineTo(intelW - 16, 53).stroke({ width: 1, color: 0x5c3d38, alpha: 0.75 });
+    intelBody.addChild(rule);
+
+    if (intelExpanded) {
+      let y = 63;
+      for (const group of intelGroups) {
+        const heading = new Text({ text: group.title, style: { fontFamily: 'serif', fontSize: intelCompact ? 11 : 12, fill: group.color, letterSpacing: intelCompact ? 1 : 2 } });
+        heading.position.set(16, y);
+        intelBody.addChild(heading);
+        y += 18;
+        let rows = entries.filter((entry) => entry.type === group.type).slice(0, 2);
+        if (group.type === 'suspicion') {
+          const manualRows = Object.entries(marks).filter(([, mark]) => markNames[mark]).map(([seatId, mark]) => ({
+            id: `mark:${seatId}`,
+            text: `${seatLabel(seatId)} · ${markNames[mark]}`,
+            mark,
+            type: 'suspicion',
+          }));
+          rows = manualRows.slice(0, 2);
+        }
+        if (!rows.length) rows = [{ id: `empty:${group.type}`, text: group.empty, empty: true, type: group.type }];
+        for (const entry of rows) {
+          const textColor = entry.empty ? 0x786b70 : entry.mark ? markColors[entry.mark] : group.color;
+          const row = new Text({
+            text: `• ${entry.text}`,
+            style: { fontFamily: 'serif', fontSize: intelCompact ? 9.5 : 11, fill: textColor, wordWrap: true, wordWrapWidth: intelW - (intelCompact ? 30 : 38), breakWords: true, lineHeight: intelCompact ? 13 : 15 },
+          });
+          const rowH = Math.max(21, row.height + 5);
+          if (entry.isNew) {
+            const highlight = new Graphics();
+            highlight.roundRect(11, y - 2, intelW - 22, rowH, 4).fill({ color: group.type === 'confirmed' ? 0x7d6843 : group.type === 'clue' ? 0x4c6574 : 0x713b38, alpha: 0.16 });
+            intelBody.addChild(highlight);
+            intelPulseRows.push({ highlight, until: performance.now() + 420 });
+          }
+          row.position.set(18, y);
+          intelBody.addChild(row);
+          y += rowH + 2;
+        }
+        y += 6;
+      }
+    }
+    noteC.addChild(intelBody, intelToggle);
+    intelToggle.hitArea = new Rectangle(0, 0, intelW, 58);
+  };
+  GAME.onIntel(renderIntelPanel);
+  renderIntelPanel();
+  window.addEventListener('resize', () => {
+    const previousW = intelW;
+    const previousCompact = intelCompact;
+    updateIntelViewport();
+    if (previousW !== intelW || previousCompact !== intelCompact) renderIntelPanel();
+  });
   L.addChild(noteC);
 
   // ── 最右窄幅邪教横幅 ──
@@ -1596,18 +1983,69 @@ function hud(L) {
   bannerG.poly([bx - 8, 510, bx, 498, bx + 8, 510, bx, 522]).fill(0x6a1820);
   bannerG.circle(bx, 700, 5).fill(0x6a1820);
   L.addChild(bannerG);
+
+  // 派遣 token/按钮的烛光受光低频脉动（buildParty 每次重建会把纱推入 partyGlow）+
+  // 确认按钮三态缓动 + 结算反馈动画（resolve 期间闪光与结果大字，结束落账进新回合）
+  return (t) => {
+    // AP 灯带持续呼吸，出牌扣点后 drawAp 会重建 active 状态。
+    for (const light of apLights) {
+      const wave = 0.5 + 0.5 * Math.sin(t * 0.0032 + light.phase);
+      if (light.active) {
+        light.glow.alpha = 0.24 + 0.20 * wave;
+        light.glow.scale.set((25 + 8 * wave) / 128);
+        light.ring.alpha = 0.68 + 0.25 * wave;
+        light.core.alpha = 0.88 + 0.12 * wave;
+      } else {
+        light.glow.alpha = 0.015;
+        light.ring.alpha = 0.26;
+        light.core.alpha = 0.5;
+      }
+    }
+    if (apText) apText.alpha = 0.94 + 0.06 * (0.5 + 0.5 * Math.sin(t * 0.0024));
+    const intelNow = performance.now();
+    for (const pulse of intelPulseRows) {
+      const remaining = pulse.until - intelNow;
+      pulse.highlight.alpha = remaining > 0 ? 0.16 * Math.min(1, remaining / 420) : 0;
+    }
+    for (const p of partyGlow) p.s.alpha = 0.10 + 0.05 * (1 + Math.sin(t * 0.0021 + p.phase));
+    // 按钮三态缓动：hover 亮边 alpha / 按下下沉 2px
+    bSt.hovV += (bSt.hov - bSt.hovV) * 0.2;
+    bSt.pressV += (bSt.press - bSt.pressV) * 0.4;
+    btnBox.y = by0 + bSt.pressV * 2;
+    edge.alpha = (GAME.confirmReady() ? 0.85 : 0) * Math.max(bSt.hovV, bSt.pressV) * (1 - bSt.pressV);
+    // 结算反馈：token 行闪光 + 结果大字（成功蓝灰 / 失败血红），900ms 后落账进新回合
+    if (GAME.resolving) {
+      const k = Math.min(1, (t - GAME.resolveStart) / 900);
+      const ok = GAME.resolveOutcome === 'success';
+      resolveFlash.visible = true;
+      resolveFlash.tint = ok ? 0x9ab0c0 : 0xc04840;
+      resolveFlash.alpha = 0.30 * Math.sin(Math.PI * k);
+      resolveText.visible = true;
+      resolveText.text = ok ? '任务成功' : '任务失败';
+      resolveText.style.fill = ok ? 0x9ab0c0 : 0xc04840;
+      resolveText.alpha = 0.55 + 0.45 * Math.sin(Math.PI * k);
+      resolveText.position.set(W / 2 - resolveText.width / 2, PY - 10);
+      if (k >= 1) GAME.finishResolve();
+    } else if (resolveText.visible) {
+      resolveFlash.visible = false;
+      resolveText.visible = false;
+    }
+  };
 }
 
-// 卡牌：底部中心枢轴扇形，rot/scale/raise/z 逐卡来自 config
-function cards(L) {
+// 卡牌：底部中心枢轴扇形，rot/scale/raise/z 逐卡来自 config。
+// 交互全家桶：悬停(1) + 点选金边/徽记(2) + 拖拽跟手(3) + 拖放出牌飞向动作栈(3)
+// + 不可用态压暗(4)——事件只写目标态，全部缓动在 updater 内 lerp（项目惯例）
+function cards(L, dragLayer, cardTexs) {
   const list = [];
   const cl = LAYOUT.cards;
   const mid = (CARDS.length - 1) / 2;
+  const STACK = { x: W / 2, y: LAYOUT.party.y + 32 }; // 出牌目的地：动作栈中心
   L.sortableChildren = true;
+  const ART_KEY = { 侦察: 'scout', 劝说: 'persuade', 质疑: 'question', 挑拨: 'provoke', 沉默: 'silence' };
   CARDS.forEach((c, i) => {
-    const isCenter = i === mid;
-    const cw = isCenter ? cl.centerW : cl.w;
-    const chh = isCenter ? cl.centerH : cl.h;
+    const cw = cl.w;   // 五卡统一尺寸（放大/选中只由动效表达）
+    const chh = cl.h;
     const cx = cl.centerX + (i - mid) * cl.spacing;
     const by = cl.bottomY - c.raise; // 卡底枢轴；raise 为整体抬高量
     const card = new Container();
@@ -1616,22 +2054,303 @@ function cards(L) {
     frame.roundRect(-cw / 2, -chh, cw, chh, 14).fill(0x241014);
     frame.roundRect(-cw / 2, -chh, cw, chh, 14).stroke({ width: 2, color: 0x6a3a2e });
     frame.roundRect(-cw / 2 + 12, -chh + 12, cw - 24, chh - 24, 10).fill(0x0d0709);
-    frame.circle(-cw / 2 + 22, -chh + 22, 14).fill(0x7c2a20);
+    // 成本红点 placeholder：内框顶部中央、插画上沿之上的空带（"卡图上方"）
+    frame.circle(0, -chh + 32, 15).fill(0x7c2a20);
     card.addChild(frame);
+    // 卡面真美术：内框区域整贴 DD 手绘插画（cover 裁切），中心=内框中心(0,-chh/2+12)，
+    // 并用内框圆角矩形作 mask——直角插画不溢出圆角、不压外框。
+    // v8.21 mask 注意：不可设 renderable=false（会取空失败），保持默认即可正确裁切
+    const artTex = cardTexs && cardTexs[ART_KEY[c.name]];
+    let art = null;
+    if (artTex) {
+      art = new Sprite(artTex);
+      art.anchor.set(0.5, 0.5);
+      const iw = cw - 24;
+      const ih = chh - 24;
+      art.scale.set(Math.max(iw / artTex.width, ih / artTex.height)); // cover
+      art.position.set(0, -chh / 2 + 12);
+      const clip = new Graphics();
+      clip.roundRect(-cw / 2 + 12, -chh + 12, cw - 24, chh - 24, 10).fill(0xffffff);
+      card.addChild(art, clip);
+      art.mask = clip;
+    }
+    // —— 卡面"生命感"三层动效（全程序化，无额外素材）——
+    // ①暖辉呼吸：加法暖光斑在插画中带缓慢呼吸（烛光余温的"活物感"）
+    // ②插画微缩放：Ken Burns 式 ±0.6% 极缓呼吸（让静态画面"活着"）
+    // ③暗角雾漂：一层低透明暗雾在卡面内缓慢横移（增加深度，被 mask 裁在内框内）
+    const haloBase = 1 + 0.02 * (i % 3); // 每卡微差呼吸幅度防机械同步
+    const artScale0 = artTex ? Math.max((cw - 24) / artTex.width, (chh - 24) / artTex.height) : 1;
+    // 暖辉呼吸层：椭圆暖光斑（中心偏卡面中带，避开顶部角标与底部文字带）
+    const artGlow = new Sprite(getGlowTexture('ember'));
+    artGlow.anchor.set(0.5);
+    artGlow.blendMode = 'add';
+    artGlow.tint = 0xd98a3a;
+    artGlow.alpha = 0.06;
+    artGlow.scale.set((cw * 0.72) / 128, (chh * 0.42) / 128);
+    artGlow.position.set(0, -chh * 0.38);
+    artGlow.zIndex = 0;
+    card.addChild(artGlow);
     const name = new Text({ text: c.name, style: { fontFamily: 'serif', fontSize: 22, fill: 0xd8c8b8 } });
     name.position.set(-name.width / 2, -46);
+    // 成本角标：骑跨卡顶边缘（半悬卡外）——不遮挡插画，卡牌游戏经典布局。
+    // 金环暗底 + 米白数字，与选中金边同语义
+    const costBadge = new Container();
+    const badgeBg = new Graphics();
+    badgeBg.circle(0, 0, 13).fill(0x1c1116);
+    badgeBg.circle(0, 0, 13).stroke({ width: 2, color: 0xb08a3a, alpha: 0.95 });
+    badgeBg.circle(-1, -1, 8.5).fill({ color: 0x3a2a26, alpha: 0.7 });
+    costBadge.addChild(badgeBg);
     const cost = new Text({ text: String(c.cost), style: { fontFamily: 'serif', fontSize: 17, fill: 0xe8d8c8 } });
-    cost.position.set(-cw / 2 + 22 - cost.width / 2, -chh + 22 - cost.height / 2);
-    card.addChild(name, cost);
+    cost.position.set(-cost.width / 2, -cost.height / 2);
+    costBadge.addChild(cost);
+    costBadge.position.set(0, -chh + 32);
+    card.addChild(name, costBadge);
+    // 选中金边（同路径描边常驻，alpha 控制）：金=确认语义，与暗红框区分
+    const gold = new Graphics();
+    gold.roundRect(-cw / 2, -chh, cw, chh, 14).stroke({ width: 3, color: 0xb08a3a });
+    gold.alpha = 0;
+    gold.zIndex = 2;
+    card.addChild(gold);
+    // 卡背徽记（圆环+竖眼+三尖冠）：选中后浮现，updater 慢速脉动
+    const sigil = new Container();
+    const ring = new Graphics();
+    ring.circle(0, 0, 26).stroke({ width: 2.5, color: 0xb08a3a, alpha: 0.95 });
+    ring.ellipse(0, 0, 7, 15).stroke({ width: 2, color: 0xb08a3a, alpha: 0.9 });
+    ring.poly([-16, -8, -10, -26, -4, -9]).fill(0xb08a3a);
+    ring.poly([-1, -10, 5, -28, 10, -9]).fill(0xb08a3a);
+    ring.poly([8, -8, 16, -24, 18, -5]).fill(0xb08a3a);
+    sigil.addChild(ring);
+    sigil.position.set(0, -chh / 2);
+    sigil.alpha = 0;
+    sigil.zIndex = 1;
+    card.addChild(sigil);
+    // 不可用态暗遮罩：整卡压暗（含金边/徽记），并吃掉指针事件
+    const dim = new Graphics();
+    dim.rect(-cw / 2 - 2, -chh - 2, cw + 4, chh + 4).fill({ color: 0x060309, alpha: 0.62 });
+    dim.alpha = 0;
+    dim.zIndex = 3;
+    dim.eventMode = 'static';
+    card.addChild(dim);
+    // 悬停红光圈（用户定稿：紧贴卡牌长方形边缘）——沿卡牌自身轮廓的霓虹发光：
+    // 核心亮线紧贴边框 + 宽柔光层向外小半径羽化（霓虹管+外发光），加法混合。
+    // 外围悬浮椭圆环两轮目验均被否——发光必须包住卡牌边缘本身
+    const haloRing = new Graphics();
+    haloRing.roundRect(-cw / 2, -chh, cw, chh, 14)
+      .stroke({ width: 12, color: 0xd9453a, alpha: 0.32 }); // 外发光羽化层
+    haloRing.roundRect(-cw / 2, -chh, cw, chh, 14)
+      .stroke({ width: 3, color: 0xff6a55, alpha: 0.95 });  // 核心亮线
+    haloRing.blendMode = 'add';
+    haloRing.alpha = 0;
+    haloRing.zIndex = 1;
+    const haloGlow = new Sprite(getGlowTexture('ember'));
+    haloGlow.anchor.set(0.5);
+    haloGlow.blendMode = 'add';
+    haloGlow.tint = 0xd9453a;
+    haloGlow.position.set(0, -chh / 2);
+    haloGlow.alpha = 0;
+    haloGlow.zIndex = -2;
+    card.addChild(haloRing, haloGlow);
     card.position.set(cx, by);
     card.scale.set(c.scale);
     card.rotation = (c.rot * Math.PI) / 180;
     card.zIndex = c.z; // 中央卡最高层级
+    // 状态机：hover 悬停 / sel 点选 / drag 拖拽 / fly 出牌飞行 / dead 已出牌 / playOK 可用性
+    // playOK 初始 null：强制首刷必写 eventMode/cursor（初始化为 true 会跳过设置，
+    // 卡永远不进交互模式——CDP 状态机读数全程静止暴露过的坑）
+    const st = { hover: 0, v: 0, sel: false, selV: 0, drag: null, fly: null, return: false, dead: false, playOK: null, dimV: 0 };
+    const usable = () => c.cost <= GAME.ap;
+    const refresh = () => {
+      const browserAllowed = !GAME.hoverOnly || GAME.cardActionEnabled?.(c.name) !== false;
+      const ok = (GAME.hoverOnly ? browserAllowed : usable()) && !st.fly;
+      if (ok !== st.playOK) {
+        st.playOK = ok;
+        card.cursor = ok ? 'pointer' : 'default';
+        card.eventMode = ok ? 'static' : 'none';
+      }
+    };
+    GAME.onApi(refresh);
+    refresh();
+    card.on('pointerover', () => { st.hover = 1; card.zIndex = 10; GAME.cardHover?.(cx, true); });
+    card.on('pointerout', () => { st.hover = 0; card.zIndex = st.sel ? 10 : c.z; GAME.cardHover?.(cx, false); });
+    card.on('pointertap', () => {
+      if (GAME.hoverOnly && st.playOK) GAME.actionCard?.(c.name);
+    });
+    card.on('pointerdown', (e) => {
+      if (GAME.hoverOnly || !st.playOK) return;
+      st.drag = { sx: e.global.x, sy: e.global.y, moved: false, vx: 0, lx: e.global.x, ly: e.global.y };
+    });
+    card.on('globalpointermove', (e) => {
+      if (!st.drag) return;
+      if (!st.drag.moved && Math.hypot(e.global.x - st.drag.sx, e.global.y - st.drag.sy) > 8) {
+        st.drag.moved = true;
+        // 拖起 reparent 到 drag 层：先取原全局坐标 → addChild 换父 → 用 toLocal 落位
+        // （e.global/getGlobalPosition 是舞台坐标，视口非 1:1 时必须 toLocal）
+        const gp = card.getGlobalPosition();
+        L.removeChild(card);
+        dragLayer.addChild(card);
+        const p = dragLayer.toLocal(gp);
+        card.position.set(p.x, p.y);
+        st.sel = false; // 拖拽优先于选中态
+        card.zIndex = 10;
+      }
+      if (st.drag.moved) {
+        st.drag.vx = e.global.x - st.drag.lx;
+        st.drag.lx = e.global.x;
+        st.drag.ly = e.global.y;
+        const loc = dragLayer.toLocal(e.global);
+        card.x = loc.x;
+        card.y = loc.y - chh / 2; // 抓卡身中点
+      }
+    });
+    const release = (e) => {
+      if (GAME.hoverOnly) {
+        st.drag = null;
+        return;
+      }
+      if (!st.drag) return;
+      const wasDrag = st.drag.moved;
+      const px = e ? e.global.x : st.drag.lx;
+      const py = e ? e.global.y : st.drag.ly;
+      st.drag = null;
+      if (wasDrag) {
+        // 出牌：拖到桌面高度（y<640）且付得起 → 贝塞尔飞向动作栈；否则归位
+        if (py < 640 && usable()) {
+          st.fly = { t: 0, x0: card.x, y0: card.y, cx: card.x + (Math.random() - 0.5) * 260, cy: 380, dir: Math.sign(STACK.x - card.x) || 1 };
+        } else {
+          st.return = true;
+        }
+      } else {
+        // tap：点选/取消（金边+徽记+微抬+慢漂）
+        st.sel = !st.sel;
+        card.zIndex = st.sel ? 10 : c.z;
+      }
+    };
+    card.on('pointerup', release);
+    card.on('pointerupoutside', release);
+    // window 级 pointerup 兜底：Pixi 的 pointerup 冒泡在无头输入管线偶发不达
+    window.addEventListener('pointerup', (ev) => {
+      release({ global: { x: ev.clientX, y: ev.clientY } });
+    }, { capture: true });
     L.addChild(card);
-    list.push({ card, baseY: by, phase: i * 0.9 });
+    list.push({
+      card, gold, sigil, dim, haloRing, haloGlow, artGlow, art, artScale0, c, cw, chh,
+      baseX: cx, baseY: by, baseScale: c.scale, baseZ: c.z, refresh,
+      rotRad: (c.rot * Math.PI) / 180, phase: i * 0.9, st,
+    });
+  });
+  // 回合重置（GAME.finishResolve → onRound）：已出牌复活回手牌、全部状态复位。
+  // 中途飞行的卡直接中止飞行（其 AP 消耗由回合结算吞并，不重复扣）
+  GAME.onRound(() => {
+    for (const en of list) {
+      const s = en.st;
+      if (s.drag) { s.drag = null; L.addChild(en.card); } // 拖拽中从 drag 层归队
+      s.dead = false; s.fly = null; s.return = false; s.sel = false;
+      s.hover = 0; s.v = 0; s.selV = 0; s.dimV = 0; s.playOK = null;
+      en.card.visible = true; en.card.alpha = 1;
+      en.card.position.set(en.baseX, en.baseY);
+      en.card.scale.set(en.baseScale); en.card.rotation = en.rotRad;
+      en.card.zIndex = en.baseZ;
+      en.refresh();
+    }
+  });
+  // 鼠标离开窗口时兜底复位（pointerout 偶发不触发时防"卡死在选中态"）；
+  // 拖拽中途离窗 → 取消拖拽并触发弹簧归位（updater 的 return 分支负责 reparent）
+  document.addEventListener('pointerleave', () => {
+    for (const e of list) {
+      e.st.hover = 0;
+      if (e.st.drag) { e.st.drag = null; e.st.return = true; }
+      e.card.zIndex = e.st.sel ? 10 : e.baseZ;
+    }
+  });
+  // 调试钩子（CDP 测试用）：每卡状态机真值 + AP
+  window.__CARDS_DEBUG = () => ({
+    ap: GAME.ap,
+    cards: list.map((e) => ({
+      name: e.c.name, sel: e.st.sel, hover: e.st.hover, playOK: e.st.playOK,
+      pressed: !!e.st.drag, drag: !!(e.st.drag && e.st.drag.moved),
+      fly: !!e.st.fly, dead: e.st.dead, return: e.st.return,
+      dimV: +e.st.dimV.toFixed(2), selV: +e.st.selV.toFixed(2),
+      x: Math.round(e.card.x), y: Math.round(e.card.y),
+    })),
   });
   return (t) => {
-    for (const { card, baseY, phase } of list) card.y = baseY + Math.sin(t * 0.0013 + phase) * 3;
+    for (const e of list) {
+      const { card, baseX, baseY, baseScale, rotRad, phase, st, cw, chh, gold, sigil, dim, haloRing, haloGlow, artGlow, art, artScale0, c } = e;
+      if (st.dead) continue; // 已出牌：彻底退场，不再被手牌弹簧拉回
+      // 出牌飞行：二次贝塞尔（起点→抬升控制点→动作栈中心），到达即扣 AP 并隐藏
+      if (st.fly) {
+        st.fly.t += 0.022;
+        const k = st.fly.t;
+        if (k >= 1) {
+          GAME.spend(c.cost);
+          card.visible = false;
+          st.fly = null;
+          st.dead = true;
+          continue;
+        }
+        const u = 1 - k;
+        card.x = u * u * st.fly.x0 + 2 * u * k * st.fly.cx + k * k * STACK.x;
+        card.y = u * u * st.fly.y0 + 2 * u * k * st.fly.cy + k * k * STACK.y;
+        card.rotation = rotRad + st.fly.dir * k * 1.1;
+        card.scale.set(baseScale * (1 - 0.45 * k));
+        card.alpha = 1 - 0.55 * k * k;
+        gold.alpha = 0; sigil.alpha = 0; haloRing.alpha = 0; haloGlow.alpha = 0;
+        continue;
+      }
+      // 拖拽中：跟手已由事件直写坐标；此处只补速度倾角 + 轻微放大
+      if (st.drag && st.drag.moved) {
+        const tilt = Math.max(-0.22, Math.min(0.22, st.drag.vx * 0.012));
+        card.rotation += (tilt - card.rotation) * 0.25;
+        card.scale.set(baseScale * 1.08);
+        gold.alpha = 0; sigil.alpha = 0; haloRing.alpha = 0; haloGlow.alpha = 0;
+        continue;
+      }
+      // 拖放取消 → 弹簧归位：先 reparent 回卡牌层再回弹（toLocal 同理）
+      if (st.return) {
+        st.return = false;
+        const p = L.toLocal(card.getGlobalPosition());
+        dragLayer.removeChild(card);
+        L.addChild(card);
+        card.position.set(p.x, p.y);
+        card.alpha = 1;
+      }
+      // 悬停/选中缓动
+      st.v += (st.hover - st.v) * 0.2;
+      st.selV += ((st.sel ? 1 : 0) - st.selV) * 0.16;
+      const h = st.v;
+      const s = st.selV;
+      // 悬停=拿起（抬 46+放大 12%+角回正 60%）；选中=待命（微抬 14+角回正 30%+
+      // 2.2s 慢漂浮）——两种状态可叠；空闲漂浮随悬停淡出
+      const idle = Math.sin(t * 0.0013 + phase) * 3 * (1 - h);
+      const selFloat = Math.sin(t * 0.0028 + phase) * 4 * s * (1 - h);
+      card.x += (baseX - card.x) * 0.3;
+      card.y = baseY - 46 * h - 14 * s + idle + selFloat;
+      card.scale.set(baseScale * (1 + 0.12 * h + 0.03 * s));
+      card.rotation += (rotRad * (1 - 0.6 * h - 0.3 * s) - card.rotation) * 0.3;
+      // 金边：选中全亮，悬停给 35% 预示可点；徽记：选中浮现 + 慢脉动
+      gold.alpha = Math.min(1, s + 0.35 * h * (1 - s));
+      sigil.alpha = s * (0.75 + 0.25 * Math.sin(t * 0.0022 + phase));
+      // 悬停红光圈：环线亮度呼吸（0.28~0.98）+ 双轴反相摆动 ±3%（"动态"来源），
+      // 背晕反相呼吸垫底——光圈只在 hover 淡入，选中/拖拽/出牌时熄灭。
+      // 环线本身已画在卡缘外 80px，scale 只做摆动（基準 1）
+      const hp = 0.63 + 0.35 * Math.sin(t * 0.0045 + phase);
+      haloRing.alpha = h * hp;
+      haloRing.scale.set(
+        1 + 0.03 * Math.sin(t * 0.0045 + phase),
+        1 + 0.03 * Math.sin(t * 0.0045 + phase + Math.PI / 2),
+      );
+      haloGlow.alpha = h * (0.11 + 0.06 * Math.sin(t * 0.0045 + phase + 1.5));
+      haloGlow.scale.set((cw / 2 + 55) / 64, (chh / 2 + 55) / 64);
+      // 不可用压暗（cost>AP）：目标 0/1 缓动，同时清悬停/选中
+      const dimT = st.playOK ? 0 : 1;
+      st.dimV += (dimT - st.dimV) * 0.12;
+      dim.alpha = st.dimV;
+      if (!st.playOK) { st.hover = 0; st.sel = false; }
+      // —— 卡面"生命感"：插画 Ken Burns 微缩放 + 暖辉呼吸（让静态画面"活着"）——
+      const br = 1 + 0.006 * Math.sin(t * 0.0009 + phase);
+      art.scale.set(artScale0 * br);
+      artGlow.alpha = 0.05 + 0.035 * (1 + Math.sin(t * 0.0018 + phase * 1.3));
+    }
   };
 }
 
@@ -1657,9 +2376,9 @@ export function buildPlaceholders(layerMap, env = {}, parallax = null) {
   tableSupport(layerMap.get('tableSupport'));
   updaters.push(tableFrontProps(layerMap.get('tableFrontProps')));
   updaters.push(fgFx(layerMap.get('fgFx')));
-  nameplates(layerMap.get('labels'));
-  hud(layerMap.get('hud'));
-  updaters.push(cards(layerMap.get('cards')));
+  characterLabels(layerMap.get('labels'));
+  updaters.push(hud(layerMap.get('hud'), env.charTexs || null, layerMap.get('drag')));
+  updaters.push(cards(layerMap.get('cards'), layerMap.get('drag'), env.cardTexs));
 
   // 每层一个调试标签，默认隐藏（按 L 唤出）
   LAYERS.forEach((d, i) => {

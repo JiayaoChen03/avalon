@@ -62,6 +62,7 @@ export async function loadEnvironmentSet() {
     fgRightTex: by.foreground_right,
     tableFrontTex: by.table_altar,
     charTexs: await loadCharacterSet(),
+    cardTexs: await loadCardsSet(),
   };
 }
 
@@ -78,6 +79,26 @@ const CHAR_MANIFEST = {
 async function loadCharacterSet() {
   const names = Object.keys(CHAR_MANIFEST);
   const texs = await Promise.all(names.map((n) => loadOne(n, CHAR_MANIFEST[n], CHAR_DIR)));
+  const by = {};
+  names.forEach((n, i) => {
+    by[n] = texs[i];
+  });
+  return by;
+}
+
+// 卡面插画清单（DD 手绘风，内框比例 164:232 ≈ 480:680 生成）
+const CARD_DIR = '/assets/cards';
+const CARDS_MANIFEST = {
+  scout: 'jpeg',     // 侦察
+  persuade: 'jpeg',  // 劝说
+  question: 'jpeg',  // 质疑
+  provoke: 'jpeg',   // 挑拨
+  silence: 'jpeg',   // 沉默
+};
+
+export async function loadCardsSet() {
+  const names = Object.keys(CARDS_MANIFEST);
+  const texs = await Promise.all(names.map((n) => loadOne(n, CARDS_MANIFEST[n], CARD_DIR)));
   const by = {};
   names.forEach((n, i) => {
     by[n] = texs[i];

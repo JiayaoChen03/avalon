@@ -55,6 +55,10 @@ export class ScreenFx {
       .rect(-BLEED, -BLEED, DESIGN_W + BLEED * 2, DESIGN_H + BLEED * 2)
       .fill(0x8a1016);
     this.overlay.alpha = 0;
+    // 全屏覆盖层必须显式排除出命中测试：eventMode 默认 passive 会被
+    // hitTestMoveRecursive 的 containsPoint 命中（stage.static 继承模式下
+    // 返回空数组毒化 hitTestRecursive——pointerdown/up 永远到不了卡牌/角色）
+    this.overlay.eventMode = 'none';
     corruptionLayer.addChild(this.overlay);
   }
 

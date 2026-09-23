@@ -61,13 +61,12 @@ export const LAYOUT = {
   party: { y: 521, slot: 64, gap: 120 },
   confirm: { w: 220, h: 40, y: 591 },
   cards: {
-    centerX: 768, spacing: 168, bottomY: 934, // 卡组上移 24px 后的底部枢轴基线
-    w: 188, h: 256,
-    centerW: 202, centerH: 268,
+    centerX: 768, spacing: 164, bottomY: 934, // 收窄间距，让放大的卡牌连续遮住桌前支撑
+    w: 198, h: 270, // 五张卡统一尺寸：静置时略放大，压住桌沿下方的穿帮
   },
   // 底部 HUD 状态带：rail 占 y≈974-1024（约 50px）
   apLine: { y: 996 },
-  // 右下羊皮纸（外框锁定）
+  // 右下 P1 私密记录（外框锚点）
   note: { x: 1240, y: 650, w: 280, h: 350 },
   // 背景焦点
   eye: { x: 0.60, y: 0.10 },
@@ -84,16 +83,38 @@ export const CHARACTERS = [
   { id: 'prophet',  name: '先知',   color: 0x4a3550, headR: 44, shW: 68,  scale: 1.00, tilt: 0,     dx: -8,  dy: -6,  rot: -0.012 },
   { id: 'knight',   name: '骑士',   color: 0x3f4436, headR: 30, shW: 136, scale: 0.96, tilt: 0,     dx: 12,  dy: 8,   rot: 0.018 },
   { id: 'nun',      name: '修女',   color: 0x52322e, headR: 34, shW: 80,  scale: 1.02, tilt: 0,     dx: -6,  dy: -10, rot: 0.008 },
-  { id: 'king',     name: '国王',   color: 0x504a2a, headR: 40, shW: 146, scale: 1.12, tilt: 0,     dx: 10,  dy: 4,   rot: -0.02 },
+  { id: 'king',     name: '国王',   color: 0x504a2a, headR: 40, shW: 146, scale: 1.12, tilt: 0,     dx: 44, dy: 4,   rot: -0.02 },
   { id: 'wanderer', name: '流浪者', color: 0x32414d, headR: 32, shW: 92,  scale: 0.92, tilt: 0.075, dx: -12, dy: -8,  rot: 0.022 },
   { id: 'doctor',   name: '医者',   color: 0x45303c, headR: 32, shW: 86,  scale: 0.98, tilt: 0,     dx: 7,   dy: 10,  rot: -0.006 },
+];
+
+// 玩家座位模型：P1=人类玩家，P2-P6=AI（对应六立绘；P7 为扩展席位预留——当前画面
+// 无第 7 立绘，仅出现在任务表与进度条语境）。accent=固定低饱和识别色（辅助，
+// 编号才是主识别）；角色名仍走 parchment 色系，只有 P# 与小 marker 用 accent。
+export const SEATS = [
+  { seatId: 'P1', characterId: 'prophet',  name: '先知',   isHuman: true,  accent: 0x9a7a3a }, // muted warm gold
+  { seatId: 'P2', characterId: 'knight',   name: '骑士',   isHuman: false, accent: 0x5a6a52 }, // desat iron green
+  { seatId: 'P3', characterId: 'nun',       name: '修女',   isHuman: false, accent: 0x7a3a34 }, // oxblood
+  { seatId: 'P4', characterId: 'king',     name: '国王',   isHuman: false, accent: 0x8a6a3a }, // dirty amber
+  { seatId: 'P5', characterId: 'wanderer', name: '流浪者', isHuman: false, accent: 0x5a6672 }, // cold blue-gray
+  { seatId: 'P6', characterId: 'doctor',   name: '医者',   isHuman: false, accent: 0x6a4a5a }, // muted plum
+  { seatId: 'P7', characterId: null,       name: '侍从',   isHuman: false, accent: 0x4a6a6a }, // desat teal（预留）
+];
+
+// 7 人局五轮任务表（进度条展示用）：每轮所需人数 / 失败票数
+export const MISSIONS = [
+  { round: 1, required: 2, failVotes: 1 },
+  { round: 2, required: 3, failVotes: 1 },
+  { round: 3, required: 3, failVotes: 1 },
+  { round: 4, required: 4, failVotes: 2 },
+  { round: 5, required: 4, failVotes: 2 },
 ];
 
 // 卡牌：底部中心枢轴旋转；rot=度数，scale/raise/z 逐卡控制（中央卡最高 z）
 export const CARDS = [
   { name: '侦察', cost: 1, rot: -8, scale: 0.97,  raise: 0,  z: 3 },
   { name: '劝说', cost: 1, rot: -4, scale: 1.0,   raise: 5,  z: 4 },
-  { name: '质疑', cost: 2, rot: 0,  scale: 1.055, raise: 16, z: 5 },
-  { name: '祈祷', cost: 1, rot: 4,  scale: 1.0,   raise: 5,  z: 4 },
+  { name: '质疑', cost: 2, rot: 0,  scale: 1.0,   raise: 16, z: 5 },
+  { name: '挑拨', cost: 1, rot: 4,  scale: 1.0,   raise: 5,  z: 4 },
   { name: '沉默', cost: 0, rot: 8,  scale: 0.97,  raise: 0,  z: 3 },
 ];

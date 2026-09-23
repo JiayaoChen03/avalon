@@ -48,10 +48,19 @@ AI_ERRORS = {"invalid_plan": "AI 返回了无效行动", "timeout": "AI 请求�
 class GameSession:
     human = "P1"
 
-    def __init__(self, client_factory=None, *, developer_mode=False):
+    def __init__(self, client_factory=None, *, developer_mode=False, merlin_vote_policy="baseline",
+                 ai_diagnostic_sink=None):
+        if merlin_vote_policy not in {"baseline", "v5"}:
+            raise ValueError("Unknown Merlin vote policy")
         self.client_factory = client_factory
         self.developer_mode = developer_mode
+        self.merlin_vote_policy = merlin_vote_policy
+        self.ai_diagnostic_sink = ai_diagnostic_sink
         self.game = None
+        self.client = None
+        self.agent_options = {}
+        self.seed = None
+        self.player_count = None
         self.revision = 0
         self.gate = None
         self.result = None
@@ -75,13 +84,13 @@ class GameSession:
             client, options = self.client_factory(), {"max_retries": 0, "retry_delay": 0}
         game = Game(make_players(count, seed), seed=seed,
                     chronicle_path=new_chronicle_path() if self.client_factory is None else None)
-        agents = {p: Agent(game.view(p), client, chronicle=game.chronicle.reader(), **options)
-                  for p in game.ids if p != self.human}
         evil = {p.id for p in game.players.values() if p.role in EVIL_ROLES}
-        manager = EvilStrategyManager(game.ids, evil, seed=seed, controlled_evil_ids=evil & agents.keys())
-        for pid in manager.controlled_evil_ids:
-            agents[pid].bind_evil_strategy(manager)
-        self.game, self.agents, self.manager = game, agents, manager
+        manager = EvilStrategyManager(game.ids, evil, seed=seed,
+                                      controlled_evil_ids=evil - {self.human})
+        self.client, self.agent_options = client, options
+        self.seed, self.player_count = seed, count
+        self.game, self.manager = game, manager
+        self._build_agents()
         self.cursor = 0
         self.ballots = {}
         self.exile_ballots = {}
@@ -90,6 +99,41 @@ class GameSession:
         self.result = None
         self.ai_error = False
         self._flush()
+
+    def _build_agents(self):
+        """Create fresh private AI state against the current authoritative game."""
+        if self.game is None or self.manager is None or self.client is None:
+            raise ValueError("The game is not ready")
+        self.agents = {
+            pid: Agent(self.game.view(pid), self.client,
+                       chronicle=self.game.chronicle.reader(), **self.agent_options)
+            for pid in self.game.ids if pid != self.human
+        }
+        for pid in self.manager.controlled_evil_ids:
+            self.agents[pid].bind_evil_strategy(self.manager)
+
+    def _restart_ai_turn(self):
+        """Discard failed private AI state while preserving the public game state.
+
+        An invalid/failed model response is rejected before the engine commits a
+        public action. Replaying the existing Chronicle into fresh agents gives
+        the next attempt the same legal state without retaining the failed plan.
+        """
+        if self.game is None:
+            raise ValueError("Start a game first")
+        if self.gate or self.game.winner:
+            raise ValueError("The current game is waiting at a result gate")
+        evil = {p.id for p in self.game.players.values() if p.role in EVIL_ROLES}
+        self.manager = EvilStrategyManager(
+            self.game.ids, evil, seed=self.seed,
+            controlled_evil_ids=(evil & set(self.game.ids)) - {self.human},
+        )
+        self._build_agents()
+        self.cursor = 0
+        self._flush()
+        self.ai_error = False
+        self.error = ""
+        self.notice = "本回合 AI 状态已重置，正在重新执行当前行动。"
 
     def _flush(self):
         for event in self.game.chronicle.since(self.cursor):
@@ -114,6 +158,90 @@ class GameSession:
         agent = self.agents[pid]
         agent.update_view(self.game.view(pid))
         return agent
+
+    def _safe_ai_call_metadata(self):
+        """Project provider metadata without response content or private plans."""
+        call = getattr(self.client, "last_call", None)
+        call = call if isinstance(call, dict) else {}
+        response_id = call.get("id")
+        if not (isinstance(response_id, str) and 1 <= len(response_id) <= 128
+                and all(c.isascii() and (c.isalnum() or c in "._:-") for c in response_id)):
+            response_id = None
+        response_hash = call.get("response_sha256")
+        if not (isinstance(response_hash, str) and len(response_hash) == 64
+                and all(c in "0123456789abcdef" for c in response_hash)):
+            response_hash = None
+        finish_reason = call.get("finish_reason")
+        if not isinstance(finish_reason, str) or finish_reason not in {
+                "stop", "length", "content_filter", "tool_calls"}:
+            finish_reason = None
+        raw_usage = call.get("usage")
+        usage = {k: v for k, v in (raw_usage if isinstance(raw_usage, dict) else {}).items()
+                 if k in {"prompt_tokens", "completion_tokens", "total_tokens",
+                          "prompt_cache_hit_tokens", "prompt_cache_miss_tokens"}
+                 and type(v) is int and v >= 0}
+        return {"response_id": response_id, "response_sha256": response_hash,
+                "finish_reason": finish_reason, "usage": usage}
+
+    def _record_ai_failure(self, view, error, attempt_index, *, will_retry):
+        """Send only allowlisted failure metadata to an optional local sink."""
+        if self.ai_diagnostic_sink is None:
+            return
+        decision_kind = view.get("decision_kind")
+        if not (isinstance(decision_kind, str) and decision_kind in {
+                "team", "discussion", "council_discussion", "challenge", "reaction",
+                "revision", "vote", "mission", "assassination", "exile_nomination",
+                "exile_vote"}):
+            decision_kind = None
+        diagnostic = {
+            "phase": view["phase"], "decision_kind": decision_kind,
+            "actor_id": view["self"], "legal_actions": list(view["legal_actions"]),
+            "legal_action_kinds": sorted({option["kind"] for option in view["legal_options"]}),
+            "attempt_index": attempt_index, "will_retry": will_retry,
+            "public_code": error.public_code, "validation_reason": error.validation_reason,
+            "mock_response_id": None, **self._safe_ai_call_metadata(),
+        }
+        try:
+            self.ai_diagnostic_sink(diagnostic)
+        except Exception:
+            # Diagnostic storage must not turn an otherwise valid game action
+            # into a failure or replace the original model error.
+            pass
+
+    def _record_ai_discussion_action(self, view, agent, action, retry_count, action_seq):
+        """Record only a committed action kind and whether the plan held unused prose."""
+        if self.ai_diagnostic_sink is None:
+            return
+        diagnostic = {
+            "event_type": "accepted_discussion_action", "phase": view["phase"],
+            "decision_kind": view.get("decision_kind"), "actor_id": view["self"],
+            "action_seq": action_seq, "mock_response_id": None,
+            "legal_actions": list(view["legal_actions"]),
+            "legal_action_kinds": sorted({option["kind"] for option in view["legal_options"]}),
+            "action_kind": action["kind"],
+            "plan_social_present": isinstance(agent.plan, dict) and agent.plan.get("social") is not None,
+            "retry_count": retry_count, **self._safe_ai_call_metadata(),
+        }
+        try:
+            self.ai_diagnostic_sink(diagnostic)
+        except Exception:
+            # Observability must not change a committed game action.
+            pass
+
+    def _prepare_ai(self, agent, view):
+        failure_count = 0
+
+        def on_retry(error, attempt_index, _delay):
+            nonlocal failure_count
+            failure_count = attempt_index
+            self._record_ai_failure(view, error, attempt_index, will_retry=True)
+
+        try:
+            source = agent.prepare(view, on_retry=on_retry)
+            return source, failure_count
+        except LLMError as error:
+            self._record_ai_failure(view, error, failure_count + 1, will_retry=False)
+            raise
 
     def _decision_actor(self):
         game = self.game
@@ -158,6 +286,24 @@ class GameSession:
         self.exile_ballots = {}
         self.gate = "EXILE_RESULT"
 
+    def _v5_merlin_ballot(self, view):
+        """Apply the frozen V5 vote only to this Merlin's legal view and public history."""
+        if view["phase"] != "vote" or view["role"] != "MERLIN":
+            raise ValueError("V5 requires an acting Merlin vote")
+        from .eval.v2.v232_candidate_v2 import PublicVoteState
+        from .eval.v2.v232_candidate_v5 import CANDIDATE, candidate_vote_decision
+
+        public_state = PublicVoteState(
+            team=list(view["team"]),
+            events=self.game.chronicle.reader().observations_since(0),
+            failures=int(view["failures"]),
+            attempt=int(view["attempt"]),
+        )
+        approve, policy = candidate_vote_decision(public_state, view)
+        if type(approve) is not bool or policy.get("policy_version") != CANDIDATE:
+            raise ValueError("Invalid V5 vote decision")
+        return {"approve": approve, "strong": False}
+
     def advance(self):
         if not self._can_advance():
             raise ValueError("Waiting for your decision")
@@ -165,18 +311,26 @@ class GameSession:
         if game.phase == "team":
             agent = self._agent(pid)
             if pid not in self.manager.controlled_evil_ids:
-                agent.prepare(game.view(pid))
+                self._prepare_ai(agent, game.view(pid))
             game.propose(pid, agent.choose_team(game.team_size, game.attempt))
         elif game.phase in {"discussion", "council_discussion"}:
             agent = self._agent(pid)
-            agent.prepare(game.view(pid))
-            game.act(pid, agent.discussion_action())
+            view = game.view(pid)
+            _, retry_count = self._prepare_ai(agent, view)
+            action = agent.discussion_action()
+            event_count = len(game.events)
+            game.act(pid, action)
+            self._record_ai_discussion_action(view, agent, action, retry_count,
+                                              game.events[event_count]["seq"])
         elif game.phase in {"challenge", "reaction"}:
             game.act(pid, self._agent(pid).window_action())
         elif game.phase == "revision":
             game.act(pid, self._agent(pid).revise_team())
         elif game.phase == "vote":
-            ballot = self._agent(pid).ballot(list(game.team), game.attempt)
+            agent = self._agent(pid)
+            ballot = (self._v5_merlin_ballot(game.view(pid))
+                      if self.merlin_vote_policy == "v5" and agent.role == "MERLIN"
+                      else agent.ballot(list(game.team), game.attempt))
             game.validate_ballot(pid, ballot["approve"], ballot["strong"])
             self.ballots[pid] = ballot
             self._finish_vote()
@@ -208,8 +362,17 @@ class GameSession:
         if command == "start":
             self.start(payload.get("players", 5), payload.get("seed"))
             return
+        if command == "reset_game":
+            count = payload.get("players", self.player_count or 5)
+            self.start(count, payload.get("seed"))
+            return
         if self.game is None:
             raise ValueError("Start a game first")
+        if command == "restart_round":
+            self._restart_ai_turn()
+            if self._can_advance():
+                self.advance()
+            return
         if command == "continue":
             if not self.gate:
                 raise ValueError("There is no result to dismiss")
@@ -284,15 +447,15 @@ class GameSession:
         except LLMError as error:
             self.error = ("尚未配置 AI 服务。请完成项目的 .env 配置，然后重新开始游戏。"
                           if error.public_code == "missing_configuration" else
-                          AI_ERRORS.get(error.public_code, "AI 服务请求失败") + "。请重试当前行动，或重新开局。")
-            self.ai_error = command in {"advance", "retry"}
+                          AI_ERRORS.get(error.public_code, "AI 服务请求失败") + "。请重新开始回合，或重置游戏。")
+            self.ai_error = command in {"advance", "retry", "restart_round"}
             ok = False
         except (ValueError, TypeError, KeyError, OSError):
             # Never put arbitrary provider/configuration/strategy exception text on the wire.
-            self.error = ("AI 暂时无法行动。请重试当前行动，或重新开局。"
-                          if command in {"advance", "retry"} else
+            self.error = ("AI 暂时无法行动。请重新开始回合，或重置游戏。"
+                          if command in {"advance", "retry", "restart_round"} else
                           "当前无法执行此操作，请检查游戏阶段、选择和决心余额后重试。")
-            self.ai_error = command in {"advance", "retry"}
+            self.ai_error = command in {"advance", "retry", "restart_round"}
             ok = False
         response = {"ok": ok, "error": self.error, "state": self.snapshot()}
         self.requests[request_id] = {"ok": ok, "error": self.error}

@@ -21,6 +21,28 @@ AI 思考期间仍可查阅历史，筛选与页签在刷新后保留，新开�
 AI 请求失败时会停在当前决策，可在界面点击重试。
 安装要求、结构和验证说明见 [Godot UI README](frontend-godot/README.md)。
 
+### PixiJS 网页界面
+
+`Assets/` 是同一套游戏的网页前端。先启动本地浏览器后端（默认离线联调，不调用外部模型），再启动 Vite：
+
+```sh
+PYTHONPATH=. .venv/bin/python -m avalon.web_server --mode offline --port 8765
+cd Assets && npm run dev
+```
+
+打开终端提示的本地地址即可。网页端通过 `/api/session`、`/api/state` 和 `/api/command` 使用现有 `GameSession`；规则、身份、投票、任务结算和公开记录不会在前端重复实现。需要真实模型时，将后端参数改为 `--mode live` 并确保 `.env` 已配置。
+
+本地试用真实 API 与 V5 梅林投票策略时，可以单独构建并启动一个网页后端，保留已有的离线联调会话：
+
+```sh
+cd Assets && npm run build && cd ..
+PYTHONPATH=. .venv/bin/python -m avalon.web_server --mode live --merlin-policy v5 --port 8766 --assets-dir Assets/dist
+```
+
+打开 `http://127.0.0.1:8766`。V5 只作用于 AI 梅林的投票；真人梅林仍由玩家自己投票。未指定 `--merlin-policy v5` 时默认使用原投票策略。网页显示的是本地试用配置，不代表 V5 已通过生产效果门槛；R5 配对全局测试的结论仍为 `FULL_GAME_EFFECT_NOT_ESTABLISHED`。
+
+新启动的 live 后端会在终端打印本地 AI 失败诊断文件路径。该文件只记录阶段、合法行动、重试次数、固定校验原因和响应 ID 等元数据；不记录密钥、提示词或模型回复正文。正在运行的旧进程不会自动加载这一诊断功能。
+
 ## 快速开始
 
 进入本 README 所在目录，安装依赖，复制 `.env.example` 为 `.env`（PowerShell：`Copy-Item .env.example .env`），填入 API key 和模型名称。配置细节见下方「接入 LLM」。然后运行：
